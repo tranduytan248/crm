@@ -1,0 +1,250 @@
+﻿@model Core.Cate.Models.Cate_NewRegistrationModel
+@using TSFramework.Libs.Processors
+@Html.AntiForgeryToken()
+<link href="~/Contents/Base/plugins/ace_v4/node_modules/tiny-date-picker/tiny-date-picker.css" rel="stylesheet" />
+<link href="~/Contents/Base/plugins/ace_v4/node_modules/select2/dist/css/select2.css" rel="stylesheet" />
+<link href="~/Contents/Base/plugins/ace_v4/node_modules/nouislider/distribute/nouislider.min.css" rel="stylesheet" />
+@Html.ValidationMessage("CaptchaInputText", "", new { @class = "text-danger d-none" })
+@Html.HiddenFor(m => m.RequestType)
+<div class="">
+    <div class="title_template">Thông tin người đăng ký</div>
+    <!--Tên-->
+    <div class="input-floating-label brc-blue-m1 mt-3">
+        @Html.TextBoxFor(m => m.Subscriber, new { @class = "form-control shadow-none radius-5", placeholder = "" })
+        @Html.TitleFor(model => model.Subscriber, new { @class = "floating-label " })
+    </div>
+    @Html.ValidationMessageFor(model => model.Subscriber, "", new { @class = "text-danger" })
+
+    <div class="row mx-auto">
+        <div class="col-6 pl-0 pr-1">
+            <!-- Ngày sinh -->
+            <div class="input-floating-label brc-blue-m1 mt-3">
+                <div class="text-right"><i class="fa fa-calendar-alt text-template" style="float: right;position:absolute;padding-top: 10px;margin-left: -30px;"></i></div>
+                @Html.TextBoxFor(m => m.DateOfBirth, "{0:dd/MM/yyyy}", new { @class = "pl-3 form-control shadow-none radius-5", placeholder = "", @auto_complete = "off" })
+                @Html.TitleFor(model => model.DateOfBirth, new { @class = "floating-label " })
+            </div>
+            @Html.ValidationMessageFor(model => model.DateOfBirth, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-6 pl-1 pr-0">
+            <!-- SĐT -->
+            <div class="input-floating-label brc-blue-m1 mt-3">
+                @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control shadow-none radius-5", placeholder = "", @onfocus = "$(\"#PhoneNumber\").inputmask(\"9999999999\");" })
+                @Html.TitleFor(model => model.PhoneNumber, new { @class = "floating-label " })
+            </div>
+            @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <!--Email-->
+    <div class="input-floating-label brc-blue-m1 mt-3">
+        @Html.TextBoxFor(m => m.Email, new { @class = "form-control shadow-none radius-5", placeholder = "", @onfocus = "$(\"#Email\").inputmask(\"email\");" })
+        @Html.TitleFor(model => model.Email, new { @class = "floating-label " })
+    </div>
+    <div class="text-grey ml-2 text-90 font-italic">@AppProcessor.Messagor.GetMessage("Email_Note")</div>
+    <!--Địa chỉ thường trú-->
+    <div class="input-floating-label brc-blue-m1 mt-3">
+        @Html.TextAreaFor(m => m.ContactAddress, new { @class = "form-control shadow-none radius-5", placeholder = "" })
+        @Html.TitleFor(model => model.ContactAddress, new { @class = "floating-label " })
+    </div>
+    @Html.ValidationMessageFor(model => model.ContactAddress, "", new { @class = "text-danger" })
+
+
+    <div class="ml-2 pt-1 bgc-white text-90" style="position: absolute;">Thông tin định danh</div>
+
+    <div class="border-1 brc-grey-l1 radius-5 p-2 mt-3">
+        @Html.HiddenFor(model => model.IdentityType, "CCCD")
+
+        <div class="row mx-auto">
+            <div class="col-6 pl-0 pr-1">
+                <!--Số định danh-->
+                <div class="input-floating-label brc-blue-m1 mt-3">
+                    @Html.TextBoxFor(m => m.IdentityNumber, new { @class = "form-control shadow-none radius-5", placeholder = "", @onfocus = "$(\"#IdentityNumber\").inputmask(\"999999999999\");" })
+                    @Html.TitleFor(model => model.IdentityNumber, new { @class = "floating-label " })
+                </div>
+                @Html.ValidationMessageFor(model => model.IdentityNumber, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-6 pl-1 pr-0">
+                <!--Ngày cấp-->
+                <div class="input-floating-label brc-blue-m1 mt-3">
+                    <div class="text-right"><i class="fa fa-calendar-alt text-template" style="float: right;position:absolute;padding-top: 10px;margin-left: -30px;"></i></div>
+                    @Html.TextBoxFor(m => m.IdentityIssueDate, "{0:dd/MM/yyyy}", new { @class = "pl-3 form-control shadow-none radius-5", placeholder = "", @auto_complete = "off" })
+                    @Html.TitleFor(model => model.IdentityIssueDate, new { @class = "floating-label " })
+                </div>
+                @Html.ValidationMessageFor(model => model.IdentityIssueDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <!--Nơi cấp-->
+        <div class="input-floating-label brc-blue-m1 mt-3">
+            @Html.TextAreaFor(m => m.IdentityIssuedPlace, new { @class = "form-control shadow-none radius-5", placeholder = "" })
+            @Html.TitleFor(model => model.IdentityIssuedPlace, new { @class = "floating-label" })
+        </div>
+        @Html.ValidationMessageFor(model => model.IdentityIssuedPlace, "", new { @class = "text-danger" })
+    </div>
+
+
+    <div class="ml-2 pt-1 bgc-white text-90" style="position: absolute;">Hình thức thanh toán tiền nước qua ngân hàng</div>
+
+    <div class="border-1 brc-grey-l1 radius-5 p-2 mt-3">
+        <!--Ngân hàng sử dụng-->
+        <div class="input-floating-label brc-blue-m1 mt-3">
+            @Html.DropDownListFor(model => model.BankCode, new SelectList(Model.ListBanks, "Value", "Text"), "", new { @class = "form-control shadow-none radius-5" })
+            @Html.TitleFor(model => model.BankCode, new { @class = "floating-label " })
+        </div>
+        @Html.ValidationMessageFor(model => model.BankCode, "", new { @class = "text-danger" })
+        <!--Số tài khoản-->
+        <div class="input-floating-label brc-blue-m1 mt-3">
+            @Html.TextBoxFor(m => m.BankAccountNumber, new { @type = "number", @class = "form-control shadow-none radius-5", placeholder = "" })
+            @Html.TitleFor(model => model.BankAccountNumber, new { @class = "floating-label " })
+        </div>
+        @Html.ValidationMessageFor(model => model.BankAccountNumber, "", new { @class = "text-danger" })
+    </div>
+</div>
+<div class="">
+    <div class="title_template">Đề nghị Công ty khảo sát, thiết kế hệ thống nước cho gia đình tôi</div>
+    <label class="ml-2 mt-3 mb-0"> @Html.CheckBoxFor(mdell => Model.UseContactAddress, new { @class = "bgc-template" }) Giống với địa chỉ thường trú</label>
+    <!--Địa chỉ lắp đặt-->
+    <div class="input-floating-label brc-blue-m1 mt-3">
+        @Html.TextAreaFor(m => m.InstallationAddress, new { @class = "form-control shadow-none radius-5", placeholder = "" })
+        @Html.TitleFor(model => model.InstallationAddress, new { @class = "floating-label " })
+    </div>
+    @Html.ValidationMessageFor(model => model.InstallationAddress, "", new { @class = "text-danger" })
+
+
+    <div class="ml-2 pt-1 bgc-white text-90" style="position: absolute;">Đăng ký sử dụng với mục đích</div>
+
+    <div class="border-1 brc-grey-l1 radius-5 p-2 mt-3">
+        <div class="row">
+            <div class="col-md-12">
+                <label class="mt-1 col-md-12">
+                    @Html.CheckBoxFor(x => x.HouseholdPercent, 1)
+                    @* <span class="badge bgc-green brc-green text-white badge-lg arrowed arrowed-in-right mb-1">*@
+                    @AppProcessor.Messagor.GetMessage("HouseholdPercent_Label")
+                    @* </span>*@
+                </label>
+                <label class="mt-1 col-md-12">
+                    @Html.CheckBoxFor(x => x.OtherPurposePercent, 0)
+                    @* <span class="badge bgc-red brc-red text-white badge-lg arrowed arrowed-in-right mb-1">*@
+                    @AppProcessor.Messagor.GetMessage("OtherPurposePercent_Label")
+                    @* </span>*@
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mx-auto">
+        <div class="col-6 pl-0 pr-1">
+            <!--Số quyển hộ khẩu-->
+            <div class="d-flex align-items-center input-floating-label brc-blue-m1 mt-3">
+                @Html.TextBoxFor(m => m.NumberHouseHold, new { @class = "form-control shadow-none radius-5 int-number use_tooltip", placeholder = "", @data_placement = "top", @title = "", @data_original_title = "Số quyển hộ khẩu" })
+                <span class="ml-n5">quyển</span>
+                @Html.TitleFor(model => model.NumberHouseHold, new { @class = "floating-label" })
+            </div>
+            @Html.ValidationMessageFor(model => model.NumberHouseHold, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-6 pl-1 pr-0">
+            <!--Số người sử dụng-->
+            <div class="d-flex align-items-center input-floating-label brc-blue-m1 mt-3">
+                @Html.TextBoxFor(m => m.NumberPeople, new { @class = "form-control shadow-none radius-5 int-number use_tooltip", placeholder = "", @data_placement = "top", @title = "", @data_original_title = "Số người sử dụng" })
+                <span class="ml-n5">người</span>
+                @Html.TitleFor(model => model.NumberPeople, new { @class = "floating-label" })
+            </div>
+            @Html.ValidationMessageFor(model => model.NumberPeople, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <div class="input-floating-label brc-blue-m1 mt-3">
+        @Html.TextAreaFor(m => m.OtherPurposeNote, new { @class = "form-control shadow-none radius-5", placeholder = "" })
+        @Html.TitleFor(model => model.OtherPurposeNote, new { @class = "floating-label" })
+    </div>
+
+    <div class="ml-2 mt-3">Đính kèm tệp giấy tờ về nhà, đất</div>
+    @Html.ValidationMessageFor(model => model.AttachedFiles, "", new { @class = "text-danger" })
+</div>
+<script src="~/Contents/Base/plugins/ace_v4/node_modules/tiny-date-picker/dist/date-range-picker.js"></script>
+<script src="~/Contents/Base/plugins/ace_v4/node_modules/nouislider/distribute/nouislider.js"></script>
+@Html.RenderScripts(ScriptPosition.BodyInside)
+<script>
+    var TinyDatePicker = DateRangePicker.TinyDatePicker;
+
+    function setTinyDatePicker(id) {
+        TinyDatePicker("#" + id, {
+            mode: "dp-modal",
+
+            // Định dạng ngày kiểu Việt Nam
+            format: function (date) {
+                if (!date) return "";
+                return ("0" + date.getDate()).slice(-2) + "/" +
+                    ("0" + (date.getMonth() + 1)).slice(-2) + "/" +
+                    date.getFullYear();
+            },
+
+            // Tên tháng
+            lang: {
+                months: [
+                    "Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6",
+                    "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"
+                ],
+                days: ["CN", "T2", "T3", "T4", "T5", "T6", "T7"]
+            }
+
+        }).on("statechange", function (ev) {
+            // console.log(ev);
+        });
+    }
+
+
+    $(document).ready(function () {
+        for (var i = 0; i < $('.form-control').length; i++) {
+            $('.form-control').eq(i).attr('placeholder', ' ');
+        }
+
+        setTinyDatePicker('DateOfBirth');
+        setTinyDatePicker('IdentityIssueDate');
+        $(".use_tooltip").tooltip();
+
+        SetHeightTextarea(['InstallationAddress', 'ContactAddress', 'IdentityIssuedPlace']);
+
+        // input mask int
+        $(document).on("input", ".int-number", function (e) {
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
+
+        $(document).on("input", ".int-number-max100", function () {
+            // giữ lại số
+            this.value = this.value.replace(/[^0-9]/g, '');
+
+            // nếu rỗng => bỏ qua
+            if (this.value === "") return;
+
+            // ép sang số
+            let v = parseInt(this.value, 10);
+
+            // giới hạn max = 100
+            if (v > 100) this.value = 100;
+        });
+
+        $('#UseContactAddress').change(function () {
+            if ($(this).is(':checked')) { // hoặc this.checked
+                InstallationAddress
+                $('#InstallationAddress').val($('#ContactAddress').val());
+            } else {
+                // Hành động khi bỏ chọn
+                $('#InstallationAddress').val('');
+            }
+        });
+    });
+
+
+    $("#ContactAddress").on("blur", function () {
+        var contactAddress = $(this).val().trim();
+        var installationAddress = $("#InstallationAddress").val().trim();
+
+        // Chỉ fill khi ô lắp đặt đang trống
+        if (contactAddress !== "" && installationAddress === "") {
+            $("#InstallationAddress")
+                .val(contactAddress)
+                .trigger("input");
+        }
+    });
+
+</script>

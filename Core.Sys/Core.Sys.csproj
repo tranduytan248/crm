@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{02E4AF30-0E59-4F60-B33B-62FEAC5E88E1}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Core.Sys</RootNamespace>
+    <AssemblyName>Core.Sys</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=2.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.2.0.1\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.9\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.9\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BaseApp\AppController.cs" />
+    <Compile Include="Biz\Sys\SysSMSTemplateBiz.cs" />
+    <Compile Include="Biz\Sys\SysConfigBiz.cs" />
+    <Compile Include="Biz\Sys\SysContentPanelBiz.cs" />
+    <Compile Include="Biz\Sys\SysFunctionActionBiz.cs" />
+    <Compile Include="Biz\Sys\SysFunctionBiz.cs" />
+    <Compile Include="Biz\Sys\SysInstructBiz.cs" />
+    <Compile Include="Biz\Sys\SysIPRequestBiz.cs" />
+    <Compile Include="Biz\Sys\SysJobBiz.cs" />
+    <Compile Include="Biz\Sys\SysLayoutBiz.cs" />
+    <Compile Include="Biz\Sys\SysMailTemplateBiz.cs" />
+    <Compile Include="Biz\Sys\SysMenuBiz.cs" />
+    <Compile Include="Biz\Sys\SysMessageBiz.cs" />
+    <Compile Include="Biz\Sys\SysModuleBiz.cs" />
+    <Compile Include="Biz\Sys\SysNotificationsBiz.cs" />
+    <Compile Include="Biz\Sys\SysPermissionAPIBiz.cs" />
+    <Compile Include="Biz\Sys\SysPermissionBiz.cs" />
+    <Compile Include="Biz\Sys\SysProcedureLogBiz.cs" />
+    <Compile Include="Biz\Sys\SysRoleBiz.cs" />
+    <Compile Include="Biz\Sys\SysUserBiz.cs" />
+    <Compile Include="Biz\Sys\SysUserBoPhanBiz.cs" />
+    <Compile Include="Biz\Sys\SysUserIPLockBiz.cs" />
+    <Compile Include="Caches\Sys\SysSMSTemplateCache.cs" />
+    <Compile Include="Caches\Sys\SysConfigCache.cs" />
+    <Compile Include="Caches\Sys\SysFunctionActionCache.cs" />
+    <Compile Include="Caches\Sys\SysFunctionCache.cs" />
+    <Compile Include="Caches\Sys\SysInstructCache.cs" />
+    <Compile Include="Caches\Sys\SysIPRequestCache.cs" />
+    <Compile Include="Caches\Sys\SysJobCache.cs" />
+    <Compile Include="Caches\Sys\SysLayoutCache.cs" />
+    <Compile Include="Caches\Sys\SysMailTemplateCache.cs" />
+    <Compile Include="Caches\Sys\SysMenuCache.cs" />
+    <Compile Include="Caches\Sys\SysMessageCache.cs" />
+    <Compile Include="Caches\Sys\SysModuleCache.cs" />
+    <Compile Include="Caches\Sys\SysNotificationsCache.cs" />
+    <Compile Include="Caches\Sys\SysPermissionAPICache.cs" />
+    <Compile Include="Caches\Sys\SysPermissionCache.cs" />
+    <Compile Include="Caches\Sys\SysProcedureLogCache.cs" />
+    <Compile Include="Caches\Sys\SysRoleCache.cs" />
+    <Compile Include="Caches\Sys\SysUserBoPhanCache.cs" />
+    <Compile Include="Caches\Sys\SysUserCache.cs" />
+    <Compile Include="Caches\Sys\SysUserIPLockCache.cs" />
+    <Compile Include="Models\Sys\SysSMSTemplateModel.cs" />
+    <Compile Include="Models\Sys\SysConfigModel.cs" />
+    <Compile Include="Models\Sys\SysContentPanelModel.cs" />
+    <Compile Include="Models\Sys\SysFunctionActionModel.cs" />
+    <Compile Include="Models\Sys\SysFunctionModel.cs" />
+    <Compile Include="Models\Sys\SysInstructModel.cs" />
+    <Compile Include="Models\Sys\SysIPRequestModel.cs" />
+    <Compile Include="Models\Sys\SysJobModel.cs" />
+    <Compile Include="Models\Sys\SysLayoutModel.cs" />
+    <Compile Include="Models\Sys\SysMailUserModel.cs" />
+    <Compile Include="Models\Sys\SysMenuModel.cs" />
+    <Compile Include="Models\Sys\SysMenuViewModel.cs" />
+    <Compile Include="Models\Sys\SysMessageModel.cs" />
+    <Compile Include="Models\Sys\SysModuleContentPanelModel.cs" />
+    <Compile Include="Models\Sys\SysModuleModel.cs" />
+    <Compile Include="Models\Sys\SysNotificationsModel.cs" />
+    <Compile Include="Models\Sys\SysPanelModuleModel.cs" />
+    <Compile Include="Models\Sys\SysPermissionAPIModel.cs" />
+    <Compile Include="Models\Sys\SysPermissionModel.cs" />
+    <Compile Include="Models\Sys\SysPermissionModuleModel.cs" />
+    <Compile Include="Models\Sys\SysProcedureLogModel.cs" />
+    <Compile Include="Models\Sys\SysRoleModel.cs" />
+    <Compile Include="Models\Sys\SysUserIPLockModel.cs" />
+    <Compile Include="Models\Sys\SysUserModel.cs" />
+    <Compile Include="Permissions\AppPermissionContext.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\SMSQueueService.cs" />
+    <Compile Include="Services\SMSService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Core.Cate\Core.Cate.csproj">
+      <Project>{72f9f77b-e45d-4eb6-8c6e-cc6e73eb643e}</Project>
+      <Name>Core.Cate</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Core.Log\Core.Log.csproj">
+      <Project>{b076c353-ac12-4498-bb7d-a4259c7c4064}</Project>
+      <Name>Core.Log</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TSFramework.Libs\TSFramework.Libs.csproj">
+      <Project>{c7bb973b-8277-4950-bffd-c0be12847d49}</Project>
+      <Name>TSFramework.Libs</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Biz\Cate\" />
+    <Folder Include="Caches\Cate\" />
+    <Folder Include="Models\Cate\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

@@ -1,0 +1,518 @@
+﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B6FED197-6C03-4C63-B8DD-34EB927301A1}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Modules.Sys</RootNamespace>
+    <AssemblyName>Modules.Sys</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort>44358</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ClosedXML, Version=0.94.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ClosedXML.0.94.2\lib\net46\ClosedXML.dll</HintPath>
+    </Reference>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.20.0.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocumentFormat.OpenXml.2.20.0\lib\net46\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
+    <Reference Include="ExcelNumberFormat, Version=1.0.3.0, Culture=neutral, PublicKeyToken=23c6f5d73be07eca, processorArchitecture=MSIL">
+      <HintPath>..\packages\ExcelNumberFormat.1.0.3\lib\net20\ExcelNumberFormat.dll</HintPath>
+    </Reference>
+    <Reference Include="FastMember, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FastMember.1.5.0\lib\net461\FastMember.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\lib\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=2.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.2.0.1\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Compression">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\System.IO.Compression.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Compression.FileSystem">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\System.IO.Compression.FileSystem.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.FileSystem.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.FileSystem.Primitives.4.0.1\lib\net46\System.IO.FileSystem.Primitives.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO.Packaging, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Packaging.4.0.0\lib\net46\System.IO.Packaging.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.9\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.9\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.9\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.9\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.9\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Sys\Views\AccessHistory\AccessHistory.js" />
+    <Content Include="Areas\Sys\Views\AppLayout\AppLayout.js" />
+    <Content Include="Areas\Sys\Views\AppSetting\AppSetting.js" />
+    <Content Include="Areas\Sys\Views\BillingCycles\BillingCycles.js" />
+    <Content Include="Areas\Sys\Views\Department\Department.js" />
+    <Content Include="Areas\Sys\Views\Function\Function.js" />
+    <Content Include="Areas\Sys\Views\Instruct\Instruct.js" />
+    <Content Include="Areas\Sys\Views\Job\Job.js" />
+    <Content Include="Areas\Sys\Views\MailTemplate\MailTemplate.js" />
+    <Content Include="Areas\Sys\Views\MailTemplate\_Guide.cshtml" />
+    <Content Include="Areas\Sys\Views\Menu\Menu.js" />
+    <Content Include="Areas\Sys\Views\Message\Message.js" />
+    <Content Include="Areas\Sys\Views\Modules\Module.js" />
+    <Content Include="Areas\Sys\Views\Position\Position.js" />
+    <Content Include="Areas\Sys\Views\Role\Role.js" />
+    <Content Include="Areas\Sys\Views\SMSTemplate\SMSTemplate.js" />
+    <Content Include="Areas\Sys\Views\Status\Status.js" />
+    <Content Include="Areas\Sys\Views\SysConfig\SysConfig.js" />
+    <Content Include="Areas\Sys\Views\SysLog\SysLog.js" />
+    <Content Include="Areas\Sys\Views\SysNotifications\ThongBao.js" />
+    <Content Include="Areas\Sys\Views\User\PasswordValid.js" />
+    <Content Include="Areas\Sys\Views\User\User.js" />
+    <Content Include="Contents\Modules\Sys\plugins\bootstrap-iconpicker-1.10.0\banner.js" />
+    <Content Include="Contents\Modules\Sys\plugins\bootstrap-iconpicker-1.10.0\bootstrap-iconpicker_3x.png" />
+    <Content Include="Contents\Modules\Sys\plugins\bootstrap-iconpicker-1.10.0\bootstrap-iconpicker_4x.png" />
+    <Content Include="Contents\Modules\Sys\plugins\bootstrap-iconpicker-1.10.0\css\docs.css" />
+    <Content Include="Contents\Modules\Sys\plugins\bootstrap-iconpicker-1.10.0\css\pygments-manni.css" />
+    <Content Include="Contents\Modules\Sys\plugins\bootstrap-iconpicker-1.10.0\dist\css\bootstrap-iconpicker.css" />
+    <Content Include="Contents\Modules\Sys\plugins\bootstrap-iconpicker-1.10.0\dist\css\bootstrap-iconpicker.min.css" />
+    <Content Include="Contents\Modules\Sys\plugins\bootstrap-iconpicker-1.10.0\dist\js\bootstrap-iconpicker-iconset-all.js" />
+    <Content Include="Contents\Modules\Sys\plugins\bootstrap-iconpicker-1.10.0\dist\js\bootstrap-iconpicker-iconset-all.min.js" />
+    <Content Include="Contents\Modules\Sys\plugins\bootstrap-iconpicker-1.10.0\dist\js\bootstrap-iconpicker.bundle.min.js" />
+    <Content Include="Contents\Modules\Sys\plugins\bootstrap-iconpicker-1.10.0\dist\js\bootstrap-iconpicker.js" />
+    <Content Include="Contents\Modules\Sys\plugins\bootstrap-iconpicker-1.10.0\dist\js\bootstrap-iconpicker.min.js" />
+    <Content Include="Contents\Modules\Sys\plugins\bootstrap-iconpicker-1.10.0\gruntfile.js" />
+    <Content Include="Contents\Modules\Sys\plugins\bootstrap-iconpicker-1.10.0\icon-fonts\elusive-icons-2.0.0\css\elusive-icons.css" />
+    <Content Include="Contents\Modules\Sys\plugins\bootstrap-iconpicker-1.10.0\icon-fonts\elusive-icons-2.0.0\css\elusive-icons.min.css" />
+    <Content Include="Contents\Modules\Sys\plugins\bootstrap-iconpicker-1.10.0\icon-fonts\elusive-icons-2.0.0\fonts\Elusive-Icons.svg" />
+    <Content Include="Contents\Modules\Sys\plugins\bootstrap-iconpicker-1.10.0\icon-fonts\map-icons-2.1.0\css\map-icons.css" />
+    <Content Include="Contents\Modules\Sys\plugins\bootstrap-iconpicker-1.10.0\icon-fonts\map-icons-2.1.0\css\map-icons.min.css" />
+    <Content Include="Contents\Modules\Sys\plugins\bootstrap-iconpicker-1.10.0\icon-fonts\map-icons-2.1.0\fonts\map-icons.dev.svg" />
+    <Content Include="Contents\Modules\Sys\plugins\bootstrap-iconpicker-1.10.0\icon-fonts\map-icons-2.1.0\fonts\map-icons.svg" />
+    <Content Include="Contents\Modules\Sys\plugins\bootstrap-iconpicker-1.10.0\index.html" />
+    <Content Include="Contents\Modules\Sys\plugins\bootstrap-iconpicker-1.10.0\index_v3x.html" />
+    <Content Include="Contents\Modules\Sys\plugins\bootstrap-iconpicker-1.10.0\src\css\bootstrap-iconpicker.css" />
+    <Content Include="Contents\Modules\Sys\plugins\bootstrap-iconpicker-1.10.0\src\js\bootstrap-iconpicker.js" />
+    <Content Include="Contents\Modules\Sys\plugins\bootstrap-iconpicker-1.10.0\src\js\iconset\iconset-elusiveicon-all.js" />
+    <Content Include="Contents\Modules\Sys\plugins\bootstrap-iconpicker-1.10.0\src\js\iconset\iconset-flagicon-all.js" />
+    <Content Include="Contents\Modules\Sys\plugins\bootstrap-iconpicker-1.10.0\src\js\iconset\iconset-fontawesome-4-all.js" />
+    <Content Include="Contents\Modules\Sys\plugins\bootstrap-iconpicker-1.10.0\src\js\iconset\iconset-fontawesome-5-all.js" />
+    <Content Include="Contents\Modules\Sys\plugins\bootstrap-iconpicker-1.10.0\src\js\iconset\iconset-glyphicon-all.js" />
+    <Content Include="Contents\Modules\Sys\plugins\bootstrap-iconpicker-1.10.0\src\js\iconset\iconset-ionicon-all.js" />
+    <Content Include="Contents\Modules\Sys\plugins\bootstrap-iconpicker-1.10.0\src\js\iconset\iconset-mapicon-all.js" />
+    <Content Include="Contents\Modules\Sys\plugins\bootstrap-iconpicker-1.10.0\src\js\iconset\iconset-materialdesign-all.js" />
+    <Content Include="Contents\Modules\Sys\plugins\bootstrap-iconpicker-1.10.0\src\js\iconset\iconset-octicon-all.js" />
+    <Content Include="Contents\Modules\Sys\plugins\bootstrap-iconpicker-1.10.0\src\js\iconset\iconset-typicon-all.js" />
+    <Content Include="Contents\Modules\Sys\plugins\bootstrap-iconpicker-1.10.0\src\js\iconset\iconset-weathericon-all.js" />
+    <Content Include="Contents\Modules\Sys\plugins\bootstrap-iconpicker-1.10.0\test\index.html" />
+    <Content Include="Contents\Modules\Sys\plugins\bootstrap-iconpicker-1.10.0\test\test.js" />
+    <Content Include="Contents\Modules\Sys\plugins\bootstrap-iconpicker-1.10.0\util\extract.js" />
+    <Content Include="Contents\Modules\Sys\plugins\bootstrap-multiselect\css\bootstrap-multiselect.css" />
+    <Content Include="Contents\Modules\Sys\plugins\bootstrap-multiselect\js\bootstrap-multiselect.js" />
+    <Content Include="Contents\Modules\Sys\plugins\cronBuilder\jquery-cron-quartz.css" />
+    <Content Include="Contents\Modules\Sys\plugins\cronBuilder\jquery-cron-quartz.js" />
+    <Content Include="Contents\Modules\Sys\plugins\cronBuilder\jquery-cron-quartz.min.js" />
+    <Content Include="Contents\Modules\Sys\plugins\cRonstrue\cronstrue.min.js" />
+    <Content Include="Contents\Modules\Sys\plugins\cRonstrue\require.min.js" />
+    <Content Include="Contents\Modules\Sys\plugins\fontawesome-iconpicker-3.0.0\dist\css\fontawesome-iconpicker.css" />
+    <Content Include="Contents\Modules\Sys\plugins\fontawesome-iconpicker-3.0.0\dist\css\fontawesome-iconpicker.min.css" />
+    <Content Include="Contents\Modules\Sys\plugins\fontawesome-iconpicker-3.0.0\dist\js\fontawesome-iconpicker.js" />
+    <Content Include="Contents\Modules\Sys\plugins\fontawesome-iconpicker-3.0.0\dist\js\fontawesome-iconpicker.min.js" />
+    <Content Include="Contents\Modules\Sys\plugins\fontawesome-iconpicker-3.0.0\extension\icon-128.png" />
+    <Content Include="Contents\Modules\Sys\plugins\fontawesome-iconpicker-3.0.0\extension\icon.png" />
+    <Content Include="Contents\Modules\Sys\plugins\fontawesome-iconpicker-3.0.0\extension\popup.html" />
+    <Content Include="Contents\Modules\Sys\plugins\fontawesome-iconpicker-3.0.0\extension\popup.js" />
+    <Content Include="Contents\Modules\Sys\plugins\fontawesome-iconpicker-3.0.0\extension\screenshot.png" />
+    <Content Include="Contents\Modules\Sys\plugins\fontawesome-iconpicker-3.0.0\Gruntfile.js" />
+    <Content Include="Contents\Modules\Sys\plugins\fontawesome-iconpicker-3.0.0\index.html" />
+    <Content Include="Contents\Modules\Sys\plugins\fontawesome-iconpicker-3.0.0\src\js\iconpicker.js" />
+    <Content Include="Contents\Modules\Sys\plugins\fontawesome-iconpicker-3.0.0\src\js\jquery.ui.pos.js" />
+    <Content Include="Contents\Modules\Sys\plugins\fontawesome-iconpicker-3.0.0\src\js\license.js" />
+    <Content Include="Contents\Modules\Sys\plugins\iconpicker\bootstrap-iconpicker-iconset-all.js" />
+    <Content Include="Contents\Modules\Sys\plugins\iconpicker\bootstrap-iconpicker.css" />
+    <Content Include="Contents\Modules\Sys\plugins\iconpicker\bootstrap-iconpicker.js" />
+    <Content Include="Contents\Modules\Sys\plugins\iconpicker\bootstrap.v3.3.7.js" />
+    <Content Include="Global.asax" />
+    <Content Include="App_Data\Modules\Sys_StoredProcedures.xml" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\Cate\CateAreaRegistration.cs" />
+    <Compile Include="Areas\Sys\Controllers\AppLayoutController.cs" />
+    <Compile Include="Areas\Sys\Controllers\AppSettingController.cs" />
+    <Compile Include="Areas\Sys\Controllers\BillingCyclesController.cs" />
+    <Compile Include="Areas\Sys\Controllers\DepartmentController.cs" />
+    <Compile Include="Areas\Sys\Controllers\FunctionController.cs" />
+    <Compile Include="Areas\Sys\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Sys\Controllers\InstructController.cs" />
+    <Compile Include="Areas\Sys\Controllers\JobController.cs" />
+    <Compile Include="Areas\Sys\Controllers\MailTemplateController.cs" />
+    <Compile Include="Areas\Sys\Controllers\MenuController.cs" />
+    <Compile Include="Areas\Sys\Controllers\MessageController.cs" />
+    <Compile Include="Areas\Sys\Controllers\ModulesController.cs" />
+    <Compile Include="Areas\Sys\Controllers\PositionController.cs" />
+    <Compile Include="Areas\Sys\Controllers\RoleController.cs" />
+    <Compile Include="Areas\Sys\Controllers\StatusController.cs" />
+    <Compile Include="Areas\Sys\Controllers\SMSTemplateController.cs" />
+    <Compile Include="Areas\Sys\Controllers\SysConfigController.cs" />
+    <Compile Include="Areas\Sys\Controllers\SysLogController.cs" />
+    <Compile Include="Areas\Sys\Controllers\SysNotificationsController.cs" />
+    <Compile Include="Areas\Sys\Controllers\SysPermissionAPIController.cs" />
+    <Compile Include="Areas\Sys\Controllers\SysToolController.cs" />
+    <Compile Include="Areas\Sys\Controllers\UserController.cs" />
+    <Compile Include="Areas\Sys\Data\AppConfigModel.cs" />
+    <Compile Include="Areas\Sys\Data\ChangePasswordModel.cs" />
+    <Compile Include="Areas\Sys\Data\EnterpriseUserModel.cs" />
+    <Compile Include="Areas\Sys\Data\FileInfoModel.cs" />
+    <Compile Include="Areas\Sys\Data\SysFileModel.cs" />
+    <Compile Include="Areas\Sys\Data\SysLogModel.cs" />
+    <Compile Include="Areas\Sys\Data\SysUploadModel.cs" />
+    <Compile Include="Areas\Sys\Data\UserBoPhanModel.cs" />
+    <Compile Include="Areas\Sys\Data\UserPermitModel.cs" />
+    <Compile Include="Areas\Sys\SysAreaRegistration.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\web.config" />
+    <Content Include="Areas\Sys\Views\web.config" />
+    <Content Include="Contents\Modules\Sys\EmailTemplates\_TemplateNewUser.cshtml" />
+    <Content Include="Contents\Modules\Sys\EmailTemplates\_TemplateResetPassword.cshtml" />
+    <Content Include="Contents\Modules\Sys\plugins\bootstrap-iconpicker-1.10.0\.gitignore" />
+    <Content Include="Contents\Modules\Sys\plugins\bootstrap-iconpicker-1.10.0\.travis.yml" />
+    <Content Include="Contents\Modules\Sys\plugins\bootstrap-iconpicker-1.10.0\bower.json" />
+    <Content Include="Contents\Modules\Sys\plugins\bootstrap-iconpicker-1.10.0\docs\CHANGELOG.md" />
+    <Content Include="Contents\Modules\Sys\plugins\bootstrap-iconpicker-1.10.0\docs\SUPPORTED.md" />
+    <Content Include="Contents\Modules\Sys\plugins\bootstrap-iconpicker-1.10.0\icon-fonts\elusive-icons-2.0.0\fonts\Elusive-Icons.eot" />
+    <Content Include="Contents\Modules\Sys\plugins\bootstrap-iconpicker-1.10.0\icon-fonts\elusive-icons-2.0.0\fonts\Elusive-Icons.ttf" />
+    <Content Include="Contents\Modules\Sys\plugins\bootstrap-iconpicker-1.10.0\icon-fonts\elusive-icons-2.0.0\fonts\Elusive-Icons.woff" />
+    <Content Include="Contents\Modules\Sys\plugins\bootstrap-iconpicker-1.10.0\icon-fonts\map-icons-2.1.0\fonts\map-icons.eot" />
+    <Content Include="Contents\Modules\Sys\plugins\bootstrap-iconpicker-1.10.0\icon-fonts\map-icons-2.1.0\fonts\map-icons.ttf" />
+    <Content Include="Contents\Modules\Sys\plugins\bootstrap-iconpicker-1.10.0\icon-fonts\map-icons-2.1.0\fonts\map-icons.woff" />
+    <Content Include="Contents\Modules\Sys\plugins\bootstrap-iconpicker-1.10.0\LICENSE" />
+    <Content Include="Contents\Modules\Sys\plugins\bootstrap-iconpicker-1.10.0\package.json" />
+    <Content Include="Contents\Modules\Sys\plugins\bootstrap-iconpicker-1.10.0\README.md" />
+    <Content Include="Contents\Modules\Sys\plugins\bootstrap-multiselect\less\bootstrap-multiselect.less" />
+    <Content Include="Contents\Modules\Sys\plugins\fontawesome-iconpicker-3.0.0\.gitignore" />
+    <Content Include="Contents\Modules\Sys\plugins\fontawesome-iconpicker-3.0.0\.npmignore" />
+    <Content Include="Contents\Modules\Sys\plugins\fontawesome-iconpicker-3.0.0\.travis.yml" />
+    <Content Include="Contents\Modules\Sys\plugins\fontawesome-iconpicker-3.0.0\CODE_OF_CONDUCT.md" />
+    <Content Include="Contents\Modules\Sys\plugins\fontawesome-iconpicker-3.0.0\composer.json" />
+    <Content Include="Contents\Modules\Sys\plugins\fontawesome-iconpicker-3.0.0\CONTRIBUTING.md" />
+    <Content Include="Contents\Modules\Sys\plugins\fontawesome-iconpicker-3.0.0\extension\LICENSE" />
+    <Content Include="Contents\Modules\Sys\plugins\fontawesome-iconpicker-3.0.0\extension\manifest.json" />
+    <Content Include="Contents\Modules\Sys\plugins\fontawesome-iconpicker-3.0.0\extension\screenshot.psd" />
+    <Content Include="Contents\Modules\Sys\plugins\fontawesome-iconpicker-3.0.0\LICENSE" />
+    <Content Include="Contents\Modules\Sys\plugins\fontawesome-iconpicker-3.0.0\package-lock.json" />
+    <Content Include="Contents\Modules\Sys\plugins\fontawesome-iconpicker-3.0.0\package.json" />
+    <Content Include="Contents\Modules\Sys\plugins\fontawesome-iconpicker-3.0.0\README.md" />
+    <Content Include="Contents\Modules\Sys\plugins\fontawesome-iconpicker-3.0.0\src\icon.psd" />
+    <Content Include="Contents\Modules\Sys\plugins\fontawesome-iconpicker-3.0.0\src\less\iconpicker.less" />
+    <Content Include="Contents\Modules\Sys\plugins\fontawesome-iconpicker-3.0.0\src\less\popovers.less" />
+    <Content Include="Contents\Modules\Sys\plugins\fontawesome-iconpicker-3.0.0\src\less\variables.less" />
+    <Content Include="Areas\Sys\Views\AppLayout\Index.cshtml" />
+    <Content Include="Areas\Sys\Views\AppLayout\_Add.cshtml" />
+    <Content Include="Areas\Sys\Views\AppLayout\_AppLayout.cshtml" />
+    <Content Include="Areas\Sys\Views\AppLayout\_ChangeActive.cshtml" />
+    <Content Include="Areas\Sys\Views\AppLayout\_Delete.cshtml" />
+    <Content Include="Areas\Sys\Views\AppLayout\_Edit.cshtml" />
+    <Content Include="Areas\Sys\Views\AppSetting\Index.cshtml" />
+    <Content Include="Areas\Sys\Views\AppSetting\_Add.cshtml" />
+    <Content Include="Areas\Sys\Views\AppSetting\_AppSetting.cshtml" />
+    <Content Include="Areas\Sys\Views\AppSetting\_Delete.cshtml" />
+    <Content Include="Areas\Sys\Views\AppSetting\_Edit.cshtml" />
+    <Content Include="Areas\Sys\Views\Function\Index.cshtml" />
+    <Content Include="Areas\Sys\Views\Function\_Add.cshtml" />
+    <Content Include="Areas\Sys\Views\Function\_Delete.cshtml" />
+    <Content Include="Areas\Sys\Views\Function\_Edit.cshtml" />
+    <Content Include="Areas\Sys\Views\Function\_Function.cshtml" />
+    <Content Include="Areas\Sys\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Sys\Views\Job\Index.cshtml" />
+    <Content Include="Areas\Sys\Views\Job\_Add.cshtml" />
+    <Content Include="Areas\Sys\Views\Job\_ChangeStatus.cshtml" />
+    <Content Include="Areas\Sys\Views\Job\_CronExpression.cshtml" />
+    <Content Include="Areas\Sys\Views\Job\_Delete.cshtml" />
+    <Content Include="Areas\Sys\Views\Job\_Edit.cshtml" />
+    <Content Include="Areas\Sys\Views\Job\_SysJob.cshtml" />
+    <Content Include="Areas\Sys\Views\Job\_TabDay.cshtml" />
+    <Content Include="Areas\Sys\Views\Job\_TabHour.cshtml" />
+    <Content Include="Areas\Sys\Views\Job\_TabMinute.cshtml" />
+    <Content Include="Areas\Sys\Views\Job\_TabMonth.cshtml" />
+    <Content Include="Areas\Sys\Views\Job\_TabSecond.cshtml" />
+    <Content Include="Areas\Sys\Views\Job\_TabYear.cshtml" />
+    <Content Include="Areas\Sys\Views\Menu\Index.cshtml" />
+    <Content Include="Areas\Sys\Views\Menu\_Add.cshtml" />
+    <Content Include="Areas\Sys\Views\Menu\_Delete.cshtml" />
+    <Content Include="Areas\Sys\Views\Menu\_Edit.cshtml" />
+    <Content Include="Areas\Sys\Views\Menu\_MenuView.cshtml" />
+    <Content Include="Areas\Sys\Views\Message\Index.cshtml" />
+    <Content Include="Areas\Sys\Views\Message\_Add.cshtml" />
+    <Content Include="Areas\Sys\Views\Message\_Delete.cshtml" />
+    <Content Include="Areas\Sys\Views\Message\_Edit.cshtml" />
+    <Content Include="Areas\Sys\Views\Message\_Message.cshtml" />
+    <Content Include="Areas\Sys\Views\Modules\Index.cshtml" />
+    <Content Include="Areas\Sys\Views\Modules\_Add.cshtml" />
+    <Content Include="Areas\Sys\Views\Modules\_Delete.cshtml" />
+    <Content Include="Areas\Sys\Views\Modules\_DelModulePanel.cshtml" />
+    <Content Include="Areas\Sys\Views\Modules\_Edit.cshtml" />
+    <Content Include="Areas\Sys\Views\Modules\_Install.cshtml" />
+    <Content Include="Areas\Sys\Views\Modules\_Module.cshtml" />
+    <Content Include="Areas\Sys\Views\Modules\_PanelModule.cshtml" />
+    <Content Include="Areas\Sys\Views\Modules\_Permission.cshtml" />
+    <Content Include="Areas\Sys\Views\Modules\_PermissionModule.cshtml" />
+    <Content Include="Areas\Sys\Views\Modules\_UpdatePanelModule.cshtml" />
+    <Content Include="Areas\Sys\Views\Role\Index.cshtml" />
+    <Content Include="Areas\Sys\Views\Role\_Add.cshtml" />
+    <Content Include="Areas\Sys\Views\Role\_Delete.cshtml" />
+    <Content Include="Areas\Sys\Views\Role\_Edit.cshtml" />
+    <Content Include="Areas\Sys\Views\Role\_FunctionAction.cshtml" />
+    <Content Include="Areas\Sys\Views\Role\_Permission.cshtml" />
+    <Content Include="Areas\Sys\Views\Role\_Role.cshtml" />
+    <Content Include="Areas\Sys\Views\SysConfig\Index.cshtml" />
+    <Content Include="Areas\Sys\Views\SysConfig\_Add.cshtml" />
+    <Content Include="Areas\Sys\Views\SysConfig\_Delete.cshtml" />
+    <Content Include="Areas\Sys\Views\SysConfig\_Edit.cshtml" />
+    <Content Include="Areas\Sys\Views\SysConfig\_SysConfig.cshtml" />
+    <Content Include="Areas\Sys\Views\SysLog\Index.cshtml" />
+    <Content Include="Areas\Sys\Views\SysLog\_Delete.cshtml" />
+    <Content Include="Areas\Sys\Views\SysLog\_DeleteOldFile.cshtml" />
+    <Content Include="Areas\Sys\Views\SysLog\_DeleteProcLog.cshtml" />
+    <Content Include="Areas\Sys\Views\SysLog\_ErrFile.cshtml" />
+    <Content Include="Areas\Sys\Views\SysLog\_InvLogFile.cshtml" />
+    <Content Include="Areas\Sys\Views\SysLog\_JobLogFile.cshtml" />
+    <Content Include="Areas\Sys\Views\SysLog\_ProcedureLog.cshtml" />
+    <Content Include="Areas\Sys\Views\SysLog\_Search.cshtml" />
+    <Content Include="Areas\Sys\Views\SysLog\_ViewFile.cshtml" />
+    <Content Include="Areas\Sys\Views\SysTool\Index.cshtml" />
+    <Content Include="Areas\Sys\Views\User\Index.cshtml" />
+    <Content Include="Areas\Sys\Views\User\_Active.cshtml" />
+    <Content Include="Areas\Sys\Views\User\_ActiveBody.cshtml" />
+    <Content Include="Areas\Sys\Views\User\_Add.cshtml" />
+    <Content Include="Areas\Sys\Views\User\_AddUser.cshtml" />
+    <Content Include="Areas\Sys\Views\User\_ChangePassword.cshtml" />
+    <Content Include="Areas\Sys\Views\User\_DeActive.cshtml" />
+    <Content Include="Areas\Sys\Views\User\_DeActiveBody.cshtml" />
+    <Content Include="Areas\Sys\Views\User\_Delete.cshtml" />
+    <Content Include="Areas\Sys\Views\User\_DeleteBody.cshtml" />
+    <Content Include="Areas\Sys\Views\User\_Edit.cshtml" />
+    <Content Include="Areas\Sys\Views\User\_Password.cshtml" />
+    <Content Include="Areas\Sys\Views\User\_Permit.cshtml" />
+    <Content Include="Areas\Sys\Views\User\_PermitBody.cshtml" />
+    <Content Include="Areas\Sys\Views\User\_RemoveUser.cshtml" />
+    <Content Include="Areas\Sys\Views\User\_ResetPassword.cshtml" />
+    <Content Include="Areas\Sys\Views\User\_User.cshtml" />
+    <Content Include="Areas\Sys\Views\User\_UserRole.cshtml" />
+    <Content Include="Areas\Sys\Views\User\_UsersViaRole.cshtml" />
+    <Content Include="Areas\Sys\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Cate\Views\web.config" />
+    <Content Include="Areas\Cate\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Sys\Views\SysNotifications\Index.cshtml" />
+    <Content Include="Areas\Sys\Views\SysNotifications\_Add.cshtml" />
+    <Content Include="Areas\Sys\Views\SysNotifications\_Delete.cshtml" />
+    <Content Include="Areas\Sys\Views\SysNotifications\_Edit.cshtml" />
+    <Content Include="Areas\Sys\Views\SysNotifications\_Search.cshtml" />
+    <Content Include="Areas\Sys\Views\SysNotifications\_ThongBao.cshtml" />
+    <Content Include="Areas\Sys\Views\SysPermissionAPI\_Add.cshtml" />
+    <Content Include="Areas\Sys\Views\SysPermissionAPI\_SysPermissionAPI.cshtml" />
+    <Content Include="Areas\Sys\Views\AccessHistory\Index.cshtml" />
+    <Content Include="Areas\Sys\Views\AccessHistory\_Search.cshtml" />
+    <Content Include="Contents\Modules\Sys\EmailTemplates\_TemplateUpdateStatusRequest.cshtml" />
+    <Content Include="Contents\Modules\Sys\EmailTemplates\_TemplateSendNotifyInv.cshtml" />
+    <Content Include="Areas\Sys\Views\Instruct\Index.cshtml" />
+    <Content Include="Areas\Sys\Views\Instruct\_Add.cshtml" />
+    <Content Include="Areas\Sys\Views\Instruct\_Delete.cshtml" />
+    <Content Include="Areas\Sys\Views\Instruct\_Edit.cshtml" />
+    <Content Include="Areas\Sys\Views\Instruct\_Instruct.cshtml" />
+    <Content Include="Areas\Sys\Views\Instruct\_InstructModal.cshtml" />
+    <Content Include="Areas\Sys\Views\Instruct\_Search.cshtml" />
+    <Content Include="Areas\Sys\Views\Status\Index.cshtml" />
+    <Content Include="Areas\Sys\Views\Status\_Add.cshtml" />
+    <Content Include="Areas\Sys\Views\Status\_Delete.cshtml" />
+    <Content Include="Areas\Sys\Views\Status\_Edit.cshtml" />
+    <Content Include="Areas\Sys\Views\Status\_Search.cshtml" />
+    <Content Include="Areas\Sys\Views\Status\_Status.cshtml" />
+    <Content Include="Areas\Sys\Views\Department\Index.cshtml" />
+    <Content Include="Areas\Sys\Views\Department\_Search.cshtml" />
+    <Content Include="Areas\Sys\Views\Position\Index.cshtml" />
+    <Content Include="Areas\Sys\Views\Position\_Search.cshtml" />
+    <Content Include="Areas\Sys\Views\MailTemplate\Index.cshtml" />
+    <Content Include="Areas\Sys\Views\MailTemplate\_Add.cshtml" />
+    <Content Include="Areas\Sys\Views\MailTemplate\_Delete.cshtml" />
+    <Content Include="Areas\Sys\Views\MailTemplate\_Edit.cshtml" />
+    <Content Include="Areas\Sys\Views\MailTemplate\_MailTemplate.cshtml" />
+    <Content Include="Areas\Sys\Views\MailTemplate\_Search.cshtml" />
+    <Content Include="Areas\Sys\Views\User\_BoPhan.cshtml" />
+    <Content Include="Areas\Sys\Views\User\_BoPhanBody.cshtml" />
+    <Content Include="Areas\Sys\Views\User\_Search.cshtml" />
+    <Content Include="Areas\Sys\Views\SMSTemplate\_Add.cshtml" />
+    <Content Include="Areas\Sys\Views\SMSTemplate\_Delete.cshtml" />
+    <Content Include="Areas\Sys\Views\SMSTemplate\_Edit.cshtml" />
+    <Content Include="Areas\Sys\Views\SMSTemplate\_SMSTemplate.cshtml" />
+    <Content Include="Areas\Sys\Views\SMSTemplate\Index.cshtml" />
+    <Content Include="Areas\Sys\Views\BillingCycles\Index.cshtml" />
+    <Content Include="Areas\Sys\Views\BillingCycles\_Add.cshtml" />
+    <Content Include="Areas\Sys\Views\BillingCycles\_BillingCycles.cshtml" />
+    <Content Include="Areas\Sys\Views\BillingCycles\_Delete.cshtml" />
+    <Content Include="Areas\Sys\Views\BillingCycles\_Edit.cshtml" />
+    <Content Include="Areas\Sys\Views\User\_PermitReview.cshtml" />
+    <Content Include="Areas\Sys\Views\User\_PermitReviewBody.cshtml" />
+    <None Include="packages.config" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Areas\Cate\Controllers\" />
+    <Folder Include="Areas\Cate\Data\" />
+    <Folder Include="Areas\Cate\Views\Shared\" />
+    <Folder Include="Areas\Sys\Views\Shared\" />
+    <Folder Include="Controllers\" />
+    <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Core.Cate\Core.Cate.csproj">
+      <Project>{72f9f77b-e45d-4eb6-8c6e-cc6e73eb643e}</Project>
+      <Name>Core.Cate</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Core.Sys\Core.Sys.csproj">
+      <Project>{02E4AF30-0E59-4F60-B33B-62FEAC5E88E1}</Project>
+      <Name>Core.Sys</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TSFramework.Libs\TSFramework.Libs.csproj">
+      <Project>{C7BB973B-8277-4950-BFFD-C0BE12847D49}</Project>
+      <Name>TSFramework.Libs</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>60348</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44358/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <PropertyGroup>
+    <PostBuildEvent>Robocopy $(ProjectDir)App_Data\Modules $(SolutionDir)\CenIT.Solution.TOC.WebApp\App_Data\Modules /s
+Robocopy $(ProjectDir)Configs\Modules $(SolutionDir)\CenIT.Solution.TOC.WebApp\Configs\Modules /s
+Robocopy $(ProjectDir)Areas\Sys\Views $(SolutionDir)\CenIT.Solution.TOC.WebApp\Areas\Sys\Views /s
+Robocopy $(ProjectDir)Areas\Cate\Views $(SolutionDir)\CenIT.Solution.TOC.WebApp\Areas\Cate\Views /s
+Robocopy $(ProjectDir)Contents\Modules $(SolutionDir)\CenIT.Solution.TOC.WebApp\Contents\Modules /s
+xcopy /Y "$(ProjectName).dll" "$(SolutionDir)\CenIT.Solution.TOC.WebApp\bin"</PostBuildEvent>
+  </PropertyGroup>
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

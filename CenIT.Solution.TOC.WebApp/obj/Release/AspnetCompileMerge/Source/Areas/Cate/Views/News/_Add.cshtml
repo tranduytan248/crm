@@ -1,0 +1,87 @@
+﻿@using TSFramework.Libs.Processors
+@{
+    ViewBag.Title = string.Format(AppProcessor.Messagor.GetMessage("Modal_Title_Add"), AppProcessor.Messagor.GetMessage("News_Title"));
+    Layout = "~/Views/Shared/_Form.cshtml";
+}
+
+@section FormType{
+    primary
+}
+
+@section FormIcon{
+    <i class="fa fa-plus"></i>
+}
+
+@section FormBody{
+
+    @*@using (Ajax.BeginForm("Add", "News", new { area = "Cate" }, new AjaxOptions
+        {
+            HttpMethod = "POST",
+            OnSuccess = "News_OnProcessSuccess(data, 'AddNews')"
+        }, new { @class = "form-horizontal", id = "AddNews" }))
+        {
+            <div id="bodyForm">
+                @Html.Partial("_News")
+            </div>
+        }*@
+
+    @using (Html.BeginForm("Add", "News", new { area = "Cate" }, FormMethod.Post, new { encType = "multipart/form-data", id = "AddNews", @class = "form-horizontal" }))
+    {
+        <div id="bodyForm">
+            @Html.Partial("_News")
+        </div>
+    }
+
+    <script type="text/javascript">
+    $(document).ready(function () {
+
+        $('.modal-footer #btnSave').attr('type', 'button');
+
+        // Nhấn gửi
+        $("#btnSave").click(function () {
+            for (instance in CKEDITOR.instances) {
+                CKEDITOR.instances[instance].updateElement();
+            }
+            $("form#AddNews").submit();
+        });
+
+        $('form#AddNews').ajaxForm({
+            success: function (response) {
+                if (response.status != undefined) {
+                    if ($("#ModalContent #modal_AddNews #chkNotDismissModal").is(":checked")) {
+                        if (response.status != undefined) {
+                            eval(response.message);
+                            _tableNews.ajax.reload(null, false);
+                            response.status = undefined;
+                            $("#ModalContent #modal_AddNews form")[0].reset();
+                        }
+                    } else {
+                        if (!response.status && response.errorCode == 1) {
+                            eval(response.message);
+                            response.status = undefined;
+                        } else {
+                            $("#ModalContent #modal_AddNews").modal("hide");
+                            $("#ModalContent #modal_AddNews").on('hidden.bs.modal',
+                                function () {
+                                    if (response.status != undefined) {
+                                        eval(response.message);
+                                        _tableNews.ajax.reload(null, true);
+                                        response.status = undefined;
+                                    }
+                                });
+                        }
+                    }
+                } else {
+                    $("#ModalContent #modal_AddNews" + " #bodyForm").html(response);
+                }
+            }
+        });
+    })
+
+    </script>
+
+}
+
+@section ContinueForm{
+
+}

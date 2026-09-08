@@ -1,0 +1,24 @@
+﻿@using TSFramework.Libs.Processors
+@model Core.Cate.Models.MN_ChucVuModel
+
+@Html.AntiForgeryToken()
+<div id="Language">
+    @Html.HiddenFor(model => model.ChucVu_ID)
+
+    <div class="form-group row">
+        @Html.TitleFor(model => model.MaChucVu, new { @class = "col-sm-3 col-form-label text-sm-right pr-0 font-bold" })
+        <div class="col-md-9">
+            @Html.TextBoxFor(model => model.MaChucVu, new { @class = "form-control col-md-11", placeholder = AppProcessor.Messagor.GetMessage("ChucVu_Label_Code") })
+            @Html.ValidationMessageFor(model => model.MaChucVu, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group row">
+        @Html.TitleFor(model => model.TenChucVu, new { @class = "col-sm-3 col-form-label text-sm-right pr-0 font-bold" })
+        <div class="col-md-9">
+            @Html.TextBoxFor(model => model.TenChucVu, new { @class = "form-control col-md-11", placeholder = AppProcessor.Messagor.GetMessage("ChucVu_Label_Name") })
+            @Html.ValidationMessageFor(model => model.TenChucVu, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+</div>

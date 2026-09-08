@@ -1,0 +1,69 @@
+﻿@using TSFramework.Libs.Processors
+@model Core.Cate.Models.Cate_ProductServiceSearchModel
+
+<style>
+    #Keyword, #SearchFile {
+        font-size: 14px;
+    }
+</style>
+<div class="Search card dcard">
+    <div class="card-header bgc-primary-d1">
+        <div class="card-title text-white">
+            <i class="fa fa-search"></i>&nbsp;@AppProcessor.Messagor.GetMessage("Label_Search")
+        </div>
+    </div>
+
+    <div class="card-body p-2 d-flex align-items-end">
+        <div class="Search_Box w-25 keyWord">
+            <label class="text-sm-right pr-0 font-bold">@AppProcessor.Messagor.GetMessage("Label_TuKhoa")</label>
+            <input type="text"
+                   id="Keyword"
+                   class="form-control"
+                   placeholder="@AppProcessor.Messagor.GetMessage("ProductService_SearchPlaceholder")" />
+        </div>
+
+        <div class="Search_Box w-25 keyWord">
+            <label class="text-sm-right pr-0 font-bold">Nội dung tài liệu</label>
+            <input type="text"
+                   id="SearchFile"
+                   class="form-control"
+                   placeholder="Tìm theo tiêu đề, ghi chú tài liệu đính kèm" />
+        </div>
+
+        <div class="Group Group_button">
+            <div class="Search_button text-center">
+                <button type="button" class="btn btn-primary" onclick="Search()"><i class="fa fa-search-plus"></i>&nbsp;@AppProcessor.Messagor.GetMessage("Label_Search")</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<div class="row form-group">
+    <div class="col-md-5">
+        <label class="text-600 mb-0">Từ khóa</label>
+       
+    </div>
+    <div class="col-md-4">
+        <label class="text-600 mb-0">Nội dung tài liệu</label>
+        
+    </div>
+    <div class="text-center text-lg-left col-md-3 mt-lg-0 mt-3 align-content-end">
+        <button type="button" class="btn btn-primary" onclick="Search()">
+            <i class="fa fa-search-plus"></i>
+            &nbsp;@AppProcessor.Messagor.GetMessage("Label_Search")
+        </button>
+    </div>
+</div>*@
+
+<script>
+    $(document).ready(function () {
+
+        $('#Keyword').on('keydown', function (e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                Search();
+            }
+        });
+
+    });
+</script>

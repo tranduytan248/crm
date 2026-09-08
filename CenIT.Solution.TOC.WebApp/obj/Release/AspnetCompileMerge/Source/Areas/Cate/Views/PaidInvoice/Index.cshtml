@@ -1,0 +1,91 @@
+﻿@using TSFramework.Libs.Processors
+@{
+    ViewBag.Title = AppProcessor.Messagor.GetMessage("PaidInvoice_Title");
+}
+<link rel="stylesheet" type="text/css" href="/Contents/Base/css/DateTime-Zindex.css">
+@section PageTitle
+{
+    @ViewBag.Title
+}
+
+@section PageAction
+{
+}
+@{
+    var currentMonth = DateTime.Now.ToString("MM/yyyy");
+}
+
+<div class="box-body with-border">
+    <div id="Searching" class="row align-items-center">
+
+        <!-- Cột trái -->
+        <div class="col-md-6 d-flex align-items-center">
+            <label class="my-auto font-bold pr-2 text-sm">Giai đoạn</label>
+            @Html.TextBox("Period", currentMonth,
+                     new { @class = "form-control form-control-sm w-auto", placeholder = "mm/yyyy" })
+            <i class="far fa-calendar-alt text-primary ml-2"></i>
+        </div>
+
+        <!-- Cột phải -->
+        <div class="col-md-6 text-right">
+            <button type="button" class="btn btn-success" onclick="ExportLichSuThanhToan()">
+                <i class="fa fa-download"></i>&nbsp;Xuất excel
+            </button>
+        </div>
+
+    </div>
+</div>
+
+<div class="mt-3">
+    <div class="card dcard">
+        <div class="col-sm-12 table-responsive-md">
+            <table id="DSPaidInvoice" class="d-style w-100 table text-dark-m1 text-95 border-y-1 brc-black-tp11 collapsed dtr-table" width="100%">
+                <thead class="sticky-nav text-secondary-m1 text-uppercase text-85 bgc-secondary-l1">
+                    <tr>
+                        <th>@AppProcessor.Messagor.GetMessage("Column_No")</th>
+                        <th>@AppProcessor.Messagor.GetMessage("ContractCode_Label_Name")</th>
+                        <th>@AppProcessor.Messagor.GetMessage("Period_Label_Name")</th>
+                        <th>@AppProcessor.Messagor.GetMessage("Amount_Label_Name")</th>
+                        <th>@AppProcessor.Messagor.GetMessage("BillNumber_Label_Name")</th>
+                        <th>@AppProcessor.Messagor.GetMessage("AccountUser_Label_Name")</th>
+                        <th>@AppProcessor.Messagor.GetMessage("PayDate_Label_Name")</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section BottomScript
+{
+    <script src="@Url.Content("~/Areas/Cate/Views/PaidInvoice/PaidInvoice.js")"></script>
+}
+<script>
+    $(document).ready(function () {
+        ///// cấu hình lại datepicker: begin /////
+        $.fn.datepicker.dates["vi"] = {
+            days: ["Chủ nhật", "Thứ hai", "Thứ ba", "Thứ tư", "Thứ năm", "Thứ sáu", "Thứ bảy", "Chủ nhật"],
+            daysShort: ["CN", "T2", "T3", "T4", "T5", "T6", "T7", "CN"],
+            daysMin: ["CN", "T2", "T3", "T4", "T5", "T6", "T7", "CN"],
+            months: ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"],
+            monthsShort: ["Th01", "Th02", "Th03", "Th04", "Th05", "Th06", "Th07", "Th08", "Th09", "Th10", "Th11", "Th12"],
+            today: "Hôm nay"
+        };
+        $("#Searching #Period").datepicker({
+            viewMode: "years",
+            minViewMode: "months",
+            format: "MM/yyyy",
+            autoclose: true,
+            todayhighlight: true,
+            todaybtn: true,
+            minDate: null,
+            maxDate: null,
+            weekStart: 1,
+            orientation: "bottom",
+            language: "vi"
+        }).on('changeDate', function (e) {
+            _tablePaidInvoice.ajax.reload();
+        });
+        initTablePaidInvoice();
+    });
+</script>

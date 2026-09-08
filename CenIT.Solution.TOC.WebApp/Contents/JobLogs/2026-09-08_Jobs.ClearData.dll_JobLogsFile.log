@@ -1,0 +1,25 @@
+08:43:37.779 AM Jobs.ClearData The type initializer for 'Job.ClearData.ClearDataModel' threw an exception.
+08:43:37.779 AM Stack: at Job.ClearData.ClearDataModel..ctor()
+   at Job.ClearData.ClearData.BuildJob(String sJobId, String sDescription, String sCronExpression, Object[] dataObjects)
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.ExecuteJob(IJobPlugable jobPlugable, SysJobModel appJobModel) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 104
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.<>c__DisplayClass0_0.<Application_Start>b__2(SysJobModel j) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 62
+09:15:46.242 AM Jobs.ClearData The type initializer for 'Job.ClearData.ClearDataModel' threw an exception.
+09:15:46.242 AM Stack: at Job.ClearData.ClearDataModel..ctor()
+   at Job.ClearData.ClearData.BuildJob(String sJobId, String sDescription, String sCronExpression, Object[] dataObjects)
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.ExecuteJob(IJobPlugable jobPlugable, SysJobModel appJobModel) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 104
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.<>c__DisplayClass0_0.<Application_Start>b__2(SysJobModel j) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 62
+09:36:17.374 AM Jobs.ClearData The type initializer for 'Job.ClearData.ClearDataModel' threw an exception.
+09:36:17.374 AM Stack: at Job.ClearData.ClearDataModel..ctor()
+   at Job.ClearData.ClearData.BuildJob(String sJobId, String sDescription, String sCronExpression, Object[] dataObjects)
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.ExecuteJob(IJobPlugable jobPlugable, SysJobModel appJobModel)
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.<>c__DisplayClass0_0.<Application_Start>b__2(SysJobModel j)
+09:36:24.074 AM Jobs.ClearData The type initializer for 'Job.ClearData.ClearDataModel' threw an exception.
+09:36:24.074 AM Stack: at Job.ClearData.ClearDataModel..ctor()
+   at Job.ClearData.ClearData.BuildJob(String sJobId, String sDescription, String sCronExpression, Object[] dataObjects)
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.ExecuteJob(IJobPlugable jobPlugable, SysJobModel appJobModel) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 104
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.<>c__DisplayClass0_0.<Application_Start>b__2(SysJobModel j) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 62
+10:15:15.850 AM Jobs.ClearData The type initializer for 'Job.ClearData.ClearDataModel' threw an exception.
+10:15:15.850 AM Stack: at Job.ClearData.ClearDataModel..ctor()
+   at Job.ClearData.ClearData.BuildJob(String sJobId, String sDescription, String sCronExpression, Object[] dataObjects)
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.ExecuteJob(IJobPlugable jobPlugable, SysJobModel appJobModel) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 104
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.<>c__DisplayClass0_0.<Application_Start>b__2(SysJobModel j) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 62

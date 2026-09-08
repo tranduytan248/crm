@@ -1,0 +1,37 @@
+﻿@using TSFramework.Libs.Processors
+@model Core.Cate.Models.KWC_AccountMobileSearchModel
+<div class="card dcard" id="SearchAccountMobile">
+    <div class="card-body collapse show p-0">
+        <div class="form-horizontal row px-3 pt-3">
+            <div class="col-md-6">
+                <div class="form-group row">
+                    <label class="col-md-3 col-form-label text-sm-right pr-0 font-bold">Từ khóa</label>
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(model => model.TuKhoa, new { @class = "form-control", placeholder = "Tìm kiếm theo tên khách hàng, tài khoản"})
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group row">
+                    <label class="col-md-3 col-form-label text-sm-right pr-0 font-bold">Loại tài khoản</label>
+                    @Html.TitleFor(model => model.Type, new { @class = "" })
+                <div class="col-md-9">
+                    @Html.DropDownListFor(model => model.Type, new SelectList(new List<SelectListItem>
+                      {
+                          new SelectListItem { Text = "Tất cả", Value = "" },
+                          new SelectListItem { Text = "Đăng ký bằng số điện thoại", Value = "phone" },
+                          new SelectListItem { Text = "Đăng ký bằng mã hợp đồng", Value = "contract" },
+                      }, "Value", "Text"), new { @class = "form-control col-md-8" })
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="col-md-12 text-center">
+                <button type="button" class="btn btn-primary" onclick="_tableAccountMobile.ajax.reload(null, false);"><i class="fa fa-search-plus"></i>&nbsp;Tìm kiếm</button>
+                <button type="button" class="btn btn-success" onclick="ExportDanhSachKhachHang()"><i class="fa fa-download"></i>&nbsp;Xuất excel</button>
+
+            </div>
+        </div>
+    </div>
+</div>

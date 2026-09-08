@@ -1,0 +1,22 @@
+﻿@model Core.Cate.Models.Cate_CustomerFeedbackProcessModel
+@using TSFramework.Libs.Processors
+
+@Html.AntiForgeryToken()
+@Html.HiddenFor(model => model.FeedbackId)
+@Html.HiddenFor(model => model.CodeFeedback)
+@Html.HiddenFor(model => model.AccountUser)
+<div class="form-group row pt-3">
+    @Html.TitleFor(model => model.ProcessNote, new { @class = "col-md-3 col-form-label text-md-right pr-md-0 font-bold" })
+    <div class="col-md-9">
+        @Html.TextAreaFor(model => model.ProcessNote, new { @class = "form-control auto_height col-md-11" })
+        @Html.ValidationMessageFor(model => model.ProcessNote, "", new { @class = "text-danger" })
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        document.querySelector('.auto_height').addEventListener('input', function () {
+            this.style.height = 'auto'; // Đặt chiều cao về 'auto' để tính toán chiều cao mới
+            this.style.height = `${this.scrollHeight}px`; // Đặt chiều cao mới dựa trên scrollHeight
+        });
+    });
+</script>

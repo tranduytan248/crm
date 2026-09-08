@@ -1,0 +1,16 @@
+﻿@using TSFramework.Libs.Processors
+@model Core.Cate.Models.Cate_DepartmentModel
+
+@Html.AntiForgeryToken()
+<div id="Language">
+    @Html.HiddenFor(model => model.DepartmentId)
+
+    <div class="form-group row">
+        @Html.TitleFor(model => model.DepartmentName, new { @class = "col-sm-3 col-form-label text-sm-right pr-0 font-bold" })
+        <div class="col-md-9">
+            @Html.TextBoxFor(model => model.DepartmentName, new { @class = "form-control col-md-11", placeholder = AppProcessor.Messagor.GetMessage("Department_Label_Name") })
+            @Html.ValidationMessageFor(model => model.DepartmentName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+</div>

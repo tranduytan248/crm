@@ -1,0 +1,25 @@
+﻿@using TSFramework.Libs.Processors
+@model Core.Cate.Models.Cate_GroupCategoryModel
+@Html.HiddenFor(model => model.Group_Category_ID)
+@Html.AntiForgeryToken()
+<div class="form-group row">
+    @Html.TitleFor(model => model.Group_Category_Code, new { @class = "col-sm-3 col-form-label text-sm-right pr-0 font-bold" })
+    <div class="col-md-9">
+        @if (Model.Group_Category_ID > 0)
+        {
+            @Html.TextBoxFor(model => model.Group_Category_Code, new { @readonly = "true", @class = "form-control col-md-6", placeholder = AppProcessor.Messagor.GetMessage("Group_Category_Code_Label") })
+        }
+        else
+        {
+            @Html.TextBoxFor(model => model.Group_Category_Code, new { @class = "form-control col-md-6", placeholder = AppProcessor.Messagor.GetMessage("Group_Category_Code_Label") })
+        }
+        @Html.ValidationMessageFor(model => model.Group_Category_Code, "", new { @class = "text-danger" })
+    </div>
+</div>
+<div class="form-group row">
+    @Html.TitleFor(model => model.Group_Category_Name, new { @class = "col-sm-3 col-form-label text-sm-right pr-0 font-bold" })
+    <div class="col-md-9">
+        @Html.TextBoxFor(model => model.Group_Category_Name, new { @class = "form-control col-md-11", placeholder = AppProcessor.Messagor.GetMessage("Group_Category_Name_Label") })
+        @Html.ValidationMessageFor(model => model.Group_Category_Name, "", new { @class = "text-danger" })
+    </div>
+</div>

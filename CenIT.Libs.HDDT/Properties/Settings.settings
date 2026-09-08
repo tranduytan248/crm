@@ -1,0 +1,24 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="CenIT.Libs.HDDT.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="CenIT_Libs_HDDT_InvoiceBusinessService_BusinessService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://dothidalatadmindemo.vnpt-invoice.com.vn/BusinessService.asmx</Value>
+    </Setting>
+    <Setting Name="CenIT_Libs_HDDT_InvoicePublishService_PublishService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://dothidalatadmindemo.vnpt-invoice.com.vn/PublishService.asmx</Value>
+    </Setting>
+    <Setting Name="CenIT_Libs_HDDT_InvoicePortalService_PortalService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://dothidalatadmindemo.vnpt-invoice.com.vn/PortalService.asmx</Value>
+    </Setting>
+    <Setting Name="CenIT_Libs_EInvoice_InvoiceBusinessService_BusinessService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://dothidalatadmindemo.vnpt-invoice.com.vn/BusinessService.asmx</Value>
+    </Setting>
+    <Setting Name="CenIT_Libs_EInvoice_InvoicePortalService_PortalService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://dothidalatadmindemo.vnpt-invoice.com.vn/PortalService.asmx</Value>
+    </Setting>
+    <Setting Name="CenIT_Libs_EInvoice_InvoicePublishService_PublishService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://dothidalatadmindemo.vnpt-invoice.com.vn/PublishService.asmx</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

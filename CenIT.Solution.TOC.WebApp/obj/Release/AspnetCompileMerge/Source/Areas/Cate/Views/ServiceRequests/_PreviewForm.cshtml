@@ -1,0 +1,78 @@
+﻿@using TSFramework.Libs.Processors
+@model Core.Cate.Models.Cate_ServiceRequestCustomerModel
+@{
+    ViewBag.Title = string.Format("Xem trước");
+    Layout = "~/Views/Shared/_Form.cshtml";
+}
+<style>
+    /* #modal_PreviewForm > #modal-content > div.modal-body {
+        overflow: scroll !important;
+        height: 600px !important;
+    }*/
+</style>
+@section FormType{
+    warning
+}
+
+@section FormIcon{
+    <i class="fa fa-eye"></i>
+}
+
+@section FormBody{
+    <style>
+        #modal_PreviewForm .content-body {
+            margin-left: 3cm;
+            margin-right: 2cm;
+        }
+    </style>
+    <div id="previewForm">
+        @Html.Raw(Model.HtmlString)
+    </div>
+    <script>
+        $('#modal_PreviewForm .modal-dialog').addClass('modal-dialog-scrollable');
+        $('#modal_PreviewForm .modal-body').addClass('ace-scrollbar');
+
+        function exportWord() {
+            var save_btn = $('#modal_PreviewForm .modal-footer #btnSave');
+
+            // Đổi màu, đổi icon nút Save thành nút Download
+            save_btn
+                .addClass('btn-outline-warning')
+                .removeClass('btn-outline-success')
+                .html('<i class="fas fa-download"></i>&nbsp;Tải xuống')
+                .prop('type', 'button');
+
+            // Xóa sự kiện click cũ để tránh bị nhân đôi
+            save_btn.off('click');
+
+            // Gắn click export file
+            save_btn.on('click', function () {
+                $.ajax({
+                    url: '@Url.Action("ExportPreviewToWord", "ServiceRequests")',
+                    type: 'POST',
+                    data: {
+                        id: '@Model.RequestId'
+                    },
+                    xhrFields: {
+                        responseType: 'blob'
+                    },
+                    success: function (data) {
+                        var blob = new Blob([data], {
+                            type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                        });
+                        var link = document.createElement('a');
+                        link.href = window.URL.createObjectURL(blob);
+                        link.download = "PhieuYeuCau.docx";
+                        link.click();
+                    },
+                    error: function () {
+                        alert("Xuất file thất bại!");
+                    }
+                });
+            });
+        }
+
+        // Chờ modal load xong rồi gán sự kiện
+        setTimeout(exportWord, 500);
+    </script>
+}

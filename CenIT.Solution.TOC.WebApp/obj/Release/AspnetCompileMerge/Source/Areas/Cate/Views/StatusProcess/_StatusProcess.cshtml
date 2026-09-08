@@ -1,0 +1,21 @@
+﻿@using TSFramework.Libs.Processors
+@model Core.Cate.Models.Cate_StatusProcessModel
+
+@Html.AntiForgeryToken()
+<div id="Language">
+    @Html.HiddenFor(model => model.StatusProcessId)
+    <div class="form-group row">
+        @Html.TitleFor(model => model.StatusProcessName, new { @class = "col-sm-3 col-form-label text-sm-right pr-0 font-bold" })
+        <div class="col-md-9">
+            @Html.TextBoxFor(model => model.StatusProcessName, new { @class = "form-control col-md-11", placeholder = AppProcessor.Messagor.GetMessage("StatusProcess_Label_Name") })
+            @Html.ValidationMessageFor(model => model.StatusProcessName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group row">
+        @Html.TitleFor(model => model.Position, new { @class = "col-sm-3 col-form-label text-sm-right pr-0 font-bold" })
+        <div class="col-md-9">
+            @Html.TextBoxFor(model => model.Position, new { @class = "form-control col-md-2", type = "number", placeholder = AppProcessor.Messagor.GetMessage("Menu_Label_Position") })
+            @Html.ValidationMessageFor(model => model.Position, "", new { @class = "text-danger" })
+        </div>
+    </div>
+</div>

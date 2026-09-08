@@ -1,0 +1,1057 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121.
+-->
+<Project>
+  <PropertyGroup>
+    <_PublishTargetUrl>F:\VNPT\PTUD\SVN\2024_HDV_DuLichAo\trunk\PublicArea\Sys</_PublishTargetUrl>
+    <History>True|2024-05-02T09:28:01.8258038Z;True|2024-05-02T14:04:14.6814118+07:00;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="App_Data/Modules/Sys_StoredProcedures.xml">
+      <publishTime>02/05/2024 16:27:12</publishTime>
+    </File>
+    <File Include="Areas/Cate/Views/District/District.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Cate/Views/District/Index.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Cate/Views/District/_Add.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Cate/Views/District/_Delete.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Cate/Views/District/_District.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Cate/Views/District/_DistrictsViaProvince.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Cate/Views/District/_Edit.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Cate/Views/District/_Search.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Cate/Views/Province/Index.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Cate/Views/Province/Province.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Cate/Views/Province/_Add.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Cate/Views/Province/_Delete.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Cate/Views/Province/_Edit.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Cate/Views/Province/_Province.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Cate/Views/Street/Index.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Cate/Views/Street/Street.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Cate/Views/Street/_Add.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Cate/Views/Street/_Delete.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Cate/Views/Street/_Edit.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Cate/Views/Street/_Search.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Cate/Views/Street/_Street.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Cate/Views/Street/_StreetsViaWard.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Cate/Views/Team/Index.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Cate/Views/Team/Team.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Cate/Views/Team/_Add.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Cate/Views/Team/_Delete.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Cate/Views/Team/_Edit.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Cate/Views/Team/_Search.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Cate/Views/Team/_Team.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Cate/Views/Team/_TeamsViaWard.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Cate/Views/Ward/Index.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Cate/Views/Ward/Ward.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Cate/Views/Ward/_Add.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Cate/Views/Ward/_Delete.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Cate/Views/Ward/_Edit.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Cate/Views/Ward/_Search.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Cate/Views/Ward/_Ward.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Cate/Views/Ward/_WardsViaDistrict.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Cate/Views/web.config">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Cate/Views/_ViewStart.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/AppLayout/AppLayout.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/AppLayout/Index.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/AppLayout/_Add.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/AppLayout/_AppLayout.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/AppLayout/_ChangeActive.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/AppLayout/_Delete.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/AppLayout/_Edit.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/AppSetting/AppSetting.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/AppSetting/Index.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/AppSetting/_Add.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/AppSetting/_AppSetting.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/AppSetting/_Delete.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/AppSetting/_Edit.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/Function/Function.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/Function/Index.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/Function/_Add.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/Function/_Delete.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/Function/_Edit.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/Function/_Function.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/Home/Index.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/Job/Index.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/Job/Job.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/Job/_Add.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/Job/_ChangeStatus.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/Job/_CronExpression.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/Job/_Delete.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/Job/_Edit.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/Job/_SysJob.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/Job/_TabDay.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/Job/_TabHour.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/Job/_TabMinute.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/Job/_TabMonth.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/Job/_TabSecond.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/Job/_TabYear.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/Menu/Index.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/Menu/Menu.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/Menu/_Add.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/Menu/_Delete.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/Menu/_Edit.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/Menu/_MenuView.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/Message/Index.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/Message/Message.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/Message/_Add.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/Message/_Delete.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/Message/_Edit.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/Message/_Message.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/Modules/Index.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/Modules/Module.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/Modules/_Add.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/Modules/_Delete.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/Modules/_DelModulePanel.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/Modules/_Edit.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/Modules/_Install.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/Modules/_Module.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/Modules/_PanelModule.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/Modules/_Permission.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/Modules/_PermissionModule.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/Modules/_UpdatePanelModule.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/Role/Index.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/Role/Role.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/Role/_Add.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/Role/_Delete.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/Role/_Edit.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/Role/_FunctionAction.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/Role/_Permission.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/Role/_Role.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/SysConfig/Index.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/SysConfig/SysConfig.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/SysConfig/_Add.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/SysConfig/_Delete.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/SysConfig/_Edit.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/SysConfig/_SysConfig.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/SysLog/Index.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/SysLog/SysLog.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/SysLog/_Delete.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/SysLog/_DeleteOldFile.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/SysLog/_DeleteProcLog.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/SysLog/_ErrFile.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/SysLog/_InvLogFile.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/SysLog/_JobLogFile.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/SysLog/_ProcedureLog.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/SysLog/_Search.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/SysLog/_ViewFile.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/SysTool/Index.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/User/Index.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/User/PasswordValid.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/User/User.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/User/_Active.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/User/_ActiveBody.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/User/_Add.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/User/_AddUser.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/User/_ChangePassword.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/User/_DeActive.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/User/_DeActiveBody.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/User/_Delete.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/User/_DeleteBody.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/User/_Edit.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/User/_Password.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/User/_Permit.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/User/_PermitBody.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/User/_RemoveUser.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/User/_ResetPassword.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/User/_User.cshtml">
+      <publishTime>10/04/2024 09:29:42</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/User/_UserRole.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/User/_UsersViaRole.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/web.config">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Sys/Views/_ViewStart.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/AngleSharp.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/Common.Logging.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/Common.Logging.pdb">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/Core.API.dll">
+      <publishTime>03/05/2024 14:45:45</publishTime>
+    </File>
+    <File Include="bin/Core.API.dll.config">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/Core.API.pdb">
+      <publishTime>03/05/2024 14:45:45</publishTime>
+    </File>
+    <File Include="bin/Core.Cate.dll">
+      <publishTime>03/05/2024 14:45:46</publishTime>
+    </File>
+    <File Include="bin/Core.Cate.dll.config">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/Core.Cate.pdb">
+      <publishTime>03/05/2024 14:45:46</publishTime>
+    </File>
+    <File Include="bin/Core.Log.dll">
+      <publishTime>02/05/2024 16:27:55</publishTime>
+    </File>
+    <File Include="bin/Core.Log.dll.config">
+      <publishTime>06/03/2024 10:31:20</publishTime>
+    </File>
+    <File Include="bin/Core.Log.pdb">
+      <publishTime>02/05/2024 16:27:55</publishTime>
+    </File>
+    <File Include="bin/Core.Sys.dll">
+      <publishTime>02/05/2024 16:27:55</publishTime>
+    </File>
+    <File Include="bin/Core.Sys.dll.config">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/Core.Sys.pdb">
+      <publishTime>02/05/2024 16:27:55</publishTime>
+    </File>
+    <File Include="bin/FastMember.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/Interop.DAO.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AspNet.SignalR.Core.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AspNet.SignalR.Core.pdb">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Web.Infrastructure.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/Modules.Sys.dll">
+      <publishTime>05/03/2024 15:22:22</publishTime>
+    </File>
+    <File Include="bin/Modules.Sys.pdb">
+      <publishTime>03/05/2024 15:22:22</publishTime>
+    </File>
+    <File Include="bin/Newtonsoft.Json.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/Owin.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/PreMailer.Net.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/Quartz.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/Quartz.pdb">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/RazorEngine.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/RestSharp.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/csc.exe">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/csc.exe.config">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/csc.rsp">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/csi.exe">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/csi.exe.config">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/csi.rsp">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.Build.Tasks.CodeAnalysis.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.CSharp.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.CSharp.Scripting.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.Scripting.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.VisualBasic.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CSharp.Core.targets">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.DiaSymReader.Native.amd64.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.DiaSymReader.Native.x86.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.Managed.Core.targets">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.VisualBasic.Core.targets">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.Win32.Primitives.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.AppContext.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Collections.Immutable.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Console.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Diagnostics.DiagnosticSource.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Diagnostics.FileVersionInfo.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Diagnostics.StackTrace.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Globalization.Calendars.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.IO.Compression.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.IO.Compression.ZipFile.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.IO.FileSystem.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.IO.FileSystem.Primitives.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Net.Http.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Net.Sockets.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Reflection.Metadata.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Runtime.InteropServices.RuntimeInformation.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Security.Cryptography.Algorithms.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Security.Cryptography.Encoding.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Security.Cryptography.Primitives.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Security.Cryptography.X509Certificates.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Text.Encoding.CodePages.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Threading.Tasks.Extensions.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.ValueTuple.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Xml.ReaderWriter.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Xml.XmlDocument.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Xml.XPath.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Xml.XPath.XDocument.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/vbc.exe">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/vbc.exe.config">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/vbc.rsp">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/VBCSCompiler.exe">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/VBCSCompiler.exe.config">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/System.Buffers.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/System.Memory.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/System.Net.Http.Formatting.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/System.Numerics.Vectors.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/System.Runtime.CompilerServices.Unsafe.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/System.Text.Encoding.CodePages.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/System.Web.Helpers.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/System.Web.Http.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/System.Web.Http.WebHost.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/System.Web.Mvc.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/System.Web.Razor.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Deployment.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Razor.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/TiSun.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/TiSun.pdb">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/TSFramework.Libs.dll">
+      <publishTime>02/05/2024 08:42:08</publishTime>
+    </File>
+    <File Include="bin/TSFramework.Libs.dll.config">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/TSFramework.Libs.pdb">
+      <publishTime>02/05/2024 08:42:08</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/EmailTemplates/_TemplateNewUser.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/EmailTemplates/_TemplateResetPassword.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/bootstrap-iconpicker-1.10.0/.gitignore">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/bootstrap-iconpicker-1.10.0/.travis.yml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/bootstrap-iconpicker-1.10.0/banner.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/bootstrap-iconpicker-1.10.0/bootstrap-iconpicker_3x.png">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/bootstrap-iconpicker-1.10.0/bootstrap-iconpicker_4x.png">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/bootstrap-iconpicker-1.10.0/bower.json">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/bootstrap-iconpicker-1.10.0/css/docs.css">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/bootstrap-iconpicker-1.10.0/css/pygments-manni.css">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/bootstrap-iconpicker-1.10.0/dist/css/bootstrap-iconpicker.css">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/bootstrap-iconpicker-1.10.0/dist/css/bootstrap-iconpicker.min.css">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/bootstrap-iconpicker-1.10.0/dist/js/bootstrap-iconpicker-iconset-all.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/bootstrap-iconpicker-1.10.0/dist/js/bootstrap-iconpicker-iconset-all.min.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/bootstrap-iconpicker-1.10.0/dist/js/bootstrap-iconpicker.bundle.min.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/bootstrap-iconpicker-1.10.0/dist/js/bootstrap-iconpicker.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/bootstrap-iconpicker-1.10.0/dist/js/bootstrap-iconpicker.min.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/bootstrap-iconpicker-1.10.0/docs/CHANGELOG.md">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/bootstrap-iconpicker-1.10.0/docs/SUPPORTED.md">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/bootstrap-iconpicker-1.10.0/gruntfile.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/bootstrap-iconpicker-1.10.0/icon-fonts/elusive-icons-2.0.0/css/elusive-icons.css">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/bootstrap-iconpicker-1.10.0/icon-fonts/elusive-icons-2.0.0/css/elusive-icons.min.css">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/bootstrap-iconpicker-1.10.0/icon-fonts/elusive-icons-2.0.0/fonts/Elusive-Icons.eot">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/bootstrap-iconpicker-1.10.0/icon-fonts/elusive-icons-2.0.0/fonts/Elusive-Icons.svg">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/bootstrap-iconpicker-1.10.0/icon-fonts/elusive-icons-2.0.0/fonts/Elusive-Icons.ttf">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/bootstrap-iconpicker-1.10.0/icon-fonts/elusive-icons-2.0.0/fonts/Elusive-Icons.woff">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/bootstrap-iconpicker-1.10.0/icon-fonts/map-icons-2.1.0/css/map-icons.css">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/bootstrap-iconpicker-1.10.0/icon-fonts/map-icons-2.1.0/css/map-icons.min.css">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/bootstrap-iconpicker-1.10.0/icon-fonts/map-icons-2.1.0/fonts/map-icons.dev.svg">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/bootstrap-iconpicker-1.10.0/icon-fonts/map-icons-2.1.0/fonts/map-icons.eot">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/bootstrap-iconpicker-1.10.0/icon-fonts/map-icons-2.1.0/fonts/map-icons.svg">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/bootstrap-iconpicker-1.10.0/icon-fonts/map-icons-2.1.0/fonts/map-icons.ttf">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/bootstrap-iconpicker-1.10.0/icon-fonts/map-icons-2.1.0/fonts/map-icons.woff">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/bootstrap-iconpicker-1.10.0/index.html">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/bootstrap-iconpicker-1.10.0/index_v3x.html">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/bootstrap-iconpicker-1.10.0/LICENSE">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/bootstrap-iconpicker-1.10.0/package.json">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/bootstrap-iconpicker-1.10.0/README.md">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/bootstrap-iconpicker-1.10.0/src/css/bootstrap-iconpicker.css">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/bootstrap-iconpicker-1.10.0/src/js/bootstrap-iconpicker.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/bootstrap-iconpicker-1.10.0/src/js/iconset/iconset-elusiveicon-all.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/bootstrap-iconpicker-1.10.0/src/js/iconset/iconset-flagicon-all.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/bootstrap-iconpicker-1.10.0/src/js/iconset/iconset-fontawesome-4-all.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/bootstrap-iconpicker-1.10.0/src/js/iconset/iconset-fontawesome-5-all.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/bootstrap-iconpicker-1.10.0/src/js/iconset/iconset-glyphicon-all.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/bootstrap-iconpicker-1.10.0/src/js/iconset/iconset-ionicon-all.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/bootstrap-iconpicker-1.10.0/src/js/iconset/iconset-mapicon-all.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/bootstrap-iconpicker-1.10.0/src/js/iconset/iconset-materialdesign-all.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/bootstrap-iconpicker-1.10.0/src/js/iconset/iconset-octicon-all.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/bootstrap-iconpicker-1.10.0/src/js/iconset/iconset-typicon-all.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/bootstrap-iconpicker-1.10.0/src/js/iconset/iconset-weathericon-all.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/bootstrap-iconpicker-1.10.0/test/index.html">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/bootstrap-iconpicker-1.10.0/test/test.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/bootstrap-iconpicker-1.10.0/util/extract.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/bootstrap-multiselect/css/bootstrap-multiselect.css">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/bootstrap-multiselect/js/bootstrap-multiselect.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/bootstrap-multiselect/less/bootstrap-multiselect.less">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/cronBuilder/jquery-cron-quartz.css">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/cronBuilder/jquery-cron-quartz.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/cronBuilder/jquery-cron-quartz.min.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/cRonstrue/cronstrue.min.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/cRonstrue/require.min.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/fontawesome-iconpicker-3.0.0/.gitignore">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/fontawesome-iconpicker-3.0.0/.npmignore">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/fontawesome-iconpicker-3.0.0/.travis.yml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/fontawesome-iconpicker-3.0.0/CODE_OF_CONDUCT.md">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/fontawesome-iconpicker-3.0.0/composer.json">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/fontawesome-iconpicker-3.0.0/CONTRIBUTING.md">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/fontawesome-iconpicker-3.0.0/dist/css/fontawesome-iconpicker.css">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/fontawesome-iconpicker-3.0.0/dist/css/fontawesome-iconpicker.min.css">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/fontawesome-iconpicker-3.0.0/dist/js/fontawesome-iconpicker.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/fontawesome-iconpicker-3.0.0/dist/js/fontawesome-iconpicker.min.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/fontawesome-iconpicker-3.0.0/extension/icon-128.png">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/fontawesome-iconpicker-3.0.0/extension/icon.png">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/fontawesome-iconpicker-3.0.0/extension/LICENSE">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/fontawesome-iconpicker-3.0.0/extension/manifest.json">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/fontawesome-iconpicker-3.0.0/extension/popup.html">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/fontawesome-iconpicker-3.0.0/extension/popup.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/fontawesome-iconpicker-3.0.0/extension/screenshot.png">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/fontawesome-iconpicker-3.0.0/extension/screenshot.psd">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/fontawesome-iconpicker-3.0.0/Gruntfile.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/fontawesome-iconpicker-3.0.0/index.html">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/fontawesome-iconpicker-3.0.0/LICENSE">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/fontawesome-iconpicker-3.0.0/package-lock.json">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/fontawesome-iconpicker-3.0.0/package.json">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/fontawesome-iconpicker-3.0.0/README.md">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/fontawesome-iconpicker-3.0.0/src/icon.psd">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/fontawesome-iconpicker-3.0.0/src/js/iconpicker.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/fontawesome-iconpicker-3.0.0/src/js/jquery.ui.pos.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/fontawesome-iconpicker-3.0.0/src/js/license.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/fontawesome-iconpicker-3.0.0/src/less/iconpicker.less">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/fontawesome-iconpicker-3.0.0/src/less/popovers.less">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/fontawesome-iconpicker-3.0.0/src/less/variables.less">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/iconpicker/bootstrap-iconpicker-iconset-all.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/iconpicker/bootstrap-iconpicker.css">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/iconpicker/bootstrap-iconpicker.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Contents/Modules/Sys/plugins/iconpicker/bootstrap.v3.3.7.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Global.asax">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Views/web.config">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Web.config">
+      <publishTime>05/02/2024 14:04:12</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

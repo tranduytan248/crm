@@ -1,0 +1,102 @@
+﻿@model Core.Cate.Models.Cate_ServiceRequestsAddModel
+@using TSFramework.Libs.Processors
+@using System.Configuration
+
+@Html.AntiForgeryToken()
+@Html.ValidationMessage("CaptchaInputText", "", new { @class = "text-danger" })
+<link href="~/Contents/Base/plugins/ace_v4/node_modules/select2/dist/css/select2.css" rel="stylesheet" />
+@Html.HiddenFor(m => m.RequestType)
+<div class="">
+    <div class="title_template">Thông tin hiện tại</div>
+
+
+    <div class="row mx-auto">
+        <div class="col-5 pl-0 pr-1">
+            <!--mã HĐ-->
+            <div class="input-floating-label brc-blue-m1 mt-3">
+                @Html.TextBoxFor(m => m.ContractCode, new { @readonly = "", @class = "form-control shadow-none radius-5", placeholder = "", })
+                @Html.TitleFor(model => model.ContractCode, new { @class = "floating-label " })
+            </div>
+            @Html.ValidationMessageFor(model => model.ContractCode, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-7 pl-1 pr-0">
+            <!--MÃ KH-->
+            <div class="input-floating-label brc-blue-m1 mt-3   ">
+                @Html.TextBoxFor(m => m.CustomerCode, new { @readonly = "", @class = "form-control shadow-none radius-5", placeholder = "" })
+                @Html.TitleFor(model => model.CustomerCode, new { @class = "floating-label " })
+            </div>
+            @Html.ValidationMessageFor(model => model.CustomerCode, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <!--Tên KH-->
+    <div class="input-floating-label brc-blue-m1 mt-3">
+        @Html.TextBoxFor(m => m.RequesterName, new { @readonly = "", @class = "form-control shadow-none radius-5", placeholder = "" })
+        @Html.TitleFor(model => model.RequesterName, new { @class = "floating-label " })
+    </div>
+    @Html.ValidationMessageFor(model => model.RequesterName, "", new { @class = "text-danger" })
+
+    <div class="row mx-auto">
+        <div class="col-5 pl-0 pr-1">
+            <!--Số điện thoại-->
+            <div class="input-floating-label brc-blue-m1 mt-3">
+                @Html.TextBoxFor(m => m.Phone, new { @readonly = "", @class = "form-control shadow-none radius-5", placeholder = "" })
+                @Html.TitleFor(model => model.Phone, new { @class = "floating-label " })
+            </div>
+            @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <!--Địa chỉ thường trú-->
+    <div class="input-floating-label brc-blue-m1 mt-3">
+        @Html.TextAreaFor(m => m.AddressCus, new { @readonly = "", @class = "form-control shadow-none radius-5", placeholder = "", @rows = "1" })
+        @Html.TitleFor(model => model.AddressCus, new { @class = "floating-label " })
+    </div>
+    @Html.ValidationMessageFor(model => model.AddressCus, "", new { @class = "text-danger d-none" })
+</div>
+<div class="">
+    <div class="title_template">Thông tin liên hệ</div>
+
+    <div class="row mx-auto">
+        <div class="col-5 pl-0 pr-1">
+            <!--Số điện thoại-->
+            <div class="input-floating-label brc-blue-m1 mt-3">
+                @Html.TextBoxFor(m => m.PhoneContact, new { @class = "form-control shadow-none radius-5", placeholder = "", @onfocus = "$(\"#PhoneContact\").inputmask(\"9999999999\");" })
+                @Html.TitleFor(model => model.PhoneContact, new { @class = "floating-label " })
+            </div>
+            @Html.ValidationMessageFor(model => model.PhoneContact, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-7 pl-1 pr-0">
+            <!--Email-->
+            <div class="input-floating-label brc-blue-m1 mt-3">
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control shadow-none radius-5", placeholder = "", @onfocus = "$(\"#Email\").inputmask(\"email\");" })
+                @Html.TitleFor(model => model.Email, new { @class = "floating-label " })
+            </div>
+            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="input-floating-label brc-blue-m1 mt-3">
+        @Html.TextAreaFor(m => m.ContactInfo, new { @class = "form-control shadow-none radius-5", placeholder = "", @rows = "1" })
+        @Html.TitleFor(model => model.ContactInfo, new { @class = "floating-label " })
+    </div>
+    @Html.ValidationMessageFor(model => model.ContactInfo, "", new { @class = "text-danger" })
+</div>
+<div class="">
+    <div class="title_template">Thông tin <span id="loaiyc_title"></span></div>
+    <div class="input-floating-label brc-blue-m1 mt-3">
+        @Html.TextAreaFor(m => m.RequestDetails, new { @class = "form-control shadow-none radius-5", placeholder = "", @rows = "1" })
+        @Html.TitleFor(model => model.RequestDetails, new { @class = "floating-label " })
+    </div>
+    @Html.ValidationMessageFor(model => model.RequestDetails, "", new { @class = "text-danger" })
+    <div class="ml-2 mt-3">Đính kèm (nếu có)</div>
+    @Html.ValidationMessageFor(model => model.AttachedFiles, "", new { @class = "text-danger" })
+</div>
+@Html.RenderScripts(ScriptPosition.BodyInside)
+<script>
+    $(document).ready(function () {
+        $('#loaiyc_title').html(TitlePage)
+        for (var i = 0; i < $('.form-control').length; i++) {
+            $('.form-control').eq(i).attr('placeholder', ' ');
+        }
+        SetHeightTextarea(['AddressCus', 'RequestDetails', 'ContactInfo']);
+    });
+</script>

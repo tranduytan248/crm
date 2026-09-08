@@ -1,0 +1,604 @@
+﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C69BFABB-EE3B-4D42-8ED7-399A7E75FA73}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Modules.Cate</RootNamespace>
+    <AssemblyName>Modules.Cate</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort>44323</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BouncyCastle.Cryptography, Version=2.0.0.0, Culture=neutral, PublicKeyToken=072edcf4a5328938, processorArchitecture=MSIL">
+      <HintPath>..\packages\BouncyCastle.Cryptography.2.6.2\lib\net461\BouncyCastle.Cryptography.dll</HintPath>
+    </Reference>
+    <Reference Include="CaptchaMvc, Version=2.5.0.0, Culture=neutral, PublicKeyToken=fe46ad421dd3b0e6, processorArchitecture=MSIL">
+      <HintPath>..\packages\CaptchaMvc.Mvc5.1.5.0\lib\net45-full\CaptchaMvc.dll</HintPath>
+    </Reference>
+    <Reference Include="ClosedXML, Version=0.94.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ClosedXML.0.94.2\lib\net46\ClosedXML.dll</HintPath>
+    </Reference>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.20.0.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocumentFormat.OpenXml.2.20.0\lib\net46\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
+    <Reference Include="DocumentFormat.OpenXml.Framework, Version=3.0.1.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocumentFormat.OpenXml.Framework.3.0.1\lib\net46\DocumentFormat.OpenXml.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus">
+      <HintPath>..\CenIT.Solution.TOC.WebApp\Libraries\Authorities\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="ExcelNumberFormat, Version=1.1.0.0, Culture=neutral, PublicKeyToken=23c6f5d73be07eca, processorArchitecture=MSIL">
+      <HintPath>..\packages\ExcelNumberFormat.1.1.0\lib\net20\ExcelNumberFormat.dll</HintPath>
+    </Reference>
+    <Reference Include="FastMember, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FastMember.1.3.0\lib\net45\FastMember.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.HashCode, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.HashCode.1.1.1\lib\net461\Microsoft.Bcl.HashCode.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\lib\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=2.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.2.0.1\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenXmlPowerTools, Version=4.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Open-Xml-PowerTools.4.4.0\lib\net46\OpenXmlPowerTools.dll</HintPath>
+    </Reference>
+    <Reference Include="RBush, Version=4.0.0.0, Culture=neutral, PublicKeyToken=c77e27b81f4d0187, processorArchitecture=MSIL">
+      <HintPath>..\packages\RBush.Signed.4.0.0\lib\net47\RBush.dll</HintPath>
+    </Reference>
+    <Reference Include="SixLabors.Fonts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d998eea7b14cab13, processorArchitecture=MSIL">
+      <HintPath>..\packages\SixLabors.Fonts.1.0.0\lib\netstandard2.0\SixLabors.Fonts.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.9\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.6.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.7.0\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.9\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.9\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.9\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.9\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Data\Modules\Cate_StoredProcedures.xml" />
+    <Content Include="Areas\Cate\Views\AnniversaryType\AnniversaryType.js" />
+    <Content Include="Areas\Cate\Views\BusinessOpportunityOverview\BusinessOpportunityOverview.js" />
+    <Content Include="Areas\Cate\Views\BusinessOpportunityWeeklyReport\BusinessOpportunityWeeklyReport.js" />
+    <Content Include="Areas\Cate\Views\ProductServiceGroupFilePath\ProductServiceGroupFilePath.js" />
+    <Content Include="Areas\Cate\Views\ProjectTaskReport\ProjectTaskReport.js" />
+    <Content Include="Areas\Cate\Views\ProjectWeeklyTaskReport\ProjectWeeklyTaskReport.js" />
+    <Content Include="Areas\Cate\Views\Report_BusinessOpportunity\Report_BusinessOpportunity.js" />
+    <Content Include="Areas\Cate\Views\ReviewBatchItem\ReviewBatchItem.js" />
+    <Content Include="Areas\Cate\Views\ReviewBatch\ReviewBatch.js" />
+    <Content Include="Areas\Cate\Views\CustomerType\CustomerType.js" />
+    <Content Include="Areas\Cate\Views\EmployeeBusinessPlan\EmployeeBusinessPlan.js" />
+    <Content Include="Areas\Cate\Views\EmployeeBusinessPlan\ImportEmployeeBusinessPlan.js" />
+    <Content Include="Areas\Cate\Views\ProjectRevenueReport\ProjectRevenueReport.js" />
+    <Content Include="Areas\Cate\Views\RM_BusinessPlan\BusinessPlan.js" />
+    <Content Include="Contents\Modules\Cate\EmailTemplates\_TemplatePlanCreated.cshtml" />
+    <Content Include="Contents\Modules\Cate\EmailTemplates\_TemplatePlanRelatedPersonAdded.cshtml" />
+    <Content Include="Contents\Modules\Cate\EmailTemplates\_TemplatePlanReminder1Day.cshtml" />
+    <Content Include="Contents\Modules\Cate\EmailTemplates\_TemplatePlanReminder30Min.cshtml" />
+    <Content Include="Areas\Cate\Views\ContactPersons\ContactPersons.js" />
+    <Content Include="Areas\Cate\Views\CostType\CostType.js" />
+    <Content Include="Areas\Cate\Views\Customer\Customer.js" />
+    <Content Include="Areas\Cate\Views\Customer\Index.cshtml" />
+    <Content Include="Areas\Cate\Views\Customer\_Add.cshtml" />
+    <Content Include="Areas\Cate\Views\Customer\_AddCHKD.cshtml" />
+    <Content Include="Areas\Cate\Views\Customer\_AddCHKD_View.cshtml" />
+    <Content Include="Areas\Cate\Views\Customer\_Customer.cshtml" />
+    <Content Include="Areas\Cate\Views\Customer\_Delete.cshtml" />
+    <Content Include="Areas\Cate\Views\Customer\_Edit.cshtml" />
+    <Content Include="Areas\Cate\Views\Customer\_Search.cshtml" />
+    <Content Include="Areas\Cate\Views\FormUtils.js" />
+    <Content Include="Areas\Cate\Views\GroupService\GroupService.js" />
+    <Content Include="Areas\Cate\Views\LogTask\LogTask.js" />
+    <Content Include="Areas\Cate\Views\OpportunityPlanRelatedPerson\OpportunityPlanRelatedPerson.js" />
+    <Content Include="Areas\Cate\Views\ProductCost\ProductCost.js" />
+    <Content Include="Areas\Cate\Views\ProductProjectOverview\ProductProjectOverview.js" />
+    <Content Include="Areas\Cate\Views\ProductProject\ProductProject.js" />
+    <Content Include="Areas\Cate\Views\ProductService\ProductService.js" />
+    <Content Include="Areas\Cate\Views\ProjectMember\ProjectMember.js" />
+    <Content Include="Areas\Cate\Views\ProjectOverview\ProjectOverview.js" />
+    <Content Include="Areas\Cate\Views\ProjectTask\ProjectTask.js" />
+    <Content Include="Areas\Cate\Views\Project\Project.js" />
+    <Content Include="Areas\Cate\Views\RevenueReceived\RevenueReceived.js" />
+    <Content Include="Areas\Cate\Views\RM_BusinessOpportunity\RM_BusinessOpportunity.js" />
+    <Content Include="Areas\Cate\Views\RM_Contracts\RM_Contracts.js" />
+    <Content Include="Areas\Cate\Views\RM_ExchangeHistory\ExchangeHistory.js" />
+    <Content Include="Areas\Cate\Views\SalesTeamMembers\SalesTeamMembers.js" />
+    <Content Include="Areas\Cate\Views\TaskGroup\TaskGroup.js" />
+    <Content Include="Areas\Cate\Views\Task\Task.js" />
+    <Content Include="Areas\Cate\Views\web.config" />
+    <Content Include="Areas\Cate\Views\_ViewStart.cshtml" />
+    <Content Include="Global.asax" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\Cate\CateAreaRegistration.cs" />
+    <Compile Include="Areas\Cate\Controllers\AnniversaryTypeController.cs" />
+    <Compile Include="Areas\Cate\Controllers\BusinessOpportunityOverviewController.cs" />
+    <Compile Include="Areas\Cate\Controllers\BusinessOpportunityWeeklyReportController.cs" />
+    <Compile Include="Areas\Cate\Controllers\CommentController.cs" />
+    <Compile Include="Areas\Cate\Controllers\NotificationController.cs" />
+    <Compile Include="Areas\Cate\Controllers\ContactPersonsController.cs" />
+    <Compile Include="Areas\Cate\Controllers\InvoicesController.cs" />
+    <Compile Include="Areas\Cate\Controllers\ProductServiceGroupFilePathController.cs" />
+    <Compile Include="Areas\Cate\Controllers\ProjectTaskReportController.cs" />
+    <Compile Include="Areas\Cate\Controllers\ProjectWeeklyTaskReportController.cs" />
+    <Compile Include="Areas\Cate\Controllers\ChatbotController.cs" />
+    <Compile Include="Areas\Cate\Controllers\ReviewReportController.cs" />
+    <Compile Include="Areas\Cate\Controllers\OpportunityProjectWithoutPGPController.cs" />
+    <Compile Include="Areas\Cate\Controllers\Report_BusinessOpportunityController.cs" />
+    <Compile Include="Areas\Cate\Controllers\ReviewBatchItemController.cs" />
+    <Compile Include="Areas\Cate\Controllers\ReviewBatchController.cs" />
+    <Compile Include="Areas\Cate\Controllers\CostTypeController.cs" />
+    <Compile Include="Areas\Cate\Controllers\CustomerContactController.cs" />
+    <Compile Include="Areas\Cate\Controllers\CustomerController.cs" />
+    <Compile Include="Areas\Cate\Controllers\CustomerTypeController.cs" />
+    <Compile Include="Areas\Cate\Controllers\EmployeeBusinessPlanController.cs" />
+    <Compile Include="Areas\Cate\Controllers\GroupServiceController.cs" />
+    <Compile Include="Areas\Cate\Controllers\LogTaskController.cs" />
+    <Compile Include="Areas\Cate\Controllers\OpportunityPlanRelatedPersonController.cs" />
+    <Compile Include="Areas\Cate\Controllers\ProductCostController.cs" />
+    <Compile Include="Areas\Cate\Controllers\ProductProjectController.cs" />
+    <Compile Include="Areas\Cate\Controllers\ProductProjectOverviewController.cs" />
+    <Compile Include="Areas\Cate\Controllers\ProductServiceController.cs" />
+    <Compile Include="Areas\Cate\Controllers\ProjectController.cs" />
+    <Compile Include="Areas\Cate\Controllers\ProjectMemberController.cs" />
+    <Compile Include="Areas\Cate\Controllers\ProjectOverviewController.cs" />
+    <Compile Include="Areas\Cate\Controllers\ProjectRevenueReportController.cs" />
+    <Compile Include="Areas\Cate\Controllers\ProjectTaskController.cs" />
+    <Compile Include="Areas\Cate\Controllers\RevenueAllocationController.cs" />
+    <Compile Include="Areas\Cate\Controllers\RevenueReceivedController.cs" />
+    <Compile Include="Areas\Cate\Controllers\RM_BusinessOpportunityController.cs" />
+    <Compile Include="Areas\Cate\Controllers\RM_BusinessPlanController.cs" />
+    <Compile Include="Areas\Cate\Controllers\RM_ContractsController.cs" />
+    <Compile Include="Areas\Cate\Controllers\RM_ExchangeHistoryController.cs" />
+    <Compile Include="Areas\Cate\Controllers\SalesTeamMembersController.cs" />
+    <Compile Include="Areas\Cate\Controllers\TaskController.cs" />
+    <Compile Include="Areas\Cate\Controllers\TaskGroupController.cs" />
+    <Compile Include="Areas\Cate\Controllers\TaskManagementController.cs" />
+    <Compile Include="Areas\Cate\Data\ResultPageModel.cs" />
+    <Compile Include="Areas\Cate\Enums\EnumRequestStatus.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Processor\ExcelExportHelper.cs" />
+    <Compile Include="Processor\WordTemplateService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\web.config" />
+    <Content Include="Areas\Cate\Views\CostType\Index.cshtml" />
+    <Content Include="Areas\Cate\Views\CostType\_Add.cshtml" />
+    <Content Include="Areas\Cate\Views\CostType\_CostType.cshtml" />
+    <Content Include="Areas\Cate\Views\CostType\_Delete.cshtml" />
+    <Content Include="Areas\Cate\Views\CostType\_Edit.cshtml" />
+    <Content Include="Areas\Cate\Views\Customer\IndexBusinessOpportunity.cshtml" />
+    <Content Include="Areas\Cate\Views\Customer\_BusinessOpportunityView.cshtml" />
+    <Content Include="Areas\Cate\Views\Customer\_ContactPersonTemplate.cshtml" />
+    <Content Include="Areas\Cate\Views\Customer\_DeleteCHKD.cshtml" />
+    <Content Include="Areas\Cate\Views\Customer\_EditCHKD.cshtml" />
+    <Content Include="Areas\Cate\Views\Customer\_SearchBusinessOpportunity.cshtml" />
+    <Content Include="Areas\Cate\Views\ProductCost\Index.cshtml" />
+    <Content Include="Areas\Cate\Views\ProductCost\_Add.cshtml" />
+    <Content Include="Areas\Cate\Views\ProductCost\_Delete.cshtml" />
+    <Content Include="Areas\Cate\Views\ProductCost\_Edit.cshtml" />
+    <Content Include="Areas\Cate\Views\ProductCost\_ProductCost.cshtml" />
+    <Content Include="Areas\Cate\Views\ProductProjectOverview\Index.cshtml" />
+    <Content Include="Areas\Cate\Views\ProductProjectOverview\_Member.cshtml" />
+    <Content Include="Areas\Cate\Views\ProductProjectOverview\_ProductCost.cshtml" />
+    <Content Include="Areas\Cate\Views\ProductProjectOverview\_ProductProjectOverview.cshtml" />
+    <Content Include="Areas\Cate\Views\ProductProjectOverview\_ProjectTask.cshtml" />
+    <Content Include="Areas\Cate\Views\ProductProjectOverview\_RevenueReceived.cshtml" />
+    <Content Include="Areas\Cate\Views\ProductProject\Index.cshtml" />
+    <Content Include="Areas\Cate\Views\ProductProject\_Add.cshtml" />
+    <Content Include="Areas\Cate\Views\ProductProject\_Delete.cshtml" />
+    <Content Include="Areas\Cate\Views\ProductProject\_Edit.cshtml" />
+    <Content Include="Areas\Cate\Views\ProductProject\_ProductProject.cshtml" />
+    <Content Include="Areas\Cate\Views\ProductService\Index.cshtml" />
+    <Content Include="Areas\Cate\Views\ProductService\_Add.cshtml" />
+    <Content Include="Areas\Cate\Views\ProductService\_Delete.cshtml" />
+    <Content Include="Areas\Cate\Views\ProductService\_Edit.cshtml" />
+    <Content Include="Areas\Cate\Views\ProductService\_ProductService.cshtml" />
+    <Content Include="Areas\Cate\Views\ProjectMember\_Add.cshtml" />
+    <Content Include="Areas\Cate\Views\ProjectMember\_AddProjectMember.cshtml" />
+    <Content Include="Areas\Cate\Views\ProjectMember\_Delete.cshtml" />
+    <Content Include="Areas\Cate\Views\ProjectMember\_Edit.cshtml" />
+    <Content Include="Areas\Cate\Views\ProjectMember\_List.cshtml" />
+    <Content Include="Areas\Cate\Views\ProjectMember\_ProjectMember.cshtml" />
+    <Content Include="Areas\Cate\Views\Notification\_HeaderNotifications.cshtml" />
+    <Content Include="Areas\Cate\Views\ProjectOverview\Index.cshtml" />
+    <Content Include="Areas\Cate\Views\ProjectOverview\_Product.cshtml" />
+    <Content Include="Areas\Cate\Views\ProjectOverview\_Project.cshtml" />
+    <Content Include="Areas\Cate\Views\ProjectTask\_Add.cshtml" />
+    <Content Include="Areas\Cate\Views\ProjectTask\_Delete.cshtml" />
+    <Content Include="Areas\Cate\Views\ProjectTask\_Edit.cshtml" />
+    <Content Include="Areas\Cate\Views\ProjectTask\_ProjectTask.cshtml" />
+    <Content Include="Areas\Cate\Views\Project\Index.cshtml" />
+    <Content Include="Areas\Cate\Views\Project\_Add.cshtml" />
+    <Content Include="Areas\Cate\Views\Project\_Delete.cshtml" />
+    <Content Include="Areas\Cate\Views\Project\_Edit.cshtml" />
+    <Content Include="Areas\Cate\Views\Project\_Project.cshtml" />
+    <Content Include="Areas\Cate\Views\Project\_Search.cshtml" />
+    <Content Include="Areas\Cate\Views\RevenueReceived\Index.cshtml" />
+    <Content Include="Areas\Cate\Views\RevenueReceived\_Add.cshtml" />
+    <Content Include="Areas\Cate\Views\RevenueReceived\_Delete.cshtml" />
+    <Content Include="Areas\Cate\Views\RevenueReceived\_Edit.cshtml" />
+    <Content Include="Areas\Cate\Views\RM_BusinessOpportunity\Index.cshtml" />
+    <Content Include="Areas\Cate\Views\RM_BusinessOpportunity\_CHKD_View.cshtml" />
+    <Content Include="Areas\Cate\Views\RM_BusinessOpportunity\_Delete.cshtml" />
+    <Content Include="Areas\Cate\Views\RM_BusinessOpportunity\_Edit.cshtml" />
+    <Content Include="Areas\Cate\Views\RM_BusinessOpportunity\_ExchangeHistory.cshtml" />
+    <Content Include="Areas\Cate\Views\RM_BusinessOpportunity\_LichSuPhieu.cshtml" />
+    <Content Include="Areas\Cate\Views\RM_BusinessOpportunity\_Search.cshtml" />
+    <Content Include="Areas\Cate\Views\RM_BusinessOpportunity\_UpdateStatus.cshtml" />
+    <Content Include="Areas\Cate\Views\RM_BusinessOpportunity\_ViewContent.cshtml" />
+    <Content Include="Areas\Cate\Views\RM_Contracts\Index.cshtml" />
+    <Content Include="Areas\Cate\Views\RM_Contracts\_Add.cshtml" />
+    <Content Include="Areas\Cate\Views\RM_Contracts\_Delete.cshtml" />
+    <Content Include="Areas\Cate\Views\RM_Contracts\_Edit.cshtml" />
+    <Content Include="Areas\Cate\Views\RM_ExchangeHistory\Index.cshtml" />
+    <Content Include="Areas\Cate\Views\RM_ExchangeHistory\_Delete.cshtml" />
+    <Content Include="Areas\Cate\Views\RM_ExchangeHistory\_Edit.cshtml" />
+    <Content Include="Areas\Cate\Views\RM_ExchangeHistory\_ExchangeHistory.cshtml" />
+    <Content Include="Areas\Cate\Views\SalesTeamMembers\_Add.cshtml" />
+    <Content Include="Areas\Cate\Views\SalesTeamMembers\_AddSalesTeamMembers.cshtml" />
+    <Content Include="Areas\Cate\Views\SalesTeamMembers\_Delete.cshtml" />
+    <Content Include="Areas\Cate\Views\SalesTeamMembers\_Edit.cshtml" />
+    <Content Include="Areas\Cate\Views\SalesTeamMembers\_List.cshtml" />
+    <Content Include="Areas\Cate\Views\SalesTeamMembers\_SalesTeamMembers.cshtml" />
+    <Content Include="Areas\Cate\Views\TaskGroup\Index.cshtml" />
+    <Content Include="Areas\Cate\Views\TaskGroup\_Add.cshtml" />
+    <Content Include="Areas\Cate\Views\TaskGroup\_Delete.cshtml" />
+    <Content Include="Areas\Cate\Views\TaskGroup\_Edit.cshtml" />
+    <Content Include="Areas\Cate\Views\TaskGroup\_TaskGroup.cshtml" />
+    <Content Include="Areas\Cate\Views\Task\Index.cshtml" />
+    <Content Include="Areas\Cate\Views\Task\_Add.cshtml" />
+    <Content Include="Areas\Cate\Views\Task\_Delete.cshtml" />
+    <Content Include="Areas\Cate\Views\Task\_Edit.cshtml" />
+    <Content Include="Areas\Cate\Views\Task\_Search.cshtml" />
+    <Content Include="Areas\Cate\Views\Task\_Task.cshtml" />
+    <Content Include="Areas\Cate\Views\RevenueAllocation\_RevenueAllocation.cshtml" />
+    <Content Include="Areas\Cate\Views\LogTask\_DeleteFile.cshtml" />
+    <Content Include="Areas\Cate\Views\LogTask\_EditLog.cshtml" />
+    <Content Include="Areas\Cate\Views\LogTask\_LichSuLog.cshtml" />
+    <Content Include="Areas\Cate\Views\LogTask\_LogTask.cshtml" />
+    <Content Include="Areas\Cate\Views\LogTask\_UpdateProgress.cshtml" />
+    <Content Include="Areas\Cate\Views\Customer\_AddAnniversary.cshtml" />
+    <Content Include="Areas\Cate\Views\Customer\_AnniversaryView.cshtml" />
+    <Content Include="Areas\Cate\Views\Customer\_Anniversary_View.cshtml" />
+    <Content Include="Areas\Cate\Views\Customer\_DeleteAnniversary.cshtml" />
+    <Content Include="Areas\Cate\Views\Customer\_EditAnniversary.cshtml" />
+    <Content Include="Areas\Cate\Views\Customer\IndexAnniversary.cshtml" />
+    <Content Include="Areas\Cate\Views\AnniversaryType\Index.cshtml" />
+    <Content Include="Areas\Cate\Views\AnniversaryType\_Add.cshtml" />
+    <Content Include="Areas\Cate\Views\AnniversaryType\_AnniversaryType.cshtml" />
+    <Content Include="Areas\Cate\Views\AnniversaryType\_Delete.cshtml" />
+    <Content Include="Areas\Cate\Views\AnniversaryType\_Edit.cshtml" />
+    <Content Include="Areas\Cate\Views\RM_Contracts\_Search.cshtml" />
+    <Content Include="Areas\Cate\Views\ContactPersons\Index.cshtml" />
+    <Content Include="Areas\Cate\Views\ContactPersons\_Add.cshtml" />
+    <Content Include="Areas\Cate\Views\ContactPersons\_ContactPersons.cshtml" />
+    <Content Include="Areas\Cate\Views\ContactPersons\_Delete.cshtml" />
+    <Content Include="Areas\Cate\Views\ContactPersons\_Edit.cshtml" />
+    <Content Include="Areas\Cate\Views\CustomerContact\_Add.cshtml" />
+    <Content Include="Areas\Cate\Views\CustomerContact\_AddCustomerContactDetail.cshtml" />
+    <Content Include="Areas\Cate\Views\CustomerContact\_CustomerContact.cshtml" />
+    <Content Include="Areas\Cate\Views\CustomerContact\_CustomerContactDetail.cshtml" />
+    <Content Include="Areas\Cate\Views\CustomerContact\_DeleteCustomerContactDetail.cshtml" />
+    <Content Include="Areas\Cate\Views\CustomerContact\_EditCustomerContactDetail.cshtml" />
+    <Content Include="Areas\Cate\Views\GroupService\Index.cshtml" />
+    <Content Include="Areas\Cate\Views\GroupService\_Add.cshtml" />
+    <Content Include="Areas\Cate\Views\GroupService\_Delete.cshtml" />
+    <Content Include="Areas\Cate\Views\GroupService\_Edit.cshtml" />
+    <Content Include="Areas\Cate\Views\GroupService\_GroupService.cshtml" />
+    <Content Include="Areas\Cate\Views\GroupService\_Search.cshtml" />
+    <Content Include="Areas\Cate\Views\Customer\_Import.cshtml" />
+    <Content Include="Areas\Cate\Views\ContactPersons\_Search.cshtml" />
+    <Content Include="Areas\Cate\Views\ContactPersons\_Import.cshtml" />
+    <Content Include="Areas\Cate\Views\RM_BusinessOpportunity\_Add.cshtml" />
+    <Content Include="Areas\Cate\Views\RM_BusinessOpportunity\_AddCHKD_View.cshtml" />
+    <Content Include="Areas\Cate\Views\RM_BusinessOpportunity\_ConvertProject.cshtml" />
+    <Content Include="Areas\Cate\Views\RM_BusinessOpportunity\_ConvertProjectForm.cshtml" />
+    <Content Include="Areas\Cate\Views\RM_BusinessOpportunity\_DeleteFile.cshtml" />
+    <Content Include="Areas\Cate\Views\RM_BusinessOpportunity\_EditEH.cshtml" />
+    <Content Include="Areas\Cate\Views\RM_BusinessOpportunity\_EditExchangeHistory.cshtml" />
+    <Content Include="Areas\Cate\Views\RM_BusinessOpportunity\_ViewHistory.cshtml" />
+    <Content Include="Areas\Cate\Views\BusinessOpportunityOverview\Index.cshtml" />
+    <Content Include="Areas\Cate\Views\BusinessOpportunityOverview\_DetailInfo.cshtml" />
+    <Content Include="Areas\Cate\Views\BusinessOpportunityOverview\_Members.cshtml" />
+    <Content Include="Areas\Cate\Views\BusinessOpportunityOverview\_PlanForm.cshtml" />
+    <Content Include="Areas\Cate\Views\BusinessOpportunityOverview\_Plans.cshtml" />
+    <Content Include="Areas\Cate\Views\OpportunityPlanRelatedPerson\_Add.cshtml" />
+    <Content Include="Areas\Cate\Views\OpportunityPlanRelatedPerson\_AddRelatedPerson.cshtml" />
+    <Content Include="Areas\Cate\Views\OpportunityPlanRelatedPerson\_Delete.cshtml" />
+    <Content Include="Areas\Cate\Views\OpportunityPlanRelatedPerson\_List.cshtml" />
+    <Content Include="Areas\Cate\Views\CustomerType\Index.cshtml" />
+    <Content Include="Areas\Cate\Views\CustomerType\_Add.cshtml" />
+    <Content Include="Areas\Cate\Views\CustomerType\_CustomerType.cshtml" />
+    <Content Include="Areas\Cate\Views\CustomerType\_Delete.cshtml" />
+    <Content Include="Areas\Cate\Views\CustomerType\_Edit.cshtml" />
+    <Content Include="Areas\Cate\Views\EmployeeBusinessPlan\EmployeeBusinessPlan.cshtml" />
+    <Content Include="Areas\Cate\Views\EmployeeBusinessPlan\Import.cshtml" />
+    <Content Include="Areas\Cate\Views\EmployeeBusinessPlan\Index.cshtml" />
+    <Content Include="Areas\Cate\Views\EmployeeBusinessPlan\_Add.cshtml" />
+    <Content Include="Areas\Cate\Views\EmployeeBusinessPlan\_Clear.cshtml" />
+    <Content Include="Areas\Cate\Views\EmployeeBusinessPlan\_Delete.cshtml" />
+    <Content Include="Areas\Cate\Views\EmployeeBusinessPlan\_Edit.cshtml" />
+    <Content Include="Areas\Cate\Views\EmployeeBusinessPlan\_EmployeeBusinessPlan.cshtml" />
+    <Content Include="Areas\Cate\Views\EmployeeBusinessPlan\_ImportData.cshtml" />
+    <Content Include="Areas\Cate\Views\EmployeeBusinessPlan\_ImportDataView.cshtml" />
+    <Content Include="Areas\Cate\Views\EmployeeBusinessPlan\_Save.cshtml" />
+    <Content Include="Areas\Cate\Views\EmployeeBusinessPlan\_Search.cshtml" />
+    <Content Include="Areas\Cate\Views\RM_BusinessPlan\EmployeeBusinessPlan.cshtml" />
+    <Content Include="Areas\Cate\Views\RM_BusinessPlan\Index.cshtml" />
+    <Content Include="Areas\Cate\Views\RM_BusinessPlan\_Add.cshtml" />
+    <Content Include="Areas\Cate\Views\RM_BusinessPlan\_BusinessPlan.cshtml" />
+    <Content Include="Areas\Cate\Views\RM_BusinessPlan\_Delete.cshtml" />
+    <Content Include="Areas\Cate\Views\RM_BusinessPlan\_Edit.cshtml" />
+    <Content Include="Areas\Cate\Views\ProjectOverview\_Contracts.cshtml" />
+    <Content Include="Areas\Cate\Views\RM_BusinessOpportunity\_FilePreviewScripts.cshtml" />
+    <Content Include="Areas\Cate\Views\RevenueReceived\_RevenueReceived.cshtml" />
+    <Content Include="Areas\Cate\Views\RM_Contracts\_Contract.cshtml" />
+    <Content Include="Contents\Modules\Cate\EmailTemplates\_TemplateBusinessOpportunityMemberAdded.cshtml" />
+    <Content Include="Contents\Modules\Cate\EmailTemplates\_TemplateBusinessOpportunityMemberRemoved.cshtml" />
+    <Content Include="Areas\Cate\Views\BusinessOpportunityWeeklyReport\Index.cshtml" />
+    <Content Include="Areas\Cate\Views\BusinessOpportunityWeeklyReport\_Report.cshtml" />
+    <Content Include="Areas\Cate\Views\BusinessOpportunityWeeklyReport\_Search.cshtml" />
+    <Content Include="Areas\Cate\Views\ProjectRevenueReport\Index.cshtml" />
+    <Content Include="Areas\Cate\Views\ProjectRevenueReport\_Report.cshtml" />
+    <Content Include="Areas\Cate\Views\ProjectRevenueReport\_Search.cshtml" />
+    <Content Include="Areas\Cate\Views\ProjectTask\_AddFromTaskGroup.cshtml" />
+    <Content Include="Areas\Cate\Views\ProjectTask\_AddFromTaskGroupForm.cshtml" />
+    <Content Include="Areas\Cate\Views\ProjectTask\_AddFromTaskGroupSearch.cshtml" />
+    <Content Include="Areas\Cate\Views\TaskManagement\Index.cshtml" />
+    <Content Include="Areas\Cate\Views\ProductService\_Detail.cshtml" />
+    <Content Include="Areas\Cate\Views\LogTask\_AddLog.cshtml" />
+    <Content Include="Areas\Cate\Views\TaskManagement\Detail.cshtml" />
+    <Content Include="Areas\Cate\Views\TaskManagement\_Add.cshtml" />
+    <Content Include="Areas\Cate\Views\TaskManagement\_Edit.cshtml" />
+    <Content Include="Areas\Cate\Views\TaskManagement\_Search.cshtml" />
+    <Content Include="Areas\Cate\Views\TaskManagement\_TaskDetailForm.cshtml" />
+    <Content Include="Areas\Cate\Views\TaskManagement\_TaskDetailView.cshtml" />
+    <Content Include="Areas\Cate\Views\Comment\_Add.cshtml" />
+    <Content Include="Areas\Cate\Views\Comment\_Comment.cshtml" />
+    <Content Include="Areas\Cate\Views\Comment\_Delete.cshtml" />
+    <Content Include="Areas\Cate\Views\Comment\_Edit.cshtml" />
+    <Content Include="Areas\Cate\Views\LogTask\_DeleteLog.cshtml" />
+    <Content Include="Areas\Cate\Views\Comment\_DeleteFile.cshtml" />
+    <Content Include="Areas\Cate\Views\ProductProjectOverview\_Contracts.cshtml" />
+    <Content Include="Areas\Cate\Views\RM_Contracts\_Detail.cshtml" />
+    <Content Include="Areas\Cate\Views\BusinessOpportunityOverview\_BoHeader.cshtml" />
+    <Content Include="Areas\Cate\Views\ProjectOverview\_TaskManagements.cshtml" />
+    <Content Include="Areas\Cate\Views\ProjectOverview\_TaskManagementsData.cshtml" />
+    <Content Include="Areas\Cate\Views\RM_Contracts\_Contracts.cshtml" />
+    <Content Include="Areas\Cate\Views\ReviewBatch\_Add.cshtml" />
+    <Content Include="Areas\Cate\Views\ReviewBatch\_ReviewBatch.cshtml" />
+    <Content Include="Areas\Cate\Views\ReviewBatch\_Delete.cshtml" />
+    <Content Include="Areas\Cate\Views\ReviewBatch\_Edit.cshtml" />
+    <Content Include="Areas\Cate\Views\ReviewBatch\Index.cshtml" />
+    <Content Include="Areas\Cate\Views\Invoices\_Add.cshtml" />
+    <Content Include="Areas\Cate\Views\Invoices\_Delete.cshtml" />
+    <Content Include="Areas\Cate\Views\Invoices\_Edit.cshtml" />
+    <Content Include="Areas\Cate\Views\Invoices\_FilePaths.cshtml" />
+    <Content Include="Areas\Cate\Views\Invoices\_Invoices.cshtml" />
+    <Content Include="Areas\Cate\Views\Invoices\_List.cshtml" />
+    <Content Include="Areas\Cate\Views\ReviewBatchItem\_BusinessOpportunity.cshtml" />
+    <Content Include="Areas\Cate\Views\ReviewBatchItem\_Project.cshtml" />
+    <Content Include="Areas\Cate\Views\ReviewBatchItem\Index.cshtml" />
+    <Content Include="Areas\Cate\Views\ReviewBatchItem\_SearchProject.cshtml" />
+    <Content Include="Areas\Cate\Views\ReviewBatchItem\_SearchBusinessOpportunity.cshtml" />
+    <Content Include="Areas\Cate\Views\OpportunityProjectWithoutPGP\Index.cshtml" />
+    <Content Include="Areas\Cate\Views\OpportunityProjectWithoutPGP\_Search.cshtml" />
+    <Content Include="Areas\Cate\Views\Invoices\_Detail.cshtml" />
+    <Content Include="Areas\Cate\Views\ReviewBatchItem\_ReviewBatch.cshtml" />
+    <Content Include="Areas\Cate\Views\ReviewBatchItem\_ReviewForm.cshtml" />
+    <Content Include="Areas\Cate\Views\ReviewBatchItem\_ReviewHistory.cshtml" />
+    <Content Include="Areas\Cate\Views\Report_BusinessOpportunity\Index.cshtml" />
+    <Content Include="Areas\Cate\Views\ReviewReport\_Search.cshtml" />
+    <Content Include="Areas\Cate\Views\ReviewReport\Index.cshtml" />
+    <Content Include="Areas\Cate\Views\ReviewBatchItem\_EditHistory.cshtml" />
+    <Content Include="Areas\Cate\Views\ProductService\_Search.cshtml" />
+    <Content Include="Areas\Cate\Views\BusinessOpportunityOverview\_Notification.cshtml" />
+    <Content Include="Areas\Cate\Views\Project\_ViewHistory.cshtml" />
+    <Content Include="Areas\Cate\Views\Project\_TaskManagementsData.cshtml" />
+    <Content Include="Areas\Cate\Views\TaskManagement\_Delete.cshtml" />
+    <Content Include="Areas\Cate\Views\ProductServiceGroupFilePath\_Add.cshtml" />
+    <Content Include="Areas\Cate\Views\ProductServiceGroupFilePath\_Delete.cshtml" />
+    <Content Include="Areas\Cate\Views\ProductServiceGroupFilePath\_Edit.cshtml" />
+    <Content Include="Areas\Cate\Views\ProductServiceGroupFilePath\_FilePaths.cshtml" />
+    <Content Include="Areas\Cate\Views\ProductServiceGroupFilePath\_List.cshtml" />
+    <Content Include="Areas\Cate\Views\ProductServiceGroupFilePath\_ProductServiceGroupFilePath.cshtml" />
+    <Content Include="Areas\Cate\Views\ProductServiceGroupFilePath\_ViewFile.cshtml" />
+    <Content Include="Areas\Cate\Views\ProjectWeeklyTaskReport\index.cshtml" />
+    <Content Include="Areas\Cate\Views\ProjectWeeklyTaskReport\_Report.cshtml" />
+    <Content Include="Areas\Cate\Views\ProjectWeeklyTaskReport\_Search.cshtml" />
+    <Content Include="Areas\Cate\Views\ProjectTaskReport\_Report.cshtml" />
+    <Content Include="Areas\Cate\Views\ProjectTaskReport\_Search.cshtml" />
+    <Content Include="Areas\Cate\Views\ProjectTaskReport\index.cshtml" />
+    <None Include="packages.config" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+    <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CenIT.Libs.HDDT\CenIT.Libs.HDDT.csproj">
+      <Project>{EC9CC7BF-CC18-4DDF-A8C3-9508F09DC8AE}</Project>
+      <Name>CenIT.Libs.HDDT</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Core.Cate\Core.Cate.csproj">
+      <Project>{72F9F77B-E45D-4EB6-8C6E-CC6E73EB643E}</Project>
+      <Name>Core.Cate</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Core.Sys\Core.Sys.csproj">
+      <Project>{02E4AF30-0E59-4F60-B33B-62FEAC5E88E1}</Project>
+      <Name>Core.Sys</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Libs.VNPTMoney.Payment\Libs.VNPTMoney.Payment.csproj">
+      <Project>{A57C7EFA-22DE-44E1-9FE3-57D6CEB3B60A}</Project>
+      <Name>Libs.VNPTMoney.Payment</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TSFramework.Libs\TSFramework.Libs.csproj">
+      <Project>{C7BB973B-8277-4950-BFFD-C0BE12847D49}</Project>
+      <Name>TSFramework.Libs</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Areas\Cate\Views\BusinessOpportunityOverview\_PlanDelete.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>57995</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44323/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+          <servers defaultServer="SelfHostServer">
+            <server name="SelfHostServer" exePath="" cmdArgs="" url="http://localhost:57995/" workingDir="" />
+          </servers>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <PropertyGroup>
+    <PostBuildEvent>Robocopy $(ProjectDir)App_Data\Modules $(SolutionDir)\CenIT.Solution.TOC.WebApp\App_Data\Modules /s
+Robocopy $(ProjectDir)Configs\Modules $(SolutionDir)\CenIT.Solution.TOC.WebApp\Configs\Modules /s
+Robocopy $(ProjectDir)Areas\Cate\Views $(SolutionDir)\CenIT.Solution.TOC.WebApp\Areas\Cate\Views /s
+Robocopy $(ProjectDir)Contents\Modules $(SolutionDir)\CenIT.Solution.TOC.WebApp\Contents\Modules /s
+xcopy /Y "$(ProjectName).dll" "$(SolutionDir)\CenIT.Solution.TOC.WebApp\bin"</PostBuildEvent>
+  </PropertyGroup>
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

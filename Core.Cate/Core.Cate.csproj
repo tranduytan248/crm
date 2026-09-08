@@ -1,0 +1,329 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{72F9F77B-E45D-4EB6-8C6E-CC6E73EB643E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Core.Cate</RootNamespace>
+    <AssemblyName>Core.Cate</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Google.Apis, Version=1.68.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.1.68.0\lib\net462\Google.Apis.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.Auth, Version=1.68.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\CenIT.Solution.TOC.WebApp\bin\Google.Apis.Auth.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.Core, Version=1.68.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.Core.1.68.0\lib\net462\Google.Apis.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=2.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.2.0.1\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.9\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.9\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Biz\Cate_CustomerBiz.cs" />
+    <Compile Include="Biz\Cate_ProductServiceBiz.cs" />
+    <Compile Include="Biz\MN_BoPhanBiz.cs" />
+    <Compile Include="Biz\MN_ChucVuBiz.cs" />
+    <Compile Include="Biz\MN_EmployeeBiz.cs" />
+    <Compile Include="Biz\ReviewReportBiz.cs" />
+    <Compile Include="Biz\OpportunityProjectWithoutPGPBiz.cs" />
+    <Compile Include="Biz\RM_AnniversaryTypeBiz.cs" />
+    <Compile Include="Biz\RM_BillingCyclesBiz.cs" />
+    <Compile Include="Biz\RM_BusinessOpportunityBiz.cs" />
+    <Compile Include="Biz\RM_BusinessOpportunityWeeklyReportBiz.cs" />
+    <Compile Include="Biz\RM_BusinessPlanBiz.cs" />
+    <Compile Include="Biz\RM_CommentBiz.cs" />
+    <Compile Include="Biz\RM_ContractRemindersBiz.cs" />
+    <Compile Include="Biz\ReminderMailBiz.cs" />
+    <Compile Include="Biz\RM_InvoicesBiz.cs" />
+    <Compile Include="Biz\RM_ProductServiceGroupFilePathBiz.cs" />
+    <Compile Include="Biz\RM_ProjectTaskReportBiz.cs" />
+    <Compile Include="Biz\RM_ProjectWeeklyTaskReportBiz.cs" />
+    <Compile Include="Biz\RM_Report_BusinessOpportunityBiz.cs" />
+    <Compile Include="Biz\ChatbotBiz.cs" />
+    <Compile Include="Biz\RM_ReviewBatchItemBiz.cs" />
+    <Compile Include="Biz\RM_ReviewBatchBiz.cs" />
+    <Compile Include="Biz\RM_ProductServiceFilePathBiz.cs" />
+    <Compile Include="Biz\RM_BusinessPlanFilePathBiz.cs" />
+    <Compile Include="Biz\RM_ContactPersonsBiz.cs" />
+    <Compile Include="Biz\RM_ContractsBiz.cs" />
+    <Compile Include="Biz\RM_CostTypeBiz.cs" />
+    <Compile Include="Biz\RM_CustomerAnniversaryBiz.cs" />
+    <Compile Include="Biz\RM_CustomerBiz.cs" />
+    <Compile Include="Biz\RM_CustomerContactBiz.cs" />
+    <Compile Include="Biz\RM_CustomerStatusBiz.cs" />
+    <Compile Include="Biz\RM_CustomerTypeBiz.cs" />
+    <Compile Include="Biz\RM_DashboardBiz.cs" />
+    <Compile Include="Biz\RM_NotificationBiz.cs" />
+    <Compile Include="Biz\RM_Employee_BusinessPlanBiz.cs" />
+    <Compile Include="Biz\RM_ExchangeHistoryBiz.cs" />
+    <Compile Include="Biz\RM_BusinessOpportunityFilePathBiz.cs" />
+    <Compile Include="Biz\RM_ExchangeHistoryFilePathBiz.cs" />
+    <Compile Include="Biz\RM_GroupServiceBiz.cs" />
+    <Compile Include="Biz\RM_LogTaskBiz.cs" />
+    <Compile Include="Biz\RM_OpportunityDashboardBiz.cs" />
+    <Compile Include="Biz\RM_OpportunityPlanBiz.cs" />
+    <Compile Include="Biz\RM_OpportunityPlanRelatedPersonBiz.cs" />
+    <Compile Include="Biz\RM_OpportunityPlanReminderBiz.cs" />
+    <Compile Include="Biz\RM_OpportunityStatusBiz.cs" />
+    <Compile Include="Biz\RM_PriorityBiz.cs" />
+    <Compile Include="Biz\RM_ProductCostBiz.cs" />
+    <Compile Include="Biz\RM_ProductProjectBiz.cs" />
+    <Compile Include="Biz\RM_ProjectBiz.cs" />
+    <Compile Include="Biz\RM_ProjectMemberBiz.cs" />
+    <Compile Include="Biz\RM_ProjectRevenueReportBiz.cs" />
+    <Compile Include="Biz\RM_ProjectTaskBiz.cs" />
+    <Compile Include="Biz\RM_RevenueAllocationBiz.cs" />
+    <Compile Include="Biz\RM_RevenueReceivedBiz.cs" />
+    <Compile Include="Biz\RM_RolesBiz.cs" />
+    <Compile Include="Biz\RM_SalesTeamMembersBiz.cs" />
+    <Compile Include="Biz\RM_StatusBiz.cs" />
+    <Compile Include="Biz\RM_TaskActivityBiz.cs" />
+    <Compile Include="Biz\RM_TaskAssigneeBiz.cs" />
+    <Compile Include="Biz\RM_TaskBiz.cs" />
+    <Compile Include="Biz\RM_TaskGroupBiz.cs" />
+    <Compile Include="Biz\RM_TaskManagementBiz.cs" />
+    <Compile Include="Biz\RM_TaskStatusBiz.cs" />
+    <Compile Include="Biz\RM_TaskTypeBiz.cs" />
+    <Compile Include="Caches\Cate_CustomerCache.cs" />
+    <Compile Include="Caches\Cate_ProductServiceCache.cs" />
+    <Compile Include="Caches\MN_BoPhanCache.cs" />
+    <Compile Include="Caches\MN_ChucVuCache.cs" />
+    <Compile Include="Caches\MN_EmployeeCache.cs" />
+    <Compile Include="Caches\ReviewReportCache.cs" />
+    <Compile Include="Caches\OpportunityProjectWithoutPGPCache.cs" />
+    <Compile Include="Caches\RM_AnniversaryTypeCache.cs" />
+    <Compile Include="Caches\RM_BillingCyclesCache.cs" />
+    <Compile Include="Caches\RM_BusinessOpportunityCache.cs" />
+    <Compile Include="Caches\RM_BusinessOpportunityWeeklyReportCache.cs" />
+    <Compile Include="Caches\RM_BusinessPlanCache.cs" />
+    <Compile Include="Caches\RM_CommentCache.cs" />
+    <Compile Include="Caches\RM_ContractRemindersCache.cs" />
+    <Compile Include="Caches\RM_InvoicesCache.cs" />
+    <Compile Include="Caches\RM_ProductServiceGroupFilePathCache.cs" />
+    <Compile Include="Caches\RM_ProjectTaskReportCache.cs" />
+    <Compile Include="Caches\RM_ProjectWeeklyTaskReportCache.cs" />
+    <Compile Include="Caches\RM_Report_BusinessOpportunityCache.cs" />
+    <Compile Include="Caches\ChatbotCache.cs" />
+    <Compile Include="Caches\RM_ReviewBatchItemCache.cs" />
+    <Compile Include="Caches\RM_ReviewBatchCache.cs" />
+    <Compile Include="Caches\RM_ProductServiceFilePathCache.cs" />
+    <Compile Include="Caches\RM_BusinessPlanFilePathCache.cs" />
+    <Compile Include="Caches\RM_ContactPersonsCache.cs" />
+    <Compile Include="Caches\RM_ContractsCache.cs" />
+    <Compile Include="Caches\RM_CostTypeCache.cs" />
+    <Compile Include="Caches\RM_CustomerAnniversaryCache.cs" />
+    <Compile Include="Caches\RM_CustomerCache.cs" />
+    <Compile Include="Caches\RM_CustomerContactCache.cs" />
+    <Compile Include="Caches\RM_CustomerStatusCache.cs" />
+    <Compile Include="Caches\RM_CustomerTypeCache.cs" />
+    <Compile Include="Caches\RM_DashboardCache.cs" />
+    <Compile Include="Caches\RM_Employee_BusinessPlanCache.cs" />
+    <Compile Include="Caches\RM_ExchangeHistoryCache.cs" />
+    <Compile Include="Caches\RM_BusinessOpportunityFilePathCache.cs" />
+    <Compile Include="Caches\RM_ExchangeHistoryFilePathCache.cs" />
+    <Compile Include="Caches\RM_GroupServiceCache.cs" />
+    <Compile Include="Caches\RM_LogTaskCache.cs" />
+    <Compile Include="Caches\RM_OpportunityDashboardCache.cs" />
+    <Compile Include="Caches\RM_OpportunityPlanCache.cs" />
+    <Compile Include="Caches\RM_OpportunityPlanRelatedPersonCache.cs" />
+    <Compile Include="Caches\RM_OpportunityPlanReminderCache.cs" />
+    <Compile Include="Caches\RM_OpportunityStatusCache.cs" />
+    <Compile Include="Caches\RM_PriorityCache.cs" />
+    <Compile Include="Caches\RM_ProductCostCache.cs" />
+    <Compile Include="Caches\RM_ProductProjectCache.cs" />
+    <Compile Include="Caches\RM_ProjectCache.cs" />
+    <Compile Include="Caches\RM_ProjectMemberCache.cs" />
+    <Compile Include="Caches\RM_ProjectRevenueReportCache.cs" />
+    <Compile Include="Caches\RM_ProjectTaskCache.cs" />
+    <Compile Include="Caches\RM_RevenueAllocationCache.cs" />
+    <Compile Include="Caches\RM_RevenueReceivedCache.cs" />
+    <Compile Include="Caches\RM_RolesCache.cs" />
+    <Compile Include="Caches\RM_SalesTeamMembersCache.cs" />
+    <Compile Include="Caches\RM_StatusCache.cs" />
+    <Compile Include="Caches\RM_TaskActivityCache.cs" />
+    <Compile Include="Caches\RM_TaskAssigneeCache.cs" />
+    <Compile Include="Caches\RM_TaskCache.cs" />
+    <Compile Include="Caches\RM_TaskGroupCache.cs" />
+    <Compile Include="Caches\RM_TaskManagementCache.cs" />
+    <Compile Include="Caches\RM_TaskStatusCache.cs" />
+    <Compile Include="Caches\RM_TaskTypeCache.cs" />
+    <Compile Include="Enums\EnumTypeCategory.cs" />
+    <Compile Include="Models\Cate_CustomerModel.cs" />
+    <Compile Include="Models\Cate_ProductServiceModel.cs" />
+    <Compile Include="Models\KWC_AccountMobileModel.cs" />
+    <Compile Include="Models\MailTemplateRenderModel.cs" />
+    <Compile Include="Models\ReminderMailModel.cs" />
+    <Compile Include="Models\ReviewReportModel.cs" />
+    <Compile Include="Models\OpportunityProjectWithoutPGPModel.cs" />
+    <Compile Include="Models\RM_BillingCyclesModel.cs" />
+    <Compile Include="Models\RM_CommentModel.cs" />
+    <Compile Include="Models\RM_ContractRemindersModel.cs" />
+    <Compile Include="Models\RM_InvoicesFilePathModel.cs" />
+    <Compile Include="Models\RM_InvoicesModel.cs" />
+    <Compile Include="Models\RM_ProductServiceGroupFilePathModel.cs" />
+    <Compile Include="Models\RM_ProjectTaskReportModel.cs" />
+    <Compile Include="Models\RM_ProjectWeeklyTaskReportModel.cs" />
+    <Compile Include="Models\RM_Report_BusinessOpportunityModel.cs" />
+    <Compile Include="Models\RM_ReviewBatchItemModel.cs" />
+    <Compile Include="Models\ChatbotModel.cs" />
+    <Compile Include="Models\RM_ReviewBatchModel.cs" />
+    <Compile Include="Models\RM_ProductServiceFilePathModel.cs" />
+    <Compile Include="Models\RM_PriorityModel.cs" />
+    <Compile Include="Models\RM_ProjectRevenueReportModel.cs" />
+    <Compile Include="Models\RM_TaskActivityModel.cs" />
+    <Compile Include="Models\RM_TaskAssigneeModel.cs" />
+    <Compile Include="Models\RM_TaskManagementModel.cs" />
+    <Compile Include="Models\RM_TaskTypeModel.cs" />
+    <Compile Include="Models\SyncDataModel.cs" />
+    <Compile Include="Models\MN_BoPhanModel.cs" />
+    <Compile Include="Models\MN_ChucVuModel.cs" />
+    <Compile Include="Models\MN_EmployeeModel.cs" />
+    <Compile Include="Models\RM_BusinessOpportunityMemberMailModel.cs" />
+    <Compile Include="Models\RM_BusinessOpportunityWeeklyReportModel.cs" />
+    <Compile Include="Models\RM_BusinessPlanFilePathModel.cs" />
+    <Compile Include="Models\RM_BusinessPlanModel.cs" />
+    <Compile Include="Models\RM_Employee_BusinessPlanModel.cs" />
+    <Compile Include="Models\RM_BusinessOpportunityFilePathModel.cs" />
+    <Compile Include="Models\RM_OpportunityPlanMailModel.cs" />
+    <Compile Include="Models\PlanDashboardModel.cs" />
+    <Compile Include="Models\RM_NotificationModel.cs" />
+    <Compile Include="Models\ProductProjectOverviewModel.cs" />
+    <Compile Include="Models\ProjectExportRow.cs" />
+    <Compile Include="Models\ProjectOverviewModel.cs" />
+    <Compile Include="Models\RM_AnniversaryTypeModel.cs" />
+    <Compile Include="Models\RM_BusinessOpportunityModel.cs" />
+    <Compile Include="Models\RM_BusinessOpportunityOverviewModel.cs" />
+    <Compile Include="Models\RM_ContactPersonsImportRowModel.cs" />
+    <Compile Include="Models\RM_ContactPersonsModel.cs" />
+    <Compile Include="Models\RM_ContractsModel.cs" />
+    <Compile Include="Models\RM_CostTypeModel.cs" />
+    <Compile Include="Models\RM_CustomerAnniversaryModel.cs" />
+    <Compile Include="Models\RM_CustomerContactModel.cs" />
+    <Compile Include="Models\RM_CustomerImportRowModel.cs" />
+    <Compile Include="Models\RM_CustomerModel.cs" />
+    <Compile Include="Models\RM_CustomerSearchModel.cs" />
+    <Compile Include="Models\RM_CustomerStatusModel.cs" />
+    <Compile Include="Models\RM_CustomerTypeModel.cs" />
+    <Compile Include="Models\RM_DashboardModel.cs" />
+    <Compile Include="Models\RM_ExchangeHistoryFilePathModel.cs" />
+    <Compile Include="Models\RM_ExchangeHistoryModel.cs" />
+    <Compile Include="Models\RM_GroupServiceModel.cs" />
+    <Compile Include="Models\RM_GroupServiceSearchModel.cs" />
+    <Compile Include="Models\RM_LogTaskModel.cs" />
+    <Compile Include="Models\RM_OpportunityDashboardModel.cs" />
+    <Compile Include="Models\RM_OpportunityPlanModel.cs" />
+    <Compile Include="Models\RM_OpportunityPlanRelatedPersonModel.cs" />
+    <Compile Include="Models\RM_OpportunityPlanReminderModel.cs" />
+    <Compile Include="Jobs\OpportunityPlanReminderJob.cs" />
+    <Compile Include="Models\RM_OpportunityStatusModel.cs" />
+    <Compile Include="Models\RM_ProductCostModel.cs" />
+    <Compile Include="Models\RM_ProductProjectModel.cs" />
+    <Compile Include="Models\RM_ProjectMemberModel.cs" />
+    <Compile Include="Models\RM_ProjectModel.cs" />
+    <Compile Include="Models\RM_ProjectTaskModel.cs" />
+    <Compile Include="Models\RM_RevenueAllocationModel.cs" />
+    <Compile Include="Models\RM_RevenueReceivedModel.cs" />
+    <Compile Include="Models\RM_RolesModel.cs" />
+    <Compile Include="Models\RM_SalesTeamMembersModel.cs" />
+    <Compile Include="Models\RM_StatusModel.cs" />
+    <Compile Include="Models\RM_TaskGroupModel.cs" />
+    <Compile Include="Models\RM_TaskModel.cs" />
+    <Compile Include="Models\RM_TaskSearchModel.cs" />
+    <Compile Include="Models\RM_TaskStatusModel.cs" />
+    <Compile Include="Models\SysMailTemplateModel.cs" />
+    <Compile Include="Models\SysMailTemplateParamModel.cs" />
+    <Compile Include="Process\EmailProcess.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PushNotification\Extractor\MessageIdExtractor.cs" />
+    <Compile Include="PushNotification\FirebaseService.cs" />
+    <Compile Include="PushNotification\Models\FirebaseResult.cs" />
+    <Compile Include="PushNotification\Models\InputSendNotificationModel.cs" />
+    <Compile Include="PushNotification\Models\ParamDataModel.cs" />
+    <Compile Include="Services\NotificationService.cs" />
+    <Compile Include="Services\ReminderMailService.cs" />
+    <Compile Include="Services\ContractMailService.cs" />
+    <Compile Include="Services\ProjectMailService.cs" />
+    <Compile Include="Services\ProjectTaskMailService.cs" />
+    <Compile Include="Services\BusinessOpportunityMailService.cs" />
+    <Compile Include="Services\BusinessOpportunityMemberMailService.cs" />
+    <Compile Include="Services\SyncDataService.cs" />
+    <Compile Include="Services\MailTemplateService.cs" />
+    <Compile Include="Services\OpportunityPlanMailService.cs" />
+    <Compile Include="Services\TaskActivityService.cs" />
+    <Compile Include="Services\TaskFileService.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\TSFramework.Libs\TSFramework.Libs.csproj">
+      <Project>{C7BB973B-8277-4950-BFFD-C0BE12847D49}</Project>
+      <Name>TSFramework.Libs</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

@@ -1,0 +1,107 @@
+10:30:00.025 AM ===== START SEND REMINDER EMAIL =====
+10:30:00.026 AM FromDate=13/07/2026; ToDate=19/07/2026
+10:30:00.190 AM Queue reminder mail: ObjectId=17, ObjectType=Dự án
+10:30:00.191 AM Queue reminder mail: ObjectId=40, ObjectType=Cơ hội
+10:30:00.191 AM ===== END SEND REMINDER EMAIL =====
+10:35:11.549 AM ===== START SEND REMINDER EMAIL =====
+10:35:16.015 AM FromDate=13/07/2026; ToDate=19/07/2026
+10:35:42.117 AM Queue reminder mail: ObjectId=17, ObjectType=Dự án
+10:36:07.116 AM Queue reminder mail: ObjectId=40, ObjectType=Cơ hội
+10:36:33.879 AM ===== END SEND REMINDER EMAIL =====
+10:40:00.016 AM ===== START SEND REMINDER EMAIL =====
+10:40:00.017 AM FromDate=13/07/2026; ToDate=19/07/2026
+10:40:00.063 AM Queue reminder mail: ObjectId=17, ObjectType=Dự án
+10:40:00.063 AM Queue reminder mail: ObjectId=40, ObjectType=Cơ hội
+10:40:00.063 AM ===== END SEND REMINDER EMAIL =====
+10:40:04.659 AM ===== START SEND REMINDER EMAIL =====
+10:40:04.695 AM FromDate=13/07/2026; ToDate=19/07/2026
+10:40:04.728 AM Queue reminder mail: ObjectId=17, ObjectType=Dự án
+10:40:04.728 AM Queue reminder mail: ObjectId=40, ObjectType=Cơ hội
+10:40:04.728 AM ===== END SEND REMINDER EMAIL =====
+10:45:00.013 AM ===== START SEND REMINDER EMAIL =====
+10:45:00.013 AM FromDate=13/07/2026; ToDate=19/07/2026
+10:45:00.019 AM Queue reminder mail: ObjectId=17, ObjectType=Dự án
+10:45:00.019 AM Queue reminder mail: ObjectId=40, ObjectType=Cơ hội
+10:45:00.020 AM ===== END SEND REMINDER EMAIL =====
+10:45:00.028 AM mscorlib The process cannot access the file 'D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Contents\JobLogs\2026-07-16_Jobs.SendReminderEmail_JobLogsFile.log' because it is being used by another process.
+10:45:00.029 AM Stack: at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.StreamWriter.CreateFile(String path, Boolean append, Boolean checkHost)
+   at System.IO.StreamWriter..ctor(String path, Boolean append, Encoding encoding, Int32 bufferSize, Boolean checkHost)
+   at System.IO.StreamWriter..ctor(String path, Boolean append, Encoding encoding)
+   at System.IO.File.InternalAppendAllText(String path, String contents, Encoding encoding)
+   at TSFramework.Libs.Models.Log.JobLogWriter.FlushLogToFile(String jobName) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Models\Log\JobLogWriter.cs:line 144
+   at TSFramework.Libs.Models.Log.JobLogWriter.WriteToLog(String jobName, String message) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Models\Log\JobLogWriter.cs:line 83
+   at TSFramework.Libs.Providers.JobLogProvider.Message(String jobName, String msg) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\JobLogProvider.cs:line 17
+   at Jobs.SendReminderEmail.SendReminderEmailScheduleModel.<Execute>d__2.MoveNext()
+10:50:00.001 AM ===== START SEND REMINDER EMAIL =====
+10:50:00.001 AM FromDate=13/07/2026; ToDate=19/07/2026
+10:50:00.008 AM Queue reminder mail: ObjectId=17, ObjectType=Dự án
+10:50:00.008 AM Queue reminder mail: ObjectId=40, ObjectType=Cơ hội
+10:50:00.008 AM ===== END SEND REMINDER EMAIL =====
+10:55:00.026 AM ===== START SEND REMINDER EMAIL =====
+10:55:00.026 AM FromDate=13/07/2026; ToDate=19/07/2026
+10:55:00.077 AM Queue reminder mail: ObjectId=17, ObjectType=Dự án
+10:55:00.077 AM Queue reminder mail: ObjectId=40, ObjectType=Cơ hội
+10:55:00.077 AM ===== END SEND REMINDER EMAIL =====
+11:00:00.014 AM ===== START SEND REMINDER EMAIL =====
+11:00:00.015 AM FromDate=13/07/2026; ToDate=19/07/2026
+11:00:00.019 AM ===== START SEND REMINDER EMAIL =====
+11:00:00.019 AM FromDate=13/07/2026; ToDate=19/07/2026
+11:00:00.022 AM Queue reminder mail: ObjectId=17, ObjectType=Dự án
+11:00:00.022 AM Queue reminder mail: ObjectId=40, ObjectType=Cơ hội
+11:00:00.022 AM ===== END SEND REMINDER EMAIL =====
+11:00:00.077 AM Queue reminder mail: ObjectId=17, ObjectType=Dự án
+11:00:00.078 AM Queue reminder mail: ObjectId=40, ObjectType=Cơ hội
+11:00:00.078 AM ===== END SEND REMINDER EMAIL =====
+11:05:00.014 AM ===== START SEND REMINDER EMAIL =====
+11:05:00.014 AM FromDate=13/07/2026; ToDate=19/07/2026
+11:05:00.020 AM Queue reminder mail: ObjectId=17, ObjectType=Dự án
+11:05:00.020 AM Queue reminder mail: ObjectId=40, ObjectType=Cơ hội
+11:05:00.020 AM ===== END SEND REMINDER EMAIL =====
+11:10:00.013 AM ===== START SEND REMINDER EMAIL =====
+11:10:00.013 AM FromDate=13/07/2026; ToDate=19/07/2026
+11:10:00.018 AM Queue reminder mail: ObjectId=17, ObjectType=Dự án
+11:10:00.019 AM Queue reminder mail: ObjectId=40, ObjectType=Cơ hội
+11:10:00.019 AM ===== END SEND REMINDER EMAIL =====
+11:15:00.011 AM ===== START SEND REMINDER EMAIL =====
+11:15:00.011 AM FromDate=13/07/2026; ToDate=19/07/2026
+11:15:00.016 AM Queue reminder mail: ObjectId=17, ObjectType=Dự án
+11:15:00.017 AM Queue reminder mail: ObjectId=40, ObjectType=Cơ hội
+11:15:00.017 AM ===== END SEND REMINDER EMAIL =====
+11:20:00.004 AM ===== START SEND REMINDER EMAIL =====
+11:20:00.004 AM FromDate=13/07/2026; ToDate=19/07/2026
+11:20:00.010 AM Queue reminder mail: ObjectId=17, ObjectType=Dự án
+11:20:00.010 AM Queue reminder mail: ObjectId=40, ObjectType=Cơ hội
+11:20:00.010 AM ===== END SEND REMINDER EMAIL =====
+11:25:00.012 AM ===== START SEND REMINDER EMAIL =====
+11:25:00.012 AM FromDate=13/07/2026; ToDate=19/07/2026
+11:25:00.069 AM Queue reminder mail: ObjectId=17, ObjectType=Dự án
+11:25:00.069 AM Queue reminder mail: ObjectId=40, ObjectType=Cơ hội
+11:25:00.069 AM ===== END SEND REMINDER EMAIL =====
+03:00:00.011 PM ===== START SEND REMINDER EMAIL =====
+03:00:00.027 PM FromDate=13/07/2026; ToDate=19/07/2026
+03:00:00.096 PM Queue reminder mail: ObjectId=17, ObjectType=Dự án
+03:00:00.097 PM Queue reminder mail: ObjectId=40, ObjectType=Cơ hội
+03:00:00.097 PM ===== END SEND REMINDER EMAIL =====
+03:05:00.015 PM ===== START SEND REMINDER EMAIL =====
+03:05:00.016 PM FromDate=13/07/2026; ToDate=19/07/2026
+03:05:00.023 PM Queue reminder mail: ObjectId=17, ObjectType=Dự án
+03:05:00.023 PM Queue reminder mail: ObjectId=40, ObjectType=Cơ hội
+03:05:00.024 PM ===== END SEND REMINDER EMAIL =====
+03:10:00.001 PM ===== START SEND REMINDER EMAIL =====
+03:10:00.001 PM FromDate=13/07/2026; ToDate=19/07/2026
+03:10:00.006 PM Queue reminder mail: ObjectId=17, ObjectType=Dự án
+03:10:00.006 PM Queue reminder mail: ObjectId=40, ObjectType=Cơ hội
+03:10:00.006 PM ===== END SEND REMINDER EMAIL =====
+03:15:00.026 PM ===== START SEND REMINDER EMAIL =====
+03:15:00.026 PM FromDate=13/07/2026; ToDate=19/07/2026
+03:15:00.087 PM Queue reminder mail: ObjectId=17, ObjectType=Dự án
+03:15:00.087 PM Queue reminder mail: ObjectId=40, ObjectType=Cơ hội
+03:15:00.087 PM ===== END SEND REMINDER EMAIL =====
+03:20:00.001 PM ===== START SEND REMINDER EMAIL =====
+03:20:00.001 PM FromDate=13/07/2026; ToDate=19/07/2026
+03:20:00.021 PM Queue reminder mail: ObjectId=17, ObjectType=Dự án
+03:20:00.021 PM Queue reminder mail: ObjectId=40, ObjectType=Cơ hội
+03:20:00.021 PM ===== END SEND REMINDER EMAIL =====

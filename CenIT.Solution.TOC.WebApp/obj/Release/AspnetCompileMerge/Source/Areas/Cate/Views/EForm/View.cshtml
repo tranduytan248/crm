@@ -1,0 +1,93 @@
+﻿@using TSFramework.Libs.Processors
+@using System.Configuration
+@using CaptchaMvc.HtmlHelpers
+
+@{
+    Layout = "~/Views/Shared/_Login.cshtml";
+    string actionForm = ViewBag.Action;
+    string partialView = ViewBag.PartialForm;
+    string AccountUser = ViewBag.AccountUser;
+    string fileAttr = partialView == "_Mau4" ? "AttachmentUrl" : "AttachedFiles";
+}
+
+@section HeadCss{
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="~/Areas/Cate/Views/EForm/EForm.css?v=@DateTime.Now.ToString("HHmmss")" rel="stylesheet" />
+    <link href="~/Contents/Base/plugins/datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+    <link href="~/Contents/Base/plugins/ace_v4/node_modules/select2/dist/css/select2.css" rel="stylesheet" />
+    <link href="~/Contents/Base/plugins/ace_v4/node_modules/dropzone/dist/dropzone.css" rel="stylesheet" />
+}
+
+@using (Html.BeginForm(actionForm, "EForm", new { area = "Cate" }, FormMethod.Post, new { id = "SendRequest", autocomplete = "off", role = "form", encType = "multipart/form-data", @class = "form-horizontal m-2" }))
+{
+    @Html.Hidden("AccountRequest", AccountUser)
+    <div id="bodyForm">
+        @Html.Partial(partialView)
+    </div>
+    <div id="dz-alert"></div>
+    <div id="dz-area" class="w-100 dropzone bgc-white brc-dark-l3 radius-5 my-2 dz-clickable p-0" style="border-style: dashed;">
+        <div class="dz-default dz-message row">
+            <div class="col-12">
+                <i class="fa fa-cloud-upload-alt fa-3x text-template my-2"></i>
+                <br />
+                <span class="text-grey-m3 my-2">Bấm để tải ảnh/tệp đính kèm</span>
+            </div>
+        </div>
+    </div>
+    <input id="@fileAttr" name="@fileAttr" type="file" multiple style="display:none;" />
+    <div class="w-100 pt-2"><button class="btn btn-template radius-5 w-100 py-2 mb-5" id="btnSendRequest" type="button">GỬI YÊU CẦU</button></div>
+}
+<!-- the `html` of this element will be used by dropzone instance for previewing files/images -->
+@if (ViewData["EFORM_USE_SLIDERCAPTCHA"].ToString() == "1")
+{
+    <div>@Html.Partial("_SliderCaptcha")</div>
+}
+
+<div id="preview-template" class="d-none">
+    <div class="dz-preview mx-0 my-3 col-6 dz-image-preview">
+        <div class="dz-image">
+            <img data-dz-thumbnail />
+        </div>
+        <div class="dz-details">
+            <div class="dz-size">
+                <span data-dz-size=""></span>
+            </div>
+
+            <div class="dz-filename">
+                <span data-dz-name=""></span>
+            </div>
+        </div>
+        <div class="dz-error-message">
+            <span data-dz-errormessage=""></span>
+        </div>
+        <div class="dz-success-mark">
+            <span class="fa-stack fa-lg text-150">
+                <i class="fa fa-circle fa-stack-2x text-white"></i>
+                <i class="fa fa-check fa-stack-1x fa-inverse text-success-m1"></i>
+            </span>
+        </div>
+        <div class="dz-error-mark">
+            <span class="fa-stack fa-lg text-150">
+                <i class="fa fa-circle fa-stack-2x text-danger-m3"></i>
+                <i class="fas fa-exclamation fa-stack-1x fa-inverse text-white"></i>
+            </span>
+        </div>
+    </div>
+</div>
+
+<script src="~/Contents/Base/plugins/ace_v4/node_modules/inputmask/dist/jquery.inputmask.js"></script>
+<script src="~/Contents/Base/plugins/datepicker/js/bootstrap-datepicker.min.js"></script>
+<script src="~/Contents/Base/plugins/ace_v4/node_modules/inputmask/dist/jquery.inputmask.js"></script>
+<script src="~/Contents/js/custom-inputdatepicker.js"></script>
+<script src="~/Contents/Base/plugins/ace_v4/node_modules/dropzone/dist/dropzone.js"></script>
+<script>
+    var TitlePage = '@ViewBag.Title.ToLower()';
+    var EFORM_UPLOAD_MAXFILES = @ViewData["EFORM_UPLOAD_MAXFILES"];
+    var EFORM_UPLOAD_MAXFILESIZE = @ViewData["EFORM_UPLOAD_MAXFILESIZE"];
+    var EFORM_UPLOAD_ACCEPTEDFILES = '@ViewData["EFORM_UPLOAD_ACCEPTEDFILES"]';
+    var fileAttr = '@fileAttr';
+</script>
+<script src="~/Areas/Cate/Views/EForm/EForm.js?v=@DateTime.Now.ToString("HHmmss")"></script>

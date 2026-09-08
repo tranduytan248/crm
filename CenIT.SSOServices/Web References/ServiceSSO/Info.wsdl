@@ -1,0 +1,1747 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="CheckUser">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sessionID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userkey" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="appcode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="permission" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckUserResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CheckUserResult" type="tns:CheckUserInfo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="CheckUserInfo">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="valid" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="globalusername" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="thesalt" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="globalusernamehash" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="permission" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="LogOut">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="fStrDomain" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LogOutResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="LogOutTicket">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="fStrTicket" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LogOutTicketResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="LogOutByTicket">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="fStrTicket" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LogOutByTicketResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="LogOutByTicketResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckUserGroup">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sessionID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userkey" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="appcode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="groupcode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="permission" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckUserGroupResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CheckUserGroupResult" type="tns:CheckUserInfo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sessionID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userkey" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUserInfoResult" type="tns:UserInfo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="UserInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="fullname" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetUserInfoByUserName">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserInfoByUserNameResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUserInfoByUserNameResult" type="tns:UserInfo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserInfoByGroup">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="groupID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserInfoByGroupResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUserInfoByGroupResult" type="tns:ArrayOfUserInfo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfUserInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="UserInfo" nillable="true" type="tns:UserInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetUserInfoByDepartment">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="departmentID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserInfoByDepartmentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUserInfoByDepartmentResult" type="tns:ArrayOfUserInfo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateUserSession">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sessionID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userkey" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateUserSessionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UpdateUserSessionResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDepartmentByUser">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="appcode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDepartmentByUserResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDepartmentByUserResult" type="tns:ArrayOfDepartmentInfo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfDepartmentInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="DepartmentInfo" nillable="true" type="tns:DepartmentInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DepartmentInfo">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="code" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="index" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetDepartmentByIndexUser">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="appcode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="index" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDepartmentByIndexUserResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDepartmentByIndexUserResult" type="tns:ArrayOfDepartmentInfo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDepartmentBySystem">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="appcode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDepartmentBySystemResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDepartmentBySystemResult" type="tns:ArrayOfDepartmentInfo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDepartmentByID">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDepartmentByIDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDepartmentByIDResult" type="tns:DepartmentInfo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetInfoUserByCookies">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetInfoUserByCookiesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetInfoUserByCookiesResult" type="tns:GetUserByCookies" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="GetUserByCookies">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Ticket" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FullName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FullName2" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetListUserByAppode">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserAuthenCation" type="tns:UserAuthenCationHeader" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="UserAuthenCationHeader">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="SessionID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Userkey" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Ticket" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AppCode" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetListUserByAppodeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetListUserByAppodeResult" type="tns:ResultServices" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ResultServices">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Status" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Message" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Data">
+            <s:complexType>
+              <s:sequence>
+                <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+              </s:sequence>
+            </s:complexType>
+          </s:element>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetGroupSSOByAppcode">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserAuthenCation" type="tns:UserAuthenCationHeader" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetGroupSSOByAppcodeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetGroupSSOByAppcodeResult" type="tns:ResultServices" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetGroupPermissionByGroupID">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserAuthenCation" type="tns:UserAuthenCationHeader" />
+            <s:element minOccurs="1" maxOccurs="1" name="aGroupID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetGroupPermissionByGroupIDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetGroupPermissionByGroupIDResult" type="tns:ResultServices" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFunctionByAppCode">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserAuthenCation" type="tns:UserAuthenCationHeader" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFunctionByAppCodeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetFunctionByAppCodeResult" type="tns:ResultServices" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFunctionPermissionByFuntionID">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserAuthenCation" type="tns:UserAuthenCationHeader" />
+            <s:element minOccurs="1" maxOccurs="1" name="aFuntionID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFunctionPermissionByFuntionIDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetFunctionPermissionByFuntionIDResult" type="tns:ResultServices" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFunctionPermissionByFuntionCode">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserAuthenCation" type="tns:UserAuthenCationHeader" />
+            <s:element minOccurs="0" maxOccurs="1" name="aFuntionCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFunctionPermissionByFuntionCodeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetFunctionPermissionByFuntionCodeResult" type="tns:ResultServices" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserByGroupID">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserAuthenCation" type="tns:UserAuthenCationHeader" />
+            <s:element minOccurs="1" maxOccurs="1" name="aGroupID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserByGroupIDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUserByGroupIDResult" type="tns:ResultServices" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDepartmentUserByUserName">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserAuthenCation" type="tns:UserAuthenCationHeader" />
+            <s:element minOccurs="0" maxOccurs="1" name="Username" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDepartmentUserByUserNameResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDepartmentUserByUserNameResult" type="tns:ResultServices" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFunctionsOfUser">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserAuthenCation" type="tns:UserAuthenCationHeader" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFunctionsOfUserResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetFunctionsOfUserResult" type="tns:ResultServices" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetGroupSSOByUsername">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserAuthenCation" type="tns:UserAuthenCationHeader" />
+            <s:element minOccurs="0" maxOccurs="1" name="Username" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetGroupSSOByUsernameResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetGroupSSOByUsernameResult" type="tns:ResultServices" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateUserAuthenCation">
+        <s:complexType />
+      </s:element>
+      <s:element name="CreateUserAuthenCationResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CreateUserAuthenCationResult" type="tns:UserAuthenCationHeader" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="CheckUserSoapIn">
+    <wsdl:part name="parameters" element="tns:CheckUser" />
+  </wsdl:message>
+  <wsdl:message name="CheckUserSoapOut">
+    <wsdl:part name="parameters" element="tns:CheckUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="LogOutSoapIn">
+    <wsdl:part name="parameters" element="tns:LogOut" />
+  </wsdl:message>
+  <wsdl:message name="LogOutSoapOut">
+    <wsdl:part name="parameters" element="tns:LogOutResponse" />
+  </wsdl:message>
+  <wsdl:message name="LogOutTicketSoapIn">
+    <wsdl:part name="parameters" element="tns:LogOutTicket" />
+  </wsdl:message>
+  <wsdl:message name="LogOutTicketSoapOut">
+    <wsdl:part name="parameters" element="tns:LogOutTicketResponse" />
+  </wsdl:message>
+  <wsdl:message name="LogOutByTicketSoapIn">
+    <wsdl:part name="parameters" element="tns:LogOutByTicket" />
+  </wsdl:message>
+  <wsdl:message name="LogOutByTicketSoapOut">
+    <wsdl:part name="parameters" element="tns:LogOutByTicketResponse" />
+  </wsdl:message>
+  <wsdl:message name="CheckUserGroupSoapIn">
+    <wsdl:part name="parameters" element="tns:CheckUserGroup" />
+  </wsdl:message>
+  <wsdl:message name="CheckUserGroupSoapOut">
+    <wsdl:part name="parameters" element="tns:CheckUserGroupResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetUserInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUserInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetUserInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUserInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetUserInfoByUserNameSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUserInfoByUserName" />
+  </wsdl:message>
+  <wsdl:message name="GetUserInfoByUserNameSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUserInfoByUserNameResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetUserInfoByGroupSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUserInfoByGroup" />
+  </wsdl:message>
+  <wsdl:message name="GetUserInfoByGroupSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUserInfoByGroupResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetUserInfoByDepartmentSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUserInfoByDepartment" />
+  </wsdl:message>
+  <wsdl:message name="GetUserInfoByDepartmentSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUserInfoByDepartmentResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateUserSessionSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateUserSession" />
+  </wsdl:message>
+  <wsdl:message name="UpdateUserSessionSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateUserSessionResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDepartmentByUserSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDepartmentByUser" />
+  </wsdl:message>
+  <wsdl:message name="GetDepartmentByUserSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDepartmentByUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDepartmentByIndexUserSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDepartmentByIndexUser" />
+  </wsdl:message>
+  <wsdl:message name="GetDepartmentByIndexUserSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDepartmentByIndexUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDepartmentBySystemSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDepartmentBySystem" />
+  </wsdl:message>
+  <wsdl:message name="GetDepartmentBySystemSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDepartmentBySystemResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDepartmentByIDSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDepartmentByID" />
+  </wsdl:message>
+  <wsdl:message name="GetDepartmentByIDSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDepartmentByIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetInfoUserByCookiesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetInfoUserByCookies" />
+  </wsdl:message>
+  <wsdl:message name="GetInfoUserByCookiesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetInfoUserByCookiesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetListUserByAppodeSoapIn">
+    <wsdl:part name="parameters" element="tns:GetListUserByAppode" />
+  </wsdl:message>
+  <wsdl:message name="GetListUserByAppodeSoapOut">
+    <wsdl:part name="parameters" element="tns:GetListUserByAppodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetGroupSSOByAppcodeSoapIn">
+    <wsdl:part name="parameters" element="tns:GetGroupSSOByAppcode" />
+  </wsdl:message>
+  <wsdl:message name="GetGroupSSOByAppcodeSoapOut">
+    <wsdl:part name="parameters" element="tns:GetGroupSSOByAppcodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetGroupPermissionByGroupIDSoapIn">
+    <wsdl:part name="parameters" element="tns:GetGroupPermissionByGroupID" />
+  </wsdl:message>
+  <wsdl:message name="GetGroupPermissionByGroupIDSoapOut">
+    <wsdl:part name="parameters" element="tns:GetGroupPermissionByGroupIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetFunctionByAppCodeSoapIn">
+    <wsdl:part name="parameters" element="tns:GetFunctionByAppCode" />
+  </wsdl:message>
+  <wsdl:message name="GetFunctionByAppCodeSoapOut">
+    <wsdl:part name="parameters" element="tns:GetFunctionByAppCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetFunctionPermissionByFuntionIDSoapIn">
+    <wsdl:part name="parameters" element="tns:GetFunctionPermissionByFuntionID" />
+  </wsdl:message>
+  <wsdl:message name="GetFunctionPermissionByFuntionIDSoapOut">
+    <wsdl:part name="parameters" element="tns:GetFunctionPermissionByFuntionIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetFunctionPermissionByFuntionCodeSoapIn">
+    <wsdl:part name="parameters" element="tns:GetFunctionPermissionByFuntionCode" />
+  </wsdl:message>
+  <wsdl:message name="GetFunctionPermissionByFuntionCodeSoapOut">
+    <wsdl:part name="parameters" element="tns:GetFunctionPermissionByFuntionCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetUserByGroupIDSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUserByGroupID" />
+  </wsdl:message>
+  <wsdl:message name="GetUserByGroupIDSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUserByGroupIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDepartmentUserByUserNameSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDepartmentUserByUserName" />
+  </wsdl:message>
+  <wsdl:message name="GetDepartmentUserByUserNameSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDepartmentUserByUserNameResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetFunctionsOfUserSoapIn">
+    <wsdl:part name="parameters" element="tns:GetFunctionsOfUser" />
+  </wsdl:message>
+  <wsdl:message name="GetFunctionsOfUserSoapOut">
+    <wsdl:part name="parameters" element="tns:GetFunctionsOfUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetGroupSSOByUsernameSoapIn">
+    <wsdl:part name="parameters" element="tns:GetGroupSSOByUsername" />
+  </wsdl:message>
+  <wsdl:message name="GetGroupSSOByUsernameSoapOut">
+    <wsdl:part name="parameters" element="tns:GetGroupSSOByUsernameResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateUserAuthenCationSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateUserAuthenCation" />
+  </wsdl:message>
+  <wsdl:message name="CreateUserAuthenCationSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateUserAuthenCationResponse" />
+  </wsdl:message>
+  <wsdl:portType name="CServiceSoap">
+    <wsdl:operation name="CheckUser">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+                        &lt;div&gt;&lt;b&gt;Chức năng:&lt;/b&gt; Kiểm tra user đã đăng nhập hay chưa, kết hợp kiểm tra có sử dụng tính năng nào đó hay không với các tham số đi kèm &lt;/div&gt;
+                        &lt;br/&gt;&lt;div&gt;
+                            &lt;b&gt;Tham số:&lt;/b&gt;
+                                    &lt;ul&gt;
+                                        &lt;li&gt;sessionID&lt;/li&gt;
+                                        &lt;li&gt;userkey&lt;/li&gt;
+                                        &lt;li&gt;ticket&lt;/li&gt;
+                                        &lt;li&gt;appcode&lt;/li&gt;
+                                        &lt;li&gt;permission:(tbFunction.Code + tbFunctionPermission.Code) 
+	     	                                    Nếu cần check user có được phép sử dụng tính năng trong chức năng hay không.
+    		                                     không cần check thì chỉ cần để ''
+                                        &lt;/li&gt;
+                                      
+                                    &lt;/ul&gt;
+                        &lt;br/&gt;&lt;div&gt;
+                        &lt;div&gt;
+                            &lt;b&gt;Kết quả:&lt;/b&gt;
+                                  &lt;ul&gt;
+                                     &lt;li&gt;Trả về class CheckUserInfo( int aValid, string aGlobalusername, string aThesalt, string aGlobalusernamehash, int aPermission)&lt;/li&gt;
+                                     &lt;li&gt;aValid: 1 Có thông tin đăng nhập chính xác, 0: Thông tin đăng nhập không chính xác và cần phải đăng nhập lại&lt;/li&gt;
+                                     &lt;li&gt;aPermission: 1: có quyền, 0: không có quyền truy cập vào tính năng nếu có kèm perrmission trong tham số gởi lên&lt;/li&gt;
+                                    &lt;/ul&gt;
+                        &lt;/div&gt;
+     </wsdl:documentation>
+      <wsdl:input message="tns:CheckUserSoapIn" />
+      <wsdl:output message="tns:CheckUserSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LogOut">
+      <wsdl:input message="tns:LogOutSoapIn" />
+      <wsdl:output message="tns:LogOutSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LogOutTicket">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+                        &lt;div&gt;&lt;b&gt;Chức năng:&lt;/b&gt;Xóa toàn bộ thông tin login, cookie trên server và khỏi database&lt;/div&gt;
+                        &lt;br/&gt;&lt;div&gt;
+                            &lt;b&gt;Tham số:&lt;/b&gt;
+                                    &lt;ul&gt;
+                                        &lt;li&gt;fStrTicket&lt;/li&gt;
+                                                                           
+                                    &lt;/ul&gt;
+                        &lt;br/&gt;&lt;div&gt;
+                      
+     </wsdl:documentation>
+      <wsdl:input message="tns:LogOutTicketSoapIn" />
+      <wsdl:output message="tns:LogOutTicketSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LogOutByTicket">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+                        &lt;div&gt;&lt;b&gt;Chức năng:&lt;/b&gt;Xóa toàn bộ thông tin login, cookie trên server và khỏi database&lt;/div&gt;
+                        &lt;br/&gt;&lt;div&gt;
+                            &lt;b&gt;Tham số:&lt;/b&gt;
+                                    &lt;ul&gt;
+                                        &lt;li&gt;fStrTicket&lt;/li&gt;
+                                                                           
+                                    &lt;/ul&gt;
+                        &lt;br/&gt;&lt;div&gt;
+                    &lt;div&gt;&lt;b&gt;Kết quả trả về true | false:&lt;/b&gt;&lt;/div&gt;
+                      
+     </wsdl:documentation>
+      <wsdl:input message="tns:LogOutByTicketSoapIn" />
+      <wsdl:output message="tns:LogOutByTicketSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckUserGroup">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+                        &lt;div&gt;&lt;b&gt;Chức năng:&lt;/b&gt; Kiểm tra user có tồn tại trong nhóm, kết hợp kiểm tra có sử dụng tính năng nào đó hay không với các tham số đi kèm &lt;/div&gt;
+                        &lt;br/&gt;&lt;div&gt;
+                            &lt;b&gt;Tham số:&lt;/b&gt;
+                                    &lt;ul&gt;
+                                        &lt;li&gt;sessionID&lt;/li&gt;
+                                        &lt;li&gt;userkey&lt;/li&gt;
+                                        &lt;li&gt;ticket&lt;/li&gt;
+                                        &lt;li&gt;appcode&lt;/li&gt;
+                                        &lt;li&gt;groupcode&lt;/li&gt;
+                                        &lt;li&gt;permission:(tbFunction.Code + tbFunctionPermission.Code) 
+	     	                                    Nếu cần check user có được phép sử dụng tính năng trong chức năng hay không.
+    		                                     không cần check thì chỉ cần để ''
+                                        &lt;/li&gt;
+                                      
+                                    &lt;/ul&gt;
+                        &lt;br/&gt;&lt;div&gt;
+                        &lt;div&gt;
+                            &lt;b&gt;Kết quả:&lt;/b&gt;
+                                  &lt;ul&gt;
+                                     &lt;li&gt;Trả về class CheckUserInfo( int aValid, string aGlobalusername, string aThesalt, string aGlobalusernamehash, int aPermission)&lt;/li&gt;
+                                     &lt;li&gt;aValid: 1 Có tồn tại trong nhóm, 0: Không tồn tại trong nhóm&lt;/li&gt;
+                                     &lt;li&gt;aPermission: 1: có quyền, 0: không có quyền truy cập vào tính năng nếu có kèm perrmission trong tham số gởi lên&lt;/li&gt;
+                                    &lt;/ul&gt;
+                        &lt;/div&gt;
+     </wsdl:documentation>
+      <wsdl:input message="tns:CheckUserGroupSoapIn" />
+      <wsdl:output message="tns:CheckUserGroupSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserInfo">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+                        &lt;div&gt;&lt;b&gt;Chức năng:&lt;/b&gt; 
+                            Lấy thông tin người dùng thông qua sessionID, userkey, ticket&lt;/div&gt;
+                        &lt;br/&gt;&lt;div&gt;
+                            &lt;b&gt;Tham số:&lt;/b&gt;
+                                    &lt;ul&gt;
+                                        &lt;li&gt;sessionID&lt;/li&gt;
+                                        &lt;li&gt;userkey&lt;/li&gt;
+                                        &lt;li&gt;ticket&lt;/li&gt;                                       
+                                      
+                                    &lt;/ul&gt;
+                        &lt;br/&gt;&lt;div&gt;
+                        &lt;div&gt;
+                            &lt;b&gt;Kết quả:&lt;/b&gt;
+                                  &lt;ul&gt;
+                                     &lt;li&gt;Trả về class UserInfo(UserName, Fullname)&lt;/li&gt;                                    
+                                    &lt;/ul&gt;
+                        &lt;/div&gt;
+     </wsdl:documentation>
+      <wsdl:input message="tns:GetUserInfoSoapIn" />
+      <wsdl:output message="tns:GetUserInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserInfoByUserName">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+                        &lt;div&gt;&lt;b&gt;Chức năng:&lt;/b&gt; 
+                           Lấy thông tin người dùng thông qua username&lt;/div&gt;
+                        &lt;br/&gt;&lt;div&gt;
+                            &lt;b&gt;Tham số:&lt;/b&gt;
+                                    &lt;ul&gt;
+                                        &lt;li&gt;username&lt;/li&gt;                                                                                                              
+                                    &lt;/ul&gt;
+                        &lt;br/&gt;&lt;div&gt;
+                        &lt;div&gt;
+                            &lt;b&gt;Kết quả:&lt;/b&gt;
+                                  &lt;ul&gt;
+                                     &lt;li&gt;Trả về class UserInfo(UserName, Fullname)&lt;/li&gt;                                    
+                                    &lt;/ul&gt;
+                        &lt;/div&gt;
+     </wsdl:documentation>
+      <wsdl:input message="tns:GetUserInfoByUserNameSoapIn" />
+      <wsdl:output message="tns:GetUserInfoByUserNameSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserInfoByGroup">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+                        &lt;div&gt;&lt;b&gt;Chức năng:&lt;/b&gt; 
+                          Lấy danh sách người dùng thông qua nhóm groupID&lt;/div&gt;
+                        &lt;br/&gt;&lt;div&gt;
+                            &lt;b&gt;Tham số:&lt;/b&gt;
+                                    &lt;ul&gt;
+                                        &lt;li&gt;groupID&lt;/li&gt;
+                                                                  
+                                      
+                                    &lt;/ul&gt;
+                        &lt;br/&gt;&lt;div&gt;
+                        &lt;div&gt;
+                            &lt;b&gt;Kết quả:&lt;/b&gt;
+                                  &lt;ul&gt;
+                                       &lt;li&gt;Trả về List&lt;UserInfo&gt;(UserName, Fullname)&lt;/li&gt;                                                                  
+                                    &lt;/ul&gt;
+                        &lt;/div&gt;
+     </wsdl:documentation>
+      <wsdl:input message="tns:GetUserInfoByGroupSoapIn" />
+      <wsdl:output message="tns:GetUserInfoByGroupSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserInfoByDepartment">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+                        &lt;div&gt;&lt;b&gt;Chức năng:&lt;/b&gt; 
+                           Lấy danh sách người dùng thông qua departmentID &lt;/div&gt;
+                        &lt;br/&gt;&lt;div&gt;
+                            &lt;b&gt;Tham số:&lt;/b&gt;
+                                    &lt;ul&gt;
+                                        &lt;li&gt;departmentID&lt;/li&gt;
+                                                                        
+                                      
+                                    &lt;/ul&gt;
+                        &lt;br/&gt;&lt;div&gt;
+                        &lt;div&gt;
+                            &lt;b&gt;Kết quả:&lt;/b&gt;
+                                  &lt;ul&gt;
+                                     &lt;li&gt;Trả về List&lt;UserInfo&gt;(UserName, Fullname)&lt;/li&gt;                                    
+                                    &lt;/ul&gt;
+                        &lt;/div&gt;
+     </wsdl:documentation>
+      <wsdl:input message="tns:GetUserInfoByDepartmentSoapIn" />
+      <wsdl:output message="tns:GetUserInfoByDepartmentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUserSession">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+                        &lt;div&gt;&lt;b&gt;Chức năng:&lt;/b&gt; 
+                          Cập nhật sessionID của user thông qua userkey, ticket&lt;/div&gt;
+                        &lt;br/&gt;&lt;div&gt;
+                            &lt;b&gt;Tham số:&lt;/b&gt;
+                                    &lt;ul&gt;
+                                        &lt;li&gt;sessionID mới&lt;/li&gt;
+                                        &lt;li&gt;userkey&lt;/li&gt; 
+                                        &lt;li&gt;ticket&lt;/li&gt;                              
+                                      
+                                    &lt;/ul&gt;
+                        &lt;br/&gt;&lt;div&gt;                        
+     </wsdl:documentation>
+      <wsdl:input message="tns:UpdateUserSessionSoapIn" />
+      <wsdl:output message="tns:UpdateUserSessionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDepartmentByUser">
+      <wsdl:input message="tns:GetDepartmentByUserSoapIn" />
+      <wsdl:output message="tns:GetDepartmentByUserSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDepartmentByIndexUser">
+      <wsdl:input message="tns:GetDepartmentByIndexUserSoapIn" />
+      <wsdl:output message="tns:GetDepartmentByIndexUserSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDepartmentBySystem">
+      <wsdl:input message="tns:GetDepartmentBySystemSoapIn" />
+      <wsdl:output message="tns:GetDepartmentBySystemSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDepartmentByID">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+                        &lt;div&gt;&lt;b&gt;Chức năng:&lt;/b&gt;
+                           Lấy thông tin chi tiết của 1 đơn vị tbDepartment trong database dhtncontact.cenit.vn
+                        &lt;/div&gt;
+                        &lt;br/&gt;&lt;div&gt;
+                            &lt;b&gt;Tham số:&lt;/b&gt;
+                                    &lt;ul&gt;
+                                        &lt;li&gt;id: Mã đơn vị&lt;/li&gt;                                                                              
+                                    &lt;/ul&gt;
+                        &lt;br/&gt;&lt;div&gt;
+                        &lt;div&gt;
+                            &lt;b&gt;Kết quả:&lt;/b&gt;
+                                  &lt;ul&gt;
+                                     &lt;li&gt;Trả về class DepartmentInfo (int aID, string aName, string aCode, int aIndex)&lt;/li&gt;                                     
+                                    &lt;/ul&gt;
+                        &lt;/div&gt;
+     </wsdl:documentation>
+      <wsdl:input message="tns:GetDepartmentByIDSoapIn" />
+      <wsdl:output message="tns:GetDepartmentByIDSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetInfoUserByCookies">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+                        &lt;div&gt;&lt;b&gt;Chức năng:&lt;/b&gt;
+                      Lấy sessionid thông qua username, userkey, ticket
+                        &lt;/div&gt;
+                        &lt;br/&gt;&lt;div&gt;
+                            &lt;b&gt;Tham số:&lt;/b&gt;
+                                    &lt;ul&gt;
+                                        &lt;li&gt;username&lt;/li&gt;
+                                        &lt;li&gt;userkey&lt;/li&gt;
+                                        &lt;li&gt;ticket&lt;/li&gt;     
+                                                                         
+                                    &lt;/ul&gt;
+                        &lt;br/&gt;&lt;div&gt;
+                        &lt;div&gt;
+                            &lt;b&gt;Kết quả:&lt;/b&gt;
+                                  &lt;ul&gt;
+                                     &lt;li&gt;Trả về chuỗi SessionID&lt;/li&gt;                                     
+                                    &lt;/ul&gt;
+                        &lt;/div&gt;
+     </wsdl:documentation>
+      <wsdl:input message="tns:GetInfoUserByCookiesSoapIn" />
+      <wsdl:output message="tns:GetInfoUserByCookiesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetListUserByAppode">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+                        &lt;div&gt;&lt;b&gt;Chức năng:&lt;/b&gt;
+                          Lấy danh sách user có quyền truy cập vào một chương trình bất kỳ.
+                        &lt;/div&gt;
+                        &lt;br/&gt;&lt;div&gt;
+                            &lt;b&gt;Tham số:&lt;/b&gt;
+                                    &lt;ul&gt;
+                                        &lt;li&gt;UserAuthenCation: Thuộc đối tượng UserAuthenCationHeader(SessionID,Userkey,AppCode) dùng để xác thực cũng như kiểm tra có được truy cập hệ thống đang dùng hay không&lt;/li&gt;                                                                                                                                           
+                                    &lt;/ul&gt;
+                        &lt;br/&gt;&lt;div&gt;
+                        &lt;div&gt;
+                            &lt;b&gt;Kết quả: Trả về lớp ResultServices (int Status, string Message,DataTable Data)&lt;/b&gt;
+                                  &lt;ul&gt;
+                                     &lt;li&gt;
+                                         ResultServices.Status = 0; &lt;br/&gt;
+                                         ResultServices.Data = null; &lt;br/&gt;
+                                         ResultServices.Message = 'Chưa có thông tin đăng nhập !'; &lt;br/&gt;
+                                     &lt;/li&gt;     
+                                     &lt;li&gt;
+                                          ResultServices.Status = 1;&lt;br/&gt;
+                                          ResultServices.Data = null;&lt;br/&gt;
+                                          ResultServices.Message = 'Thông tin đăng nhập không chính xác !';  
+                                      &lt;/li&gt; 
+                                     &lt;li&gt;
+                                          ResultServices.Status = 2;&lt;br/&gt;
+                                          ResultServices.Data = null;&lt;br/&gt;
+                                          ResultServices.Message = 'Bạn không có quyền truy cập hệ thống này !';  
+                                      &lt;/li&gt; 
+                                     &lt;li&gt;
+                                          ResultServices.Status = 3;&lt;br/&gt;
+                                          ResultServices.Data = [SẼ CÓ DỮ LIỆU Ở ĐÂY ](tbUser.*)&lt;br/&gt;
+                                          ResultServices.Message = 'Lấy dữ liệu thành công !';  
+                                      &lt;/li&gt;                                 
+                                   &lt;/ul&gt;
+                        &lt;/div&gt;
+     </wsdl:documentation>
+      <wsdl:input message="tns:GetListUserByAppodeSoapIn" />
+      <wsdl:output message="tns:GetListUserByAppodeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGroupSSOByAppcode">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+                        &lt;div&gt;&lt;b&gt;Chức năng:&lt;/b&gt;
+                          Lấy danh sách nhóm của một hệ thống
+                        &lt;/div&gt;
+                        &lt;br/&gt;&lt;div&gt;
+                            &lt;b&gt;Tham số:&lt;/b&gt;
+                                    &lt;ul&gt;
+                                        &lt;li&gt;UserAuthenCation: Thuộc đối tượng UserAuthenCationHeader(SessionID,Userkey,AppCode) dùng để xác thực cũng như kiểm tra có được truy cập hệ thống đang dùng hay không&lt;/li&gt;                                                                                                                                                   
+                                    &lt;/ul&gt;
+                        &lt;br/&gt;&lt;div&gt;
+                        &lt;div&gt;
+                            &lt;b&gt;Kết quả: Trả về lớp ResultServices (int Status, string Message,DataTable Data)&lt;/b&gt;
+                                  &lt;ul&gt;
+                                     &lt;li&gt;
+                                         ResultServices.Status = 0; &lt;br/&gt;
+                                         ResultServices.Data = null; &lt;br/&gt;
+                                         ResultServices.Message = 'Chưa có thông tin đăng nhập !'; &lt;br/&gt;
+                                     &lt;/li&gt;     
+                                     &lt;li&gt;
+                                          ResultServices.Status = 1;&lt;br/&gt;
+                                          ResultServices.Data = null;&lt;br/&gt;
+                                          ResultServices.Message = 'Thông tin đăng nhập không chính xác !';  
+                                      &lt;/li&gt; 
+                                     &lt;li&gt;
+                                          ResultServices.Status = 2;&lt;br/&gt;
+                                          ResultServices.Data = null;&lt;br/&gt;
+                                          ResultServices.Message = 'Bạn không có quyền truy cập hệ thống này !';  
+                                      &lt;/li&gt; 
+                                     &lt;li&gt;
+                                          ResultServices.Status = 3;&lt;br/&gt;
+                                          ResultServices.Data = [SẼ CÓ DỮ LIỆU Ở ĐÂY ] (tbGroupSSO.*)&lt;br/&gt;
+                                          ResultServices.Message = 'Lấy dữ liệu thành công !';  
+                                      &lt;/li&gt;                                 
+                                   &lt;/ul&gt;
+                        &lt;/div&gt;
+     </wsdl:documentation>
+      <wsdl:input message="tns:GetGroupSSOByAppcodeSoapIn" />
+      <wsdl:output message="tns:GetGroupSSOByAppcodeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGroupPermissionByGroupID">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+                        &lt;div&gt;&lt;b&gt;Chức năng:&lt;/b&gt;
+                        Lấy danh sách tính năng của một nhóm
+                        &lt;/div&gt;
+                        &lt;br/&gt;&lt;div&gt;
+                            &lt;b&gt;Tham số:&lt;/b&gt;
+                                    &lt;ul&gt;
+                                        &lt;li&gt;UserAuthenCation: Thuộc đối tượng UserAuthenCationHeader(SessionID,Userkey,AppCode) dùng để xác thực cũng như kiểm tra có được truy cập hệ thống đang dùng hay không&lt;/li&gt;                                                                                                                                                   
+                                        &lt;li&gt;aGroupID: ID Nhóm cần lấy&lt;/li&gt;
+                                    &lt;/ul&gt;
+                        &lt;br/&gt;&lt;div&gt;
+                        &lt;div&gt;
+                            &lt;b&gt;Kết quả: Trả về lớp ResultServices (int Status, string Message,DataTable Data)&lt;/b&gt;
+                                  &lt;ul&gt;
+                                     &lt;li&gt;
+                                         ResultServices.Status = 0; &lt;br/&gt;
+                                         ResultServices.Data = null; &lt;br/&gt;
+                                         ResultServices.Message = 'Chưa có thông tin đăng nhập !'; &lt;br/&gt;
+                                     &lt;/li&gt;     
+                                     &lt;li&gt;
+                                          ResultServices.Status = 1;&lt;br/&gt;
+                                          ResultServices.Data = null;&lt;br/&gt;
+                                          ResultServices.Message = 'Thông tin đăng nhập không chính xác !';  
+                                      &lt;/li&gt; 
+                                     &lt;li&gt;
+                                          ResultServices.Status = 2;&lt;br/&gt;
+                                          ResultServices.Data = null;&lt;br/&gt;
+                                          ResultServices.Message = 'Bạn không có quyền truy cập hệ thống này !';  
+                                      &lt;/li&gt; 
+                                     &lt;li&gt;
+                                          ResultServices.Status = 3;&lt;br/&gt;
+                                          ResultServices.Data = [SẼ CÓ DỮ LIỆU Ở ĐÂY ] (tbFunctionPermission.*)&lt;br/&gt;
+                                          ResultServices.Message = 'Lấy dữ liệu thành công !';  
+                                      &lt;/li&gt;                                 
+                                   &lt;/ul&gt;
+                        &lt;/div&gt;
+     </wsdl:documentation>
+      <wsdl:input message="tns:GetGroupPermissionByGroupIDSoapIn" />
+      <wsdl:output message="tns:GetGroupPermissionByGroupIDSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFunctionByAppCode">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+                        &lt;div&gt;&lt;b&gt;Chức năng:&lt;/b&gt;
+                        Lấy danh chức năng của hệ thống
+                        &lt;/div&gt;
+                        &lt;br/&gt;&lt;div&gt;
+                            &lt;b&gt;Tham số:&lt;/b&gt;
+                                    &lt;ul&gt;
+                                        &lt;li&gt;UserAuthenCation: Thuộc đối tượng UserAuthenCationHeader(SessionID,Userkey,AppCode) dùng để xác thực cũng như kiểm tra có được truy cập hệ thống đang dùng hay không&lt;/li&gt;                                                                                                                                                   
+                                      
+                                    &lt;/ul&gt;
+                        &lt;br/&gt;&lt;div&gt;
+                        &lt;div&gt;
+                            &lt;b&gt;Kết quả: Trả về lớp ResultServices (int Status, string Message,DataTable Data)&lt;/b&gt;
+                                  &lt;ul&gt;
+                                     &lt;li&gt;
+                                         ResultServices.Status = 0; &lt;br/&gt;
+                                         ResultServices.Data = null; &lt;br/&gt;
+                                         ResultServices.Message = 'Chưa có thông tin đăng nhập !'; &lt;br/&gt;
+                                     &lt;/li&gt;     
+                                     &lt;li&gt;
+                                          ResultServices.Status = 1;&lt;br/&gt;
+                                          ResultServices.Data = null;&lt;br/&gt;
+                                          ResultServices.Message = 'Thông tin đăng nhập không chính xác !';  
+                                      &lt;/li&gt; 
+                                     &lt;li&gt;
+                                          ResultServices.Status = 2;&lt;br/&gt;
+                                          ResultServices.Data = null;&lt;br/&gt;
+                                          ResultServices.Message = 'Bạn không có quyền truy cập hệ thống này !';  
+                                      &lt;/li&gt; 
+                                     &lt;li&gt;
+                                          ResultServices.Status = 3;&lt;br/&gt;
+                                          ResultServices.Data = [SẼ CÓ DỮ LIỆU Ở ĐÂY ] (tbFunction.*)&lt;br/&gt;
+                                          ResultServices.Message = 'Lấy dữ liệu thành công !';  
+                                      &lt;/li&gt;                                 
+                                   &lt;/ul&gt;
+                        &lt;/div&gt;
+     </wsdl:documentation>
+      <wsdl:input message="tns:GetFunctionByAppCodeSoapIn" />
+      <wsdl:output message="tns:GetFunctionByAppCodeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFunctionPermissionByFuntionID">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+                        &lt;div&gt;&lt;b&gt;Chức năng:&lt;/b&gt;
+                       Lấy danh sách tính năng theo chức năng
+                        &lt;/div&gt;
+                        &lt;br/&gt;&lt;div&gt;
+                            &lt;b&gt;Tham số:&lt;/b&gt;
+                                    &lt;ul&gt;
+                                        &lt;li&gt;UserAuthenCation: Thuộc đối tượng UserAuthenCationHeader(SessionID,Userkey,AppCode) dùng để xác thực cũng như kiểm tra có được truy cập hệ thống đang dùng hay không&lt;/li&gt;                                                                                                                                                   
+                                        &lt;li&gt;aFuntionID: ID Chức năng&lt;/li&gt;
+                                    &lt;/ul&gt;
+                        &lt;br/&gt;&lt;div&gt;
+                        &lt;div&gt;
+                            &lt;b&gt;Kết quả: Trả về lớp ResultServices (int Status, string Message,DataTable Data)&lt;/b&gt;
+                                  &lt;ul&gt;
+                                     &lt;li&gt;
+                                         ResultServices.Status = 0; &lt;br/&gt;
+                                         ResultServices.Data = null; &lt;br/&gt;
+                                         ResultServices.Message = 'Chưa có thông tin đăng nhập !'; &lt;br/&gt;
+                                     &lt;/li&gt;     
+                                     &lt;li&gt;
+                                          ResultServices.Status = 1;&lt;br/&gt;
+                                          ResultServices.Data = null;&lt;br/&gt;
+                                          ResultServices.Message = 'Thông tin đăng nhập không chính xác !';  
+                                      &lt;/li&gt; 
+                                     &lt;li&gt;
+                                          ResultServices.Status = 2;&lt;br/&gt;
+                                          ResultServices.Data = null;&lt;br/&gt;
+                                          ResultServices.Message = 'Bạn không có quyền truy cập hệ thống này !';  
+                                      &lt;/li&gt; 
+                                     &lt;li&gt;
+                                          ResultServices.Status = 3;&lt;br/&gt;
+                                          ResultServices.Data = [SẼ CÓ DỮ LIỆU Ở ĐÂY ] (tbFunctionPermission.*)&lt;br/&gt;
+                                          ResultServices.Message = 'Lấy dữ liệu thành công !';  
+                                      &lt;/li&gt;                                 
+                                   &lt;/ul&gt;
+                        &lt;/div&gt;
+     </wsdl:documentation>
+      <wsdl:input message="tns:GetFunctionPermissionByFuntionIDSoapIn" />
+      <wsdl:output message="tns:GetFunctionPermissionByFuntionIDSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFunctionPermissionByFuntionCode">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+                        &lt;div&gt;&lt;b&gt;Chức năng:&lt;/b&gt;
+                       Lấy danh sách tính năng theo mã chức năng (FuntionCode)
+                        &lt;/div&gt;
+                        &lt;br/&gt;&lt;div&gt;
+                            &lt;b&gt;Tham số:&lt;/b&gt;
+                                    &lt;ul&gt;
+                                        &lt;li&gt;UserAuthenCation: Thuộc đối tượng UserAuthenCationHeader(SessionID,Userkey,AppCode) dùng để xác thực cũng như kiểm tra có được truy cập hệ thống đang dùng hay không&lt;/li&gt;                                                                                                                                                   
+                                        &lt;li&gt;aFuntionID: ID Chức năng&lt;/li&gt;
+                                    &lt;/ul&gt;
+                        &lt;br/&gt;&lt;div&gt;
+                        &lt;div&gt;
+                            &lt;b&gt;Kết quả: Trả về lớp ResultServices (int Status, string Message,DataTable Data)&lt;/b&gt;
+                                  &lt;ul&gt;
+                                     &lt;li&gt;
+                                         ResultServices.Status = 0; &lt;br/&gt;
+                                         ResultServices.Data = null; &lt;br/&gt;
+                                         ResultServices.Message = 'Chưa có thông tin đăng nhập !'; &lt;br/&gt;
+                                     &lt;/li&gt;     
+                                     &lt;li&gt;
+                                          ResultServices.Status = 1;&lt;br/&gt;
+                                          ResultServices.Data = null;&lt;br/&gt;
+                                          ResultServices.Message = 'Thông tin đăng nhập không chính xác !';  
+                                      &lt;/li&gt; 
+                                     &lt;li&gt;
+                                          ResultServices.Status = 2;&lt;br/&gt;
+                                          ResultServices.Data = null;&lt;br/&gt;
+                                          ResultServices.Message = 'Bạn không có quyền truy cập hệ thống này !';  
+                                      &lt;/li&gt; 
+                                     &lt;li&gt;
+                                          ResultServices.Status = 3;&lt;br/&gt;
+                                          ResultServices.Data = [SẼ CÓ DỮ LIỆU Ở ĐÂY ] (tbFunctionPermission.*)&lt;br/&gt;
+                                          ResultServices.Message = 'Lấy dữ liệu thành công !';  
+                                      &lt;/li&gt;                                 
+                                   &lt;/ul&gt;
+                        &lt;/div&gt;
+     </wsdl:documentation>
+      <wsdl:input message="tns:GetFunctionPermissionByFuntionCodeSoapIn" />
+      <wsdl:output message="tns:GetFunctionPermissionByFuntionCodeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserByGroupID">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+                        &lt;div&gt;&lt;b&gt;Chức năng:&lt;/b&gt;
+                       Lấy danh sách user theo nhóm
+                        &lt;/div&gt;
+                        &lt;br/&gt;&lt;div&gt;
+                            &lt;b&gt;Tham số:&lt;/b&gt;
+                                    &lt;ul&gt;
+                                        &lt;li&gt;UserAuthenCation: Thuộc đối tượng UserAuthenCationHeader(SessionID,Userkey,AppCode) dùng để xác thực cũng như kiểm tra có được truy cập hệ thống đang dùng hay không&lt;/li&gt;                                                                                                                                                   
+                                        &lt;li&gt;aGroupID: ID nhóm&lt;/li&gt;
+                                    &lt;/ul&gt;
+                        &lt;br/&gt;&lt;div&gt;
+                        &lt;div&gt;
+                            &lt;b&gt;Kết quả: Trả về lớp ResultServices (int Status, string Message,DataTable Data)&lt;/b&gt;
+                                  &lt;ul&gt;
+                                     &lt;li&gt;
+                                         ResultServices.Status = 0; &lt;br/&gt;
+                                         ResultServices.Data = null; &lt;br/&gt;
+                                         ResultServices.Message = 'Chưa có thông tin đăng nhập !'; &lt;br/&gt;
+                                     &lt;/li&gt;     
+                                     &lt;li&gt;
+                                          ResultServices.Status = 1;&lt;br/&gt;
+                                          ResultServices.Data = null;&lt;br/&gt;
+                                          ResultServices.Message = 'Thông tin đăng nhập không chính xác !';  
+                                      &lt;/li&gt; 
+                                     &lt;li&gt;
+                                          ResultServices.Status = 2;&lt;br/&gt;
+                                          ResultServices.Data = null;&lt;br/&gt;
+                                          ResultServices.Message = 'Bạn không có quyền truy cập hệ thống này !';  
+                                      &lt;/li&gt; 
+                                     &lt;li&gt;
+                                          ResultServices.Status = 3;&lt;br/&gt;
+                                          ResultServices.Data = [SẼ CÓ DỮ LIỆU Ở ĐÂY ] (tbUser.*)&lt;br/&gt;
+                                          ResultServices.Message = 'Lấy dữ liệu thành công !';  
+                                      &lt;/li&gt;                                 
+                                   &lt;/ul&gt;
+                        &lt;/div&gt;
+     </wsdl:documentation>
+      <wsdl:input message="tns:GetUserByGroupIDSoapIn" />
+      <wsdl:output message="tns:GetUserByGroupIDSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDepartmentUserByUserName">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+                        &lt;div&gt;&lt;b&gt;Chức năng:&lt;/b&gt;
+                        Lấy danh sách đơn vị theo username
+                        &lt;/div&gt;
+                        &lt;br/&gt;&lt;div&gt;
+                            &lt;b&gt;Tham số:&lt;/b&gt;
+                                    &lt;ul&gt;
+                                        &lt;li&gt;UserAuthenCation: Thuộc đối tượng UserAuthenCationHeader(SessionID,Userkey,AppCode) dùng để xác thực cũng như kiểm tra có được truy cập hệ thống đang dùng hay không&lt;/li&gt;                                                                                                                                                   
+                                        &lt;li&gt;Username&lt;/li&gt;
+                                    &lt;/ul&gt;
+                        &lt;br/&gt;&lt;div&gt;
+                        &lt;div&gt;
+                            &lt;b&gt;Kết quả: Trả về lớp ResultServices (int Status, string Message,DataTable Data)&lt;/b&gt;
+                                  &lt;ul&gt;
+                                     &lt;li&gt;
+                                         ResultServices.Status = 0; &lt;br/&gt;
+                                         ResultServices.Data = null; &lt;br/&gt;
+                                         ResultServices.Message = 'Chưa có thông tin đăng nhập !'; &lt;br/&gt;
+                                     &lt;/li&gt;     
+                                     &lt;li&gt;
+                                          ResultServices.Status = 1;&lt;br/&gt;
+                                          ResultServices.Data = null;&lt;br/&gt;
+                                          ResultServices.Message = 'Thông tin đăng nhập không chính xác !';  
+                                      &lt;/li&gt; 
+                                     &lt;li&gt;
+                                          ResultServices.Status = 2;&lt;br/&gt;
+                                          ResultServices.Data = null;&lt;br/&gt;
+                                          ResultServices.Message = 'Bạn không có quyền truy cập hệ thống này !';  
+                                      &lt;/li&gt; 
+                                     &lt;li&gt;
+                                          ResultServices.Status = 3;&lt;br/&gt;
+                                          ResultServices.Data = [SẼ CÓ DỮ LIỆU Ở ĐÂY ] (DepartmentID,DepartmentName,PositionID,PositionName)&lt;br/&gt;
+                                          ResultServices.Message = 'Lấy dữ liệu thành công !';  
+                                      &lt;/li&gt;                                 
+                                   &lt;/ul&gt;
+                        &lt;/div&gt;
+     </wsdl:documentation>
+      <wsdl:input message="tns:GetDepartmentUserByUserNameSoapIn" />
+      <wsdl:output message="tns:GetDepartmentUserByUserNameSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFunctionsOfUser">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+                        &lt;div&gt;&lt;b&gt;Chức năng:&lt;/b&gt;
+                        Lấy danh sách đơn vị theo username
+                        &lt;/div&gt;
+                        &lt;br/&gt;&lt;div&gt;
+                            &lt;b&gt;Tham số:&lt;/b&gt;
+                                    &lt;ul&gt;
+                                        &lt;li&gt;UserAuthenCation: Thuộc đối tượng UserAuthenCationHeader(SessionID,Userkey,AppCode) dùng để xác thực cũng như kiểm tra có được truy cập hệ thống đang dùng hay không&lt;/li&gt;                                                                                                                                                   
+                                        &lt;li&gt;Username&lt;/li&gt;
+                                    &lt;/ul&gt;
+                        &lt;br/&gt;&lt;div&gt;
+                        &lt;div&gt;
+                            &lt;b&gt;Kết quả: Trả về lớp ResultServices (int Status, string Message,DataTable Data)&lt;/b&gt;
+                                  &lt;ul&gt;
+                                     &lt;li&gt;
+                                         ResultServices.Status = 0; &lt;br/&gt;
+                                         ResultServices.Data = null; &lt;br/&gt;
+                                         ResultServices.Message = 'Chưa có thông tin đăng nhập !'; &lt;br/&gt;
+                                     &lt;/li&gt;     
+                                     &lt;li&gt;
+                                          ResultServices.Status = 1;&lt;br/&gt;
+                                          ResultServices.Data = null;&lt;br/&gt;
+                                          ResultServices.Message = 'Thông tin đăng nhập không chính xác !';  
+                                      &lt;/li&gt; 
+                                     &lt;li&gt;
+                                          ResultServices.Status = 2;&lt;br/&gt;
+                                          ResultServices.Data = null;&lt;br/&gt;
+                                          ResultServices.Message = 'Bạn không có quyền truy cập hệ thống này !';  
+                                      &lt;/li&gt; 
+                                     &lt;li&gt;
+                                          ResultServices.Status = 3;&lt;br/&gt;
+                                          ResultServices.Data = [SẼ CÓ DỮ LIỆU Ở ĐÂY ] (tbFunction.*)&lt;br/&gt;
+                                          ResultServices.Message = 'Lấy dữ liệu thành công !';  
+                                      &lt;/li&gt;                                 
+                                   &lt;/ul&gt;
+                        &lt;/div&gt;
+     </wsdl:documentation>
+      <wsdl:input message="tns:GetFunctionsOfUserSoapIn" />
+      <wsdl:output message="tns:GetFunctionsOfUserSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGroupSSOByUsername">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+                        &lt;div&gt;&lt;b&gt;Chức năng:&lt;/b&gt;
+                       Lấy danh sách nhóm theo username
+                        &lt;/div&gt;
+                        &lt;br/&gt;&lt;div&gt;
+                            &lt;b&gt;Tham số:&lt;/b&gt;
+                                    &lt;ul&gt;
+                                        &lt;li&gt;UserAuthenCation: Thuộc đối tượng UserAuthenCationHeader(SessionID,Userkey,AppCode) dùng để xác thực cũng như kiểm tra có được truy cập hệ thống đang dùng hay không&lt;/li&gt;                                                                                                                                                   
+                                        &lt;li&gt;Username&lt;/li&gt;
+                                    &lt;/ul&gt;
+                        &lt;br/&gt;&lt;div&gt;
+                        &lt;div&gt;
+                            &lt;b&gt;Kết quả: Trả về lớp ResultServices (int Status, string Message,DataTable Data)&lt;/b&gt;
+                                  &lt;ul&gt;
+                                     &lt;li&gt;
+                                         ResultServices.Status = 0; &lt;br/&gt;
+                                         ResultServices.Data = null; &lt;br/&gt;
+                                         ResultServices.Message = 'Chưa có thông tin đăng nhập !'; &lt;br/&gt;
+                                     &lt;/li&gt;     
+                                     &lt;li&gt;
+                                          ResultServices.Status = 1;&lt;br/&gt;
+                                          ResultServices.Data = null;&lt;br/&gt;
+                                          ResultServices.Message = 'Thông tin đăng nhập không chính xác !';  
+                                      &lt;/li&gt; 
+                                     &lt;li&gt;
+                                          ResultServices.Status = 2;&lt;br/&gt;
+                                          ResultServices.Data = null;&lt;br/&gt;
+                                          ResultServices.Message = 'Bạn không có quyền truy cập hệ thống này !';  
+                                      &lt;/li&gt; 
+                                     &lt;li&gt;
+                                          ResultServices.Status = 3;&lt;br/&gt;
+                                          ResultServices.Data = [SẼ CÓ DỮ LIỆU Ở ĐÂY ] (tbGroupSSO.*)&lt;br/&gt;
+                                          ResultServices.Message = 'Lấy dữ liệu thành công !';  
+                                      &lt;/li&gt;                                 
+                                   &lt;/ul&gt;
+                        &lt;/div&gt;
+     </wsdl:documentation>
+      <wsdl:input message="tns:GetGroupSSOByUsernameSoapIn" />
+      <wsdl:output message="tns:GetGroupSSOByUsernameSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateUserAuthenCation">
+      <wsdl:input message="tns:CreateUserAuthenCationSoapIn" />
+      <wsdl:output message="tns:CreateUserAuthenCationSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="CServiceSoap" type="tns:CServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CheckUser">
+      <soap:operation soapAction="http://tempuri.org/CheckUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LogOut">
+      <soap:operation soapAction="http://tempuri.org/LogOut" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LogOutTicket">
+      <soap:operation soapAction="http://tempuri.org/LogOutTicket" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LogOutByTicket">
+      <soap:operation soapAction="http://tempuri.org/LogOutByTicket" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckUserGroup">
+      <soap:operation soapAction="http://tempuri.org/CheckUserGroup" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserInfo">
+      <soap:operation soapAction="http://tempuri.org/GetUserInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserInfoByUserName">
+      <soap:operation soapAction="http://tempuri.org/GetUserInfoByUserName" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserInfoByGroup">
+      <soap:operation soapAction="http://tempuri.org/GetUserInfoByGroup" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserInfoByDepartment">
+      <soap:operation soapAction="http://tempuri.org/GetUserInfoByDepartment" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUserSession">
+      <soap:operation soapAction="http://tempuri.org/UpdateUserSession" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDepartmentByUser">
+      <soap:operation soapAction="http://tempuri.org/GetDepartmentByUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDepartmentByIndexUser">
+      <soap:operation soapAction="http://tempuri.org/GetDepartmentByIndexUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDepartmentBySystem">
+      <soap:operation soapAction="http://tempuri.org/GetDepartmentBySystem" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDepartmentByID">
+      <soap:operation soapAction="http://tempuri.org/GetDepartmentByID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInfoUserByCookies">
+      <soap:operation soapAction="http://tempuri.org/GetInfoUserByCookies" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetListUserByAppode">
+      <soap:operation soapAction="http://tempuri.org/GetListUserByAppode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGroupSSOByAppcode">
+      <soap:operation soapAction="http://tempuri.org/GetGroupSSOByAppcode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGroupPermissionByGroupID">
+      <soap:operation soapAction="http://tempuri.org/GetGroupPermissionByGroupID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFunctionByAppCode">
+      <soap:operation soapAction="http://tempuri.org/GetFunctionByAppCode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFunctionPermissionByFuntionID">
+      <soap:operation soapAction="http://tempuri.org/GetFunctionPermissionByFuntionID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFunctionPermissionByFuntionCode">
+      <soap:operation soapAction="http://tempuri.org/GetFunctionPermissionByFuntionCode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserByGroupID">
+      <soap:operation soapAction="http://tempuri.org/GetUserByGroupID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDepartmentUserByUserName">
+      <soap:operation soapAction="http://tempuri.org/GetDepartmentUserByUserName" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFunctionsOfUser">
+      <soap:operation soapAction="http://tempuri.org/GetFunctionsOfUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGroupSSOByUsername">
+      <soap:operation soapAction="http://tempuri.org/GetGroupSSOByUsername" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateUserAuthenCation">
+      <soap:operation soapAction="http://tempuri.org/CreateUserAuthenCation" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="CServiceSoap12" type="tns:CServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CheckUser">
+      <soap12:operation soapAction="http://tempuri.org/CheckUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LogOut">
+      <soap12:operation soapAction="http://tempuri.org/LogOut" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LogOutTicket">
+      <soap12:operation soapAction="http://tempuri.org/LogOutTicket" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LogOutByTicket">
+      <soap12:operation soapAction="http://tempuri.org/LogOutByTicket" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckUserGroup">
+      <soap12:operation soapAction="http://tempuri.org/CheckUserGroup" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserInfo">
+      <soap12:operation soapAction="http://tempuri.org/GetUserInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserInfoByUserName">
+      <soap12:operation soapAction="http://tempuri.org/GetUserInfoByUserName" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserInfoByGroup">
+      <soap12:operation soapAction="http://tempuri.org/GetUserInfoByGroup" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserInfoByDepartment">
+      <soap12:operation soapAction="http://tempuri.org/GetUserInfoByDepartment" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUserSession">
+      <soap12:operation soapAction="http://tempuri.org/UpdateUserSession" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDepartmentByUser">
+      <soap12:operation soapAction="http://tempuri.org/GetDepartmentByUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDepartmentByIndexUser">
+      <soap12:operation soapAction="http://tempuri.org/GetDepartmentByIndexUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDepartmentBySystem">
+      <soap12:operation soapAction="http://tempuri.org/GetDepartmentBySystem" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDepartmentByID">
+      <soap12:operation soapAction="http://tempuri.org/GetDepartmentByID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInfoUserByCookies">
+      <soap12:operation soapAction="http://tempuri.org/GetInfoUserByCookies" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetListUserByAppode">
+      <soap12:operation soapAction="http://tempuri.org/GetListUserByAppode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGroupSSOByAppcode">
+      <soap12:operation soapAction="http://tempuri.org/GetGroupSSOByAppcode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGroupPermissionByGroupID">
+      <soap12:operation soapAction="http://tempuri.org/GetGroupPermissionByGroupID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFunctionByAppCode">
+      <soap12:operation soapAction="http://tempuri.org/GetFunctionByAppCode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFunctionPermissionByFuntionID">
+      <soap12:operation soapAction="http://tempuri.org/GetFunctionPermissionByFuntionID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFunctionPermissionByFuntionCode">
+      <soap12:operation soapAction="http://tempuri.org/GetFunctionPermissionByFuntionCode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserByGroupID">
+      <soap12:operation soapAction="http://tempuri.org/GetUserByGroupID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDepartmentUserByUserName">
+      <soap12:operation soapAction="http://tempuri.org/GetDepartmentUserByUserName" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFunctionsOfUser">
+      <soap12:operation soapAction="http://tempuri.org/GetFunctionsOfUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGroupSSOByUsername">
+      <soap12:operation soapAction="http://tempuri.org/GetGroupSSOByUsername" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateUserAuthenCation">
+      <soap12:operation soapAction="http://tempuri.org/CreateUserAuthenCation" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CService">
+    <wsdl:port name="CServiceSoap" binding="tns:CServiceSoap">
+      <soap:address location="http://ssovnpt.cenit.vn/Info.asmx" />
+    </wsdl:port>
+    <wsdl:port name="CServiceSoap12" binding="tns:CServiceSoap12">
+      <soap12:address location="http://ssovnpt.cenit.vn/Info.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

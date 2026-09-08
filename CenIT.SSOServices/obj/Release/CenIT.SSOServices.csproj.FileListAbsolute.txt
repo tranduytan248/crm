@@ -1,0 +1,17 @@
+D:\Project\V2_QuanLyThietBi\QuanTriThietBi\CenIT.SSOServices\bin\Release\CenIT.SSOServices.dll.config
+D:\Project\V2_QuanLyThietBi\QuanTriThietBi\CenIT.SSOServices\bin\Release\CenIT.SSOServices.dll
+D:\Project\V2_QuanLyThietBi\QuanTriThietBi\CenIT.SSOServices\bin\Release\CenIT.SSOServices.XmlSerializers.dll
+D:\Project\V2_QuanLyThietBi\QuanTriThietBi\CenIT.SSOServices\bin\Release\CenIT.SSOServices.pdb
+D:\Project\V2_QuanLyThietBi\QuanTriThietBi\CenIT.SSOServices\obj\Release\CenIT.SSOServices.csprojResolveAssemblyReference.cache
+D:\Project\V2_QuanLyThietBi\QuanTriThietBi\CenIT.SSOServices\obj\Release\CenIT.SSOServices.dll
+D:\Project\V2_QuanLyThietBi\QuanTriThietBi\CenIT.SSOServices\obj\Release\CenIT.SSOServices.pdb
+D:\Project\V2_QuanLyThietBi\QuanTriThietBi\CenIT.SSOServices\obj\Release\CenIT.SSOServices.XmlSerializers.dll
+D:\VNPT\CRM\trunk\source\CenIT.SSOServices\bin\Release\CenIT.SSOServices.dll.config
+D:\VNPT\CRM\trunk\source\CenIT.SSOServices\bin\Release\CenIT.SSOServices.dll
+D:\VNPT\CRM\trunk\source\CenIT.SSOServices\bin\Release\CenIT.SSOServices.XmlSerializers.dll
+D:\VNPT\CRM\trunk\source\CenIT.SSOServices\bin\Release\CenIT.SSOServices.pdb
+D:\VNPT\CRM\trunk\source\CenIT.SSOServices\obj\Release\CenIT.SSOServices.csproj.AssemblyReference.cache
+D:\VNPT\CRM\trunk\source\CenIT.SSOServices\obj\Release\CenIT.SSOServices.csproj.CoreCompileInputs.cache
+D:\VNPT\CRM\trunk\source\CenIT.SSOServices\obj\Release\CenIT.SSOServices.dll
+D:\VNPT\CRM\trunk\source\CenIT.SSOServices\obj\Release\CenIT.SSOServices.pdb
+D:\VNPT\CRM\trunk\source\CenIT.SSOServices\obj\Release\CenIT.SSOServices.XmlSerializers.dll

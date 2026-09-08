@@ -1,0 +1,39 @@
+﻿@using TSFramework.Libs.Processors
+@model Core.Cate.Models.MN_BoPhanModel
+
+@Html.AntiForgeryToken()
+<div id="Language">
+    @Html.HiddenFor(model => model.BoPhan_ID)
+
+    <div class="form-group row">
+        @Html.TitleFor(model => model.MaBoPhan, new { @class = "col-sm-3 col-form-label text-sm-right pr-0 font-bold" })
+        <div class="col-md-8">
+            @Html.TextBoxFor(model => model.MaBoPhan, new { @class = "form-control col-md-4", placeholder = AppProcessor.Messagor.GetMessage("BoPhan_Label_Code") })
+            @Html.ValidationMessageFor(model => model.MaBoPhan, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group row">
+        @Html.TitleFor(model => model.TenBoPhan, new { @class = "col-sm-3 col-form-label text-sm-right pr-0 font-bold" })
+        <div class="col-md-8">
+            @Html.TextBoxFor(model => model.TenBoPhan, new { @class = "form-control", placeholder = AppProcessor.Messagor.GetMessage("BoPhan_Label_Name") })
+            @Html.ValidationMessageFor(model => model.TenBoPhan, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group row">
+        @Html.TitleFor(model => model.BoPhanCha_ID, new { @class = "col-sm-3 col-form-label text-sm-right pr-0 font-bold" })
+        <div class="col-md-8">
+            @Html.DropDownListFor(model => model.BoPhanCha_ID, new SelectList(Model.ListBoPhan, "Value", "Text"), "", new { @class = "col-sm-12 col form-control" })
+            @Html.ValidationMessageFor(model => model.BoPhanCha_ID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group row">
+        @Html.TitleFor(model => model.LinhVuc_ID, new { @class = "col-sm-3 col-form-label text-sm-right pr-0 font-bold" })
+        <div class="col-md-8">
+            @Html.DropDownListFor(model => model.LinhVuc_ID, new SelectList(Model.ListLinhVuc, "Value", "Text"), "", new { @class = "col-sm-12 col form-control" })
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,75 @@
+﻿@using TSFramework.Libs.Processors
+@model Core.Cate.Models.ReportSearchModel
+
+<div class="card dcard">
+    <div class="card-body p-0 collapse show">
+        <div class="col-md-12 form-horizontal mt-3" id="SearchReport">
+            <div class="form-group row justify-content-center">
+                <label class="col-form-label text-sm-right pr-0 font-bold col-md-2 col-lg-1">@AppProcessor.Messagor.GetMessage("Common_FromDate")</label>
+                <div class="col-md-4">
+                    <div class="d-inline-flex align-items-center mb-1">
+                        @Html.TextBoxFor(model => model.FromDate, "{0:dd/MM/yyyy}", new { @class = "form-control pr-475", placeholder = "dd/mm/yyyy", })
+                        <i class="far fa-calendar-alt text-primary text-125 ml-n45"></i>
+                        <label class="my-auto font-bold pl-4">@AppProcessor.Messagor.GetMessage("Common_ToDate")</label>
+                        @Html.TextBoxFor(model => model.ToDate, "{0:dd/MM/yyyy}", new { @class = "form-control pr-475 ml-2", placeholder = "dd/mm/yyyy", })
+                        <i class="far fa-calendar-alt text-primary text-125 ml-n45"></i>
+                    </div>
+                </div>
+                @Html.TitleFor(model => model.LoaiNhienLieu, new { @class = "col-md-2 col-form-label text-sm-right pr-0 font-bold" })
+                <div class="col-md-2">
+                    @Html.DropDownListFor(model => model.LoaiNhienLieu, new SelectList(Model.LoaiNhienLieus, "Value", "Text"), "", new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="col-md-12 text-center">
+                <button type="button" class="btn btn-primary" onclick="SearchReport()"><i class="fa fa-search-plus"></i>&nbsp;Tìm kiếm</button>
+                <button type="button" class="btn btn-success ml-3" onclick="ExportToExcel()">
+                    <i class="fas fa-print w-3"></i>@AppProcessor.Messagor.GetMessage("Report_Label_Export")
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        // Khởi tạo datepicker cho FromDate
+        $("#FromDate").datepicker({
+            autoclose: true,
+            format: "dd/mm/yyyy",
+            todayhighlight: true,
+            orientation: "auto",
+            todaybtn: true,
+            defaultDate: "+1w",
+            calendarWeeks: true,
+            changeMonth: true
+        }).on('changeDate', function (selectedDate) {
+            var fromDate = new Date(selectedDate.date.valueOf());
+            var toDate = $("#ToDate").datepicker('getDate');
+
+            // Nếu FromDate lớn hơn ToDate, cập nhật giá trị cho ToDate bằng FromDate
+            if (toDate && fromDate > toDate) {
+                $("#ToDate").datepicker('setDate', fromDate);
+            }
+
+            // Xử lý khi FromDate thay đổi
+            $("#ToDate").datepicker('setStartDate', fromDate);
+        });
+
+        // Lấy giá trị ban đầu của FromDate
+        var fromdate = $("#FromDate").datepicker('getDate');
+
+        // Khởi tạo datepicker cho ToDate với giá trị ban đầu của FromDate
+        $("#ToDate").datepicker({
+            autoclose: true,
+            format: "dd/mm/yyyy",
+            todayhighlight: true,
+            orientation: "auto",
+            todaybtn: true,
+            changeMonth: true,
+            startDate: fromdate ? new Date(fromdate.valueOf()) : null, // Thiết lập startDate nếu có giá trị ban đầu của FromDate
+            calendarWeeks: true
+        });
+    });
+</script>

@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C1D88C8F-BEF4-4C26-9C37-ACFDFC899B7E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Core.Log</RootNamespace>
+    <AssemblyName>Core.API</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.20.0.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocumentFormat.OpenXml.2.20.0\lib\net46\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
+    <Reference Include="FastMember, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FastMember.1.5.0\lib\net461\FastMember.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Biz\APICustomerBiz.cs" />
+    <Compile Include="Biz\KHACHHANG\ContractBiz.cs" />
+    <Compile Include="Biz\KHACHHANG\CustomerContractsBiz.cs" />
+    <Compile Include="Biz\KHACHHANG\BillServiceBiz.cs" />
+    <Compile Include="Biz\KHACHHANG\PaymentHistoryBiz.cs" />
+    <Compile Include="Biz\KHACHHANG\ReadingScheduleBiz.cs" />
+    <Compile Include="Biz\KHACHHANG\NotificationBiz.cs" />
+    <Compile Include="Biz\KHACHHANG\NewConnectionRequestBiz.cs" />
+    <Compile Include="Biz\KHACHHANG\WaterComplaintBiz.cs" />
+    <Compile Include="Biz\KHACHHANG\ServiceRequestBiz.cs" />
+    <Compile Include="Biz\KHACHHANG\WaterOutageBiz.cs" />
+    <Compile Include="Biz\KHACHHANG\NewsBiz.cs" />
+    <Compile Include="Biz\AccountBiz.cs" />
+    <Compile Include="Biz\KWC_MobileOTPBiz.cs" />
+    <Compile Include="Biz\SysBiz.cs" />
+    <Compile Include="Biz\KeyPrivateBiz.cs" />
+    <Compile Include="Caches\AccountCache.cs" />
+    <Compile Include="Caches\caches\KeyPrivateCache.cs" />
+    <Compile Include="Caches\KWC_MobileOTPCache.cs" />
+    <Compile Include="Enums\EnumRequestStatus.cs" />
+    <Compile Include="Models\AppIPTV\App_BookingModel.cs" />
+    <Compile Include="Models\AppIPTV\App_FoodModel.cs" />
+    <Compile Include="Models\AppIPTV\App_ChannelModel.cs" />
+    <Compile Include="Models\AppIPTV\App_RoomModel.cs" />
+    <Compile Include="Models\AppIPTV\App_AccommodationLocationModel.cs" />
+    <Compile Include="Models\BillResponseModel\BillResponseModel.cs" />
+    <Compile Include="Models\CustomerContractsModel\CustomerContractsModel.cs" />
+    <Compile Include="Models\KWC_AccountMobileModel.cs" />
+    <Compile Include="Models\KWC_MobileOTPModel.cs" />
+    <Compile Include="Models\NewConnectionRequestModel\NewConnectionRequestModel.cs" />
+    <Compile Include="Models\NotificationModel\NotificationCategoryModel.cs" />
+    <Compile Include="Models\NotificationModel\NotificationModel.cs" />
+    <Compile Include="Models\PaymentHistoryModel\PaymentHistoryModel.cs" />
+    <Compile Include="Models\ReadingScheduleModel\ReadingScheduleModel.cs" />
+    <Compile Include="Models\UsageAlertModel\UsageAlertModel.cs" />
+    <Compile Include="Models\WaterComplaintResultModel\ComplaintResultModel.cs" />
+    <Compile Include="Models\DataSystemModel.cs" />
+    <Compile Include="Models\KeyPrivateModel.cs" />
+    <Compile Include="Models\InfoDevicesModel.cs" />
+    <Compile Include="Models\APIModel.cs" />
+    <Compile Include="Models\ConfigModel.cs" />
+    <Compile Include="Models\KhachHang\ChangePasswordRequestModel.cs" />
+    <Compile Include="Models\KhachHang\LoginRequestModel.cs" />
+    <Compile Include="Models\KhachHang\LoginResponseModel.cs" />
+    <Compile Include="Models\MemberInfoModel.cs" />
+    <Compile Include="Models\MemberAPIModel.cs" />
+    <Compile Include="Models\AccommodationModel.cs" />
+    <Compile Include="Models\NewsKhachHang\NewsCategoryModel.cs" />
+    <Compile Include="Models\NewsKhachHang\NewsDetailModel.cs" />
+    <Compile Include="Models\NewsKhachHang\NewsModel.cs" />
+    <Compile Include="Models\NguoiDanModel.cs" />
+    <Compile Include="Models\ServiceRequestModel\ServiceRequestModel.cs" />
+    <Compile Include="Models\WaterOutageModel\WaterOutageModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\AppIPTV\ModelsTest\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Core.Cate\Core.Cate.csproj">
+      <Project>{72F9F77B-E45D-4EB6-8C6E-CC6E73EB643E}</Project>
+      <Name>Core.Cate</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Modules.Cate\Modules.Cate.csproj">
+      <Project>{c69bfabb-ee3b-4d42-8ed7-399a7e75fa73}</Project>
+      <Name>Modules.Cate</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TSFramework.Libs\TSFramework.Libs.csproj">
+      <Project>{C7BB973B-8277-4950-BFFD-C0BE12847D49}</Project>
+      <Name>TSFramework.Libs</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

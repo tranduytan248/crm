@@ -1,0 +1,9 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="CenIT.SSOServices.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="CenIT_SSOServices_ServiceSSO_CService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://ssovnpt.cenit.vn/Info.asmx</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

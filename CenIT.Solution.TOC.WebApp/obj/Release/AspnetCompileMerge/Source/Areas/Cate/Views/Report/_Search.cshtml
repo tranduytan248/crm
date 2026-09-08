@@ -1,0 +1,136 @@
+﻿@using TSFramework.Libs.Processors
+@model Core.Cate.Models.Cate_ServiceRequestsSearchModel
+@{
+    List<string> classColors = new List<string> {
+            "green"
+            ,"danger"
+            ,"yellow text-dark"
+            ,"purple"
+            ,"info"
+            ,"pink"
+            ,"success"
+            ,"primary"
+            ,"brown"
+            ,"green-l1 text-green"
+            ,"danger-l1 text-danger"
+            ,"yellow-l1 text-dark"
+            ,"purple-l1 text-purple"
+            ,"brown-l1 text-brown"
+            ,"success-l1 text-success"
+            ,"pink-l1 text-pink"          
+            ,"primary-l1 text-primary"
+            ,"info-l1 text-info"
+
+    };
+    List<string> reversedColors = classColors.AsEnumerable().Reverse().ToList();
+
+    // Lặp lại 3 lần bằng LINQ
+    List<string> repeatedColors = Enumerable.Range(0, 3)
+        .SelectMany(_ => reversedColors)
+        .ToList();
+
+}
+
+
+<style>
+    .icon {
+        animation: spin 1.5s linear infinite; /* Hiệu ứng xoay */
+    }
+
+    @@keyframes spin {
+        from {
+            transform: rotate(0deg); /* Bắt đầu từ 0 độ */
+        }
+
+        to {
+            transform: rotate(360deg); /* Kết thúc ở 360 độ */
+        }
+    }
+
+    .card .badge {
+        text-wrap: auto;
+        height: max-content;
+    }
+</style>
+
+
+
+
+
+<div class="card dcard" id="SearchReport">
+    <div class="card-header">
+        <h5 class="card-title text-blue text-500">
+            <i class="fa fa-search"></i>&nbsp;@AppProcessor.Messagor.GetMessage("Condition_Title")
+        </h5>
+        <div class="card-toolbar">
+            <a href="#" data-action="toggle" class="card-toolbar-btn text-blue">
+                <i class="fa fa-chevron-up"></i>
+            </a>
+        </div>
+    </div>
+    <div class="card-body p-0 collapse show">
+        <div class="col-md-12 form-horizontal mt-3">
+            <div class="col-md-12 form-horizontal mt-4">
+                <div class="form-group row">
+                    @Html.TitleFor(model => model.DateFrom, new { @class = "col-md-2 col-form-label text-sm-right pr-0 font-bold" })
+                    <div class="col-md-4">
+                        <div id="receivedOn-wrapper">
+                            <div class="form-row">
+                                <div class="col">
+                                    @Html.TextBoxFor(model => model.DateFrom, "{0:dd/MM/yyyy}", new
+                                    {
+                                        @class = "form-control ex-inputs-start",
+                                        @autocomplete = "off",
+                                        placeholder = "DD/MM/YYYY"
+                                    })
+                                </div>
+                                <div class="text-grey-l2"> _ </div>
+                                <div class="col">
+                                    @Html.TextBoxFor(model => model.DateTo, "{0:dd/MM/yyyy}", new
+                                    {
+                                        @class = "form-control ex-inputs-end",
+                                        @autocomplete = "off",
+                                        placeholder = "DD/MM/YYYY"
+                                    })
+                                </div>
+                            </div>
+                            <div id="receivedOn-container" class="dp-daterange-picker"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    @Html.TitleFor(model => model.RequestType, new { @class = "col-md-2 col-form-label text-sm-right pr-0 font-bold" })
+                    <div class="col-md-10" id="ls_RequestType">
+
+
+                        @for (int i = 0; i < Model.ListType.Count; i++)
+                        {
+                            string checkedAttr = i == 0 ? "checked" : "";
+                            <label class="pr-4">
+                                <input @checkedAttr type="radio" name="RequestType" value="@Model.ListType[i].Value" onchange="_changeGroup('@Model.ListType[i].Value')" />
+                                <span class="badge badge-lg bgc-@classColors[i] pos-rel text-white radius-4 px-3">
+                                    @Model.ListType[i].Text
+                                    <span id="sl_@Model.ListType[i].Value"><i class="fas fa-lg fa-spinner icon text-primary-l1"></i></span>
+                                </span>
+                            </label>
+                        }
+
+                        @*<div class="col-form-label text-primary font-italic">
+                                <i class="fas fa-lg fa-spinner icon text-primary-l1"></i> Đang tải danh sách @AppProcessor.Messagor.GetMessage("TypeService_Title")
+                            </div>*@
+                    </div>
+                </div>
+
+                
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="col-md-12 text-center">
+                <button type="button" class="btn btn-primary mr-2" onclick="_search()"><i class="fa fa-search-plus"></i>&nbsp;@AppProcessor.Messagor.GetMessage("Condition_Title")</button>
+                <button type="button" class="btn btn-success" onclick="ExportThongKeYeuCauDangKy()"><i class="fa fa-download"></i>&nbsp;Xuất báo cáo</button>
+            </div>
+           
+        </div>
+    </div>
+</div>

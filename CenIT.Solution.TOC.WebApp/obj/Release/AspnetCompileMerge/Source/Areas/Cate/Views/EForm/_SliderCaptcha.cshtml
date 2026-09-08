@@ -1,0 +1,45 @@
+﻿<link href="~/Areas/Cate/Views/EForm/sliderCaptcha.css" rel="stylesheet" />
+<style>
+  
+</style>
+<script src="~/Contents/Base/plugins/ace_v4/node_modules/bootbox/bootbox.all.js"></script>
+<script src="~/Areas/Cate/Views/EForm/sliderCaptcha.js"></script>
+<script>
+    bootbox.alert({
+        message: `<div class="">
+                <div class="slidercaptcha card">
+                    <div class="card-header">
+                        <span>Vui lòng xác minh để tiếp tục:</span>
+                    </div>
+                    <div class="card-body">
+                        <div id="captcha"></div>
+                    </div>
+                </div>
+            </div>`,
+        onEscape: true,
+        closeButton: false,
+        callback: function () {
+        }
+    });
+    // ----set-captcha with script
+    var captcha = sliderCaptcha({
+        id: 'captcha',
+        loadingText: 'Xin chờ...',
+        failedText: 'Hãy thử lại',
+        barText: 'Kéo vào vị trí còn trống',
+        repeatIcon: 'fa fa-redo',
+        onSuccess: function () {
+            // var handler = setTimeout(function () {
+            //     window.clearTimeout(handler);
+            //     captcha.reset();
+            // }, 500);
+            setTimeout(function () {
+                $('.bootbox-accept').click();
+                //alert('Your captcha is successfully verified.');
+                captcha.reset();
+            }, 1000);
+        },
+        setSrc: function () {
+        },
+    });
+</script>

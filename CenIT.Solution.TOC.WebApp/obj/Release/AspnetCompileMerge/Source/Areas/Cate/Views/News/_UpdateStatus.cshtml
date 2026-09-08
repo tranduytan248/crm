@@ -1,0 +1,25 @@
+﻿@using TSFramework.Libs.Processors
+@model Core.Cate.Models.Cate_NewsModel
+
+@{
+    ViewBag.Title = "Cập nhật trạng thái tin tức";
+    Layout = "~/Views/Shared/_FormConfirm.cshtml";
+}
+
+@section FormType{
+    warning
+}
+
+@section FormBody{
+    @using (Ajax.BeginForm("UpdateStatus", "News", new { area = "Cate" }, new AjaxOptions
+    {
+        HttpMethod = "POST",
+        OnSuccess = "News_OnProcessSuccess(data, 'UpdateStatusNews')"
+    }, new { @class = "form-horizontal", id = "DeleteNews" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.NewsId)
+        @Html.HiddenFor(model => model.Title)
+        <h5> @Html.Raw(ViewBag.ConfirmMessage)</h5>
+    }
+}

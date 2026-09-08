@@ -1,0 +1,5 @@
+08:00:00.008 AM ===== START SEND REMINDER EMAIL =====
+08:00:00.008 AM FromDate=13/07/2026; ToDate=19/07/2026
+08:00:00.025 AM Queue reminder mail: ObjectId=17, ObjectType=Dự án
+08:00:00.025 AM Queue reminder mail: ObjectId=40, ObjectType=Cơ hội
+08:00:00.025 AM ===== END SEND REMINDER EMAIL =====

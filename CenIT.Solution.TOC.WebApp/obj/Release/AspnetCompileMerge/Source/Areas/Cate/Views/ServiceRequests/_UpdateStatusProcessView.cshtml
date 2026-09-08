@@ -1,0 +1,93 @@
+﻿@model Core.Cate.Models.Cate_ServiceRequestsModel
+@using TSFramework.Libs.Processors
+@Html.AntiForgeryToken()
+@Html.HiddenFor(m => m.RequestId)
+@Html.HiddenFor(m => m.Status)
+@Html.HiddenFor(m => m.StatusCanSee)
+@Html.HiddenFor(m => m.Email)
+@Html.HiddenFor(m => m.RequestType)
+@Html.HiddenFor(m => m.RequesterName)
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+<style>
+    .hidden {
+        display: none;
+    }
+</style>
+@*@if (Model.Status == "new")
+    {
+        <div class="form-group hidden-button">
+            @Html.TitleFor(model => model.UserId, new { @class = "col-form-label font-bold" })
+            @Html.DropDownListFor(model => model.UserId, new SelectList(Model.lstUser, "Value", "Text"), "", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
+        </div>
+    }*@
+@*@if (Model.Status == "new")
+    {
+        <div class="form-group hidden-button">
+            @Html.TitleFor(model => model.DepartmentId, new { @class = "col-form-label font-bold" })
+            @Html.DropDownListFor(model => model.DepartmentId, new SelectList(Model.lstDepartment, "Value", "Text"), "", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.DepartmentId, "", new { @class = "text-danger" })
+        </div>
+    }*@
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            @Html.TitleFor(model => model.StatusProcessCode, new { @class = "col-form-label font-bold" })
+            @Html.DropDownListFor(model => model.StatusProcessCode, new SelectList(Model.lstStatusCanSee, "Value", "Text"), "", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.StatusProcessCode, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="col-md-6">
+        @if (Model.Status == "apply")
+        {
+            <div class="form-group" id="Department">
+                @Html.TitleFor(model => model.DepartmentId, new { @class = "col-form-label font-bold" })
+                @Html.DropDownListFor(model => model.DepartmentId, new SelectList(Model.lstDepartment, "Value", "Text"), "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.DepartmentId, "", new { @class = "text-danger" })
+            </div>
+        }
+    </div>
+    <div class="col-md-12">
+        <div class="form-group">
+            @Html.TitleFor(model => model.ReasonProcess, new { @class = "col-form-label font-bold" })
+            @Html.TextAreaFor(model => model.ReasonProcess, new { rows = 3, @class = "form-control", placeholder = AppProcessor.Messagor.GetMessage("ServiceRequests_NoiDungXuLy_Title") })
+            @Html.ValidationMessageFor(model => model.ReasonProcess, "", new { @class = "text-danger" })
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    $(document).ready(function () {
+        // Bắt sự kiện khi thay đổi dropdown StatusProcessCode
+        $('#StatusProcessCode').on('change', function () {
+            var value = $(this).val().toLowerCase();
+
+            // Kiểm tra nếu chọn "từ chối" thì ẩn ô Department
+            if (value === 'cancel') {
+                $('#Department').addClass('hidden');
+                $('#ReasonProcess').html('Yêu cầu bị từ chối');
+            }
+            else if (value === 'apply') {
+                $('#Department').removeClass('hidden');
+                $('#ReasonProcess').html('Yêu cầu đã được tiếp nhận');
+            }
+            else if (value === 'processing') {
+                $('#Department').removeClass('hidden');
+                $('#ReasonProcess').html('Yêu cầu đang được xử lý');
+            }
+            else if (value === 'done') {
+                $('#Department').removeClass('hidden');
+                $('#ReasonProcess').html('Yêu cầu đã được xử lý');
+            }
+            else if (value === 'done') {
+                $('#Department').removeClass('hidden');
+                $('#ReasonProcess').html('');
+            }
+        });
+
+        $('#StatusProcessCode').trigger('change');
+    });
+
+</script>

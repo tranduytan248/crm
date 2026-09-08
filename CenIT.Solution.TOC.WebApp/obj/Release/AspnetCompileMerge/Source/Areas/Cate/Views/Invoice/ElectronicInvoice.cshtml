@@ -1,0 +1,121 @@
+﻿@model Core.Cate.Models.Cate_ResElectronicInvoiceModel
+
+@{
+    Layout = "~/Views/Shared/_Login.cshtml";
+}
+@{
+    var contractCode = Request.QueryString["contractcode"];
+    var period = Request.QueryString["period"];
+    var checksum = Request.QueryString["checksum"];
+}
+<style>
+    .btn {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 1rem;
+        font-weight: 500;
+        padding: 10px 24px;
+        border-radius: 12px;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    }
+
+        /* Nút chính (Tải về) */
+        .btn.primary {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: white;
+/*            padding: 20px 20px;*/
+        }
+
+            .btn.primary:hover {
+                background: linear-gradient(135deg, #1d4ed8, #1e40af);
+                transform: translateY(-2px);
+                box-shadow: 0 6px 14px rgba(37, 99, 235, 0.3);
+            }
+
+    /*    .button-group {
+        display: flex;
+        justify-content: flex-end;
+    }*/
+
+    #ElInvView {
+        min-height: 100vh;
+        margin-top: 100px;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    .invoice-wrapper {
+    position: relative;
+}
+
+/* Nút tải PDF cố định góc phải (trên cả desktop và mobile) */
+.fixed-download-btn {
+    position: fixed;
+    top: 15px;          /* cách mép trên một chút */
+    right: 15px;        /* cách mép phải */
+    z-index: 9999;      /* luôn nằm trên cùng */
+/*    background: rgba(255,255,255,0.95);
+    padding: 8px 12px;
+    border-radius: 6px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);*/
+}
+
+/* Khi màn hình nhỏ hơn 790px thì vẫn thấy nút */
+@@media (max-width: 810px) {
+    .fixed-download-btn {
+        top: 10px;
+        right: 10px;
+    }
+    .fixed-download-btn button {
+        font-size: 14px;
+        padding: 8px 12px;
+    }
+}
+#invoice-scale {
+    width: fit-content;
+}
+</style>
+
+@*<div id="ElInvView">
+    <form method="get" action="@Url.Action("DownloadPDF", "Invoice")" style="display: flex; justify-content: start; margin-bottom: 5px; ">
+        <input type="hidden" name="contractcode" value="@contractCode" />
+        <input type="hidden" name="period" value="@period" />
+        <input type="hidden" name="checksum" value="@checksum" />
+        <button type="submit" class="btn primary"><i class="fa fa-download"></i> Tải PDF</button>
+    </form>
+    @Html.Raw(Model.htmlElectronicInvoice)
+</div>*@
+
+<!-- 1. Thêm một wrapper bọc toàn bộ trang -->
+<div class="invoice-wrapper">
+    <!-- Nút tải PDF cố định bên phải màn hình -->
+    <div class="fixed-download-btn">
+        <form method="get" action="@Url.Action("DownloadPDF", "Invoice")">
+            <input type="hidden" name="contractcode" value="@contractCode" />
+            <input type="hidden" name="period" value="@period" />
+            <input type="hidden" name="checksum" value="@checksum" />
+            <button type="submit" class="btn primary"><i class="fa fa-download"></i> Tải PDF</button>
+        </form>
+    </div>
+    <!-- Hóa đơn gốc (giữ nguyên 790px) -->
+    <div id="invoice-scale">
+        <div id="ElInvView">
+            @Html.Raw(Model.htmlElectronicInvoice)
+        </div>
+    </div>
+</div>
+    <script>
+        setTimeout(
+            hidePhuginChrome, 300
+        )
+        function hidePhuginChrome() {
+            $("#4plugin").addClass("d-none");
+        }
+
+        $("#pdfForm").on("submit", function (e) {
+            e.preventDefault();
+            this.submit();
+        });
+    </script>
+

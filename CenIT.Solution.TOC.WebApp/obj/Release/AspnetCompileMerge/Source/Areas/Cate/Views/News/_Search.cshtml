@@ -1,0 +1,101 @@
+﻿@using TSFramework.Libs.Processors
+@model Core.Cate.Models.Cate_NewsSearchModel
+<style>
+    #SearchNews .datepicker.datepicker-dropdown.dropdown-menu {
+        z-index: 998 !important;
+    }
+
+    #SearchNews .dp-daterange-picker.visible {
+        z-index: 999 !important;
+    }
+
+    #Status .select2-selection__clear {
+        display: none;
+    }
+
+    #DSNews .new_img {
+        width: 100px;
+        height: auto;
+        object-fit:cover;
+    }
+</style>
+<div class="card dcard" id="SearchNews">
+    <div class="card-body collapse show p-0">
+        <div class="form-horizontal row px-3 pt-3">
+            <div class="col-md-6">
+                <div class="form-group row">
+                    @Html.TitleFor(model => model.TuKhoa, new { @class = "col-md-3 col-form-label text-sm-right pr-0 font-bold" })
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(model => model.TuKhoa, new { @class = "form-control col-md-11", placeholder = AppProcessor.Messagor.GetMessage("News_Placeholder_TuKhoa") })
+                        @Html.ValidationMessageFor(model => model.TuKhoa, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group row">
+                    @Html.TitleFor(model => model.NewsCategoriesId, new { @class = "col-md-3 col-form-label text-sm-right pr-0 font-bold" })
+                    <div class="col-md-9">
+                        @Html.DropDownListFor(model => model.NewsCategoriesId, new SelectList(Model.listNewsCategories, "Value", "Text"), "", new { @class = "form-control col-md-8", data_placeholder = AppProcessor.Messagor.GetMessage("Combobox_Select") })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group row">
+                    @Html.TitleFor(model => model.TuNgay, new { @class = "col-md-3 col-form-label text-sm-right pr-0 font-bold" })
+                    <div class="col-md-8">
+                        <div id="receivedOn-wrapper">
+                            <div class="form-row">
+                                <div class="col">
+                                    @Html.TextBoxFor(model => model.TuNgay, "dd/MM/yyyy", new
+                                    {
+                                        @class = "form-control ex-inputs-start",
+                                        @autocomplete = "off",
+                                        placeholder = "DD/MM/YYYY"
+                                    })
+                                </div>
+                                <div class="text-grey-l2"> _ </div>
+                                <div class="col">
+                                    @Html.TextBoxFor(model => model.DenNgay, "dd/MM/yyyy", new
+                                    {
+                                        @class = "form-control ex-inputs-end",
+                                        @autocomplete = "off",
+                                        placeholder = "DD/MM/YYYY"
+                                    })
+                                </div>
+                            </div>
+                            <div id="receivedOn-container" class="dp-daterange-picker"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group row">
+                    @Html.TitleFor(model => model.Status, new { @class = "col-md-3 col-form-label text-sm-right pr-0 font-bold" })
+                    <div class="col-md-9">
+                        @Html.DropDownListFor(model => model.Status, new SelectList(new List<SelectListItem> {
+                      new SelectListItem { Text = "Tất cả", Value = "-1" },
+                      new SelectListItem { Text = AppProcessor.Messagor.GetMessage("NewsIsHiddenLabel"), Value = "0" },
+                      new SelectListItem { Text = AppProcessor.Messagor.GetMessage("NewsIsShowLabel"), Value = "1" }
+                  }, "Value", "Text"), new { @class = "form-control col-md-8" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="col-md-12 text-center">
+                <button type="button" class="btn btn-primary" onclick="_tableNews.ajax.reload(null, false);"><i class="fa fa-search-plus"></i>&nbsp;Tìm kiếm</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        _initDateRangePicker('#receivedOn-container', '#receivedOn-wrapper', '#TuNgay', '#DenNgay');
+        //_initDateRangePicker('#giveResultOn-container', '#giveResultOn-wrapper', '#GiveResultFromDate', '#GiveResultToDate');
+
+        $('.selectpicker').on('loaded.bs.select', function (e, clickedIndex, isSelected, previousValue) {
+            $(this).next('button').tooltip({ trigger: 'hover' });
+        });
+    });
+</script>

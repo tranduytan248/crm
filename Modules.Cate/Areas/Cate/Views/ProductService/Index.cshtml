@@ -1,0 +1,127 @@
+﻿@using TSFramework.Libs.Processors
+@model Core.Cate.Models.Cate_ProductServiceSearchModel
+@{
+    ViewBag.Title = "Sản phẩm dịch vụ";
+}
+
+@section PageTitle
+{
+    @ViewBag.Title
+}
+
+@section HeadCss
+{
+    <link href="@Url.Content("~/Contents/Modules/Sys/plugins/bootstrap-iconpicker-1.10.0/dist/css/bootstrap-iconpicker.css")" rel="stylesheet" />
+    <style>
+        #DSProductService thead th {
+            font-weight: 600;
+            color: #222222;
+            background-color: #ffffff;
+            border-bottom: 1px solid #e5e7eb;
+            text-transform: none;
+        }
+
+            #DSProductService thead th:first-child {
+                text-align: left;
+            }
+
+        #DSProductService tbody td {
+            padding: 8px 12px;
+            vertical-align: middle;
+            border-top: 1px solid #edf0f2;
+            background-color: #ffffff;
+        }
+
+        #DSProductService tbody tr:hover td {
+            background-color: #ffffff;
+        }
+
+        #DSProductService tbody tr:nth-child(even) td {
+            background-color: #ffffff;
+        }
+
+        #DSProductService tbody td .btn {
+            padding: 0.35rem 0.5rem;
+        }
+
+        #DSProductService .product-service-toggle {
+            color: #5b6778;
+            text-decoration: none;
+            vertical-align: middle;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 8px;
+            height: 8px;
+        }
+
+            #DSProductService .product-service-toggle:hover {
+                color: #5b6778;
+                text-decoration: none;
+            }
+
+        #DSProductService .product-service-toggle-icon {
+            display: inline-block;
+            width: 5px;
+            height: 5px;
+            border-right: 1px solid #5b6778;
+            border-bottom: 1px solid #5b6778;
+            vertical-align: middle;
+            transition: transform 0.15s ease;
+            transform-origin: 55% 55%;
+        }
+
+            #DSProductService .product-service-toggle-icon.collapsed {
+                transform: rotate(-45deg);
+            }
+
+            #DSProductService .product-service-toggle-icon.expanded {
+                transform: rotate(45deg);
+            }
+
+        #DSProductService .product-service-name-cell {
+            text-align: left;
+            white-space: nowrap;
+            line-height: 1.2;
+        }
+
+        #DSProductService .product-service-group-row td {
+            background-color: #ffffff;
+        }
+
+        #DSProductService .product-service-group-row strong {
+            font-weight: 700;
+            color: #111827;
+        }
+    </style>
+}
+
+@section PageAction
+{
+    @Html.Button(true, "AddProductService", Url.Action("Add", new { area = "Cate" }), "<i class='fa fa-plus'></i>", AppProcessor.Messagor.GetMessage("Button_Add"), new { @class = "btn btn-light-blue btn-h-blue btn-a-blue border-0 radius-3 py-2 text-600 text-90 pull-right" })
+}
+@Html.Partial("_Search", Model)
+<div class="card dcard mt-1">
+    <div class="col-sm-12 table-responsive-md">
+        <table id="DSProductService" class="d-style w-100 table text-dark-m1 text-95 border-y-1 brc-black-tp11" width="100%">
+            <thead>
+                <tr>
+                    <th>Thông tin dịch vụ</th>
+                    <th>Mã sản phẩm</th>
+                    <th>Tên viết tắt</th>
+                    <th>Trạng thái</th>
+                    <th>Hành động</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+
+
+@section BottomScript
+{
+    <script src="@Url.Content("~/Areas/Cate/Views/ProductService/ProductService.js?v=20260420_08")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Contents/Modules/Major/ckeditor4/ckeditor.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Contents/Modules/Major/ckfinder/ckfinder.js")"></script>
+}

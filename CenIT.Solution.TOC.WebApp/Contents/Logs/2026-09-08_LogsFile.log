@@ -1,0 +1,52 @@
+08:28:13.207 AM  The network path was not found
+08:28:13.207 AM Stack: 
+08:28:13.209 AM .Net SqlClient Data Provider A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: Named Pipes Provider, error: 40 - Could not open a connection to SQL Server)
+08:28:13.276 AM Stack: at System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, SqlCredential credential, Object providerInfo, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance, SqlConnectionString userConnectionOptions, SessionData reconnectSessionData, DbConnectionPool pool, String accessToken, Boolean applyTransientFaultHandling, SqlAuthenticationProviderManager sqlAuthProviderManager)
+   at System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, DbConnectionPoolKey poolKey, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection, DbConnectionOptions userOptions)
+   at System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnectionPool pool, DbConnection owningObject, DbConnectionOptions options, DbConnectionPoolKey poolKey, DbConnectionOptions userOptions)
+   at System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at System.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at System.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at System.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   at System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   at System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   at System.Data.SqlClient.SqlConnection.Open()
+   at TiSun.SqlDataProvider.CreateConnection(String newConnectionString)
+   at TiSun.SqlDataProvider.CreateConnection()
+   at TiSun.AutomaticConnectionScope..ctor(DataProvider provider)
+   at TiSun.SqlDataProvider.GetReader(QueryCommand qry)
+   at Plugable.SQLProcedureProcessor.SQLProcProcessor.GetProcedures()
+   at Plugable.SQLProcedureProcessor.SQLProcProcessor.get_ListProcedures()
+   at Plugable.SQLProcedureProcessor.SQLProcProcessor.InitStoreProcedure(String keySpName, Boolean useAlias, Object[] parameters)
+   at Plugable.SQLProcedureProcessor.SQLProcProcessor.ExecuteProcedureTypedList[T](String spName, Object[] parameters)
+   at Core.Sys.Biz.Sys.SysJobBiz.Get(Int32& total, BaseSearchModel search) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysJobBiz.cs:line 20
+   at Core.Sys.Caches.Sys.SysJobCache.GetAll() in D:\VNPT\CRM\trunk\source\Core.Sys\Caches\Sys\SysJobCache.cs:line 29
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_Start() in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 45
+08:32:44.913 AM  The network path was not found
+08:32:44.913 AM Stack: 
+08:32:44.914 AM .Net SqlClient Data Provider A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: Named Pipes Provider, error: 40 - Could not open a connection to SQL Server)
+08:32:45.016 AM Stack: at System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, SqlCredential credential, Object providerInfo, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance, SqlConnectionString userConnectionOptions, SessionData reconnectSessionData, DbConnectionPool pool, String accessToken, Boolean applyTransientFaultHandling, SqlAuthenticationProviderManager sqlAuthProviderManager)
+   at System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, DbConnectionPoolKey poolKey, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection, DbConnectionOptions userOptions)
+   at System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnectionPool pool, DbConnection owningObject, DbConnectionOptions options, DbConnectionPoolKey poolKey, DbConnectionOptions userOptions)
+   at System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at System.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at System.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at System.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   at System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   at System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   at System.Data.SqlClient.SqlConnection.Open()
+   at TiSun.SqlDataProvider.CreateConnection(String newConnectionString)
+   at TiSun.SqlDataProvider.CreateConnection()
+   at TiSun.AutomaticConnectionScope..ctor(DataProvider provider)
+   at TiSun.SqlDataProvider.GetReader(QueryCommand qry)
+   at Plugable.SQLProcedureProcessor.SQLProcProcessor.GetProcedures()
+   at Plugable.SQLProcedureProcessor.SQLProcProcessor.get_ListProcedures()
+   at Plugable.SQLProcedureProcessor.SQLProcProcessor.InitStoreProcedure(String keySpName, Boolean useAlias, Object[] parameters)
+   at Plugable.SQLProcedureProcessor.SQLProcProcessor.ExecuteProcedureTypedList[T](String spName, Object[] parameters)
+   at Core.Sys.Biz.Sys.SysJobBiz.Get(Int32& total, BaseSearchModel search) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysJobBiz.cs:line 20
+   at Core.Sys.Caches.Sys.SysJobCache.GetAll() in D:\VNPT\CRM\trunk\source\Core.Sys\Caches\Sys\SysJobCache.cs:line 29
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_Start() in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 45

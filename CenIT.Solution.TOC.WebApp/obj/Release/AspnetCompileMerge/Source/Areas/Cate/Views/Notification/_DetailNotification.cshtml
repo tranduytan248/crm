@@ -1,0 +1,43 @@
+﻿@using TSFramework.Libs.Processors
+@model Core.Cate.Models.KWC_NotificationSearchModel
+
+@{
+    ViewBag.Title = string.Format(AppProcessor.Messagor.GetMessage("Modal_Title_View"), "mã hợp đồng");
+    Layout = "~/Views/Shared/_Form.cshtml";
+}
+
+@section FormType{
+    primary
+}
+
+@section FormIcon{
+    <i class="far fa-eye"></i>
+}
+@section SubmitControl{
+
+}
+@section FormBody{
+    @Html.HiddenFor(m => m.Type)
+
+    <div class="mt-3">
+        <div class="card dcard">
+            <div class="col-sm-12 table-responsive-md">
+                <table id="DSDKDNChiTietHoSo" class="d-style w-100 table text-dark-m1 text-95 border-y-1 brc-black-tp11 collapsed dtr-table" width="100%">
+                    <thead class="sticky-nav text-secondary-m1 text-uppercase text-85 bgc-secondary-l1">
+                        <tr>
+                            <th>@AppProcessor.Messagor.GetMessage("Column_No")</th>
+                            <th>@AppProcessor.Messagor.GetMessage("ContractCode_Label_Name")</th>
+
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script src="~/Areas/Cate/Views/Notification/Notification.js"></script>
+    <script>
+        $(document).ready(function () {
+            initTableDKDNChiTietHoSo();
+        });
+    </script>
+}

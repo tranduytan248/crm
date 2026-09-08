@@ -1,0 +1,25 @@
+﻿@using TSFramework.Libs.Processors
+@model Core.Cate.Models.Cate_BannerModel
+
+@{
+    ViewBag.Title = "Gửi thông báo";
+    Layout = "~/Views/Shared/_FormConfirm.cshtml";
+}
+
+@section FormType{
+    warning
+}
+
+@section FormBody{
+    @using (Ajax.BeginForm("UpdateStatusSendNotification", "Banners", new { area = "Cate" }, new AjaxOptions
+    {
+        HttpMethod = "POST",
+        OnSuccess = "Banners_OnProcessSuccess(data, 'UpdateStatusSendNotificationBanners')"
+    }, new { @class = "form-horizontal", id = "UpdateStatusSendNotificationBanners" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.BannerId)
+        @Html.HiddenFor(model => model.URLRedirect)
+        <h5> @Html.Raw(ViewBag.ConfirmMessage)</h5>
+    }
+}

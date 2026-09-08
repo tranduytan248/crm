@@ -1,0 +1,20 @@
+﻿@using TSFramework.Libs.Processors
+@model Core.Cate.Models.BoPhanSearchModel
+
+<div class="card dcard">
+    <div class="card-body p-0 collapse show">
+        <div class="col-md-12 form-horizontal mt-3" id="SearchBoPhan">
+            <div class="form-group row">
+                @Html.TitleFor(model => model.ListBoPhanChaIDs, new { @class = "col-sm-3 col-form-label text-sm-right pr-0 font-bold" })
+                <div class="col-md-9">
+                    @Html.DropDownListFor(model => model.ListBoPhanChaIDs, new SelectList(Model.ListBoPhanCha, "Value", "Text"), "", new { multiple = true, @class = "form-control col-md-8", data_placeholder = AppProcessor.Messagor.GetMessage("Combobox_Select") })
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="col-md-12 text-center">
+                <button type="button" class="btn btn-primary" onclick="_tableBoPhan.ajax.reload(null, false);"><i class="fa fa-search-plus"></i>&nbsp;Tìm kiếm</button>
+            </div>
+        </div>
+    </div>
+</div>

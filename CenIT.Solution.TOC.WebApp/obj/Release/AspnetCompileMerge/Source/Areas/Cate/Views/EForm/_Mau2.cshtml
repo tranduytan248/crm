@@ -1,0 +1,170 @@
+﻿@model Core.Cate.Models.Cate_Request_MoveWaterMeterModel
+@using TSFramework.Libs.Processors
+@Html.ValidationMessage("CaptchaInputText", "", new { @class = "text-danger d-none" })
+
+@Html.AntiForgeryToken()
+@Html.HiddenFor(m => m.RequestType)
+<div class="">
+    <div class="title_template">Thông tin hiện tại</div>
+    <!--Tên-->
+    <div class="input-floating-label brc-blue-m1 mt-3">
+        @Html.TextBoxFor(m => m.Requester, new { @readonly = "", @class = "form-control shadow-none radius-5", placeholder = AppProcessor.Messagor.GetMessage("Requester_Label") })
+        @Html.TitleFor(model => model.Requester, new { @class = "floating-label " })
+    </div>
+
+    <div class="row mx-auto">
+        <div class="col-6 pl-0 pr-1">
+            <!--SDT-->
+            <div class="input-floating-label brc-blue-m1 mt-3 ">
+                @Html.TextBoxFor(m => m.PhoneNumber, new { @readonly = "", @class = "form-control shadow-none radius-5", placeholder = "" })
+                @Html.TitleFor(model => model.PhoneNumber, new { @class = "floating-label " })
+            </div>
+            @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-6 pl-1 pr-0">
+            <!--Mã HĐ-->
+            <div class="input-floating-label brc-blue-m1 mt-3">
+                @Html.TextBoxFor(m => m.ContractCode, new { @readonly = "", @class = "form-control shadow-none radius-5", placeholder = "" })
+                @Html.TitleFor(model => model.ContractCode, new { @class = "floating-label " })
+            </div>
+        </div>
+    </div>
+    <!--Địa chỉ-->
+    <div class="input-floating-label brc-blue-m1 mt-3">
+        @Html.TextAreaFor(m => m.ContactAddress, new { @readonly = "", @class = "form-control shadow-none radius-5", placeholder = "" })
+        @Html.TitleFor(model => model.ContactAddress, new { @class = "floating-label " })
+    </div>
+</div>
+
+<div class="">
+    <div class="title_template">Thông tin liên hệ</div>
+
+    <div class="row mx-auto">
+        <div class="col-5 pl-0 pr-1">
+            <!--Số điện thoại-->
+            <div class="input-floating-label brc-blue-m1 mt-3">
+                @Html.TextBoxFor(m => m.PhoneContact, new { @class = "form-control shadow-none radius-5", placeholder = "", @onfocus = "$(\"#PhoneContact\").inputmask(\"9999999999\");" })
+                @Html.TitleFor(model => model.PhoneContact, new { @class = "floating-label " })
+            </div>
+            @Html.ValidationMessageFor(model => model.PhoneContact, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-7 pl-1 pr-0">
+            <!--Email-->
+            <div class="input-floating-label brc-blue-m1 mt-3">
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control shadow-none radius-5", placeholder = "", @onfocus = "$(\"#Email\").inputmask(\"email\");" })
+                @Html.TitleFor(model => model.Email, new { @class = "floating-label " })
+            </div>
+            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="input-floating-label brc-blue-m1 mt-3">
+        @Html.TextAreaFor(m => m.ContactInfo, new { @class = "form-control shadow-none radius-5", placeholder = "", @rows = "1" })
+        @Html.TitleFor(model => model.ContactInfo, new { @class = "floating-label " })
+    </div>
+    @Html.ValidationMessageFor(model => model.ContactInfo, "", new { @class = "text-danger" })
+</div>
+
+<div class="">
+    <div class="title_template">Đồng hồ nước hiện tại</div>
+    <!--Hãng-->
+    <div class="input-floating-label brc-blue-m1 mt-3">
+        @Html.TextBoxFor(m => m.MeterBrand, new { @class = "form-control shadow-none radius-5", placeholder = AppProcessor.Messagor.GetMessage("MeterBrand_Label") })
+        @Html.TitleFor(model => model.MeterBrand, new { @class = "floating-label " })
+    </div>
+    @Html.ValidationMessageFor(model => model.MeterBrand, "", new { @class = "text-danger" })
+
+
+    <div class="row mx-auto">
+        <div class="col-6 pl-0 pr-1">
+            <!--Cỡ-->
+            <div class="input-floating-label brc-blue-m1 mt-3 ">
+                @Html.TextBoxFor(m => m.MeterSize, new { @class = "form-control shadow-none radius-5 input_type_number", placeholder = AppProcessor.Messagor.GetMessage("MeterSize_Label") })
+                @Html.TitleFor(model => model.MeterSize, new { @class = "floating-label " })
+            </div>
+            @Html.ValidationMessageFor(model => model.MeterSize, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-6 pl-1 pr-0">
+            <!--Chỉ số-->
+            <div class="input-floating-label brc-blue-m1 mt-3 ">
+                @Html.TextBoxFor(m => m.WaterReading, new { @class = "form-control shadow-none radius-5 input_type_number", placeholder = AppProcessor.Messagor.GetMessage("WaterReading_Label") })
+                @Html.TitleFor(model => model.WaterReading, new { @class = "floating-label " })
+            </div>
+            @Html.ValidationMessageFor(model => model.WaterReading, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="ml-2 pt-1 bgc-white text-90" style="position: absolute;">Mô hình lắp đặt</div>
+
+    <div class="border-1 brc-grey-l1 radius-5 p-2 mt-3">
+        <div class="row px-1">
+            <div class="col-4"><label class="m-0">@Html.RadioButtonFor(m => m.InstallationModel, "1", new { @onchange = "changeInstallationMode()" }) Cũ</label></div>
+            <div class="col-4"><label class="m-0">@Html.RadioButtonFor(m => m.InstallationModel, "2", new { @onchange = "changeInstallationMode()" }) Mới</label></div>
+            <div class="col-4"><label class="m-0">@Html.RadioButtonFor(m => m.InstallationModel, "3", new { @onchange = "changeInstallationMode()" }) Khác</label></div>
+        </div>
+
+        <div class="input-floating-label brc-blue-m1 mt-3 d-none" id="InstallationModeOtherView">
+            @Html.TextBoxFor(m => m.InstallationModelOther, new { @class = "form-control shadow-none radius-5", placeholder = "" })
+            <label class="floating-label ">Thông tin khác</label>
+        </div>
+    </div>
+
+    <div class="row mx-auto">
+        <div class="col-6 pl-0 pr-1">
+            <!--Độ sâu-->
+            <div class="input-floating-label brc-blue-m1 mt-3">
+                @Html.TextBoxFor(m => m.Depth, new { @class = "form-control shadow-none radius-5 input_type_number use_tooltip", placeholder = "", @data_placement = "top", @title = "", @data_original_title = "Độ sâu đến mặt đồng hồ" })
+                @Html.TitleFor(model => model.Depth, new { @class = "floating-label " })
+            </div>
+            @Html.ValidationMessageFor(model => model.Depth, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-6 pl-1 pr-0">
+            <!--Chiều dài-->
+            <div class="input-floating-label brc-blue-m1 mt-3   ">
+                @Html.TextBoxFor(m => m.Length, new { @class = "form-control shadow-none radius-5 input_type_number use_tooltip", placeholder = "", @data_placement = "top", @title = "", @data_original_title = "Chiều dài cần dời đồng hồ" })
+                @Html.TitleFor(model => model.Length, new { @class = "floating-label " })
+            </div>
+            @Html.ValidationMessageFor(model => model.Length, "", new { @class = "text-danger" })
+        </div>
+    </div>
+</div>
+
+<div class="">
+    <div class="title_template">Yêu cầu</div>
+    <div class="ml-2 pt-1 bgc-white text-90" style="position: absolute;">Chọn yêu cầu</div>
+    <div class="border-1 brc-grey-l1 radius-5 p-2 mt-3">
+        <div class="row px-1">
+            <div class="col-6 mt-1"><label class="m-0">@Html.RadioButtonFor(m => m.ProposalType, "1", new { }) Nâng</label></div>
+            <div class="col-6 mt-1"><label class="m-0">@Html.RadioButtonFor(m => m.ProposalType, "2", new { }) Hạ</label></div>
+            <div class="col-6 mt-1"><label class="m-0">@Html.RadioButtonFor(m => m.ProposalType, "3", new { }) Dời</label></div>
+            <div class="col-6 mt-1"><label class="m-0">@Html.RadioButtonFor(m => m.ProposalType, "4", new { }) Chuyển</label></div>
+        </div>
+    </div>
+
+    <div class="input-floating-label brc-blue-m1 mt-3">
+        @Html.TextAreaFor(m => m.ProposalContent, new { @class = "form-control shadow-none radius-5", placeholder = "", @rows = "1" })
+        @Html.TitleFor(model => model.ProposalContent, new { @class = "floating-label " })
+    </div>
+    @Html.ValidationMessageFor(model => model.ProposalContent, "", new { @class = "text-danger" })
+</div>
+
+@Html.RenderScripts(ScriptPosition.BodyInside)
+<script>
+    $(document).ready(function () {
+        for (var i = 0; i < $('.form-control').length; i++) {
+            $('.form-control').eq(i).attr('placeholder', ' ');
+        }
+
+        df_decimal_inputmask('.input_type_number');
+        $(".use_tooltip").tooltip();
+        $("#dz-area").addClass('d-none');
+
+        SetHeightTextarea(['ContactAddress', 'ProposalContent', 'ContactInfo']);
+    });
+    changeInstallationMode();
+    function changeInstallationMode() {
+        if ($('input[name=InstallationModel]:checked').val() == "3") {
+            $('#InstallationModeOtherView').removeClass('d-none');
+        } else {
+            $('#InstallationModeOtherView').addClass('d-none');
+        }
+    }
+</script>

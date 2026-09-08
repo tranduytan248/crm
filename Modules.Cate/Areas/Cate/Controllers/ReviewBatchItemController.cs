@@ -1,0 +1,383 @@
+﻿using Core.Cate.Biz;
+using Core.Cate.Caches;
+using Core.Cate.Models;
+using Core.Sys.BaseApp;
+using System;
+using System.Collections.Generic;
+using System.Web.Hosting;
+using System.Web;
+using System.Web.Mvc;
+using TSFramework.Libs.Attributes;
+using TSFramework.Libs.Enums;
+using TSFramework.Libs.Models.Base;
+using TSFramework.Libs.Utils;
+using TSFramework.Libs.Processors;
+using System.IO;
+using System.Configuration;
+using System.Linq;
+using Core.Sys.Caches.Sys;
+
+namespace Modules.Cate.Areas.Cate.Controllers
+{
+    public class ReviewBatchItemController : AppController
+    {
+        private readonly RM_ReviewBatchItemCache _reviewBatchItemCache;
+        private readonly RM_ReviewBatchCache _reviewBatchCache;
+        private readonly RM_ReviewBatchItemBiz _reviewBatchItemBiz;
+        private readonly RM_StatusCache _statusCache;
+        private readonly SysUserCache _userCache;
+        private readonly SysUserBoPhanCache _userBoPhanCache;
+        private readonly string _reviewBatchTitle = AppProcessor.Messagor.GetMessage("ReviewBatch_Title");
+        private readonly string _reviewHistoryTitle = AppProcessor.Messagor.GetMessage("ReviewHistory_Title");
+        private readonly string _folderImage = ConfigurationManager.AppSettings["AppImageRoot_Path"] ?? "/Contents/imgs";
+
+        public ReviewBatchItemController()
+        {
+            _reviewBatchItemCache = new RM_ReviewBatchItemCache();
+            _reviewBatchCache = new RM_ReviewBatchCache();
+            _reviewBatchItemBiz = new RM_ReviewBatchItemBiz();
+            _statusCache = new RM_StatusCache();
+            _userCache = new SysUserCache();
+            _userBoPhanCache = new SysUserBoPhanCache();
+        }
+
+        public ActionResult Index(int? id)
+        {
+            var model = new RM_ReviewBatchItemSearchModel();
+
+            var reviewBatch = _reviewBatchCache.GetAll();
+
+            var boPhans = GetAccessibleDepartments();
+
+            model.ProjectSearch = new RM_ReviewProjectSearchModel
+            {
+                ReviewBatchID = id ?? 0,
+                IsReviewed = false,
+                ListReviewPatch = reviewBatch,
+                Departments = boPhans,
+                ListStatus = _statusCache.GetStatusBySearchKey("Project")
+            };
+
+            model.BusinessOpportunitySearch = new RM_ReviewBusinessOpportunitySearchModel
+            {
+                ReviewBatchID = id ?? 0,
+                IsReviewed = false,
+                ListReviewPatch = reviewBatch,
+                Departments = boPhans,
+                ListStatus = _statusCache.GetStatusBySearchKey("Opportunity")
+            };
+
+            return View(model);
+        }
+
+        /// <summary>
+        /// Lấy danh sách dự án cần rà soát.
+        /// </summary>
+        /// <param name="model">search model.</param>
+        /// <returns>Danh sách dự án.</returns>
+        [AjaxOnly]
+        [HttpPost]
+        [ActionType(Type = EnumActionType.View)]
+        public ActionResult GetProject(RM_ReviewProjectSearchModel model)
+        {
+            var draw = Request.Form.GetValues("draw")?[0];
+            var order = Request.Form.GetValues("order[0][column]")?[0];
+            var orderDir = Request.Form.GetValues("order[0][dir]")?[0];
+            var startRec = Convert.ToInt32(Request.Form.GetValues("start")?[0]);
+            var pageSize = Convert.ToInt32(Request.Form.GetValues("length")?[0]);
+            var search = Request.Form.GetValues("search[value]")?[0];
+
+            model.UserName = User.UserName;
+
+            var dataSearch = new BaseSearchModel
+            {
+                Search = string.IsNullOrEmpty(search) ? null : search,
+                Order = order,
+                OrderDir = orderDir,
+                StartIndex = startRec,
+                PageSize = pageSize
+            };
+
+            var data = _reviewBatchItemCache.LoadProject(out var total, model, dataSearch);
+
+            return Json(
+                new { draw = Convert.ToInt32(draw), recordsTotal = total, recordsFiltered = total, data },
+                JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// Lấy danh sách cơ hội cần rà soát.
+        /// </summary>
+        /// <param name="model">search model.</param>
+        /// <returns>Danh sách cơ hội.</returns>
+        [AjaxOnly]
+        [HttpPost]
+        [ActionType(Type = EnumActionType.View)]
+        public ActionResult GetBusinessOpportunity(RM_ReviewBusinessOpportunitySearchModel model)
+        {
+            var draw = Request.Form.GetValues("draw")?[0];
+            var order = Request.Form.GetValues("order[0][column]")?[0];
+            var orderDir = Request.Form.GetValues("order[0][dir]")?[0];
+            var startRec = Convert.ToInt32(Request.Form.GetValues("start")?[0]);
+            var pageSize = Convert.ToInt32(Request.Form.GetValues("length")?[0]);
+            var search = Request.Form.GetValues("search[value]")?[0];
+
+            model.UserName = User.UserName;
+
+            var dataSearch = new BaseSearchModel
+            {
+                Search = string.IsNullOrEmpty(search) ? null : search,
+                Order = order,
+                OrderDir = orderDir,
+                StartIndex = startRec,
+                PageSize = pageSize
+            };
+
+            var data = _reviewBatchItemCache.LoadBusinessOpportunity(out var total, model, dataSearch);
+
+            return Json(
+                new { draw = Convert.ToInt32(draw), recordsTotal = total, recordsFiltered = total, data },
+                JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// Hiển thị màn hình rà soát dự án.
+        /// </summary>
+        /// <returns>Popup rà soát dự án.</returns>
+        [AjaxOnly]
+        [HttpGet]
+        [ActionType(Type = EnumActionType.Create)]
+        public ActionResult ReviewBatch(int? reviewBatchID, int? projectID, int? opportunityID)
+        {
+            if (!reviewBatchID.HasValue)
+            {
+                return Json(new {success = false, message = "Dữ liệu không hợp lệ."}, JsonRequestBehavior.AllowGet);
+            }
+            int objectType;
+            int objectID;
+            // PROJECT
+            if (projectID.HasValue)
+            {
+                objectType = 2;
+                objectID = projectID.Value;
+            }
+            // OPPORTUNITY
+            else if (opportunityID.HasValue)
+            {
+                objectType = 1;
+                objectID = opportunityID.Value;
+            }
+            else
+            {
+                return Json(new {success = false, message = "Dữ liệu không hợp lệ."}, JsonRequestBehavior.AllowGet);
+            }
+            var model = new RM_ReviewFormModel
+            {
+                ReviewBatchID = reviewBatchID.Value,
+                ObjectType = (byte)objectType,
+                ObjectID = objectID,
+                // Mặc định tích sẵn xác nhận để giảm thao tác của người rà soát
+                IsConfirmed = true
+            };
+            return PartialView("_ReviewBatch", model);
+        }
+
+        /// <summary>
+        /// Lưu thông tin rà soát dự án từ màn hình.
+        /// </summary>
+        /// <param name="model">Dữ liệu dự án cần lưu.</param>
+        /// <returns>Kết quả xử lý.</returns>
+        [AjaxOnly]
+        [HttpPost]
+        [ActionType(Type = EnumActionType.Create)]
+        [ValidateInput(false)]
+        public ActionResult ReviewBatch(RM_ReviewFormModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return PartialView("_ReviewForm", model);
+            }
+            var result = _reviewBatchItemCache.Save(model, User.UserName);
+            if (result > 0)
+                SaveFiles(model.DinhKemFile, result);
+            string response;
+            if (result == 0) response = CreateMessage($"{_reviewBatchTitle} [{model.ReviewBatchID}]", EnumProcessType.Add, EnumMsgIcon.Error);
+            else if (result == -9) response = CreateMessage($"{_reviewBatchTitle} [{model.ReviewBatchID}]", EnumProcessType.DataExisted, EnumMsgIcon.Error);
+            else response = CreateMessage($"{_reviewBatchTitle} [{model.ReviewBatchID}]", EnumProcessType.Add, EnumMsgIcon.Success);
+            return Json(new { status = true, message = response, tab = model.ObjectType, reviewBatchID = model.ReviewBatchID }, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// Hiển thị màn hình cập nhật lịch sử rà soát.
+        /// </summary>
+        /// <param name="id">Mã lịch sử rà soát.</param>
+        [AjaxOnly]
+        [HttpGet]
+        [ActionType(Type = EnumActionType.Edit)]
+        public ActionResult EditHistory(int id)
+        {
+            var history = _reviewBatchItemCache.GetHistoryById(id);
+            var model = new RM_ReviewFormModel
+            {
+                ReviewHistoryID = history.ReviewHistoryID,
+                ReviewBatchItemID = history.ReviewBatchItemID,
+                ReviewComment = history.ReviewComment,
+                IsConfirmed = history.IsConfirmed
+            };
+            if (model == null)
+                return Json(new { status = true, message = CreateMessage($"{_reviewHistoryTitle}", EnumProcessType.DataNotExist, EnumMsgIcon.Error) });
+            model.ExistingFiles = _reviewBatchItemBiz.GetFilePaths(id);
+            return PartialView("_EditHistory", model);
+        }
+
+        /// <summary>
+        /// Cập nhật thông tin lịch sử rà soát.
+        /// </summary>
+        /// <param name="model">Dữ liệu lịch sử rà soát cần cập nhật.</param>
+        /// <returns>Kết quả xử lý.</returns>
+        [AjaxOnly]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [ActionType(Type = EnumActionType.Edit)]
+        [ValidateInput(false)]
+        public ActionResult EditHistory(RM_ReviewFormModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                model.ExistingFiles = _reviewBatchItemBiz.GetFilePaths(model.ReviewHistoryID);
+                return PartialView("_ReviewForm", model);
+            }
+
+            var result = _reviewBatchItemCache.SaveHistory(model, User.UserName);
+            if (result > 0)
+            {
+                SaveFiles(model.DinhKemFile, model.ReviewHistoryID);
+                if (model.DeletedFileIds != null && model.DeletedFileIds.Any())
+                {
+                    foreach (var fileId in model.DeletedFileIds)
+                    {
+                        var file = _reviewBatchItemBiz.GetFilePathById(fileId);
+
+                        if (file != null && !string.IsNullOrEmpty(file.FilePath))
+                        {
+                            try
+                            {
+                                var fullPath = Server.MapPath(file.FilePath);
+                                if (System.IO.File.Exists(fullPath))
+                                {
+                                    System.IO.File.Delete(fullPath);
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                AppProcessor.Logger.Error(new Exception(ex.ToString()));
+                            }
+                            _reviewBatchItemBiz.DeleteFilePath(fileId, User.UserName);
+                        }
+                    }
+                }
+            }
+
+            string response;
+            if (result == 0) response = CreateMessage($"{_reviewHistoryTitle}", EnumProcessType.Edit, EnumMsgIcon.Error);
+            else if (result == -9) response = CreateMessage($"{_reviewHistoryTitle}", EnumProcessType.DataExisted, EnumMsgIcon.Error);
+            else response = CreateMessage($"{_reviewHistoryTitle}", EnumProcessType.Edit, EnumMsgIcon.Success);
+
+            return Json(new { status = true, message = response }, JsonRequestBehavior.AllowGet);
+        }
+
+        private void LuuFile(HttpPostedFileBase file, string filePath)
+        {
+            if (file != null && !string.IsNullOrEmpty(filePath))
+                file.SaveAs(HostingEnvironment.MapPath(filePath));
+        }
+
+        private void SaveFiles(List<HttpPostedFileBase> files, int reviewHistoryID)
+        {
+            if (files == null || files.Count == 0) return;
+            foreach (var file in files)
+            {
+                if (file == null || file.ContentLength == 0) continue;
+                var fileName = UtilString.ConvertToUnSign(Path.GetFileNameWithoutExtension(file.FileName))
+                    + "_" + DateTime.Now.ToString("ddMMyyyyHHmmss")
+                    + Path.GetExtension(file.FileName);
+                var filePath = _folderImage + "/" + fileName;
+                LuuFile(file, filePath);
+                _reviewBatchItemBiz.SaveFilePath(new RM_ReviewBatchFilePathModel
+                {
+                    FilePathID = 0,
+                    ReviewHistoryID = reviewHistoryID,
+                    FilePath = filePath
+                }, User.UserName);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult GetReviewHistory(int objectType, int id)
+        {
+            var data = _BuildReviewHistoryForm(objectType, id);
+
+            return PartialView("_ReviewHistory", data);
+        }
+
+        /// <summary>
+        /// Xây dựng model lịch sử rà soát kèm file đính kèm cho dự án.
+        /// </summary>
+        /// <returns>Model lịch sử rà soát phục vụ tab overview.</returns>
+        private List<RM_ReviewHistoryModel> _BuildReviewHistoryForm(int objectType, int objectID)
+        {
+            // Lấy lịch sử rà soát
+            var histories = _reviewBatchItemCache.GetHistory(objectType, objectID);
+
+            var result = new List<RM_ReviewHistoryModel>();
+
+            if (histories != null && histories.Count > 0)
+            {
+                int index = 1;
+
+                foreach (var item in histories)
+                {
+                    // File đính kèm của từng lịch sử rà soát
+                    var files = _reviewBatchItemBiz.GetFilePaths(item.ReviewHistoryID);
+
+                    result.Add(new RM_ReviewHistoryModel
+                    {
+                        ReviewBatchID = item.ReviewBatchID,
+                        ReviewBatchItemID = item.ReviewBatchItemID,
+                        BatchCode = item.BatchCode,
+                        BatchName = item.BatchName,
+                        ReviewLevel = item.ReviewLevel,
+                        ReviewComment = item.ReviewComment,
+                        IsConfirmed = item.IsConfirmed,
+                        ExistingFiles = files ?? new List<RM_ReviewBatchFilePathModel>(),
+                        ReviewHistoryID = item.ReviewHistoryID,
+                        Reviewer = item.Reviewer,
+                        CanEdit = item.CreatedBy == User.UserName,
+                        CreatedDate = item.CreatedDate
+                    });
+
+                    index++;
+                }
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// Lấy danh sách phòng ban mà user hiện tại được gán quyền xem qua Sys_UserBoPhan_GetByEmail.
+        /// </summary>
+        private List<MN_BoPhanModel> GetAccessibleDepartments()
+        {
+            var currentUser = _userCache.GetByUserName(User.UserName);
+            if (currentUser == null || string.IsNullOrWhiteSpace(currentUser.Email))
+            {
+                return new List<MN_BoPhanModel>();
+            }
+
+            return (_userBoPhanCache.GetByEmail(currentUser.Email) ?? new List<MN_BoPhanModel>())
+                .GroupBy(x => x.BoPhan_ID)
+                .Select(x => x.First())
+                .OrderBy(x => x.TenBoPhanView)
+                .ToList();
+        }
+    }
+}

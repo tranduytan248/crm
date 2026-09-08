@@ -1,0 +1,130 @@
+﻿@using TSFramework.Libs.Processors
+@model Core.Cate.Models.Cate_CustomerModel
+@{
+    var listColor = new List<string> { "primary", "warning", "green" };
+}
+@Html.AntiForgeryToken()
+<div id="CustomerInfo">
+    @Html.HiddenFor(model => model.CustomerId)
+    <div class="form-group row">
+        @if (Model.CustomerId > 0)
+        {
+            <div class="col-md-4">
+                @Html.TitleFor(model => model.Username, new { @class = "col-form-label pr-0 font-bold" })
+                @Html.TextBoxFor(model => model.Username, new { @autocomplete = "off", @readonly = "readonly", @class = "form-control" })
+            </div>
+        }
+        <div class="col-md-8">
+            @Html.TitleFor(model => model.FullName, new { @class = "col-form-label pr-0 font-bold" })
+            @Html.TextBoxFor(model => model.FullName, new { @class = "form-control", placeholder = AppProcessor.Messagor.GetMessage("FullName_Label") })
+            @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-12">
+            @Html.TitleFor(model => model.Address, new { @class = "col-form-label pr-0 font-bold" })
+            @Html.TextAreaFor(model => model.Address, new { @class = "form-control", placeholder = AppProcessor.Messagor.GetMessage("DiaChi") })
+            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-4">
+            @Html.TitleFor(model => model.Phone, new { @class = "col-form-label pr-0 font-bold" })
+            @Html.TextBoxFor(model => model.Phone, new { @class = "form-control", placeholder = AppProcessor.Messagor.GetMessage("User_Label_Phone") })
+            @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-md-5">
+            @Html.TitleFor(model => model.Email, new { @class = "col-form-label pr-0 font-bold" })
+            @Html.TextBoxFor(model => model.Email, new { @class = "form-control", placeholder = AppProcessor.Messagor.GetMessage("Email") })
+            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-md-3">
+            @Html.TitleFor(model => model.DateOfBirth, new { @class = "col-form-label pr-0 font-bold" })
+            @Html.TextBoxFor(model => model.DateOfBirth, "{0:dd/MM/yyyy}", new { @autocomplete = "off", @class = "datepicker form-control", placeholder = AppProcessor.Messagor.GetMessage("DateOfBirth_Label") })
+            @Html.ValidationMessageFor(model => model.DateOfBirth, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    @*<div class="ccard h-100 d-flex flex-column p-2 form-group">
+        <div class="row">
+            <div class="col-md-3">
+                @Html.TitleFor(model => model.IdentityType, new { @class = "col-form-label pr-0 font-bold" })
+
+                @Html.DropDownListFor(model => model.IdentityType, new SelectList(new List<SelectListItem> {
+                        new SelectListItem { Text = "CCCD", Value = "CCCD" },
+                        new SelectListItem { Text = "CMND", Value = "CMND" }
+                    }, "Value", "Text"), new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.IdentityType, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-6">
+                @Html.TitleFor(model => model.IdentityNumber, new { @class = "col-form-label pr-0 font-bold" })
+                @Html.TextBoxFor(model => model.IdentityNumber, new { @class = "form-control", placeholder = AppProcessor.Messagor.GetMessage("IdentityNumber_Label") })
+            </div>
+            <div class="col-md-3">
+                @Html.TitleFor(model => model.IdentityIssueDate, new { @class = "col-form-label pr-0 font-bold" })
+                @Html.TextBoxFor(model => model.IdentityIssueDate, "{0:dd/MM/yyyy}", new { @autocomplete = "off", @class = "datepicker form-control", placeholder = AppProcessor.Messagor.GetMessage("IdentityIssueDate_Label") })
+            </div>
+            <div class="col-md-12   ">
+                @Html.TitleFor(model => model.IdentityIssuedPlace, new { @class = "col-form-label pr-0 font-bold" })
+                @Html.TextBoxFor(model => model.IdentityIssuedPlace, new { @class = "form-control col-md-10", placeholder = AppProcessor.Messagor.GetMessage("IdentityIssuedPlace_Label") })
+            </div>
+        </div>
+    </div>
+    <div class="ccard h-100 d-flex flex-column p-2 form-group">
+        <div class="row">
+            <div class="col-md-4">
+                @Html.TitleFor(model => model.BankCode, new { @class = "col-form-label pr-0 font-bold" })
+                @Html.DropDownListFor(model => model.BankCode, new SelectList(Model.Banks, "BankCode", "BankName"), "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.BankCode, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-8">
+                @Html.TitleFor(model => model.BankAccountNumber, new { @class = "col-form-label pr-0 font-bold" })
+                @Html.TextBoxFor(model => model.BankAccountNumber, new { @class = "form-control", placeholder = AppProcessor.Messagor.GetMessage("BankAccountNumber_Label") })
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-12">
+            @Html.TitleFor(model => model.UseFor, new { @class = "col-form-label pr-0 font-bold" })
+            @Html.HiddenFor(model => model.UseFor)
+            <div>
+                @for (int i = 0; i < Model.ListCheckUserFor.Count; i++)
+                {
+                    string checkedAttr = string.IsNullOrEmpty(Model.UseFor) ? "" :
+                        (Model.UseFor.IndexOf(@Model.ListCheckUserFor[i].Value) > -1 ? "checked" : "");
+                    <label class="mr-4">
+                        <input type="checkbox" @checkedAttr name="UseForItem" value="@Model.ListCheckUserFor[i].Value" onchange="fnSetValueToHidden()" />
+                        <span class="badge bgc-@listColor[i] brc-@listColor[i] text-white badge-lg arrowed arrowed-in-right">
+                            <span class="px-2">@(i+1). @Model.ListCheckUserFor[i].Text</span>
+                        </span>
+                    </label>
+                }
+            </div>
+            @Html.ValidationMessageFor(model => model.UseFor, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-12">
+            @Html.TitleFor(model => model.AttachedDocuments, new { @class = "col-form-label pr-0 font-bold" })
+            @Html.TextAreaFor(model => model.AttachedDocuments, new { @class = "form-control", placeholder = AppProcessor.Messagor.GetMessage("AttachedDocuments_Label") })
+        </div>
+    </div>*@
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#CustomerInfo #Email').inputmask("email");
+        $("#CustomerInfo #Phone").inputmask({ "mask": "9999999999" });
+        //document.getElementById('AttachedDocuments').addEventListener('input', function () {
+        //    this.style.height = 'auto'; // Đặt chiều cao về 'auto' để tính toán chiều cao mới
+        //    this.style.height = `${this.scrollHeight}px`; // Đặt chiều cao mới dựa trên scrollHeight
+        //});
+        document.getElementById('Address').addEventListener('input', function () {
+            this.style.height = 'auto'; // Đặt chiều cao về 'auto' để tính toán chiều cao mới
+            this.style.height = `${this.scrollHeight}px`; // Đặt chiều cao mới dựa trên scrollHeight
+        });
+        setTimeout(() => {
+            //document.getElementById('AttachedDocuments').style.height = document.getElementById('AttachedDocuments').scrollHeight + 'px';
+            document.getElementById('Address').style.height = document.getElementById('Address').scrollHeight + 'px';
+        }, 1000);
+    })
+</script>

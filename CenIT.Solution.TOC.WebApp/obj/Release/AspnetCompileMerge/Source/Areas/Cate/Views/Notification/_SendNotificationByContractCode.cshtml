@@ -1,0 +1,29 @@
+﻿@using TSFramework.Libs.Processors
+@model Core.Cate.Models.KWC_NotificationDeviceModel
+
+@{
+    ViewBag.Title = "Gửi thông báo tiền cước";
+    Layout = "~/Views/Shared/_FormConfirm.cshtml";
+}
+
+@section FormType{
+    warning
+}
+
+@section FormBody{
+    @using (Ajax.BeginForm("SendNotificationByContractCode", "Notification", new { area = "Cate" }, new AjaxOptions
+    {
+        HttpMethod = "POST",
+        OnSuccess = "Notification_OnProcessSuccess(data, 'SendNotificationByContractCode')"
+    }, new { @class = "form-horizontal", id = "SendNotificationByContractCode" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.ContractCode)
+        @Html.HiddenFor(model => model.DeviceUUID)
+        @Html.HiddenFor(model => model.DeviceToken)
+        @Html.HiddenFor(model => model.AccountUser)
+        @Html.HiddenFor(model => model.Period)
+        @Html.HiddenFor(model => model.Amount)
+        <h5> @Html.Raw(ViewBag.ConfirmMessage)</h5>
+    }
+}
