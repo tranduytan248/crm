@@ -17,9 +17,12 @@
 *.log
 
 # ==========================================
-# Whitelist / Keep publish_source & external dlls
+# Whitelist / Keep publish_source, version & external dlls
 # ==========================================
 !publish_source/
 !publish_source/**
+!version/
+!version/**
 !dlls/
 !dlls/**
+

@@ -1,0 +1,48 @@
+name: Build Version Production
+
+on:
+  workflow_dispatch:
+    inputs:
+      version_name:
+        description: 'Tên version cần phát hành (Ví dụ: v1.0.0, 2026.09.08)'
+        required: true
+        default: 'v1.0.0'
+      skip_build:
+        description: 'Bỏ qua bước build nếu đã có sẵn trong publish_source (true/false)'
+        required: false
+        default: 'false'
+
+jobs:
+  build-version:
+    name: Build & Diff FTP Prod Package
+    runs-on: windows-latest
+
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Setup MSBuild
+        uses: microsoft/setup-msbuild@v2
+
+      - name: 📦 Setup NuGet
+        uses: NuGet/setup-nuget@v2
+
+      - name: 🔄 Restore NuGet Packages
+        run: nuget restore CenIT.Solution.TOC.sln
+
+      - name: 🚀 Build and Diff with FTP Production
+        env:
+          FTP_SERVER_PROD: ${{ secrets.FTP_SERVER_PROD }}
+          FTP_USERNAME_PROD: ${{ secrets.FTP_USERNAME_PROD }}
+          FTP_PASSWORD_PROD: ${{ secrets.FTP_PASSWORD_PROD }}
+        shell: powershell
+        run: |
+          $skip = if ("${{ inputs.skip_build }}" -eq "true") { "-SkipBuild" } else { "" }
+          powershell -ExecutionPolicy Bypass -File .\scripts\build_version_prod.ps1 -VersionName "${{ inputs.version_name }}" $skip
+
+      - name: 📤 Upload Version Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: version-${{ inputs.version_name }}
+          path: version/${{ inputs.version_name }}/
+          retention-days: 30
