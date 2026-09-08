@@ -97,21 +97,17 @@ if (-not $SkipBuild) {
         throw "Khong tim thay cong cu MSBuild tren may tinh nay!"
     }
 
-    Write-Host "   => MSBuild: $msbuild" -ForegroundColor DarkGray
-
-    $buildArgs = @(
-        $webAppProj,
-        "/target:Package",
-        "/p:Configuration=Release",
-        "/p:Platform=`"Any CPU`"",
-        "/p:AutoParameterizationWebConfigConnectionStrings=false",
-        "/m",
-        "/v:m"
-    )
-
-    & $msbuild $buildArgs
+    $slnPath = Join-Path $rootDir "CenIT.Solution.TOC.sln"
+    Write-Host "   => Dang bien dich Solution: $slnPath" -ForegroundColor DarkGray
+    & $msbuild $slnPath /p:Configuration=Release /v:m
     if ($LASTEXITCODE -ne 0) {
-        throw "Qua trinh bien dich WebApp bi loi (Exit code: $LASTEXITCODE)."
+        throw "Qua trinh bien dich Solution bi loi (Exit code: $LASTEXITCODE)."
+    }
+
+    Write-Host "   => Dang dong goi Package WebApp..." -ForegroundColor DarkGray
+    & $msbuild $webAppProj /target:Package /p:Configuration=Release /p:SolutionDir="$rootDir\" /v:m
+    if ($LASTEXITCODE -ne 0) {
+        throw "Qua trinh dong goi WebApp bi loi (Exit code: $LASTEXITCODE)."
     }
     Write-Host "   [OK] Bien dich va dong goi hoan tat!" -ForegroundColor Green
 } else {
