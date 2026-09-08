@@ -57,10 +57,11 @@
      - **File MODIFIED**: Tệp đã có trên FTP nhưng có sự thay đổi về kích thước hoặc nội dung.
      - **File UNCHANGED**: Tệp giống hệt trên FTP -> Bỏ qua.
   4. Tự động sao chép các file NEW và MODIFIED vào thư mục `version/<tên version>/` (giữ nguyên cấu trúc thư mục phân cấp web).
-  5. Xuất báo cáo tóm tắt tại: `version/<tên version>/manifest.txt` và `manifest.json`.
+  5. **Tự động tạo tệp `UPDATE_NOTES.md`**: Ghi lại nội dung cập nhật, lịch sử git commits, bảng chi tiết **file nào được cập nhật (MODIFIED)**, danh sách file thêm mới (NEW) và hướng dẫn deploy.
+  6. Xuất báo cáo tóm tắt tại: `version/<tên version>/manifest.txt` và `manifest.json`.
 - **Chạy trực tiếp từ PowerShell**:
   ```powershell
-  powershell -ExecutionPolicy Bypass -File .\scripts\build_version_prod.ps1 -VersionName "v1.0.0"
+  powershell -ExecutionPolicy Bypass -File .\scripts\build_version_prod.ps1 -VersionName "v1.0.0" -Notes "Mô tả tính năng mới hoặc bug fix"
   ```
 - **Chạy trên GitHub Actions**: Vào tab **Actions** -> Chọn workflow **Build Version Production** -> Nhập `version_name` -> Bấm **Run workflow**.
 

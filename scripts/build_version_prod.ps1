@@ -21,6 +21,7 @@ param(
     [string]$FtpPassword = $env:FTP_PASSWORD_PROD,
     [string]$FtpRemotePath = "/",
 
+    [string]$Notes = "",
     [switch]$SkipBuild,
     [switch]$ForceAll
 )
@@ -392,6 +393,129 @@ foreach ($f in $itemsToCopy) {
 }
 $txtLines | Set-Content -Path $manifestTxtPath -Encoding UTF8
 
+# ------------------------------------------------------------------------------
+# 5b. XUAT FILE GHI CHU CAP NHAT (UPDATE_NOTES.md)
+# ------------------------------------------------------------------------------
+$updateNotesPath = Join-Path $targetVersionDir "UPDATE_NOTES.md"
+
+$gitLogLines = @()
+try {
+    $rawLog = & git log -n 5 --pretty=format:"* **%h** (%ad): %s" --date=format:"%d/%m/%Y" 2>$null
+    if ($rawLog) {
+        $gitLogLines = $rawLog
+    }
+} catch {
+    # Bo qua neu loi git
+}
+
+$nowFormatted = (Get-Date).ToString("dd/MM/yyyy HH:mm:ss")
+$nowHeader = (Get-Date).ToString("HH:mm:ss dd/MM/yyyy")
+
+$mdLines = @()
+$mdLines += "# GHI CHU PHAT HANH - PHIEN BAN $cleanVersion"
+$mdLines += ""
+$mdLines += "> Goi cap nhat duoc tao tu dong vao luc **$nowHeader**"
+$mdLines += ""
+$mdLines += "## Thong Tin Tong Quan"
+$mdLines += "- **Phien ban (Version)**: $cleanVersion"
+$mdLines += "- **Thoi gian tao**: $nowFormatted"
+$mdLines += "- **Nguoi thuc hien**: $env:USERNAME"
+$mdLines += "- **May chu dich (FTP Prod)**: $FtpServer`:$FtpPort"
+$mdLines += "- **Trang thai ket noi FTP**: $ftpStatusText"
+$mdLines += "- **Tong so tep trong ban build**: $($localMap.Count)"
+$mdLines += "- **So tep cap nhat (MODIFIED)**: **$($modifiedFilesList.Count)** tep"
+$mdLines += "- **So tep moi (NEW)**: **$($newFilesList.Count)** tep"
+$mdLines += "- **Tong tep dua vao goi**: **$($itemsToCopy.Count)** tep"
+$mdLines += ""
+
+if (-not [string]::IsNullOrWhiteSpace($Notes)) {
+    $mdLines += "## Noi Dung Thay Doi / Ghi Chu Tinh Nang"
+    $mdLines += "$Notes"
+    $mdLines += ""
+}
+
+if ($gitLogLines.Count -gt 0) {
+    $mdLines += "## Lich Su Cam Ket Gan Nhat (Git Commits)"
+    foreach ($gl in $gitLogLines) {
+        $mdLines += $gl
+    }
+    $mdLines += ""
+}
+
+$mdLines += "## Danh Sach Tep Duoc Cap Nhat (MODIFIED FILES)"
+$modItems = @($itemsToCopy | Where-Object { $_.Status -eq "MODIFIED" })
+if ($modItems.Count -gt 0) {
+    $mdLines += "| STT | Duong Dan Tep | Kich Thuoc | Ly Do Cap Nhat |"
+    $mdLines += "| :---: | :--- | :--- | :--- |"
+    $idx = 1
+    foreach ($m in $modItems) {
+        $sizeKb = [math]::Round($m.Size / 1KB, 2)
+        $mdLines += "| $idx | ``$($m.Path)`` | $sizeKb KB | $($m.Reason) |"
+        $idx++
+    }
+} else {
+    $mdLines += "_Khong co tep nao bi sua doi so voi FTP Prod (toan bo la tep moi hoac giu nguyen)._"
+}
+$mdLines += ""
+
+$mdLines += "## Danh Sach Tep Them Moi (NEW FILES)"
+$newItems = @($itemsToCopy | Where-Object { $_.Status -eq "NEW" })
+if ($newItems.Count -gt 0) {
+    $binFiles = @($newItems | Where-Object { $_.Path -like "bin/*" -or $_.Path -like "Libraries/*" })
+    $viewFiles = @($newItems | Where-Object { $_.Path -like "Views/*" -or $_.Path -like "Areas/*" })
+    $configFiles = @($newItems | Where-Object { $_.Path -like "Configs/*" -or $_.Path -eq "Web.config" -or $_.Path -eq "Global.asax" })
+    $contentFiles = @($newItems | Where-Object { $_.Path -like "Contents/*" })
+    $otherFiles = @($newItems | Where-Object { $_.Path -notlike "bin/*" -and $_.Path -notlike "Libraries/*" -and $_.Path -notlike "Views/*" -and $_.Path -notlike "Areas/*" -and $_.Path -notlike "Configs/*" -and $_.Path -ne "Web.config" -and $_.Path -ne "Global.asax" -and $_.Path -notlike "Contents/*" })
+
+    if ($binFiles.Count -gt 0) {
+        $mdLines += "### Thu Vien & Ma Thuc Thi (Assemblies / DLLs: $($binFiles.Count) tep)"
+        foreach ($bf in $binFiles) {
+            $mdLines += "- ``$($bf.Path)`` ($([math]::Round($bf.Size / 1KB, 2)) KB)"
+        }
+        $mdLines += ""
+    }
+
+    if ($viewFiles.Count -gt 0) {
+        $mdLines += "### Giao Dien (Views / Razor Pages: $($viewFiles.Count) tep)"
+        foreach ($vf in $viewFiles) {
+            $mdLines += "- ``$($vf.Path)``"
+        }
+        $mdLines += ""
+    }
+
+    if ($configFiles.Count -gt 0) {
+        $mdLines += "### Cau Hinh (Configs: $($configFiles.Count) tep)"
+        foreach ($cf in $configFiles) {
+            $mdLines += "- ``$($cf.Path)``"
+        }
+        $mdLines += ""
+    }
+
+    if ($contentFiles.Count -gt 0) {
+        $mdLines += "### Tai Nguyen Tinh (Contents / Assets: $($contentFiles.Count) tep)"
+        $mdLines += "- _Gom $($contentFiles.Count) tep hinh anh, CSS, JS, plugin._"
+        $mdLines += ""
+    }
+
+    if ($otherFiles.Count -gt 0) {
+        $mdLines += "### Tep Khac ($($otherFiles.Count) tep)"
+        foreach ($of in $otherFiles) {
+            $mdLines += "- ``$($of.Path)``"
+        }
+        $mdLines += ""
+    }
+} else {
+    $mdLines += "_Khong co tep moi._"
+}
+$mdLines += ""
+
+$mdLines += "## Huong Dan Trien Khai (Deployment Guide)"
+$mdLines += "1. **Sao luu**: Sao luu ma nguon hien tai tren Production truoc khi cap nhat."
+$mdLines += "2. **Ghi de**: Tai toan bo noi dung trong thu muc nay len thu muc goc cua WebApp tren Production."
+$mdLines += "3. **Tai khoi dong IIS**: Neu co cap nhat tep trong thu muc ``bin/`` hoac tep ``Web.config``, hay Recycle App Pool tren IIS de nap dll moi."
+
+$mdLines | Set-Content -Path $updateNotesPath -Encoding UTF8
+
 Write-Host ""
 Write-Host "=======================================================" -ForegroundColor Green
 Write-Host " [HOAN TAT] Goi version '$cleanVersion' da duoc tao! " -ForegroundColor Green
@@ -402,4 +526,5 @@ Write-Host "Tep cap nhat (MOD)   : $($modifiedFilesList.Count) tep" -ForegroundC
 Write-Host "Tong tep version     : $($itemsToCopy.Count) tep" -ForegroundColor Green
 Write-Host "Manifest JSON        : $manifestJsonPath" -ForegroundColor DarkGray
 Write-Host "Manifest TXT         : $manifestTxtPath" -ForegroundColor DarkGray
+Write-Host "Update Notes MD      : $updateNotesPath" -ForegroundColor DarkGray
 Write-Host ""

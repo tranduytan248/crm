@@ -74,9 +74,10 @@ powershell -ExecutionPolicy Bypass -File .\scripts\build_version_prod.ps1 -Versi
    - **File NEW**: Tệp xuất hiện trong bản build nhưng **chưa từng có** trên FTP Prod.
    - **File MODIFIED**: Tệp **đã có** trên FTP Prod nhưng có kích thước khác biệt (hoặc assembly version thay đổi).
    - **File UNCHANGED**: Tệp giống hệt trên FTP Prod -> Bỏ qua, không đưa vào gói patch.
-5. **Sao chép và Tạo Manifest**:
+5. **Sao chép, Tạo Manifest và Ghi Chú Cập Nhật (UPDATE_NOTES.md)**:
    - Toàn bộ file NEW và MODIFIED được sao chép vào thư mục: `version/<tên version>/` (giữ nguyên cấu trúc thư mục tương đối như `bin/`, `Views/`, `Contents/`, `Configs/`,...).
-   - Tạo tệp `manifest.json` và `manifest.txt` trong thư mục `version/<tên version>/` ghi lại chi tiết trạng thái từng tệp.
+   - Tạo tệp `manifest.json` và `manifest.txt` ghi lại chi tiết trạng thái từng tệp.
+   - **TỰ ĐỘNG TẠO TỆP `UPDATE_NOTES.md`**: Ghi rõ nội dung cập nhật, lịch sử git commit gần nhất, bảng danh sách chi tiết các file MODIFIED (kèm lý do và kích thước) và danh sách các file NEW theo từng nhóm (Assemblies, Views, Configs, Contents) cùng hướng dẫn triển khai.
 
 *(Lưu ý về môi trường mạng: Nếu máy trạm bị chặn firewall sang dải IP của FTP Prod `10.57.47.3`, script sẽ thông báo rõ ràng và hỗ trợ đóng gói đầy đủ hoặc chuyển qua chạy trên GitHub Actions workflow `.github/workflows/build-version-prod.yml`).*
 
@@ -86,6 +87,7 @@ powershell -ExecutionPolicy Bypass -File .\scripts\build_version_prod.ps1 -Versi
 Kiểm tra danh sách tệp và nội dung báo cáo:
 ```powershell
 Get-ChildItem -Path "version\<tên version>"
+Get-Content -Path "version\<tên version>\UPDATE_NOTES.md"
 Get-Content -Path "version\<tên version>\manifest.txt"
 ```
 
@@ -97,7 +99,8 @@ Xuất báo cáo tổng kết rõ ràng bao gồm:
 2. **Thư mục lưu trữ**: `version/<tên version>/`
 3. **Số lượng file mới (NEW)** và **Số lượng file cập nhật (MODIFIED)**
 4. **Trạng thái so sánh với FTP Prod**
-5. **Đường dẫn tệp Manifest**: `version/<tên version>/manifest.txt`
+5. **Tệp Ghi chú Cập nhật**: `version/<tên version>/UPDATE_NOTES.md` (chứa danh sách chính xác file nào cập nhật, nội dung cập nhật)
+6. **Đường dẫn tệp Manifest**: `version/<tên version>/manifest.txt` và `manifest.json`
 6. **Xác nhận**: Đã tuân thủ loại trừ hoàn toàn các thư mục `bin/` và `obj/` trung gian của mã nguồn.
 
 ---

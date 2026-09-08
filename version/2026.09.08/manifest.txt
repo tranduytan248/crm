@@ -1,7 +1,7 @@
 ﻿================================================================================
                BAO CAO TONG KET GOI PHAT HANH: 2026.09.08
 ================================================================================
-Thoi gian tao           : 08/09/2026 22:13:41
+Thoi gian tao           : 08/09/2026 22:24:37
 May chu FTP Production  : 10.57.47.3:21
 Trang thai ket noi FTP  : KHONG KET NOI (Chan tuong lua / Offline)
 Tong so file ban build  : 3721
