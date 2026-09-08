@@ -1,27 +1,27 @@
 ﻿# GHI CHU PHAT HANH - PHIEN BAN 2026.09.08
 
-> Goi cap nhat duoc tao tu dong vao luc **22:24:37 08/09/2026**
+> Goi cap nhat duoc tao tu dong vao luc **22:29:23 08/09/2026**
 
 ## Thong Tin Tong Quan
 - **Phien ban (Version)**: 2026.09.08
-- **Thoi gian tao**: 08/09/2026 22:24:37
+- **Thoi gian tao**: 08/09/2026 22:29:23
 - **Nguoi thuc hien**: K
-- **May chu dich (FTP Prod)**: 10.57.47.3:21
-- **Trang thai ket noi FTP**: KHONG KET NOI (Chan tuong lua / Offline)
-- **Tong so tep trong ban build**: 3721
+- **Che do so sanh**: publish_source vs Source_Prod
+- **Tong so tep trong publish_source**: 3721
+- **Tong so tep trong Source_Prod**: 0
 - **So tep cap nhat (MODIFIED)**: **0** tep
 - **So tep moi (NEW)**: **3721** tep
 - **Tong tep dua vao goi**: **3721** tep
 
 ## Lich Su Cam Ket Gan Nhat (Git Commits)
+* **0edc86a** (08/09/2026): commit
+* **1efa87d** (08/09/2026): docs: include UPDATE_NOTES.md in version package
+* **39ff2fa** (08/09/2026): feat(skill): add UPDATE_NOTES.md generation to version-prod skill
 * **fc52854** (08/09/2026): release: add production package for version 2026.09.08
 * **f0d48c2** (08/09/2026): fix(script): build solution before packaging webapp in build_version_prod
-* **0c39812** (08/09/2026): docs: add skills user guide manual
-* **8b9526c** (08/09/2026): feat(skill): add version-prod skill and build_version_prod script
-* **3d0e695** (08/09/2026): build: update publish_source for demo release and ignore bin/obj
 
 ## Danh Sach Tep Duoc Cap Nhat (MODIFIED FILES)
-_Khong co tep nao bi sua doi so voi FTP Prod (toan bo la tep moi hoac giu nguyen)._
+_Khong co tep nao bi sua doi so voi Source_Prod (toan bo la tep moi hoac giu nguyen)._
 
 ## Danh Sach Tep Them Moi (NEW FILES)
 ### Thu Vien & Ma Thuc Thi (Assemblies / DLLs: 155 tep)
@@ -787,5 +787,5 @@ _Khong co tep nao bi sua doi so voi FTP Prod (toan bo la tep moi hoac giu nguyen
 
 ## Huong Dan Trien Khai (Deployment Guide)
 1. **Sao luu**: Sao luu ma nguon hien tai tren Production truoc khi cap nhat.
-2. **Ghi de**: Tai toan bo noi dung trong thu muc nay len thu muc goc cua WebApp tren Production.
+2. **Ghi de**: Copy toan bo noi dung trong thu muc nay de len thu muc goc cua WebApp tren Production.
 3. **Tai khoi dong IIS**: Neu co cap nhat tep trong thu muc `bin/` hoac tep `Web.config`, hay Recycle App Pool tren IIS de nap dll moi.

@@ -8,7 +8,7 @@
 
 | STT | Tên Skill | Câu lệnh / Mẫu kích hoạt | Mục đích chính |
 | :---: | :--- | :--- | :--- |
-| 1 | **`version-prod`** | `build <tên version>`<br>*(vd: `build v1.0.0`, `build 2026.09.08`)* | Tự động biên dịch Release, so sánh diff với FTP Prod, lọc file mới và file cập nhật rồi copy vào `version/<tên version>/`. |
+| 1 | **`version-prod`** | `build <tên version>`<br>*(vd: `build v1.0.0`, `build 2026.09.08`)* | Tự động biên dịch Release, so sánh diff giữa `publish_source` và `Source_Prod`, lọc file mới và cập nhật rồi copy vào `version/<tên version>/`. |
 | 2 | **`upcode-demo`** | `upcode demo`<br>`đẩy code demo`, `deploy demo` | Biên dịch sang `publish_source/`, merge sang nhánh `upcode-demo` và đẩy lên GitHub để tự deploy lên FTP Demo. |
 | 3 | **`phan-tich-van-de`** | `phân tích vấn đề`, `lên checklist`<br>*(hoặc khi đưa ra bài toán mới)* | 4 bước: Phân tích sâu -> Đặt câu hỏi làm rõ -> Xây dựng checklist hành động -> Ghi lại vào `Memory.md`. |
 | 4 | **`unit-testing-test-generate`** | `tạo test`, `sinh unit test`<br>`viết test case` | Tự động phân tích code và sinh bộ Unit Test 3 tầng (Happy, Edge, Error) chuẩn AAA cho Dart và C#. |
@@ -48,14 +48,16 @@
 
 ### 1. Skill `version-prod` (Đóng gói Production theo phiên bản)
 - **Mẫu lệnh**: `build <tên version>` (Ví dụ: `build v1.0.0`, `build 2026.09.08`, `build prod-patch-1`)
-- **Key cấu hình trên GitHub**: `FTP_SERVER_PROD`, `FTP_USERNAME_PROD`, `FTP_PASSWORD_PROD`.
+- **Nguồn đối chiếu**:
+  - `publish_source/`: Bản build mới nhất vừa được biên dịch.
+  - `Source_Prod/`: Thư mục chứa mã nguồn Production hiện hành để đối chiếu diff.
 - **Cách thức hoạt động**:
-  1. Tự động biên dịch WebApp ở chế độ `Release` (target `Package`).
-  2. Kết nối tới máy chủ FTP Production để quét toàn bộ file hiện có.
+  1. Tự động biên dịch WebApp ở chế độ `Release` và đồng bộ sang `publish_source/`.
+  2. Quét toàn bộ tệp trong `publish_source/` và `Source_Prod/`.
   3. Thực hiện so sánh (Diff) logic:
-     - **File NEW**: Tệp xuất hiện trong bản build mới mà trên FTP chưa có.
-     - **File MODIFIED**: Tệp đã có trên FTP nhưng có sự thay đổi về kích thước hoặc nội dung.
-     - **File UNCHANGED**: Tệp giống hệt trên FTP -> Bỏ qua.
+     - **File NEW**: Tệp xuất hiện trong bản build mới mà trong `Source_Prod/` chưa có.
+     - **File MODIFIED**: Tệp đã có trong `Source_Prod/` nhưng có sự thay đổi về kích thước (size) hoặc mã băm nội dung (MD5 hash).
+     - **File UNCHANGED**: Tệp giống hệt cả về kích thước và nội dung -> Bỏ qua.
   4. Tự động sao chép các file NEW và MODIFIED vào thư mục `version/<tên version>/` (giữ nguyên cấu trúc thư mục phân cấp web).
   5. **Tự động tạo tệp `UPDATE_NOTES.md`**: Ghi lại nội dung cập nhật, lịch sử git commits, bảng chi tiết **file nào được cập nhật (MODIFIED)**, danh sách file thêm mới (NEW) và hướng dẫn deploy.
   6. Xuất báo cáo tóm tắt tại: `version/<tên version>/manifest.txt` và `manifest.json`.
@@ -63,7 +65,6 @@
   ```powershell
   powershell -ExecutionPolicy Bypass -File .\scripts\build_version_prod.ps1 -VersionName "v1.0.0" -Notes "Mô tả tính năng mới hoặc bug fix"
   ```
-- **Chạy trên GitHub Actions**: Vào tab **Actions** -> Chọn workflow **Build Version Production** -> Nhập `version_name` -> Bấm **Run workflow**.
 
 ---
 

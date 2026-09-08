@@ -23,6 +23,8 @@
 !publish_source/**
 !version/
 !version/**
+!Source_Prod/
+!Source_Prod/**
 !dlls/
 !dlls/**
 
