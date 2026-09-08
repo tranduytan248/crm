@@ -1,0 +1,791 @@
+﻿# GHI CHU PHAT HANH - PHIEN BAN 2026.09.08
+
+> Goi cap nhat duoc tao tu dong vao luc **22:24:37 08/09/2026**
+
+## Thong Tin Tong Quan
+- **Phien ban (Version)**: 2026.09.08
+- **Thoi gian tao**: 08/09/2026 22:24:37
+- **Nguoi thuc hien**: K
+- **May chu dich (FTP Prod)**: 10.57.47.3:21
+- **Trang thai ket noi FTP**: KHONG KET NOI (Chan tuong lua / Offline)
+- **Tong so tep trong ban build**: 3721
+- **So tep cap nhat (MODIFIED)**: **0** tep
+- **So tep moi (NEW)**: **3721** tep
+- **Tong tep dua vao goi**: **3721** tep
+
+## Lich Su Cam Ket Gan Nhat (Git Commits)
+* **fc52854** (08/09/2026): release: add production package for version 2026.09.08
+* **f0d48c2** (08/09/2026): fix(script): build solution before packaging webapp in build_version_prod
+* **0c39812** (08/09/2026): docs: add skills user guide manual
+* **8b9526c** (08/09/2026): feat(skill): add version-prod skill and build_version_prod script
+* **3d0e695** (08/09/2026): build: update publish_source for demo release and ignore bin/obj
+
+## Danh Sach Tep Duoc Cap Nhat (MODIFIED FILES)
+_Khong co tep nao bi sua doi so voi FTP Prod (toan bo la tep moi hoac giu nguyen)._
+
+## Danh Sach Tep Them Moi (NEW FILES)
+### Thu Vien & Ma Thuc Thi (Assemblies / DLLs: 155 tep)
+- `Libraries/Procedures/Plugable.SQLProcedureProcessor.dll` (13.5 KB)
+- `bin/System.Threading.Tasks.Extensions.dll` (25.38 KB)
+- `bin/FirebaseAdmin.dll` (287.5 KB)
+- `bin/CenIT.SSOServices.pdb` (87.5 KB)
+- `bin/System.Web.WebPages.dll` (202.48 KB)
+- `bin/System.IdentityModel.Tokens.Jwt.dll` (80.85 KB)
+- `bin/TSFramework.Libs.dll.config` (4.19 KB)
+- `bin/Modules.API.dll` (38.5 KB)
+- `bin/System.Web.WebPages.Razor.dll` (40.98 KB)
+- `bin/roslyn/Microsoft.CodeAnalysis.Scripting.dll` (133.65 KB)
+- `bin/roslyn/csi.exe.config` (4.82 KB)
+- `bin/Core.Sys.dll.config` (3.05 KB)
+- `bin/RestSharp.dll` (186.5 KB)
+- `bin/System.IO.FileSystem.Primitives.dll` (22.25 KB)
+- `bin/CenIT.Libs.HDDT.dll.config` (3.16 KB)
+- `bin/roslyn/Microsoft.Managed.Core.targets` (18.54 KB)
+- `Libraries/Jobs/Jobs.RefreshApp.dll` (8.5 KB)
+- `bin/roslyn/System.Collections.Immutable.dll` (184.88 KB)
+- `bin/roslyn/csc.exe` (59.11 KB)
+- `bin/TSFramework.Libs.pdb` (543.5 KB)
+- `bin/FastMember.dll` (26 KB)
+- `bin/Microsoft.AspNet.SignalR.Core.dll` (338.88 KB)
+- `bin/CenIT.Solution.TOC.WebApp.dll` (105 KB)
+- `bin/roslyn/Microsoft.CodeAnalysis.dll` (4437.15 KB)
+- `bin/CenIT.Libs.HDDT.pdb` (171.5 KB)
+- `bin/roslyn/System.Buffers.dll` (20.37 KB)
+- `bin/Microsoft.Owin.dll` (119.39 KB)
+- `bin/System.Web.Http.dll` (445.48 KB)
+- `bin/roslyn/System.IO.FileSystem.Primitives.dll` (22.25 KB)
+- `bin/CenIT.Solution.TOC.WebApp.dll.config` (13.3 KB)
+- `bin/System.Buffers.dll` (20.37 KB)
+- `bin/Core.API.dll` (60.5 KB)
+- `Libraries/Jobs/Jobs.ClearData.dll` (7.5 KB)
+- `Libraries/Jobs/Jobs.SendReminderEmail.dll` (9 KB)
+- `bin/Microsoft.IdentityModel.JsonWebTokens.dll` (63.35 KB)
+- `bin/Core.Log.dll` (10.5 KB)
+- `bin/roslyn/csi.exe` (16.1 KB)
+- `bin/System.Web.Optimization.dll` (69.2 KB)
+- `bin/System.Web.Http.WebHost.dll` (78.48 KB)
+- `bin/DocumentFormat.OpenXml.dll` (5969.42 KB)
+- `bin/roslyn/System.Memory.dll` (137.88 KB)
+- `bin/TiSun.dll` (851.5 KB)
+- `bin/CaptchaMvc.dll` (72.5 KB)
+- `bin/Microsoft.AspNet.Identity.Owin.dll` (55.4 KB)
+- `bin/roslyn/Microsoft.DiaSymReader.Native.x86.dll` (1511.38 KB)
+- `bin/Modules.API.dll.config` (9.72 KB)
+- `bin/BouncyCastle.Cryptography.dll` (4584.66 KB)
+- `bin/roslyn/System.Reflection.Metadata.dll` (451.88 KB)
+- `Libraries/Authorities/Plugable.SQLProcedureAuthority.dll` (6 KB)
+- `bin/ApplicationInsights.config` (5.91 KB)
+- `bin/Google.Api.Gax.dll` (77.5 KB)
+- `bin/Microsoft.Bcl.AsyncInterfaces.dll` (26.12 KB)
+- `bin/roslyn/csi.rsp` (0.25 KB)
+- `bin/TiSun.pdb` (1029.5 KB)
+- `bin/CKFinder.dll` (84 KB)
+- `bin/EPPlus.dll` (1082.5 KB)
+- `bin/System.CodeDom.dll` (31.62 KB)
+- `bin/Microsoft.Extensions.DependencyInjection.Abstractions.dll` (46.11 KB)
+- `bin/Modules.Dashboard.dll` (36.5 KB)
+- `bin/Google.Apis.Auth.dll` (225.5 KB)
+- `bin/roslyn/vbc.exe.config` (4.21 KB)
+- `bin/System.IO.Packaging.dll` (50.7 KB)
+- `bin/Google.Api.Gax.Rest.pdb` (7.61 KB)
+- `bin/Common.Logging.dll` (44 KB)
+- `bin/Core.API.pdb` (333.5 KB)
+- `bin/roslyn/csc.exe.config` (4.21 KB)
+- `bin/roslyn/csc.rsp` (1.5 KB)
+- `bin/roslyn/System.Text.Encoding.CodePages.dll` (743.55 KB)
+- `bin/Modules.Cate.dll` (335 KB)
+- `bin/Google.Api.Gax.Rest.dll` (26.5 KB)
+- `bin/Owin.dll` (4.5 KB)
+- `bin/Core.Sys.pdb` (449.5 KB)
+- `bin/Core.API.dll.config` (4.24 KB)
+- `bin/roslyn/VBCSCompiler.exe.config` (4.76 KB)
+- `bin/Microsoft.Bcl.AsyncInterfaces.xml` (29.11 KB)
+- `bin/roslyn/Microsoft.DiaSymReader.Native.amd64.dll` (1799.37 KB)
+- `bin/Modules.Sys.dll` (122 KB)
+- `bin/roslyn/System.Net.Http.dll` (258.84 KB)
+- `bin/System.Web.Razor.dll` (258.48 KB)
+- `bin/roslyn/Microsoft.CodeAnalysis.CSharp.Scripting.dll` (32.15 KB)
+- `bin/OpenXmlPowerTools.dll` (1365 KB)
+- `bin/Microsoft.Owin.Security.OAuth.dll` (84.89 KB)
+- `bin/ClosedXML.dll` (1078 KB)
+- `bin/libgrpc_csharp_ext.x64.dylib` (11022.09 KB)
+- `bin/roslyn/System.Threading.Tasks.Extensions.dll` (25.38 KB)
+- `bin/CenIT.Libs.HDDT.dll` (112 KB)
+- `bin/Google.Api.Gax.pdb` (26.57 KB)
+- `bin/Core.Log.dll.config` (3.05 KB)
+- `bin/TSFramework.Libs.dll` (490 KB)
+- `bin/ExcelNumberFormat.dll` (26.5 KB)
+- `Libraries/Jobs/Jobs.AutoGenerateReviewBatch.dll` (13 KB)
+- `bin/System.Web.Mvc.dll` (536.46 KB)
+- `bin/Microsoft.AspNet.SignalR.SystemWeb.dll` (15.88 KB)
+- `bin/Microsoft.Extensions.Logging.Abstractions.dll` (46.52 KB)
+- `bin/CenIT.SSOServices.dll.config` (0.94 KB)
+- `bin/roslyn/Microsoft.CodeAnalysis.VisualBasic.dll` (5710.62 KB)
+- `bin/System.ValueTuple.xml` (0.14 KB)
+- `bin/System.Net.Http.Formatting.dll` (175.47 KB)
+- `bin/System.Diagnostics.DiagnosticSource.dll` (64.88 KB)
+- `bin/roslyn/VBCSCompiler.exe` (92.62 KB)
+- `bin/Google.Api.Gax.xml` (166.86 KB)
+- `bin/System.Runtime.CompilerServices.Unsafe.dll` (17.6 KB)
+- `bin/System.Text.Encoding.CodePages.dll` (748.27 KB)
+- `bin/System.ValueTuple.dll` (24.64 KB)
+- `bin/PreMailer.Net.dll` (30 KB)
+- `bin/roslyn/System.Numerics.Vectors.dll` (113.14 KB)
+- `bin/CenIT.SSOServices.XmlSerializers.dll` (103.5 KB)
+- `bin/Microsoft.Owin.Security.dll` (64.41 KB)
+- `bin/CenIT.Solution.TOC.WebApp.pdb` (253.5 KB)
+- `bin/DocumentFormat.OpenXml.Framework.dll` (463.48 KB)
+- `bin/Google.Apis.Core.dll` (83 KB)
+- `bin/Modules.API.pdb` (93.5 KB)
+- `bin/System.Numerics.Vectors.dll` (113.14 KB)
+- `bin/Google.Api.Gax.Rest.xml` (22.9 KB)
+- `bin/roslyn/vbc.rsp` (1.64 KB)
+- `bin/AngleSharp.dll` (942 KB)
+- `bin/Microsoft.Owin.Host.SystemWeb.dll` (145.17 KB)
+- `bin/Google.Apis.dll` (81 KB)
+- `bin/Microsoft.IdentityModel.Logging.dll` (25.06 KB)
+- `bin/grpc_csharp_ext.x86.dll` (9752.77 KB)
+- `bin/roslyn/vbc.exe` (59.11 KB)
+- `bin/Newtonsoft.Json.dll` (695.27 KB)
+- `bin/roslyn/Microsoft.CSharp.Core.targets` (8.7 KB)
+- `bin/roslyn/Microsoft.CodeAnalysis.CSharp.dll` (6269.65 KB)
+- `bin/System.Collections.Immutable.xml` (519.67 KB)
+- `bin/Core.Log.pdb` (45.5 KB)
+- `bin/System.Collections.Immutable.dll` (246.77 KB)
+- `bin/roslyn/System.Runtime.CompilerServices.Unsafe.dll` (16.38 KB)
+- `bin/roslyn/Microsoft.Managed.Core.CurrentVersions.targets` (0.12 KB)
+- `bin/CenIT.SSOServices.dll` (49 KB)
+- `bin/CenIT.Libs.HDDT.XmlSerializers.dll` (227.5 KB)
+- `bin/System.Web.WebPages.Deployment.dll` (42.98 KB)
+- `bin/Microsoft.Owin.Security.Cookies.dll` (43.39 KB)
+- `Libraries/Jobs/Jobs.SyncData.dll` (9 KB)
+- `bin/Core.Sys.dll` (100.5 KB)
+- `bin/Core.Cate.pdb` (1851.5 KB)
+- `bin/Microsoft.AspNet.Identity.Core.dll` (156.44 KB)
+- `bin/roslyn/Microsoft.Build.Tasks.CodeAnalysis.dll` (136.65 KB)
+- `Libraries/Authorities/EPPlus.dll` (1082.5 KB)
+- `bin/System.Threading.Tasks.Extensions.xml` (9.91 KB)
+- `bin/Interop.DAO.dll` (64 KB)
+- `bin/roslyn/Microsoft.VisualBasic.Core.targets` (6.36 KB)
+- `bin/System.Web.Helpers.dll` (134.96 KB)
+- `bin/Quartz.dll` (867 KB)
+- `bin/Core.Cate.dll.config` (3.05 KB)
+- `bin/RazorEngine.dll` (281.5 KB)
+- `bin/WebGrease.dll` (1244.65 KB)
+- `bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll` (36.44 KB)
+- `bin/Microsoft.IdentityModel.Tokens.dll` (158.06 KB)
+- `bin/Microsoft.Web.Infrastructure.dll` (49.46 KB)
+- `bin/Core.Cate.dll` (461.5 KB)
+- `bin/grpc_csharp_ext.x64.dll` (12386.77 KB)
+- `bin/System.Memory.dll` (138.91 KB)
+- `bin/Microsoft.Extensions.DependencyInjection.Abstractions.xml` (107.93 KB)
+- `bin/FirebaseAdmin.xml` (308.98 KB)
+
+### Giao Dien (Views / Razor Pages: 585 tep)
+- `Areas/Cate/Views/Task/_Search.cshtml`
+- `Areas/Cate/Views/ProductServiceGroupFilePath/_Add.cshtml`
+- `Areas/Cate/Views/LogTask/_DeleteLog.cshtml`
+- `Areas/Sys/Views/Job/_TabYear.cshtml`
+- `Areas/Cate/Views/Customer/_EditAnniversary.cshtml`
+- `Areas/Cate/Views/EmployeeBusinessPlan/_Save.cshtml`
+- `Areas/Sys/Views/Instruct/_Edit.cshtml`
+- `Areas/Cate/Views/RM_BusinessOpportunity/_UpdateStatus.cshtml`
+- `Areas/Cate/Views/ContactPersons/_Add.cshtml`
+- `Views/Shared/_Main.cshtml`
+- `Areas/Sys/Views/SysNotifications/_Edit.cshtml`
+- `Views/Shared/_PageDetail.cshtml`
+- `Areas/Cate/Views/ProductService/_Detail.cshtml`
+- `Areas/Sys/Views/User/_ChangePassword.cshtml`
+- `Areas/Cate/Views/TaskManagement/_Delete.cshtml`
+- `Areas/Cate/Views/ProjectOverview/_TaskManagements.cshtml`
+- `Areas/Sys/Views/Position/Index.cshtml`
+- `Areas/Sys/Views/User/_AddUser.cshtml`
+- `Areas/Dashboard/Views/Dashboard/_StaleUpdates.cshtml`
+- `Areas/Sys/Views/User/_DeActive.cshtml`
+- `Areas/Cate/Views/ContactPersons/_Edit.cshtml`
+- `Areas/Sys/Views/Menu/_Add.cshtml`
+- `Areas/Cate/Views/Project/_TaskManagementsData.cshtml`
+- `Areas/Cate/Views/ProductProjectOverview/_Contracts.cshtml`
+- `Areas/Cate/Views/ReviewReport/_Search.cshtml`
+- `Areas/Cate/Views/RM_Contracts/_Search.cshtml`
+- `Areas/Cate/Views/CustomerType/_Add.cshtml`
+- `Areas/Sys/Views/User/PasswordValid.js`
+- `Areas/Cate/Views/ProjectMember/_Delete.cshtml`
+- `Areas/Sys/Views/MailTemplate/_Search.cshtml`
+- `Areas/Cate/Views/Project/_Search.cshtml`
+- `Areas/HelpPage/Views/Help/DisplayTemplates/SimpleTypeModelDescription.cshtml`
+- `Areas/Cate/Views/CostType/_Delete.cshtml`
+- `Areas/Cate/Views/Comment/_Add.cshtml`
+- `Areas/Cate/Views/RM_BusinessOpportunity/_CHKD_View.cshtml`
+- `Areas/Sys/Views/Role/Role.js`
+- `Areas/Cate/Views/ProjectWeeklyTaskReport/_Report.cshtml`
+- `Areas/Sys/Views/MailTemplate/_Delete.cshtml`
+- `Areas/Cate/Views/RM_BusinessPlan/Index.cshtml`
+- `Areas/Sys/Views/Instruct/_Delete.cshtml`
+- `Areas/Cate/Views/RM_BusinessPlan/_Edit.cshtml`
+- `Areas/Cate/Views/Comment/_Comment.cshtml`
+- `Areas/Sys/Views/SysNotifications/_Delete.cshtml`
+- `Areas/Sys/Views/Modules/_Delete.cshtml`
+- `Areas/Cate/Views/GroupService/_Search.cshtml`
+- `Areas/Sys/Views/SysLog/_ViewFile.cshtml`
+- `Areas/Sys/Views/Position/Position.js`
+- `Areas/Cate/Views/RM_ExchangeHistory/_ExchangeHistory.cshtml`
+- `Areas/Cate/Views/TaskGroup/Index.cshtml`
+- `Areas/Dashboard/Views/Dashboard/_EmployeeFilter.cshtml`
+- `Views/Shared/Manager/_Menu.css`
+- `Areas/Cate/Views/ProjectRevenueReport/_Report.cshtml`
+- `Areas/Sys/Views/SysConfig/Index.cshtml`
+- `Areas/Cate/Views/ProductCost/_ProductCost.cshtml`
+- `Areas/Cate/Views/EmployeeBusinessPlan/_EmployeeBusinessPlan.cshtml`
+- `Areas/Cate/Views/ReviewBatch/_Edit.cshtml`
+- `Areas/Sys/Views/SysConfig/_Add.cshtml`
+- `Areas/Sys/Views/Job/_TabMonth.cshtml`
+- `Areas/HelpPage/Views/Help/DisplayTemplates/Parameters.cshtml`
+- `Areas/Cate/Views/BusinessOpportunityWeeklyReport/Index.cshtml`
+- `Areas/Manager/Views/Shared/_Footer.cshtml`
+- `Areas/Cate/Views/RM_Contracts/_Contract.cshtml`
+- `Areas/Cate/Views/ReviewBatchItem/_ReviewForm.cshtml`
+- `Areas/Cate/Views/Customer/_Delete.cshtml`
+- `Areas/Sys/Views/User/_ResetPassword.cshtml`
+- `Areas/Dashboard/Views/Dashboard/_EmployeeTable.cshtml`
+- `Areas/Cate/Views/Customer/Customer.js`
+- `Areas/HelpPage/Views/Help/DisplayTemplates/Samples.cshtml`
+- `Areas/Dashboard/Views/Dashboard/_ProjectTable.cshtml`
+- `Areas/Cate/Views/EmployeeBusinessPlan/Import.cshtml`
+- `Areas/Sys/Views/User/_PermitReview.cshtml`
+- `Views/Shared/Manager/_FormConfirm.cshtml`
+- `Areas/Cate/Views/ProjectMember/_List.cshtml`
+- `Areas/Cate/Views/ProjectTaskReport/_Search.cshtml`
+- `Areas/Cate/Views/ProjectMember/_Add.cshtml`
+- `Areas/Cate/Views/RM_Contracts/Index.cshtml`
+- `Areas/Manager/Views/Shared/_Blank.cshtml`
+- `Areas/Sys/Views/Job/_ChangeStatus.cshtml`
+- `Areas/Dashboard/Views/Dashboard/_OverviewSearch.cshtml`
+- `Areas/Cate/Views/CustomerContact/_AddCustomerContactDetail.cshtml`
+- `Areas/Sys/Views/Modules/_Add.cshtml`
+- `Areas/Dashboard/Views/Dashboard/Index.cshtml`
+- `Areas/Cate/Views/RM_BusinessOpportunity/_Add.cshtml`
+- `Areas/Sys/Views/SysLog/_ErrFile.cshtml`
+- `Areas/Sys/Views/SysNotifications/_Add.cshtml`
+- `Areas/Cate/Views/ReviewBatch/_Add.cshtml`
+- `Areas/Cate/Views/Customer/_Search.cshtml`
+- `Areas/Sys/Views/Message/_Message.cshtml`
+- `Areas/Cate/Views/SalesTeamMembers/SalesTeamMembers.js`
+- `Areas/Cate/Views/EmployeeBusinessPlan/_ImportDataView.cshtml`
+- `Views/Shared/Manager/_Menu.cshtml`
+- `Areas/Cate/Views/ProductServiceGroupFilePath/_ViewFile.cshtml`
+- `Areas/Cate/Views/BusinessOpportunityOverview/_BoHeader.cshtml`
+- `Areas/Sys/Views/AccessHistory/Index.cshtml`
+- `Areas/Cate/Views/TaskGroup/_Delete.cshtml`
+- `Areas/Cate/Views/ProductServiceGroupFilePath/_Delete.cshtml`
+- `Areas/Cate/Views/ProductCost/_Delete.cshtml`
+- `Areas/Cate/Views/RM_BusinessOpportunity/_AddCHKD_View.cshtml`
+- `Areas/Cate/Views/ProductCost/_Add.cshtml`
+- `Views/Account/_ForgotBox.cshtml`
+- `Views/Account/_ResetPassword.cshtml`
+- `Areas/Sys/Views/Menu/Index.cshtml`
+- `Areas/Cate/Views/ProductProject/_ProductProject.cshtml`
+- `Areas/Cate/Views/Project/_Delete.cshtml`
+- `Areas/Sys/Views/User/_Password.cshtml`
+- `Areas/Sys/Views/Department/Department.js`
+- `Areas/Cate/Views/RM_BusinessOpportunity/_LichSuPhieu.cshtml`
+- `Views/Account/_ChangePassword.cshtml`
+- `Areas/Sys/Views/Status/_Status.cshtml`
+- `Areas/Manager/Views/Shared/_Error.cshtml`
+- `Areas/Cate/Views/RM_BusinessOpportunity/_EditEH.cshtml`
+- `Areas/Sys/Views/Modules/_PermissionModule.cshtml`
+- `Areas/Cate/Views/CostType/CostType.js`
+- `Areas/Sys/Views/Modules/_Edit.cshtml`
+- `Areas/Cate/Views/LogTask/_LichSuLog.cshtml`
+- `Views/Shared/_Login.cshtml`
+- `Areas/Cate/Views/ProjectOverview/_ReviewBatch.cshtml`
+- `Views/Shared/_FormConfirm.cshtml`
+- `Areas/Cate/Views/Customer/_ContactPersonTemplate.cshtml`
+- `Areas/Cate/Views/RevenueReceived/RevenueReceived.js`
+- `Areas/Cate/Views/Project/_Edit.cshtml`
+- `Areas/Cate/Views/GroupService/_Delete.cshtml`
+- `Areas/Cate/Views/RM_ExchangeHistory/_Delete.cshtml`
+- `Views/Account/_ForgotPassword.cshtml`
+- `Areas/Dashboard/Views/Dashboard/_OpportunityTable.cshtml`
+- `Areas/Dashboard/Views/Dashboard/ProjectByUser.cshtml`
+- `Areas/Cate/Views/ProjectMember/_ProjectMember.cshtml`
+- `Areas/Cate/Views/ContactPersons/ContactPersons.js`
+- `Areas/Cate/Views/AnniversaryType/_Add.cshtml`
+- `Areas/Cate/Views/ProjectTaskReport/index.cshtml`
+- `Areas/Manager/Views/Shared/_Login.cshtml`
+- `Areas/Manager/Views/Shared/_Form.cshtml`
+- `Views/Render/_LoginBody.cshtml`
+- `Areas/Cate/Views/ProductCost/_Edit.cshtml`
+- `Areas/Sys/Views/Modules/Index.cshtml`
+- `Areas/Sys/Views/Status/_Search.cshtml`
+- `Areas/Cate/Views/ReviewBatchItem/_EditHistory.cshtml`
+- `Areas/Cate/Views/BusinessOpportunityOverview/BusinessOpportunityOverview.js`
+- `Areas/Cate/Views/RM_BusinessOpportunity/_Edit.cshtml`
+- `Areas/Cate/Views/OpportunityProjectWithoutPGP/Index.cshtml`
+- `Views/Home/Index.css`
+- `Views/Account/_EditInfo.cshtml`
+- `Areas/Cate/Views/ProductProjectOverview/_ProductProjectOverview.cshtml`
+- `Views/Web.config`
+- `Areas/Cate/Views/CostType/_CostType.cshtml`
+- `Areas/Cate/Views/EmployeeBusinessPlan/EmployeeBusinessPlan.js`
+- `Areas/Sys/Views/Job/_Add.cshtml`
+- `Areas/Cate/Views/TaskGroup/_Edit.cshtml`
+- `Areas/Sys/Views/SMSTemplate/SMSTemplate.js`
+- `Areas/Cate/Views/ReviewBatchItem/_ReviewBatch.cshtml`
+- `Areas/Sys/Views/User/_DeleteBody.cshtml`
+- `Views/Shared/_HeaderMenu.cshtml`
+- `Areas/Cate/Views/CustomerContact/_EditCustomerContactDetail.cshtml`
+- `Areas/Cate/Views/ProductService/_Edit.cshtml`
+- `Areas/Cate/Views/ProjectTask/_Edit.cshtml`
+- `Areas/Cate/Views/EmployeeBusinessPlan/EmployeeBusinessPlan.cshtml`
+- `Areas/Cate/Views/ProjectOverview/_Project.cshtml`
+- `Views/Shared/_Footer.css`
+- `Areas/Cate/Views/RM_BusinessPlan/_Delete.cshtml`
+- `Areas/Cate/Views/ProjectWeeklyTaskReport/_Search.cshtml`
+- `Areas/Sys/Views/User/_UsersViaRole.cshtml`
+- `Areas/Cate/Views/AnniversaryType/Index.cshtml`
+- `Areas/Cate/Views/RevenueReceived/_RevenueReceived.cshtml`
+- `Areas/Sys/Views/Instruct/_Add.cshtml`
+- `Areas/Cate/Views/ProductProject/ProductProject.js`
+- `Areas/Dashboard/Views/Dashboard/_PlanFilter.cshtml`
+- `Areas/Cate/Views/CustomerType/Index.cshtml`
+- `Areas/Sys/Views/User/_PermitBody.cshtml`
+- `Areas/Cate/Views/SalesTeamMembers/_Add.cshtml`
+- `Areas/Cate/Views/ProductProjectOverview/Index.cshtml`
+- `Views/Account/_PasswordModel.cshtml`
+- `Areas/Manager/Views/Shared/_Menu.cshtml`
+- `Areas/Cate/Views/RM_Contracts/_Edit.cshtml`
+- `Areas/Cate/Views/ProjectOverview/_Product.cshtml`
+- `Views/Shared/_Header.css`
+- `Areas/Sys/Views/Function/_Add.cshtml`
+- `Views/Account/_Login.cshtml`
+- `Areas/Cate/Views/Customer/_SearchBusinessOpportunity.cshtml`
+- `Areas/Cate/Views/AnniversaryType/AnniversaryType.js`
+- `Areas/Sys/Views/BillingCycles/_Delete.cshtml`
+- `Areas/Cate/Views/SalesTeamMembers/_Delete.cshtml`
+- `Areas/Sys/Views/Job/_CronExpression.cshtml`
+- `Areas/Cate/Views/Report_BusinessOpportunity/Index.cshtml`
+- `Areas/Sys/Views/SysPermissionAPI/_SysPermissionAPI.cshtml`
+- `Areas/Dashboard/Views/Manager/MenuList.css`
+- `Areas/Dashboard/Views/web.config`
+- `Areas/Cate/Views/RM_Contracts/_Detail.cshtml`
+- `Areas/Cate/Views/Invoices/_List.cshtml`
+- `Areas/Cate/Views/Task/_Delete.cshtml`
+- `Areas/Sys/Views/Job/_Edit.cshtml`
+- `Views/Account/Login.cshtml`
+- `Areas/Cate/Views/GroupService/Index.cshtml`
+- `Areas/Cate/Views/BusinessOpportunityOverview/_PlanForm.cshtml`
+- `Areas/Sys/Views/AppSetting/_Add.cshtml`
+- `Areas/Cate/Views/Task/_Add.cshtml`
+- `Areas/Cate/Views/EmployeeBusinessPlan/_Add.cshtml`
+- `Areas/Sys/Views/Modules/_UpdatePanelModule.cshtml`
+- `Areas/Sys/Views/SysLog/_ProcedureLog.cshtml`
+- `Areas/Cate/Views/ProductProject/Index.cshtml`
+- `Areas/Cate/Views/LogTask/_UpdateProgress.cshtml`
+- `Areas/Sys/Views/Message/Message.js`
+- `Views/Account/PasswordValid.js`
+- `Areas/Cate/Views/ProjectTaskNoReport/_Report.cshtml`
+- `Areas/Sys/Views/BillingCycles/_Add.cshtml`
+- `Areas/Sys/Views/MailTemplate/_Add.cshtml`
+- `Areas/Cate/Views/RevenueReceived/_Delete.cshtml`
+- `Areas/Cate/Views/CostType/_Add.cshtml`
+- `Areas/Cate/Views/ProductCost/ProductCost.js`
+- `Areas/Sys/Views/AppSetting/Index.cshtml`
+- `Areas/Sys/Views/AppLayout/Index.cshtml`
+- `Areas/Cate/Views/ReviewBatchItem/_ReviewHistory.cshtml`
+- `Areas/Cate/Views/Task/Index.cshtml`
+- `Views/_ViewStart.cshtml`
+- `Areas/Sys/Views/Instruct/_InstructModal.cshtml`
+- `Areas/Sys/Views/Role/Index.cshtml`
+- `Areas/Sys/Views/SMSTemplate/_Edit.cshtml`
+- `Views/Shared/Manager/_Error.cshtml`
+- `Areas/Cate/Views/Task/_Task.cshtml`
+- `Areas/Cate/Views/BusinessOpportunityOverview/_Notification.cshtml`
+- `Areas/Cate/Views/ContactPersons/_Import.cshtml`
+- `Areas/Sys/Views/Message/_Delete.cshtml`
+- `Areas/Cate/Views/ReviewBatch/ReviewBatch.js`
+- `Areas/HelpPage/Views/Web.config`
+- `Areas/Sys/Views/SMSTemplate/_Delete.cshtml`
+- `Areas/Cate/Views/LogTask/LogTask.js`
+- `Areas/Cate/Views/ProductCost/Index.cshtml`
+- `Areas/Cate/Views/ProjectMember/_AddProjectMember.cshtml`
+- `Areas/Cate/Views/FormUtils.js`
+- `Views/Shared/Manager/_PageContent.cshtml`
+- `Areas/Cate/Views/Customer/Index.cshtml`
+- `Areas/Sys/Views/Function/Function.js`
+- `Areas/Dashboard/Views/Dashboard/_EmployeeChart.cshtml`
+- `Areas/Cate/Views/RM_BusinessPlan/BusinessPlan.js`
+- `Views/Account/_LoginBody.cshtml`
+- `Areas/HelpPage/Views/Help/DisplayTemplates/ModelDescriptionLink.cshtml`
+- `Areas/Cate/Views/RevenueReceived/Index.cshtml`
+- `Areas/HelpPage/Views/Help/DisplayTemplates/DictionaryModelDescription.cshtml`
+- `Areas/Cate/Views/ContactPersons/_ContactPersons.cshtml`
+- `Areas/HelpPage/Views/_ViewStart.cshtml`
+- `Areas/Sys/Views/Function/Index.cshtml`
+- `Areas/Cate/Views/EmployeeBusinessPlan/ImportEmployeeBusinessPlan.js`
+- `Areas/Cate/Views/CostType/_Edit.cshtml`
+- `Areas/Cate/Views/ProjectMember/ProjectMember.js`
+- `Areas/Dashboard/Views/Dashboard/OpportunityByUser.cshtml`
+- `Areas/Cate/Views/RM_BusinessOpportunity/_ViewContent.cshtml`
+- `Views/Shared/_Layout.css`
+- `Areas/Cate/Views/Invoices/_Add.cshtml`
+- `Areas/Cate/Views/LogTask/_LogTask.cshtml`
+- `Areas/Sys/Views/AppSetting/_Delete.cshtml`
+- `Areas/Sys/Views/BillingCycles/BillingCycles.js`
+- `Areas/Cate/Views/Project/Project.js`
+- `Areas/Sys/Views/SysConfig/_Edit.cshtml`
+- `Areas/Cate/Views/EmployeeBusinessPlan/_Delete.cshtml`
+- `Areas/Dashboard/Views/Dashboard/Dashboard.js`
+- `Areas/Cate/Views/ContactPersons/Index.cshtml`
+- `Views/Account/ResetPassword.cshtml`
+- `Areas/Sys/Views/User/_ActiveBody.cshtml`
+- `Areas/Sys/Views/User/_Edit.cshtml`
+- `Areas/Cate/Views/RM_ExchangeHistory/ExchangeHistory.js`
+- `Areas/Cate/Views/ProjectTask/_Delete.cshtml`
+- `Areas/Cate/Views/ProductService/_Add.cshtml`
+- `Areas/Cate/Views/Customer/_EditCHKD.cshtml`
+- `Areas/Cate/Views/SalesTeamMembers/_AddSalesTeamMembers.cshtml`
+- `Areas/Sys/Views/SysTool/Index.cshtml`
+- `Areas/Sys/Views/Job/_ExecNow.cshtml`
+- `Areas/Cate/Views/ProductProject/_Delete.cshtml`
+- `Views/Shared/Manager/_Main.css`
+- `Views/Shared/Manager/_Login.cshtml`
+- `Views/Shared/Manager/_Form.cshtml`
+- `Areas/Cate/Views/ProjectTask/_AddFromTaskGroupSearch.cshtml`
+- `Views/Shared/_Setting.cshtml`
+- `Areas/Cate/Views/ReviewReport/Index.cshtml`
+- `Areas/Sys/Views/BillingCycles/Index.cshtml`
+- `Areas/Cate/Views/Notification/_HeaderNotifications.cshtml`
+- `Areas/Cate/Views/ProjectTask/_ProjectTask.cshtml`
+- `Areas/Sys/Views/AppLayout/_Edit.cshtml`
+- `Areas/Sys/Views/web.config`
+- `Areas/Cate/Views/OpportunityPlanRelatedPerson/_Add.cshtml`
+- `Areas/Cate/Views/Comment/_Edit.cshtml`
+- `Areas/Cate/Views/RM_BusinessOpportunity/Index.cshtml`
+- `Areas/HelpPage/Views/Help/DisplayTemplates/ApiGroup.cshtml`
+- `Areas/Cate/Views/RM_BusinessOpportunity/_ViewHistory.cshtml`
+- `Areas/HelpPage/Views/Help/Index.cshtml`
+- `Areas/Cate/Views/RM_Contracts/RM_Contracts.js`
+- `Areas/Sys/Views/User/_Delete.cshtml`
+- `Areas/Sys/Views/Home/Index.cshtml`
+- `Views/Shared/Manager/_Layout.cshtml`
+- `Areas/Cate/Views/ProductService/ProductService.js`
+- `Areas/Cate/Views/RM_BusinessOpportunity/_ConvertProjectForm.cshtml`
+- `Areas/Sys/Views/User/_DeActiveBody.cshtml`
+- `Areas/Sys/Views/AccessHistory/AccessHistory.js`
+- `Areas/Sys/Views/Instruct/_Instruct.cshtml`
+- `Areas/Sys/Views/SysLog/_DeleteProcLog.cshtml`
+- `Areas/Sys/Views/SysNotifications/_Search.cshtml`
+- `Areas/Sys/Views/SysConfig/SysConfig.js`
+- `Areas/Sys/Views/User/_Search.cshtml`
+- `Views/Shared/_Footer.cshtml`
+- `Areas/Cate/Views/RM_Contracts/_Add.cshtml`
+- `Areas/Cate/Views/Customer/_AddCHKD_View.cshtml`
+- `Areas/HelpPage/Views/Help/DisplayTemplates/EnumTypeModelDescription.cshtml`
+- `Areas/Cate/Views/ReviewBatch/Index.cshtml`
+- `Areas/HelpPage/Views/Help/DisplayTemplates/ImageSample.cshtml`
+- `Areas/Cate/Views/ProductServiceGroupFilePath/_List.cshtml`
+- `Areas/Sys/Views/Message/_Add.cshtml`
+- `Areas/Dashboard/Views/Manager/Index.cshtml`
+- `Views/Render/Login.cshtml`
+- `Areas/Cate/Views/LogTask/_DeleteFile.cshtml`
+- `Areas/Dashboard/Views/_ViewStart.cshtml`
+- `Areas/Cate/Views/ProjectOverview/_Contracts.cshtml`
+- `Areas/Cate/Views/ProjectRevenueReport/Index.cshtml`
+- `Areas/Sys/Views/SysLog/_InvLogFile.cshtml`
+- `Areas/Sys/Views/SysPermissionAPI/_Add.cshtml`
+- `Areas/Cate/Views/Project/_Add.cshtml`
+- `Areas/Sys/Views/Instruct/Instruct.js`
+- `Areas/Cate/Views/Customer/_AddCHKD.cshtml`
+- `Areas/Cate/Views/Customer/_Customer.cshtml`
+- `Views/Shared/_Menu.cshtml`
+- `Views/Account/_UserInfo.cshtml`
+- `Areas/Sys/Views/MailTemplate/_Edit.cshtml`
+- `Areas/Sys/Views/User/User.js`
+- `Areas/Cate/Views/CustomerContact/_DeleteCustomerContactDetail.cshtml`
+- `Areas/Cate/Views/OpportunityPlanRelatedPerson/_Delete.cshtml`
+- `Areas/Cate/Views/BusinessOpportunityOverview/_DetailInfo.cshtml`
+- `Areas/Cate/Views/LogTask/_EditLog.cshtml`
+- `Areas/Sys/Views/Job/_TabHour.cshtml`
+- `Areas/Cate/Views/Invoices/_FilePaths.cshtml`
+- `Areas/Cate/Views/ProjectOverview/_ReviewForm.cshtml`
+- `Areas/Cate/Views/BusinessOpportunityOverview/_PlanDelete.cshtml`
+- `Areas/Sys/Views/Function/_Function.cshtml`
+- `Areas/Sys/Views/Position/_Search.cshtml`
+- `Areas/Cate/Views/LogTask/_AddLog.cshtml`
+- `Views/Account/_SignUp.cshtml`
+- `Areas/Sys/Views/MailTemplate/_Guide.cshtml`
+- `Areas/Cate/Views/ReviewBatchItem/Index.cshtml`
+- `Views/Error/Error.cshtml`
+- `Areas/Cate/Views/ProjectWeeklyTaskReport/ProjectWeeklyTaskReport.js`
+- `Areas/Cate/Views/RM_BusinessOpportunity/_EditExchangeHistory.cshtml`
+- `Areas/Sys/Views/Message/_Edit.cshtml`
+- `Views/Shared/_PageContent.cshtml`
+- `Areas/Cate/Views/BusinessOpportunityOverview/_Plans.cshtml`
+- `Areas/Cate/Views/ProjectRevenueReport/_Search.cshtml`
+- `Views/Shared/_Layout.cshtml`
+- `Areas/Cate/Views/RM_BusinessOpportunity/RM_BusinessOpportunity.js`
+- `Areas/Cate/Views/Comment/_Delete.cshtml`
+- `Areas/Sys/Views/Modules/_PanelModule.cshtml`
+- `Areas/HelpPage/Views/Help/DisplayTemplates/ComplexTypeModelDescription.cshtml`
+- `Areas/Cate/Views/ProjectRevenueReport/ProjectRevenueReport.js`
+- `Views/Shared/Manager/_Blank.cshtml`
+- `Areas/Sys/Views/Job/_TabMinute.cshtml`
+- `Areas/Sys/Views/MailTemplate/_MailTemplate.cshtml`
+- `Areas/Cate/Views/RM_BusinessOpportunity/_FilePreviewScripts.cshtml`
+- `Areas/Sys/Views/Modules/_Module.cshtml`
+- `Areas/Sys/Views/Role/_Add.cshtml`
+- `Areas/Cate/Views/Project/Index.cshtml`
+- `Areas/Cate/Views/CustomerContact/_Add.cshtml`
+- `Areas/Cate/Views/Customer/_BusinessOpportunityView.cshtml`
+- `Areas/Sys/Views/SysConfig/_SysConfig.cshtml`
+- `Areas/Cate/Views/ProductService/_Delete.cshtml`
+- `Areas/Manager/Views/_ViewStart.cshtml`
+- `Areas/Cate/Views/ReviewBatch/_Delete.cshtml`
+- `Areas/Dashboard/Views/Manager/_MenuList.cshtml`
+- `Areas/Sys/Views/SMSTemplate/Index.cshtml`
+- `Areas/Cate/Views/EmployeeBusinessPlan/_Search.cshtml`
+- `Areas/Cate/Views/ProjectTask/_AddFromTaskGroupForm.cshtml`
+- `Areas/Sys/Views/Function/_Edit.cshtml`
+- `Areas/Sys/Views/SMSTemplate/_SMSTemplate.cshtml`
+- `Areas/Cate/Views/RM_BusinessOpportunity/_DeleteFile.cshtml`
+- `Areas/HelpPage/Views/Help/ResourceModel.cshtml`
+- `Areas/Cate/Views/TaskManagement/_TaskDetailView.cshtml`
+- `Views/Shared/_Blank.cshtml`
+- `Areas/Manager/Views/Shared/_Main.cshtml`
+- `Areas/Sys/Views/Status/_Add.cshtml`
+- `Areas/Cate/Views/CustomerType/_Edit.cshtml`
+- `Areas/Sys/Views/Status/Status.js`
+- `Areas/Sys/Views/Job/_TabDay.cshtml`
+- `Areas/Cate/Views/GroupService/GroupService.js`
+- `Areas/Sys/Views/User/Index.cshtml`
+- `Areas/Cate/Views/AnniversaryType/_Edit.cshtml`
+- `Areas/Sys/Views/Message/Index.cshtml`
+- `Areas/Cate/Views/SalesTeamMembers/_SalesTeamMembers.cshtml`
+- `Areas/Cate/Views/CustomerContact/_CustomerContact.cshtml`
+- `Areas/Cate/Views/TaskManagement/_TaskDetailForm.cshtml`
+- `Areas/Sys/Views/User/_UserRole.cshtml`
+- `Areas/Cate/Views/ProductProjectOverview/ProductProjectOverview.js`
+- `Areas/Sys/Views/SMSTemplate/_Add.cshtml`
+- `Areas/Cate/Views/ProductProjectOverview/_RevenueReceived.cshtml`
+- `Areas/Dashboard/Views/Dashboard/PlanByUser.cshtml`
+- `Areas/Sys/Views/Menu/_MenuView.cshtml`
+- `Areas/Dashboard/Views/Dashboard/_RegulationModal.cshtml`
+- `Views/Shared/_Error.cshtml`
+- `Areas/Cate/Views/BusinessOpportunityOverview/Index.cshtml`
+- `Areas/Cate/Views/EmployeeBusinessPlan/_Clear.cshtml`
+- `Areas/Dashboard/Views/Dashboard/_Employee.cshtml`
+- `Areas/Dashboard/Views/Dashboard/_Overview.cshtml`
+- `Areas/Cate/Views/EmployeeBusinessPlan/_ImportData.cshtml`
+- `Areas/Sys/Views/AppSetting/_AppSetting.cshtml`
+- `Areas/HelpPage/Views/Help/DisplayTemplates/TextSample.cshtml`
+- `Areas/Cate/Views/ProjectTaskNoReport/_Search.cshtml`
+- `Areas/Cate/Views/BusinessOpportunityWeeklyReport/_Report.cshtml`
+- `Areas/Cate/Views/TaskManagement/_Add.cshtml`
+- `Areas/Manager/Views/web.config`
+- `Areas/Cate/Views/Invoices/_Delete.cshtml`
+- `Areas/Cate/Views/CostType/Index.cshtml`
+- `Areas/Cate/Views/EmployeeBusinessPlan/_Edit.cshtml`
+- `Areas/Sys/Views/Modules/_Permission.cshtml`
+- `Areas/Sys/Views/BillingCycles/_Edit.cshtml`
+- `Areas/Sys/Views/Menu/Menu.js`
+- `Areas/Cate/Views/TaskGroup/_Add.cshtml`
+- `Areas/Cate/Views/ProductProjectOverview/_ProjectTask.cshtml`
+- `Areas/Dashboard/Views/Dashboard/_PlanList.cshtml`
+- `Areas/HelpPage/Views/Help/DisplayTemplates/KeyValuePairModelDescription.cshtml`
+- `Areas/Cate/Views/RM_BusinessPlan/_Add.cshtml`
+- `Areas/Cate/Views/RM_ExchangeHistory/Index.cshtml`
+- `Areas/Sys/Views/User/_Add.cshtml`
+- `Areas/Cate/Views/Invoices/_Detail.cshtml`
+- `Areas/Cate/Views/Customer/_DeleteCHKD.cshtml`
+- `Areas/Cate/Views/ProductProject/_Add.cshtml`
+- `Areas/Cate/Views/Customer/_Add.cshtml`
+- `Areas/Sys/Views/SysNotifications/_NotifyByUserName.cshtml`
+- `Areas/Cate/Views/CustomerType/_CustomerType.cshtml`
+- `Areas/Sys/Views/User/_Permit.cshtml`
+- `Areas/Cate/Views/ProjectWeeklyTaskReport/index.cshtml`
+- `Areas/Sys/Views/AppLayout/_Add.cshtml`
+- `Areas/Sys/Views/MailTemplate/MailTemplate.js`
+- `Areas/HelpPage/Views/Help/DisplayTemplates/HelpPageApiModel.cshtml`
+- `Areas/Cate/Views/Task/_Edit.cshtml`
+- `Areas/Sys/Views/AppLayout/_ChangeActive.cshtml`
+- `Areas/Cate/Views/OpportunityProjectWithoutPGP/_Search.cshtml`
+- `Areas/Cate/Views/Customer/_Anniversary_View.cshtml`
+- `Areas/Sys/Views/SysNotifications/_ThongBao.cshtml`
+- `Areas/Cate/Views/Comment/_DeleteFile.cshtml`
+- `Areas/Cate/Views/Project/_ViewHistory.cshtml`
+- `Views/Shared/Manager/_Footer.cshtml`
+- `Areas/Cate/Views/ProjectTaskNoReport/index.cshtml`
+- `Areas/Cate/Views/ReviewBatchItem/_SearchBusinessOpportunity.cshtml`
+- `Areas/Cate/Views/ReviewBatchItem/_SearchProject.cshtml`
+- `Areas/Sys/Views/Role/_Edit.cshtml`
+- `Areas/Sys/Views/Department/Index.cshtml`
+- `Areas/Cate/Views/BusinessOpportunityWeeklyReport/_Search.cshtml`
+- `Areas/Sys/Views/User/_BoPhanBody.cshtml`
+- `Areas/Cate/Views/CustomerType/CustomerType.js`
+- `Areas/Cate/Views/RM_Contracts/_Delete.cshtml`
+- `Areas/Sys/Views/Instruct/Index.cshtml`
+- `Areas/HelpPage/HelpPage.css`
+- `Areas/Sys/Views/SysLog/_Delete.cshtml`
+- `Areas/Cate/Views/ProjectTask/_AddFromTaskGroup.cshtml`
+- `Areas/Sys/Views/AccessHistory/_Search.cshtml`
+- `Areas/Sys/Views/MailTemplate/Index.cshtml`
+- `Areas/Dashboard/Views/Dashboard/OpportunityBySuccessRate.cshtml`
+- `Areas/Sys/Views/AppSetting/AppSetting.js`
+- `Areas/Cate/Views/Customer/_Import.cshtml`
+- `Areas/Cate/Views/AnniversaryType/_Delete.cshtml`
+- `Areas/Cate/Views/ContactPersons/_Delete.cshtml`
+- `Areas/HelpPage/Views/Help/DisplayTemplates/CollectionModelDescription.cshtml`
+- `Views/Render/_Login.cshtml`
+- `Areas/Cate/Views/RevenueAllocation/_RevenueAllocation.cshtml`
+- `Areas/Cate/Views/ProductService/_ProductService.cshtml`
+- `Areas/Manager/Views/Shared/_Setting.cshtml`
+- `Areas/Cate/Views/TaskManagement/_Edit.cshtml`
+- `Areas/Sys/Views/Modules/_DelModulePanel.cshtml`
+- `Areas/Cate/Views/ProjectTaskReport/_Report.cshtml`
+- `Areas/Cate/Views/_ViewStart.cshtml`
+- `Areas/Sys/Views/User/_RemoveUser.cshtml`
+- `Views/Account/_AccountInfoInMenu.cshtml`
+- `Areas/Sys/Views/AppLayout/_Delete.cshtml`
+- `Areas/Cate/Views/TaskManagement/_Search.cshtml`
+- `Areas/Cate/Views/ProductServiceGroupFilePath/_FilePaths.cshtml`
+- `Areas/Cate/Views/RevenueReceived/_Add.cshtml`
+- `Areas/Cate/Views/RM_BusinessPlan/_BusinessPlan.cshtml`
+- `Areas/Sys/Views/Status/_Delete.cshtml`
+- `Areas/Sys/Views/Modules/_Install.cshtml`
+- `Areas/Sys/Views/SysConfig/_Delete.cshtml`
+- `Areas/Sys/Views/SysLog/_DeleteOldFile.cshtml`
+- `Areas/Cate/Views/ReviewBatchItem/_Project.cshtml`
+- `Areas/Cate/Views/TaskGroup/_TaskGroup.cshtml`
+- `Areas/Cate/Views/RM_BusinessOpportunity/_ConvertProject.cshtml`
+- `Areas/Cate/Views/ContactPersons/_Search.cshtml`
+- `Areas/Sys/Views/SysLog/_JobLogFile.cshtml`
+- `Areas/Cate/Views/ProjectOverview/Index.cshtml`
+- `Areas/Cate/Views/RevenueReceived/_Edit.cshtml`
+- `Areas/Sys/Views/Menu/_Edit.cshtml`
+- `Areas/Cate/Views/ProductService/_Search.cshtml`
+- `Areas/Sys/Views/Function/_Delete.cshtml`
+- `Areas/Sys/Views/SysLog/_Search.cshtml`
+- `Areas/Sys/Views/Job/Index.cshtml`
+- `Areas/Cate/Views/OpportunityPlanRelatedPerson/_AddRelatedPerson.cshtml`
+- `Areas/Sys/Views/User/_PermitReviewBody.cshtml`
+- `Views/Error/NotFound.cshtml`
+- `Views/Shared/Manager/_Setting.cshtml`
+- `Areas/Cate/Views/web.config`
+- `Areas/Cate/Views/ReviewBatch/_ReviewBatch.cshtml`
+- `Areas/Cate/Views/OpportunityPlanRelatedPerson/OpportunityPlanRelatedPerson.js`
+- `Areas/Cate/Views/CustomerContact/_CustomerContactDetail.cshtml`
+- `Areas/Dashboard/Views/Dashboard/_EmployeeProject.cshtml`
+- `Areas/Cate/Views/Customer/_AddAnniversary.cshtml`
+- `Areas/Sys/Views/AppSetting/_Edit.cshtml`
+- `Areas/Sys/Views/SMSTemplate/Status.js`
+- `Areas/Cate/Views/ProductServiceGroupFilePath/_Edit.cshtml`
+- `Views/Account/_ForgotView.cshtml`
+- `Areas/Sys/Views/Job/_SysJob.cshtml`
+- `Areas/Dashboard/Views/Shared/_ContentViewModal.cshtml`
+- `Areas/Cate/Views/ProductServiceGroupFilePath/_ProductServiceGroupFilePath.cshtml`
+- `Areas/Cate/Views/RM_Contracts/_Contracts.cshtml`
+- `Areas/Sys/Views/AppLayout/AppLayout.js`
+- `Areas/Cate/Views/GroupService/_Add.cshtml`
+- `Views/Shared/Manager/_Header.cshtml`
+- `Areas/Sys/Views/_ViewStart.cshtml`
+- `Areas/Cate/Views/ProjectTaskReport/ProjectTaskReport.js`
+- `Areas/Sys/Views/SysLog/Index.cshtml`
+- `Areas/Sys/Views/Menu/_Delete.cshtml`
+- `Areas/Cate/Views/TaskManagement/Detail.cshtml`
+- `Areas/Sys/Views/BillingCycles/_BillingCycles.cshtml`
+- `Areas/Cate/Views/ProductService/Index.cshtml`
+- `Areas/Cate/Views/GroupService/_GroupService.cshtml`
+- `Areas/Sys/Views/SysNotifications/ThongBao.js`
+- `Views/Shared/Manager/Header.js`
+- `Areas/Cate/Views/Customer/IndexBusinessOpportunity.cshtml`
+- `Areas/Sys/Views/Role/_Role.cshtml`
+- `Views/Error/AccessDenied.cshtml`
+- `Views/Home/Index.cshtml`
+- `Areas/Sys/Views/Job/_Delete.cshtml`
+- `Areas/Manager/Views/Home/Index.cshtml`
+- `Views/Shared/_Header.cshtml`
+- `Areas/Cate/Views/EmployeeBusinessPlan/Index.cshtml`
+- `Areas/Cate/Views/ProductServiceGroupFilePath/ProductServiceGroupFilePath.js`
+- `Areas/Cate/Views/Customer/_AnniversaryView.cshtml`
+- `Areas/Cate/Views/TaskManagement/Index.cshtml`
+- `Areas/Sys/Views/Status/Index.cshtml`
+- `Areas/Cate/Views/ReviewBatchItem/ReviewBatchItem.js`
+- `Areas/HelpPage/Views/Shared/_Layout.cshtml`
+- `Views/Shared/_Form.cshtml`
+- `Areas/Cate/Views/ReviewBatchItem/_BusinessOpportunity.cshtml`
+- `Areas/Sys/Views/Modules/Module.js`
+- `Areas/Sys/Views/Role/_Permission.cshtml`
+- `Areas/Cate/Views/SalesTeamMembers/_List.cshtml`
+- `Areas/Cate/Views/Task/Task.js`
+- `Areas/Dashboard/Views/Dashboard/ProjectBySuccessRate.cshtml`
+- `Areas/Sys/Views/Job/_TabSecond.cshtml`
+- `Areas/Sys/Views/AppLayout/_AppLayout.cshtml`
+- `Areas/Manager/Views/Shared/_FormConfirm.cshtml`
+- `Areas/Cate/Views/ProjectTask/_Add.cshtml`
+- `Areas/Cate/Views/AnniversaryType/_AnniversaryType.cshtml`
+- `Areas/Cate/Views/ProductProjectOverview/_ProductCost.cshtml`
+- `Areas/Cate/Views/Customer/_DeleteAnniversary.cshtml`
+- `Areas/Cate/Views/RM_BusinessOpportunity/_Delete.cshtml`
+- `Areas/Cate/Views/Invoices/_Invoices.cshtml`
+- `Areas/Manager/Views/Shared/_PageContent.cshtml`
+- `Areas/Sys/Views/Role/_Delete.cshtml`
+- `Areas/Cate/Views/ProjectMember/_Edit.cshtml`
+- `Areas/Cate/Views/ProductProjectOverview/_Member.cshtml`
+- `Areas/Cate/Views/Customer/_Edit.cshtml`
+- `Areas/Cate/Views/Report_BusinessOpportunity/Report_BusinessOpportunity.js`
+- `Views/Home/_ThongKeTruyCapFooter.cshtml`
+- `Areas/HelpPage/Views/Help/DisplayTemplates/InvalidSample.cshtml`
+- `Areas/Cate/Views/Invoices/_Edit.cshtml`
+- `Areas/Sys/Views/Department/_Search.cshtml`
+- `Areas/Cate/Views/ProjectOverview/ProjectOverview.js`
+- `Areas/Cate/Views/TaskGroup/TaskGroup.js`
+- `Areas/Sys/Views/User/_User.cshtml`
+- `Areas/Cate/Views/RM_ExchangeHistory/_Edit.cshtml`
+- `Areas/Cate/Views/ProjectOverview/_TaskManagementsData.cshtml`
+- `Areas/Cate/Views/Customer/IndexAnniversary.cshtml`
+- `Areas/Sys/Views/SysNotifications/Index.cshtml`
+- `Areas/Cate/Views/RM_BusinessOpportunity/_ExchangeHistory.cshtml`
+- `Areas/Cate/Views/ProjectTaskNoReport/ProjectTaskReport.js`
+- `Areas/Sys/Views/Instruct/_Search.cshtml`
+- `Areas/Sys/Views/Status/_Edit.cshtml`
+- `Areas/Cate/Views/BusinessOpportunityWeeklyReport/BusinessOpportunityWeeklyReport.js`
+- `Areas/Sys/Views/User/_BoPhan.cshtml`
+- `Areas/Cate/Views/RM_BusinessOpportunity/_Search.cshtml`
+- `Areas/HelpPage/Views/Help/Api.cshtml`
+- `Areas/Sys/Views/Job/Job.js`
+- `Areas/Cate/Views/CustomerType/_Delete.cshtml`
+- `Areas/Cate/Views/GroupService/_Edit.cshtml`
+- `Areas/Cate/Views/ProjectTask/ProjectTask.js`
+- `Areas/Cate/Views/BusinessOpportunityOverview/_Members.cshtml`
+- `Areas/Sys/Views/Role/_FunctionAction.cshtml`
+- `Views/Shared/Manager/_Main.cshtml`
+- `Areas/Cate/Views/SalesTeamMembers/_Edit.cshtml`
+- `Areas/Sys/Views/User/_Active.cshtml`
+- `Areas/Cate/Views/Project/_Project.cshtml`
+- `Areas/Sys/Views/SysLog/SysLog.js`
+- `Areas/Cate/Views/OpportunityPlanRelatedPerson/_List.cshtml`
+- `Areas/Cate/Views/ProductProject/_Edit.cshtml`
+- `Areas/Manager/Views/Shared/_Header.cshtml`
+
+### Cau Hinh (Configs: 5 tep)
+- `Configs/BlacklistPassword/Blacklist.txt`
+- `Global.asax`
+- `Web.config`
+- `Configs/AppSettings.config`
+- `Configs/cskh-khawassco-app-firebase-adminsdk-fbsvc-2335b9910d.json`
+
+### Tai Nguyen Tinh (Contents / Assets: 2972 tep)
+- _Gom 2972 tep hinh anh, CSS, JS, plugin._
+
+### Tep Khac (4 tep)
+- `App_Data/Modules/Dashboard_StoredProcedures.xml`
+- `App_Data/Modules/Cate_StoredProcedures.xml`
+- `App_Data/Modules/Sys_StoredProcedures.xml`
+- `App_Data/Modules/API_StoredProcedures.xml`
+
+
+## Huong Dan Trien Khai (Deployment Guide)
+1. **Sao luu**: Sao luu ma nguon hien tai tren Production truoc khi cap nhat.
+2. **Ghi de**: Tai toan bo noi dung trong thu muc nay len thu muc goc cua WebApp tren Production.
+3. **Tai khoi dong IIS**: Neu co cap nhat tep trong thu muc `bin/` hoac tep `Web.config`, hay Recycle App Pool tren IIS de nap dll moi.
