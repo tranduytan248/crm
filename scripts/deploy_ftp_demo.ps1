@@ -1,12 +1,16 @@
 # Local direct upload script for Demo FTP (fallback / direct execution)
 [CmdletBinding()]
 param(
-    [string]$Server = "10.57.30.10",
+    [string]$Server = $env:FTP_SERVER_DEMO,
     [int]$Port = 21,
-    [string]$User = "quanlydoanhthucenit",
-    [string]$Password = "fsJD37sH@23",
+    [string]$User = $env:FTP_USERNAME_DEMO,
+    [string]$Password = $env:FTP_PASSWORD_DEMO,
     [string]$SourceDir = "publish_source"
 )
+
+if ([string]::IsNullOrWhiteSpace($Server)) { $Server = "10.57.30.10" }
+if ([string]::IsNullOrWhiteSpace($User)) { $User = "quanlydoanhthucenit" }
+if ([string]::IsNullOrWhiteSpace($Password)) { $Password = "fsJD37sH@23" }
 
 $ErrorActionPreference = "Stop"
 

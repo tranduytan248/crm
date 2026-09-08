@@ -9,15 +9,16 @@
 | STT | Tên Skill | Câu lệnh / Mẫu kích hoạt | Mục đích chính |
 | :---: | :--- | :--- | :--- |
 | 1 | **`version-prod`** | `build <tên version>`<br>*(vd: `build v1.0.0`, `build 2026.09.08`)* | Tự động biên dịch Release, so sánh diff giữa `publish_source` và `Source_Prod`, lọc file mới và cập nhật rồi copy vào `version/<tên version>/`. |
-| 2 | **`upcode-demo`** | `upcode demo`<br>`đẩy code demo`, `deploy demo` | Biên dịch sang `publish_source/`, merge sang nhánh `upcode-demo` và đẩy lên GitHub để tự deploy lên FTP Demo. |
-| 3 | **`phan-tich-van-de`** | `phân tích vấn đề`, `lên checklist`<br>*(hoặc khi đưa ra bài toán mới)* | 4 bước: Phân tích sâu -> Đặt câu hỏi làm rõ -> Xây dựng checklist hành động -> Ghi lại vào `Memory.md`. |
-| 4 | **`unit-testing-test-generate`** | `tạo test`, `sinh unit test`<br>`viết test case` | Tự động phân tích code và sinh bộ Unit Test 3 tầng (Happy, Edge, Error) chuẩn AAA cho Dart và C#. |
-| 5 | **`test-automator`** | `chạy test tự động`<br>`kiểm thử hồi quy` | Tự động hóa kiểm thử QA, chu trình TDD (Red-Green-Refactor), kiểm thử tích hợp (Integration Test). |
-| 6 | **`ui-ux-designer`** | `thiết kế giao diện`<br>`design UI`, `tạo màn hình mới` | Thiết kế giao diện hiện đại, Design Tokens chuẩn VS Code Dark Theme, khoảng cách bội số 4. |
-| 7 | **`chuyen-gia-nghiem-thu-design`** | `nghiệm thu giao diện`<br>`soi thiết kế`, `review UI`, `đẹp chưa` | Nhập vai chuyên gia UI khó tính chấm 7 hạng mục (Màu sắc, Typography, Layout...), kết luận ĐẠT / KHÔNG ĐẠT. |
-| 8 | **`ui-visual-validator`** | `kiểm tra visual`<br>`bắt lỗi layout`, `check overflow` | Thẩm định trực quan, bắt lỗi tràn viền (overflow), touch target $\ge 48\text{dp}$, đủ 5 trạng thái UI. |
-| 9 | **`wcag-audit-patterns`** | `kiểm toán accessibility`<br>`check wcag`, `kiểm tra trợ năng` | Kiểm toán tiêu chuẩn tiếp cận WCAG 2.2 AA (Tương phản $\ge 4.5:1$, Screen Reader, Keyboard Focus). |
-| 10 | **`flutter-expert`** | `tối ưu flutter`, `sửa lỗi widget`<br>*(hoặc khi code app BrewTask)* | Clean Architecture, tối ưu render 60/120fps, chống jank frame, tuân thủ 100% dùng bộ widget `App*`. |
+| 2 | **`deploy-ftp-demo`** | `deploy ftp demo`<br>`deloy ftp demo`, `deploy demo` | Kích hoạt GitHub Action job đẩy toàn bộ code trong `publish_source/` lên FTP Demo sử dụng 3 key bí mật trên GitHub. |
+| 3 | **`upcode-demo`** | `upcode demo`<br>`đẩy code demo` | Biên dịch toàn bộ Solution sang `publish_source/` rồi merge sang nhánh `upcode-demo` để kích hoạt deploy. |
+| 4 | **`phan-tich-van-de`** | `phân tích vấn đề`, `lên checklist`<br>*(hoặc khi đưa ra bài toán mới)* | 4 bước: Phân tích sâu -> Đặt câu hỏi làm rõ -> Xây dựng checklist hành động -> Ghi lại vào `Memory.md`. |
+| 5 | **`unit-testing-test-generate`** | `tạo test`, `sinh unit test`<br>`viết test case` | Tự động phân tích code và sinh bộ Unit Test 3 tầng (Happy, Edge, Error) chuẩn AAA cho Dart và C#. |
+| 6 | **`test-automator`** | `chạy test tự động`<br>`kiểm thử hồi quy` | Tự động hóa kiểm thử QA, chu trình TDD (Red-Green-Refactor), kiểm thử tích hợp (Integration Test). |
+| 7 | **`ui-ux-designer`** | `thiết kế giao diện`<br>`design UI`, `tạo màn hình mới` | Thiết kế giao diện hiện đại, Design Tokens chuẩn VS Code Dark Theme, khoảng cách bội số 4. |
+| 8 | **`chuyen-gia-nghiem-thu-design`** | `nghiệm thu giao diện`<br>`soi thiết kế`, `review UI`, `đẹp chưa` | Nhập vai chuyên gia UI khó tính chấm 7 hạng mục (Màu sắc, Typography, Layout...), kết luận ĐẠT / KHÔNG ĐẠT. |
+| 9 | **`ui-visual-validator`** | `kiểm tra visual`<br>`bắt lỗi layout`, `check overflow` | Thẩm định trực quan, bắt lỗi tràn viền (overflow), touch target $\ge 48\text{dp}$, đủ 5 trạng thái UI. |
+| 10 | **`wcag-audit-patterns`** | `kiểm toán accessibility`<br>`check wcag`, `kiểm tra trợ năng` | Kiểm toán tiêu chuẩn tiếp cận WCAG 2.2 AA (Tương phản $\ge 4.5:1$, Screen Reader, Keyboard Focus). |
+| 11 | **`flutter-expert`** | `tối ưu flutter`, `sửa lỗi widget`<br>*(hoặc khi code app BrewTask)* | Clean Architecture, tối ưu render 60/120fps, chống jank frame, tuân thủ 100% dùng bộ widget `App*`. |
 
 ---
 
@@ -68,8 +69,25 @@
 
 ---
 
-### 2. Skill `upcode-demo` (Triển khai tự động lên môi trường Demo)
-- **Mẫu lệnh**: `upcode demo`, `upload code demo`, `đẩy code demo`, `deploy demo`
+### 2. Skill `deploy-ftp-demo` (Đẩy code publish_source lên FTP Demo bằng GitHub Action)
+- **Mẫu lệnh**: `deploy ftp demo`, `deloy ftp demo`, `deploy demo`, `đẩy code lên ftp demo`
+- **Key cấu hình trên GitHub**: `FTP_SERVER_DEMO`, `FTP_USERNAME_DEMO`, `FTP_PASSWORD_DEMO`.
+- **Cách thức hoạt động**:
+  1. Kiểm tra thư mục `publish_source/` (đảm bảo đã có bản build sẵn sàng).
+  2. Đồng bộ `publish_source/` sang nhánh `upcode-demo` và push lên GitHub.
+  3. Job Action trong workflow `.github/workflows/deploy-demo.yml` kích hoạt tự động:
+     - Sử dụng `SamKirkland/FTP-Deploy-Action@v4.3.5`.
+     - Lấy thông tin từ 3 key `FTP_SERVER_DEMO`, `FTP_USERNAME_DEMO`, `FTP_PASSWORD_DEMO`.
+     - Đẩy toàn bộ nội dung trong `publish_source/` lên FTP Demo.
+  4. *Phương án dự phòng nội bộ (Local Fallback)*: Nếu máy chủ FTP Demo là IP LAN nội bộ (`10.57.30.10`), có thể chạy trực tiếp:
+     ```powershell
+     powershell -ExecutionPolicy Bypass -File .\scripts\deploy_ftp_demo.ps1
+     ```
+
+---
+
+### 3. Skill `upcode-demo` (Biên dịch và Triển khai trọn gói lên Demo)
+- **Mẫu lệnh**: `upcode demo`, `upload code demo`, `đẩy code demo`
 - **Key cấu hình trên GitHub**: `FTP_SERVER_DEMO`, `FTP_USERNAME_DEMO`, `FTP_PASSWORD_DEMO`.
 - **Cách thức hoạt động**:
   1. Biên dịch toàn bộ Solution ở chế độ `Release`.
