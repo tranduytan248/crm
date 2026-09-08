@@ -1,0 +1,25 @@
+name: Deploy Demo via FTP
+
+on:
+  push:
+    branches:
+      - upcode-demo
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Upload Code to FTP Demo Server
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🚀 Upload publish_source to FTP Demo
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER_DEMO }}
+          username: ${{ secrets.FTP_USERNAME_DEMO }}
+          password: ${{ secrets.FTP_PASSWORD_DEMO }}
+          local-dir: ./publish_source/
+          server-dir: /
+          dangerous-clean-slate: false

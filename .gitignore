@@ -1,0 +1,25 @@
+# ==========================================
+# Visual Studio / Environment files
+# ==========================================
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.DotSettings.user
+*.lock
+
+# ==========================================
+# Build outputs (bin and obj)
+# ==========================================
+[Bb]in/
+[Oo]bj/
+*.log
+
+# ==========================================
+# Whitelist / Keep publish_source & external dlls
+# ==========================================
+!publish_source/
+!publish_source/**
+!dlls/
+!dlls/**
