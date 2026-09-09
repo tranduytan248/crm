@@ -1,0 +1,25 @@
+08:00:00.014 AM ============ Job.ContractPaymentReminderModel =========
+08:00:00.029 AM ============ Job.ContractPaymentReminderModel =========
+08:00:00.029 AM Stack: at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.StreamWriter.CreateFile(String path, Boolean append, Boolean checkHost)
+   at System.IO.StreamWriter..ctor(String path, Boolean append, Encoding encoding, Int32 bufferSize, Boolean checkHost)
+   at System.IO.StreamWriter..ctor(String path, Boolean append, Encoding encoding)
+   at System.IO.File.InternalAppendAllText(String path, String contents, Encoding encoding)
+   at TSFramework.Libs.Models.Log.JobLogWriter.FlushLogToFile(String jobName)
+   at TSFramework.Libs.Models.Log.JobLogWriter.WriteToLog(String jobName, String message)
+   at Jobs.ContractPaymentReminder.ContractPaymentReminderModel.Execute(IJobExecutionContext context)
+08:00:00.029 AM mscorlib The process cannot access the file 'D:\website\crm.vnptkhanhhoa.vn\public_html\Contents\JobLogs\2026-07-29_Jobs.ContractPaymentReminder_JobLogsFile.log' because it is being used by another process.
+08:00:00.029 AM Stack: at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.StreamWriter.CreateFile(String path, Boolean append, Boolean checkHost)
+   at System.IO.StreamWriter..ctor(String path, Boolean append, Encoding encoding, Int32 bufferSize, Boolean checkHost)
+   at System.IO.StreamWriter..ctor(String path, Boolean append, Encoding encoding)
+   at System.IO.File.InternalAppendAllText(String path, String contents, Encoding encoding)
+   at TSFramework.Libs.Models.Log.JobLogWriter.FlushLogToFile(String jobName)
+   at TSFramework.Libs.Models.Log.JobLogWriter.WriteToLog(String jobName, String message)
+   at Jobs.ContractPaymentReminder.ContractPaymentReminderModel.Execute(IJobExecutionContext context)
+08:00:00.029 AM Không có hợp đồng đến hạn thanh toán
+08:00:00.029 AM Không có hợp đồng đến hạn thanh toán

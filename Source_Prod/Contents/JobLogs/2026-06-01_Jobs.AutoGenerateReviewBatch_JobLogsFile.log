@@ -1,0 +1,21 @@
+01:00:00.065 AM ===== START AUTO GENERATE REVIEW BATCH 123=====
+01:00:00.065 AM ===== START AUTO GENERATE REVIEW BATCH 123=====
+01:00:00.096 AM cycleType (WEEK)
+01:00:00.111 AM Generate BatchCode=WEEK_23_2026; From=01/06/2026; To=07/06/2026
+01:00:00.111 AM Review batch already exists or save failed: WEEK_23_2026
+01:00:00.111 AM ===== END AUTO GENERATE REVIEW BATCH =====
+01:00:00.143 AM cycleType (WEEK)
+01:00:00.143 AM Generate BatchCode=WEEK_23_2026; From=01/06/2026; To=07/06/2026
+01:00:00.190 AM Review batch already exists or save failed: WEEK_23_2026
+01:00:00.190 AM ===== END AUTO GENERATE REVIEW BATCH =====
+01:00:00.190 AM mscorlib The process cannot access the file 'D:\website\crm.vnptkhanhhoa.vn\public_html\Contents\JobLogs\2026-06-01_Jobs.AutoGenerateReviewBatch_JobLogsFile.log' because it is being used by another process.
+01:00:00.190 AM Stack: at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.StreamWriter.CreateFile(String path, Boolean append, Boolean checkHost)
+   at System.IO.StreamWriter..ctor(String path, Boolean append, Encoding encoding, Int32 bufferSize, Boolean checkHost)
+   at System.IO.StreamWriter..ctor(String path, Boolean append, Encoding encoding)
+   at System.IO.File.InternalAppendAllText(String path, String contents, Encoding encoding)
+   at TSFramework.Libs.Models.Log.JobLogWriter.FlushLogToFile(String jobName)
+   at TSFramework.Libs.Models.Log.JobLogWriter.WriteToLog(String jobName, String message)
+   at Jobs.ReviewBatch.AutoGenerateReviewBatchScheduleModel.<Execute>d__2.MoveNext()

@@ -1,0 +1,1976 @@
+06:40:37.437 AM System.Web Server cannot set status after HTTP headers have been sent.
+06:40:37.452 AM Stack: at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at System.Web.Mvc.HandleErrorAttribute.OnException(ExceptionContext filterContext)
+   at System.Web.Mvc.ControllerActionInvoker.InvokeExceptionFilters(ControllerContext controllerContext, IList`1 filters, Exception exception)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_1.<BeginInvokeAction>b__1(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeAction(IAsyncResult asyncResult)
+   at System.Web.Mvc.Controller.<>c.<BeginExecuteCore>b__152_1(IAsyncResult asyncResult, ExecuteCoreState innerState)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult)
+   at System.Web.Mvc.Controller.EndExecuteCore(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult)
+   at System.Web.Mvc.Controller.EndExecute(IAsyncResult asyncResult)
+   at System.Web.Mvc.MvcHandler.<>c.<BeginProcessRequest>b__20_1(IAsyncResult asyncResult, ProcessRequestState innerState)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult)
+   at System.Web.Mvc.MvcHandler.EndProcessRequest(IAsyncResult asyncResult)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+09:47:36.176 AM PushEmail START
+09:47:36.192 AM IsOnline
+09:47:36.192 AM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+09:47:37.129 AM PushEmail END
+09:47:38.926 AM PushEmail START
+09:47:38.942 AM IsOnline
+09:47:38.942 AM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+09:47:39.926 AM PushEmail END
+09:47:41.739 AM PushEmail START
+09:47:41.754 AM IsOnline
+09:47:41.754 AM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+09:47:42.739 AM PushEmail END
+09:47:44.333 AM PushEmail START
+09:47:44.348 AM IsOnline
+09:47:44.348 AM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+09:47:45.286 AM PushEmail END
+09:47:47.098 AM PushEmail START
+09:47:47.114 AM IsOnline
+09:47:47.129 AM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+09:47:48.114 AM PushEmail END
+09:47:49.770 AM PushEmail START
+09:47:49.786 AM IsOnline
+09:47:49.786 AM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+09:47:51.348 AM PushEmail END
+09:47:52.989 AM PushEmail START
+09:47:53.004 AM IsOnline
+09:47:53.004 AM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+09:47:54.379 AM PushEmail END
+09:47:55.926 AM PushEmail START
+09:47:55.942 AM IsOnline
+09:47:55.942 AM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+09:47:56.801 AM PushEmail END
+09:47:58.723 AM PushEmail START
+09:47:58.754 AM IsOnline
+09:47:58.754 AM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+09:47:59.958 AM PushEmail END
+09:48:01.583 AM PushEmail START
+09:48:01.598 AM IsOnline
+09:48:01.598 AM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+09:48:02.520 AM PushEmail END
+09:48:04.364 AM PushEmail START
+09:48:04.379 AM IsOnline
+09:48:04.379 AM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+09:48:05.317 AM PushEmail END
+09:48:06.801 AM PushEmail START
+09:48:06.817 AM IsOnline
+09:48:06.833 AM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+09:48:07.754 AM PushEmail END
+09:48:09.333 AM PushEmail START
+09:48:09.364 AM IsOnline
+09:48:09.364 AM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+09:48:10.270 AM PushEmail END
+09:48:12.473 AM PushEmail START
+09:48:12.504 AM IsOnline
+09:48:12.504 AM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+09:48:13.442 AM PushEmail END
+09:48:15.223 AM PushEmail START
+09:48:15.239 AM IsOnline
+09:48:15.239 AM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+09:48:17.036 AM PushEmail END
+09:48:18.583 AM PushEmail START
+09:48:18.598 AM IsOnline
+09:48:18.598 AM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+09:48:19.504 AM PushEmail END
+09:48:21.223 AM PushEmail START
+09:48:21.239 AM IsOnline
+09:48:21.239 AM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+09:48:22.161 AM PushEmail END
+09:48:23.958 AM PushEmail START
+09:48:23.989 AM IsOnline
+09:48:23.989 AM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+09:48:25.208 AM PushEmail END
+09:48:27.161 AM PushEmail START
+09:48:27.176 AM IsOnline
+09:48:27.176 AM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+09:48:28.114 AM PushEmail END
+09:48:29.848 AM PushEmail START
+09:48:29.864 AM IsOnline
+09:48:29.864 AM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+09:48:30.770 AM PushEmail END
+09:48:32.489 AM PushEmail START
+09:48:32.505 AM IsOnline
+09:48:32.505 AM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+09:48:33.817 AM PushEmail END
+09:48:35.583 AM PushEmail START
+09:48:35.598 AM IsOnline
+09:48:35.598 AM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+09:48:36.567 AM PushEmail END
+02:13:47.112 PM System.Web A potentially dangerous Request.Path value was detected from the client (?).
+02:13:47.112 PM Stack: at System.Web.HttpRequest.ValidateInputIfRequiredByConfig()
+   at System.Web.HttpApplication.PipelineStepManager.ValidateHelper(HttpContext context)
+02:14:32.393 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:14:32.393 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:14:32.393 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:14:32.393 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:14:32.409 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:14:32.409 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:14:32.440 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:14:32.440 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:14:32.456 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:14:32.456 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:14:32.456 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:14:32.456 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:14:32.472 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:14:32.472 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:14:32.472 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:14:32.472 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:14:32.487 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:14:32.487 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:14:32.487 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:14:32.487 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:14:32.487 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:14:32.487 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:14:32.503 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:14:32.503 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:14:32.550 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:14:32.550 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:14:32.550 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:14:32.550 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:14:32.565 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:14:32.565 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:14:32.581 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:14:32.581 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:14:32.581 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:14:32.581 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:14:32.581 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:14:32.581 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:14:32.597 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:14:32.597 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:14:32.597 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:14:32.597 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:14:32.612 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:14:32.612 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:14:32.706 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:14:32.706 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:14:32.737 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:14:32.737 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:14:32.753 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:14:32.753 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:14:32.784 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:14:32.784 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:14:32.800 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:14:32.800 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:14:32.815 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:14:32.815 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:14:32.831 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:14:32.831 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:14:33.097 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:14:33.097 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:14:33.597 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:14:33.597 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:15:44.300 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:15:44.300 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:15:44.300 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:15:44.300 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:15:44.315 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:15:44.315 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:15:44.315 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:15:44.315 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:15:44.315 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:15:44.315 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:15:44.331 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:15:44.331 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:15:44.331 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:15:44.331 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:15:44.347 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:15:44.347 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:15:44.347 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:15:44.347 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:15:44.347 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:15:44.347 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:15:44.362 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:15:44.362 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:15:44.362 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:15:44.362 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:15:44.378 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:15:44.378 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:15:44.378 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:15:44.378 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:15:44.394 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:15:44.394 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:15:44.409 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:15:44.409 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:15:44.425 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:15:44.425 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:15:44.425 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:15:44.425 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:15:44.440 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:15:44.440 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:15:44.440 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:15:44.440 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:15:44.456 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:15:44.456 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:15:44.472 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:15:44.472 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:15:44.487 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:15:44.487 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:15:44.487 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:15:44.487 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:15:44.503 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:15:44.503 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:15:44.519 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:15:44.519 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:15:44.534 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:15:44.534 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:15:45.581 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:15:45.581 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:15:45.581 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:15:45.581 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:15:45.581 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:15:45.581 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:17:23.222 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:17:23.222 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:17:23.222 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:17:23.222 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:17:23.222 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:17:23.222 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:17:23.237 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:17:23.237 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:17:23.253 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:17:23.253 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:17:23.253 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:17:23.253 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:17:23.269 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:17:23.269 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:17:23.269 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:17:23.269 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:17:23.284 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:17:23.284 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:17:23.284 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:17:23.284 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:17:29.159 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:17:29.159 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:17:29.159 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:17:29.159 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:17:29.175 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:17:29.175 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:17:29.175 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:17:29.175 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:17:29.175 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:17:29.175 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:17:29.191 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:17:29.191 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:17:29.206 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:17:29.206 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:17:29.206 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:17:29.206 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:17:29.222 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:17:29.222 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:17:29.222 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:17:29.222 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:17:37.144 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:17:37.144 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:17:37.144 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:17:37.144 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:17:37.159 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:17:37.159 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:17:37.159 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:17:37.159 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:17:37.159 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:17:37.159 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:17:37.191 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:17:37.191 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:17:37.206 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:17:37.206 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:17:37.206 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:17:37.206 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:17:37.222 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:17:37.222 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:17:37.222 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:17:37.222 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:18:06.159 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:18:06.159 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:18:06.159 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:18:06.159 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:18:06.175 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:18:06.175 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:18:06.175 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:18:06.175 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:18:06.175 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:18:06.175 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:18:06.191 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:18:06.191 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:18:06.191 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:18:06.191 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:18:06.206 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:18:06.206 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:18:06.222 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:18:06.222 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:18:06.253 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+02:18:06.253 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02:42:26.365 PM PushEmail START
+02:42:26.396 PM IsOnline
+02:42:27.428 PM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+02:42:29.850 PM PushEmail END
+02:49:32.194 PM PushEmail START
+02:49:32.210 PM IsOnline
+02:49:32.225 PM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+02:49:33.585 PM PushEmail END
+02:49:35.257 PM PushEmail START
+02:49:35.272 PM IsOnline
+02:49:35.272 PM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+02:49:36.147 PM PushEmail END
+02:49:37.913 PM PushEmail START
+02:49:37.944 PM IsOnline
+02:49:37.944 PM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+02:49:38.819 PM PushEmail END
+02:49:40.288 PM PushEmail START
+02:49:40.304 PM IsOnline
+02:49:40.304 PM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+02:49:41.179 PM PushEmail END
+02:49:42.819 PM PushEmail START
+02:49:42.835 PM IsOnline
+02:49:42.850 PM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+02:49:43.710 PM PushEmail END
+02:49:45.444 PM PushEmail START
+02:49:45.460 PM IsOnline
+02:49:45.460 PM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+02:49:46.382 PM PushEmail END
+02:49:48.007 PM PushEmail START
+02:49:48.022 PM IsOnline
+02:49:48.022 PM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+02:49:48.882 PM PushEmail END
+02:49:50.522 PM PushEmail START
+02:49:50.538 PM IsOnline
+02:49:50.538 PM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+02:49:51.429 PM PushEmail END
+02:49:53.335 PM PushEmail START
+02:49:53.350 PM IsOnline
+02:49:53.366 PM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+02:49:54.225 PM PushEmail END
+02:49:55.835 PM PushEmail START
+02:49:55.866 PM IsOnline
+02:49:55.866 PM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+02:49:56.929 PM PushEmail END
+02:49:58.585 PM PushEmail START
+02:49:58.600 PM IsOnline
+02:49:58.600 PM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+02:49:59.554 PM PushEmail END
+02:50:01.132 PM PushEmail START
+02:50:01.147 PM IsOnline
+02:50:01.163 PM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+02:50:02.241 PM PushEmail END
+02:50:03.960 PM PushEmail START
+02:50:03.975 PM IsOnline
+02:50:03.975 PM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+02:50:04.897 PM PushEmail END
+02:50:06.507 PM PushEmail START
+02:50:06.538 PM IsOnline
+02:50:06.538 PM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+02:50:07.413 PM PushEmail END
+02:50:08.882 PM PushEmail START
+02:50:08.897 PM IsOnline
+02:50:08.913 PM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+02:50:09.788 PM PushEmail END
+02:53:22.570 PM PushEmail START
+02:53:22.601 PM IsOnline
+02:53:22.601 PM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+02:53:23.491 PM PushEmail END
+02:53:25.179 PM PushEmail START
+02:53:25.195 PM IsOnline
+02:53:25.195 PM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+02:53:26.116 PM PushEmail END
+02:53:27.898 PM PushEmail START
+02:53:27.945 PM IsOnline
+02:53:27.945 PM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+02:53:28.945 PM PushEmail END
+02:53:31.991 PM PushEmail START
+02:53:32.007 PM IsOnline
+02:53:32.023 PM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+02:53:33.413 PM PushEmail END
+02:53:34.898 PM PushEmail START
+02:53:34.929 PM IsOnline
+02:53:34.929 PM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+02:53:35.991 PM PushEmail END
+02:53:37.491 PM PushEmail START
+02:53:37.507 PM IsOnline
+02:53:37.507 PM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+02:53:38.366 PM PushEmail END
+02:53:40.132 PM PushEmail START
+02:53:40.148 PM IsOnline
+02:53:40.148 PM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+02:53:41.023 PM PushEmail END
+02:53:42.741 PM PushEmail START
+02:53:42.757 PM IsOnline
+02:53:42.757 PM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+02:53:43.632 PM PushEmail END
+02:53:45.367 PM PushEmail START
+02:53:45.382 PM IsOnline
+02:53:45.382 PM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+02:53:46.351 PM PushEmail END
+02:53:48.148 PM PushEmail START
+02:53:48.179 PM IsOnline
+02:53:48.179 PM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+02:53:49.117 PM PushEmail END
+02:53:50.788 PM PushEmail START
+02:53:50.804 PM IsOnline
+02:53:50.820 PM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+02:53:51.695 PM PushEmail END
+02:53:53.445 PM PushEmail START
+02:53:53.460 PM IsOnline
+02:53:53.460 PM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+02:53:54.367 PM PushEmail END
+02:53:55.804 PM PushEmail START
+02:53:55.820 PM IsOnline
+02:53:55.820 PM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+02:53:56.726 PM PushEmail END
+02:53:59.101 PM PushEmail START
+02:53:59.117 PM IsOnline
+02:53:59.132 PM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+02:54:00.070 PM PushEmail END
+02:54:01.679 PM PushEmail START
+02:54:01.695 PM IsOnline
+02:54:01.695 PM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+02:54:02.538 PM PushEmail END
+04:01:15.186 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:01:15.186 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:01:15.202 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:01:15.202 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:01:15.233 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:01:15.233 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:01:15.265 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:01:15.265 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:01:15.296 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:01:15.296 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:01:15.327 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:01:15.327 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:01:15.358 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:01:15.358 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:01:15.390 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:01:15.390 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:01:15.405 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:01:15.405 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:01:15.452 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:01:15.452 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:01:15.483 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:01:15.483 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:01:15.515 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:01:15.515 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:01:15.546 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:01:15.546 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:01:15.561 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:01:15.561 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:01:15.593 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:01:15.593 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:01:15.624 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:01:15.624 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:01:15.655 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:01:15.655 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:01:15.686 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:01:15.686 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:01:15.718 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:01:15.718 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:01:15.733 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:01:15.733 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:01:15.765 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:01:15.765 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:01:16.296 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:01:16.296 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:01:16.311 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:01:16.311 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:01:16.343 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:01:16.343 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:01:16.374 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:01:16.374 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:01:16.405 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:01:16.405 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:01:16.436 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:01:16.436 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:01:16.468 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:01:16.468 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:01:16.483 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:01:16.483 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:01:16.515 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:01:16.515 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:01:49.905 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:01:49.905 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:01:49.937 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:01:49.937 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:01:49.968 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:01:49.968 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:01:49.999 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:01:49.999 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:01:50.030 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:01:50.030 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:01:50.062 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:01:50.062 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:01:50.077 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:01:50.077 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:01:50.108 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:01:50.108 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:01:50.140 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:01:50.140 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:01:50.171 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:01:50.171 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:01:50.202 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:01:50.202 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:01:50.233 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:01:50.233 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:01:50.249 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:01:50.249 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:01:50.280 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:01:50.280 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:01:50.312 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:01:50.312 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:01:50.343 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:01:50.343 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:01:50.374 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:01:50.374 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:01:50.390 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:01:50.390 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:01:50.421 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:01:50.421 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:01:50.452 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:01:50.452 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:01:50.483 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:01:50.483 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:01:50.515 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:01:50.515 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:01:51.062 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:01:51.062 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:01:51.093 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:01:51.093 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:01:51.124 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:01:51.124 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:01:51.155 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:01:51.155 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:01:51.187 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:01:51.187 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:01:51.202 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:01:51.202 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:01:51.233 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:01:51.233 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:01:51.265 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:01:51.265 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:03:29.780 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:03:29.780 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:03:29.812 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:03:29.812 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:03:29.827 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:03:29.827 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:03:29.859 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:03:29.859 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:03:29.890 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:03:29.890 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:03:29.921 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:03:29.921 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:03:29.952 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:03:29.952 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:03:29.968 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:03:29.968 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:03:29.999 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:03:29.999 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:03:30.030 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:03:30.030 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:03:48.515 PM System.Web.Mvc The controller for path '/Cate/IsPermit' was not found or does not implement IController.
+04:03:48.515 PM Stack: at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+04:05:46.109 PM PushEmail START
+04:05:46.124 PM IsOnline
+04:05:46.140 PM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+04:05:46.999 PM PushEmail END
+04:05:48.812 PM PushEmail START
+04:05:48.828 PM IsOnline
+04:05:48.828 PM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+04:05:50.625 PM PushEmail END
+04:05:52.171 PM PushEmail START
+04:05:52.187 PM IsOnline
+04:05:52.187 PM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+04:05:53.515 PM PushEmail END
+04:05:54.968 PM PushEmail START
+04:05:54.984 PM IsOnline
+04:05:54.984 PM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+04:05:56.390 PM PushEmail END
+04:05:58.156 PM PushEmail START
+04:05:58.187 PM IsOnline
+04:05:58.187 PM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+04:05:59.093 PM PushEmail END
+04:06:01.109 PM PushEmail START
+04:06:01.125 PM IsOnline
+04:06:01.125 PM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+04:06:03.750 PM PushEmail END
+04:06:05.328 PM PushEmail START
+04:06:05.359 PM IsOnline
+04:06:05.359 PM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+04:06:06.687 PM PushEmail END
+04:06:08.421 PM PushEmail START
+04:06:08.437 PM IsOnline
+04:06:08.437 PM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+04:06:09.265 PM PushEmail END
+04:06:10.984 PM PushEmail START
+04:06:11.000 PM IsOnline
+04:06:11.000 PM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+04:06:11.843 PM PushEmail END
+04:06:13.421 PM PushEmail START
+04:06:13.453 PM IsOnline
+04:06:13.453 PM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+04:06:14.562 PM PushEmail END
+04:06:16.312 PM PushEmail START
+04:06:16.343 PM IsOnline
+04:06:16.343 PM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+04:06:17.312 PM PushEmail END
+04:06:19.000 PM PushEmail START
+04:06:19.015 PM IsOnline
+04:06:19.015 PM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+04:06:19.890 PM PushEmail END
+04:06:21.578 PM PushEmail START
+04:06:21.593 PM IsOnline
+04:06:21.593 PM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+04:06:23.937 PM PushEmail END
+04:06:25.703 PM PushEmail START
+04:06:25.718 PM IsOnline
+04:06:25.734 PM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+04:06:26.968 PM PushEmail END
+04:06:28.843 PM PushEmail START
+04:06:28.859 PM IsOnline
+04:06:28.859 PM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+04:06:29.765 PM PushEmail END
+04:06:31.500 PM PushEmail START
+04:06:31.515 PM IsOnline
+04:06:31.515 PM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+04:06:32.390 PM PushEmail END

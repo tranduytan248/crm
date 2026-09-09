@@ -1,0 +1,122 @@
+﻿@using TSFramework.Libs.Processors
+@model Core.Cate.Models.RM_CustomerModel
+
+<div class="mt-1">
+    <div class="card dcard">
+        <div class="col-sm-12 table-responsive-md">
+            <table id="tblCustomerContactPersons"
+                   class="d-style w-100 table text-dark-m1 text-95 border-y-1 brc-black-tp11 collapsed dtr-table"
+                   width="100%">
+                <thead class="sticky-nav text-secondary-m1 text-uppercase text-85 bgc-secondary-l1">
+                    <tr>
+                        <th>@AppProcessor.Messagor.GetMessage("Column_No")</th>
+                        <th>@AppProcessor.Messagor.GetMessage("ContactPersons_FullName_Label")</th>
+                        <th>@AppProcessor.Messagor.GetMessage("ContactPersons_Email_Label")</th>
+                        <th>@AppProcessor.Messagor.GetMessage("ContactPersons_Contact_Label")</th>
+                        <th>@AppProcessor.Messagor.GetMessage("GroupService_Status_Label")</th>
+                        <th>@AppProcessor.Messagor.GetMessage("Column_Action")</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#modal_AddCustomerContact').addClass('modal-fs').removeClass('modal-lg');
+    });
+    var _ContactPersonsActionURLs = {
+        ContactPersons_GetData: "@Url.Action("Get", "ContactPersons", new { area = "Cate" })"
+    };
+
+    var _tableContactPersons = null;
+
+    function initTableContactPersons() {
+
+        // Nếu đã tồn tại → destroy
+        if ($.fn.DataTable.isDataTable('#tblCustomerContactPersons')) {
+            $('#tblCustomerContactPersons').DataTable().destroy();
+            $('#tblCustomerContactPersons').empty();
+        }
+
+        _tableContactPersons = $("#tblCustomerContactPersons").DataTable({
+            responsive: true,
+            lengthChange: true,
+            processing: true,
+            serverSide: true,
+            destroy: true,
+            ajax: {
+                url: _ContactPersonsActionURLs.ContactPersons_GetData,
+                type: "POST",
+                dataType: "JSON",
+                data: function (d) {
+                    return d;
+                }
+            },
+            columns: [
+                {
+                    data: "",
+                    defaultContent: "1",
+                    render: function (data, type, row, meta) {
+                        return meta.settings._iDisplayStart + meta.row + 1;
+                    }
+                },
+                {
+                    data: "FullName",
+                    className: "text-left",
+                    defaultContent: ""
+                },
+                {
+                    data: "Email",
+                    defaultContent: ""
+                },
+                {
+                    data: "Phone",
+                    defaultContent: ""
+                },
+                {
+                    data: "Status",
+                    className: "text-center",
+                    render: function (data) {
+                        return data === 1
+                            ? '<span class="badge badge-success">@AppProcessor.Messagor.GetMessage("RMPS_Label_IsActived")</span>'
+                            : '<span class="badge badge-secondary">@AppProcessor.Messagor.GetMessage("RMPS_Label_Inactive")</span>';
+                    }
+                },
+                {
+                    data: "ContactPerson_ID",
+                    orderable: false,
+                    className: "text-center",
+                    render: function (data, type) {
+                        if (type !== "display") return "";
+
+                        return _renderButton(
+                            true,
+                            "AddCustomerContactDetail",
+                            "btn btn-lighter-primary mr-1 btn-a-outline-primary btn-sm d-inline-flex align-items-center",
+                            "/Cate/CustomerContact/AddCustomerContactDetail?CustomerID=" + '@Model.CustomerID' + "&ContactPersonID=" + data,
+                            '<i class="fa fa-plus mr-1"></i> Thêm',
+                            "Thêm",
+                            800
+                        );
+                    }
+                }
+            ]
+        });
+    }
+
+    $(document)
+        .off('shown.bs.modal', '#modal_AddCustomerContact')
+        .on('shown.bs.modal', '#modal_AddCustomerContact', function () {
+            initTableContactPersons();
+        });
+
+    $(document).on('hidden.bs.modal', '#modal_AddCustomerContact', function () {
+        if ($.fn.DataTable.isDataTable('#tblCustomerContactPersons')) {
+            $('#tblCustomerContactPersons').DataTable().destroy();
+            $('#tblCustomerContactPersons').empty();
+        }
+        _tableContactPersons = null;
+    });
+</script>

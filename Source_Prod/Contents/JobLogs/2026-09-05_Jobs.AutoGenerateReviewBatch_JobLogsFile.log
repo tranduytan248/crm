@@ -1,0 +1,5 @@
+01:00:00.070 AM ===== START AUTO GENERATE REVIEW BATCH 123=====
+01:00:00.086 AM cycleType (WEEK)
+01:00:00.086 AM Generate BatchCode=WEEK_36_2026; From=31/08/2026; To=06/09/2026
+01:00:00.086 AM Review batch already exists or save failed: WEEK_36_2026
+01:00:00.086 AM ===== END AUTO GENERATE REVIEW BATCH =====

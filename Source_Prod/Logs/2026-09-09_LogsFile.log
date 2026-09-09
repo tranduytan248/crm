@@ -1,0 +1,121 @@
+09:00:20.910 AM PushEmail START
+09:00:20.925 AM IsOnline
+09:00:21.879 AM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+09:00:47.113 AM PushEmail END
+09:09:05.942 AM PushEmail START
+09:09:05.957 AM IsOnline
+09:09:05.973 AM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+09:09:28.426 AM PushEmail END
+09:13:03.380 AM PushEmail START
+09:13:03.395 AM IsOnline
+09:13:03.411 AM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+09:13:29.270 AM PushEmail END
+09:13:30.489 AM PushEmail START
+09:13:30.505 AM IsOnline
+09:13:30.505 AM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+09:13:35.458 AM PushEmail END
+09:13:36.630 AM PushEmail START
+09:13:36.661 AM IsOnline
+09:13:36.661 AM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+09:13:41.770 AM PushEmail END
+09:13:43.098 AM PushEmail START
+09:13:43.130 AM IsOnline
+09:13:43.130 AM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+09:13:45.052 AM PushEmail END
+10:04:55.156 AM PushEmail START
+10:04:55.188 AM IsOnline
+10:04:55.188 AM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+10:05:08.500 AM PushEmail END
+10:05:09.906 AM PushEmail START
+10:05:09.922 AM IsOnline
+10:05:09.938 AM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+10:05:11.922 AM PushEmail END
+10:05:13.203 AM PushEmail START
+10:05:13.234 AM IsOnline
+10:05:13.234 AM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+10:05:18.266 AM PushEmail END
+10:05:19.688 AM PushEmail START
+10:05:19.703 AM IsOnline
+10:05:19.719 AM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+10:05:24.625 AM PushEmail END
+10:05:26.047 AM PushEmail START
+10:05:26.063 AM IsOnline
+10:05:26.063 AM {
+  "Host": "email.vnpt.vn",
+  "Port": 587,
+  "UserCredential": "portal-noreply.kha@vnpt.vn",
+  "UserCredentialName": "VNPT_CRM",
+  "UPass": "G3g@Ht%H",
+  "EnableSsl": false
+}
+10:05:31.078 AM PushEmail END

@@ -1,0 +1,6 @@
+08:00:00.011 AM ===== START SEND REMINDER EMAIL =====
+08:00:00.026 AM FromDate=24/08/2026; ToDate=30/08/2026
+08:00:00.214 AM TSFramework.Libs Object reference not set to an instance of an object.
+08:00:00.214 AM Stack: at TSFramework.Libs.Models.Log.JobLogWriter.WriteToLog(String jobName, Exception e)
+   at TSFramework.Libs.Providers.JobLogProvider.Error(String jobName, Exception ex)
+   at Jobs.SendReminderEmail.SendReminderEmailScheduleModel.<Execute>d__2.MoveNext()

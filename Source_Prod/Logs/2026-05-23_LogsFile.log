@@ -1,0 +1,3 @@
+08:06:09.640 AM System.Web A potentially dangerous Request.Path value was detected from the client (?).
+08:06:09.640 AM Stack: at System.Web.HttpRequest.ValidateInputIfRequiredByConfig()
+   at System.Web.HttpApplication.PipelineStepManager.ValidateHelper(HttpContext context)

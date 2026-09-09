@@ -1,0 +1,1401 @@
+10:20:48.325 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:48.325 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:48.325 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:48.512 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:48.512 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:48.528 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:48.528 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:48.543 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:48.543 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:48.575 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:48.575 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:48.590 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:48.590 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:48.590 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:48.590 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:48.606 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:48.606 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:48.606 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:48.606 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:48.622 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:48.622 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:48.622 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:48.622 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:48.637 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:48.637 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:48.637 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:48.637 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:48.653 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:48.653 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:48.668 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:48.668 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:48.668 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:48.668 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:48.668 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:48.668 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:48.684 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:48.684 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:48.825 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:48.825 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:48.825 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:48.825 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:48.840 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:48.840 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:48.840 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:48.840 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:48.840 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:48.840 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:48.856 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:48.856 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:48.856 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:48.856 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:48.872 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:48.872 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:48.965 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:48.965 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:48.981 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:48.981 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:48.981 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:48.981 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:48.997 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:48.997 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:49.012 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:49.012 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:49.012 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:49.012 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:49.028 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:49.028 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:49.028 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:49.028 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:49.043 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:49.043 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:49.043 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:49.043 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:49.059 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:49.059 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:49.059 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:49.059 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:49.075 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:49.075 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:49.747 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:49.747 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:49.762 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:49.762 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:49.762 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:49.762 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:49.778 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:49.778 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:49.793 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:49.793 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:49.793 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:49.793 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:49.809 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:49.809 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:49.809 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:49.809 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:49.825 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:49.825 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:49.825 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:49.825 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:49.840 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:49.840 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:49.856 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:49.856 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:49.856 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:49.856 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:49.872 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:49.872 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:49.872 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:49.872 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:49.887 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:49.887 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:49.887 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:49.887 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:49.903 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:49.903 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:49.903 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:49.903 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:49.918 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:49.918 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:54.950 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:54.950 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:54.965 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:54.965 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:54.965 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:54.965 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:54.981 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:54.981 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:54.981 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:54.981 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:54.997 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:54.997 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:55.012 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:55.012 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:55.012 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:55.012 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:55.028 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:55.028 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:55.028 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:55.028 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:55.043 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:55.043 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:55.043 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:55.043 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:55.059 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:55.059 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:55.059 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:55.059 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:55.075 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:55.075 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:55.090 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:55.090 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:55.090 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:55.090 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:55.106 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:55.106 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:55.106 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:55.106 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:20:55.122 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:20:55.122 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:22:19.169 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:22:19.169 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:22:19.184 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:22:19.184 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:22:19.200 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:22:19.200 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:22:19.278 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:22:19.278 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:22:19.294 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:22:19.294 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:22:19.340 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:22:19.340 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:22:19.340 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:22:19.340 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:22:19.356 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:22:19.356 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:22:19.419 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:22:19.419 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:22:19.700 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:22:19.700 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:22:22.606 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:22:22.606 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:22:22.622 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:22:22.622 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:22:22.637 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:22:22.637 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:22:22.637 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:22:22.637 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:22:22.669 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:22:22.669 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:22:22.825 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:22:22.825 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:22:22.872 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:22:22.872 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:22:22.887 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:22:22.887 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:22:22.887 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:22:22.887 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:22:22.903 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:22:22.903 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+10:22:22.965 AM TSFramework.Libs Object reference not set to an instance of an object.
+10:22:22.965 AM Stack: at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_1.<get_XmlProviders>b__3(Procedure pp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 60
+   at System.Collections.Generic.List`1.FindIndex(Int32 startIndex, Int32 count, Predicate`1 match)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.<>c__DisplayClass11_0.<get_XmlProviders>b__2(Procedure sp) in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 59
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at TSFramework.Libs.Providers.StoreProcedureProvider.get_XmlProviders() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 44
+   at TSFramework.Libs.Providers.StoreProcedureProvider.Instance() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Providers\StoreProcedureProvider.cs:line 81
+   at TSFramework.Libs.Processors.AppProcessor.get_ProcedureProvider() in D:\VNPT\CRM\trunk\source\TSFramework.Libs\Processors\AppProcessor.cs:line 19
+   at Core.Sys.Biz.Sys.SysIpRequestBiz.GetByIP(String sIp) in D:\VNPT\CRM\trunk\source\Core.Sys\Biz\Sys\SysIPRequestBiz.cs:line 13
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_BeginRequest(Object sender, EventArgs e) in D:\VNPT\CRM\trunk\source\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 68
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
