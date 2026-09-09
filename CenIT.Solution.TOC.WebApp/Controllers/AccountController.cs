@@ -123,7 +123,7 @@ namespace CenIT.Solution.TOC.WebApp.Controllers
                 if (ssoUser == null || string.IsNullOrWhiteSpace(ssoUser.globalusername))
                 {
                     return Content(
-                        "Xác thực SSO không thành công. " + 
+                        "Xác thực SSO không thành công. " +
                         "Vui lòng thử lại hoặc liên hệ quản trị hệ thống."
                     );
                 }
@@ -134,7 +134,7 @@ namespace CenIT.Solution.TOC.WebApp.Controllers
                 if (user == null || !user.IsActive)
                 {
                     return Content(
-                        "Tài khoản SSO chưa được khai báo hoặc đã bị khóa trên hệ thống CRM. " + 
+                        "Tài khoản SSO chưa được khai báo hoặc đã bị khóa trên hệ thống CRM. " +
                         "Vui lòng liên hệ quản trị hệ thống."
                     );
                 }
@@ -167,18 +167,101 @@ namespace CenIT.Solution.TOC.WebApp.Controllers
             }
         }
 
-        /// <summary>
-        /// Xử lý đăng nhập hệ thống, bao gồm luồng xác thực tài khoản VNPT và tài khoản nội bộ.
-        /// </summary>
-        /// <param name="model">Thông tin đăng nhập từ màn hình.</param>
-        /// <param name="returnUrl">Đường dẫn điều hướng sau đăng nhập.</param>
-        /// <returns>Kết quả đăng nhập và URL cần điều hướng.</returns>
-        [HttpPost]
-        [AllowAnonymous]
-        public ActionResult Login(LoginModel model, string returnUrl = "")
-        {
-            return RedirectToAction("Login", new {returnUrl = returnUrl});
-        }
+        //[HttpGet]
+        //[AllowAnonymous]
+        //public ActionResult Login(string returnUrl = "")
+        //{
+        //    if (Session[SESSION_VARIABLE_NAME] == null) Session[SESSION_VARIABLE_NAME] = 0;
+        //    List<string> sessionKeys = Session.Keys.Cast<string>().ToList();
+        //    foreach (string key in sessionKeys)
+        //    {
+        //        if (!string.Equals(key, "FrontEndUser"))
+        //            Session.Remove(key);
+        //    }
+        //    ViewBag.ReturnUrl = returnUrl;
+        //    FormsAuthentication.SignOut();
+        //    if (Request.IsAjaxRequest()) Response.StatusCode = 401;
+        //    return View(new LoginModel());
+        //}
+
+        ///// <summary>
+        ///// Xử lý đăng nhập hệ thống, bao gồm luồng xác thực tài khoản VNPT và tài khoản nội bộ.
+        ///// </summary>
+        ///// <param name="model">Thông tin đăng nhập từ màn hình.</param>
+        ///// <param name="returnUrl">Đường dẫn điều hướng sau đăng nhập.</param>
+        ///// <returns>Kết quả đăng nhập và URL cần điều hướng.</returns>
+        //[HttpPost]
+        //[AllowAnonymous]
+        //public ActionResult Login(LoginModel model, string returnUrl = "")
+        //{
+        //    if (!string.IsNullOrEmpty(model.URLLink))
+        //    {
+        //        ModelState.Remove("Password");
+        //        ModelState.Remove("UserName");
+        //    }
+
+        //    UpdateLoginFailCount(model);
+
+        //    if (!string.IsNullOrEmpty(model.URLLink))
+        //    {
+        //        ModelState.Remove("Password");
+        //        ModelState.Remove("UserName");
+        //    }
+
+        //    if (!ModelState.IsValidField("UserName") || !ModelState.IsValidField("Password"))
+        //    {
+        //        ViewBag.ReturnUrl = returnUrl;
+        //        return PartialView("_LoginBody", model);
+        //    }
+
+        //    ApplyLoginCredentials(model);
+
+        //    model.SenderIP = Request.UserHostAddress;
+        //    model.SenderHeader = string.Join(",", Request.Headers);
+
+        //    bool isVNPTAccount;
+        //    SysUserModel vnptUser = null;
+        //    string loginFailMessage;
+
+        //    if (!TryAuthenticateUser(model, out isVNPTAccount, out vnptUser, out loginFailMessage))
+        //    {
+        //        SendResponseNotify(
+        //            "MsgLoginFail",
+        //            loginFailMessage,
+        //            EnumProcessType.NonFormat,
+        //            EnumMsgIcon.Error);
+        //        return PartialView("_LoginBody", model);
+        //    }
+
+        //    AppPrincipalSerializeModel loginUser = BuildLoginUser(model.UserName, isVNPTAccount, vnptUser);
+
+        //    // Kiểm tra phân quyền
+        //    List<SysRoleModel> dsRole = _userCache.GetRoles(loginUser.UserId);
+        //    if (dsRole == null || dsRole.Count <= 0)
+        //    {
+        //        SendResponseNotify("MsgLoginFail",
+        //            AppProcessor.Messagor.GetMessage("API_No_Right"),
+        //            EnumProcessType.NonFormat, EnumMsgIcon.Error);
+        //        Session[SESSION_VARIABLE_NAME] = 0;
+        //        model.LoginFailCount = 0;
+        //        model.NeedCaptcha = false;
+        //        return PartialView("_LoginBody", model);
+        //    }
+
+        //    SignInUser(loginUser);
+        //    AppProcessor.Author.SaveLogin(loginUser.UserName, true, model.SenderIP, model.SenderHeader);
+
+        //    if (!Url.IsLocalUrl(returnUrl))
+        //        returnUrl = Url.Action("Index", "Home");
+
+        //    return Json(new
+        //    {
+        //        status = true,
+        //        returnUrl,
+        //        message = CreateMessage(_loginSuccessMessage, EnumProcessType.NonFormat,
+        //            EnumMsgIcon.Success, EnumMsgPlacement.TopCenter)
+        //    }, JsonRequestBehavior.AllowGet);
+        //}
 
         /// <summary>
         /// Hiển thị popup đổi mật khẩu cho tài khoản được chọn.

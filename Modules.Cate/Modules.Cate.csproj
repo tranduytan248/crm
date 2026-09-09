@@ -218,6 +218,11 @@
     <Compile Include="Areas\Cate\Controllers\ProjectTaskReportController.cs" />
     <Compile Include="Areas\Cate\Controllers\ProjectWeeklyTaskReportController.cs" />
     <Compile Include="Areas\Cate\Controllers\ChatbotController.cs" />
+    <Compile Include="Chatbot\ChatbotIntegration.cs" />
+    <Compile Include="Chatbot\ChatbotData.cs" />
+    <Compile Include="Chatbot\ChatbotToolInput.cs" />
+    <Compile Include="Chatbot\ChatbotToolService.cs" />
+    <Compile Include="Chatbot\ChatbotToolsController.cs" />
     <Compile Include="Areas\Cate\Controllers\ReviewReportController.cs" />
     <Compile Include="Areas\Cate\Controllers\OpportunityProjectWithoutPGPController.cs" />
     <Compile Include="Areas\Cate\Controllers\Report_BusinessOpportunityController.cs" />

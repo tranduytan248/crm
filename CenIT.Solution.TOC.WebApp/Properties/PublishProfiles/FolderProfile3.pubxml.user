@@ -5,7 +5,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project>
   <PropertyGroup>
     <_PublishTargetUrl>D:\VNPT\CRM\trunk\Publish</_PublishTargetUrl>
-    <History>True|2026-09-03T10:00:19.9448447Z||;True|2026-08-28T15:30:31.8636948+07:00||;True|2026-08-26T11:30:49.1384456+07:00||;True|2026-08-25T10:56:18.7836880+07:00||;True|2026-08-24T14:19:12.4973103+07:00||;True|2026-08-07T09:16:22.2402025+07:00||;True|2026-08-04T09:50:27.2307730+07:00||;True|2026-08-03T17:29:23.0624219+07:00||;True|2026-08-03T16:49:44.5402475+07:00||;True|2026-08-03T16:36:45.1463626+07:00||;True|2026-07-23T17:32:12.2392727+07:00||;True|2026-07-23T14:43:18.4667627+07:00||;True|2026-07-17T15:54:02.1467264+07:00||;True|2026-07-09T15:52:46.9337645+07:00||;True|2026-06-17T14:56:07.6709939+07:00||;True|2026-06-11T15:29:07.9127723+07:00||;True|2026-06-11T14:24:44.7187316+07:00||;True|2026-06-11T14:23:08.9302454+07:00||;True|2026-06-10T16:25:51.5280744+07:00||;True|2026-05-27T11:20:43.8205744+07:00||;True|2026-05-26T10:40:21.9713701+07:00||;True|2026-05-21T08:54:28.5535852+07:00||;True|2026-05-14T16:40:17.2534326+07:00||;True|2026-05-12T15:40:38.9041474+07:00||;True|2026-05-12T15:33:34.6899905+07:00||;True|2026-05-11T17:04:52.6487676+07:00||;True|2026-05-11T16:44:44.6654911+07:00||;True|2026-05-11T08:18:24.0420692+07:00||;True|2026-05-10T12:32:00.1881581+07:00||;True|2026-05-10T09:04:59.5955156+07:00||;True|2026-05-06T14:38:14.0166389+07:00||;True|2026-04-29T10:52:58.2516704+07:00||;True|2026-04-22T10:22:23.9598102+07:00||;True|2026-04-22T08:23:18.8207895+07:00||;True|2026-04-21T16:42:34.0373020+07:00||;True|2026-04-21T16:20:42.6224469+07:00||;True|2026-04-21T16:18:44.2315612+07:00||;True|2026-04-21T15:51:22.8287712+07:00||;True|2026-04-16T16:14:27.9881282+07:00||;True|2026-04-16T08:59:16.7921179+07:00||;True|2026-04-16T08:23:19.8581030+07:00||;True|2026-04-14T16:57:20.9583455+07:00||;True|2026-04-14T16:19:09.6222748+07:00||;True|2026-04-13T17:03:56.5960064+07:00||;True|2026-04-13T16:35:48.1829201+07:00||;True|2026-04-13T16:24:42.9245689+07:00||;True|2026-04-09T19:59:08.7676216+07:00||;True|2026-04-08T16:46:55.2432852+07:00||;True|2026-04-08T07:44:34.1851793+07:00||;True|2026-04-07T17:07:28.5384337+07:00||;True|2026-04-07T16:56:00.3878884+07:00||;True|2026-04-07T16:45:50.6616730+07:00||;True|2026-04-07T14:08:43.9579246+07:00||;True|2026-04-06T16:40:04.0419295+07:00||;True|2026-04-06T15:45:40.7301739+07:00||;True|2026-04-03T14:54:19.2841727+07:00||;True|2026-04-01T16:19:54.2212793+07:00||;True|2026-03-30T15:21:55.0058772+07:00||;False|2026-03-27T15:16:38.6689723+07:00||;</History>
+    <History>True|2026-09-08T09:42:06.1768651Z||;True|2026-09-03T17:00:19.9448447+07:00||;True|2026-08-28T15:30:31.8636948+07:00||;True|2026-08-26T11:30:49.1384456+07:00||;True|2026-08-25T10:56:18.7836880+07:00||;True|2026-08-24T14:19:12.4973103+07:00||;True|2026-08-07T09:16:22.2402025+07:00||;True|2026-08-04T09:50:27.2307730+07:00||;True|2026-08-03T17:29:23.0624219+07:00||;True|2026-08-03T16:49:44.5402475+07:00||;True|2026-08-03T16:36:45.1463626+07:00||;True|2026-07-23T17:32:12.2392727+07:00||;True|2026-07-23T14:43:18.4667627+07:00||;True|2026-07-17T15:54:02.1467264+07:00||;True|2026-07-09T15:52:46.9337645+07:00||;True|2026-06-17T14:56:07.6709939+07:00||;True|2026-06-11T15:29:07.9127723+07:00||;True|2026-06-11T14:24:44.7187316+07:00||;True|2026-06-11T14:23:08.9302454+07:00||;True|2026-06-10T16:25:51.5280744+07:00||;True|2026-05-27T11:20:43.8205744+07:00||;True|2026-05-26T10:40:21.9713701+07:00||;True|2026-05-21T08:54:28.5535852+07:00||;True|2026-05-14T16:40:17.2534326+07:00||;True|2026-05-12T15:40:38.9041474+07:00||;True|2026-05-12T15:33:34.6899905+07:00||;True|2026-05-11T17:04:52.6487676+07:00||;True|2026-05-11T16:44:44.6654911+07:00||;True|2026-05-11T08:18:24.0420692+07:00||;True|2026-05-10T12:32:00.1881581+07:00||;True|2026-05-10T09:04:59.5955156+07:00||;True|2026-05-06T14:38:14.0166389+07:00||;True|2026-04-29T10:52:58.2516704+07:00||;True|2026-04-22T10:22:23.9598102+07:00||;True|2026-04-22T08:23:18.8207895+07:00||;True|2026-04-21T16:42:34.0373020+07:00||;True|2026-04-21T16:20:42.6224469+07:00||;True|2026-04-21T16:18:44.2315612+07:00||;True|2026-04-21T15:51:22.8287712+07:00||;True|2026-04-16T16:14:27.9881282+07:00||;True|2026-04-16T08:59:16.7921179+07:00||;True|2026-04-16T08:23:19.8581030+07:00||;True|2026-04-14T16:57:20.9583455+07:00||;True|2026-04-14T16:19:09.6222748+07:00||;True|2026-04-13T17:03:56.5960064+07:00||;True|2026-04-13T16:35:48.1829201+07:00||;True|2026-04-13T16:24:42.9245689+07:00||;True|2026-04-09T19:59:08.7676216+07:00||;True|2026-04-08T16:46:55.2432852+07:00||;True|2026-04-08T07:44:34.1851793+07:00||;True|2026-04-07T17:07:28.5384337+07:00||;True|2026-04-07T16:56:00.3878884+07:00||;True|2026-04-07T16:45:50.6616730+07:00||;True|2026-04-07T14:08:43.9579246+07:00||;True|2026-04-06T16:40:04.0419295+07:00||;True|2026-04-06T15:45:40.7301739+07:00||;True|2026-04-03T14:54:19.2841727+07:00||;True|2026-04-01T16:19:54.2212793+07:00||;True|2026-03-30T15:21:55.0058772+07:00||;False|2026-03-27T15:16:38.6689723+07:00||;</History>
     <LastFailureDetails />
   </PropertyGroup>
   <ItemGroup>
@@ -916,13 +916,13 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>05/12/2026 21:07:32</publishTime>
     </File>
     <File Include="Areas/Cate/Views/web.config">
-      <publishTime>03/27/2026 14:43:55</publishTime>
+      <publishTime>05/04/2026 14:32:01</publishTime>
     </File>
     <File Include="Areas/Cate/Views/_ViewStart.cshtml">
       <publishTime>03/27/2026 14:43:55</publishTime>
     </File>
     <File Include="Areas/Dashboard/Views/Dashboard/Dashboard.js">
-      <publishTime>03/09/2026 16:05:17</publishTime>
+      <publishTime>08/09/2026 08:15:12</publishTime>
     </File>
     <File Include="Areas/Dashboard/Views/Dashboard/Index.cshtml">
       <publishTime>03/09/2026 15:40:39</publishTime>
@@ -958,7 +958,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>04/01/2026 16:57:12</publishTime>
     </File>
     <File Include="Areas/Dashboard/Views/Dashboard/_OpportunityTable.cshtml">
-      <publishTime>09/04/2026 09:19:14</publishTime>
+      <publishTime>08/09/2026 09:35:42</publishTime>
     </File>
     <File Include="Areas/Dashboard/Views/Dashboard/_Overview.cshtml">
       <publishTime>03/09/2026 15:40:39</publishTime>
@@ -973,7 +973,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>03/08/2026 08:08:55</publishTime>
     </File>
     <File Include="Areas/Dashboard/Views/Dashboard/_ProjectTable.cshtml">
-      <publishTime>09/04/2026 09:18:05</publishTime>
+      <publishTime>08/09/2026 09:35:56</publishTime>
     </File>
     <File Include="Areas/Dashboard/Views/Dashboard/_RegulationModal.cshtml">
       <publishTime>07/30/2026 10:09:19</publishTime>
@@ -1621,37 +1621,37 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>03/27/2026 14:42:48</publishTime>
     </File>
     <File Include="bin/CenIT.Libs.HDDT.dll">
-      <publishTime>09/04/2026 08:15:25</publishTime>
+      <publishTime>08/09/2026 08:28:30</publishTime>
     </File>
     <File Include="bin/CenIT.Libs.HDDT.dll.config">
       <publishTime>03/27/2026 14:44:34</publishTime>
     </File>
     <File Include="bin/CenIT.Libs.HDDT.pdb">
-      <publishTime>09/04/2026 08:15:25</publishTime>
+      <publishTime>08/09/2026 08:28:30</publishTime>
     </File>
     <File Include="bin/CenIT.Libs.HDDT.XmlSerializers.dll">
-      <publishTime>09/04/2026 08:15:27</publishTime>
+      <publishTime>08/09/2026 08:28:31</publishTime>
     </File>
     <File Include="bin/CenIT.Solution.TOC.WebApp.dll">
-      <publishTime>09/04/2026 09:18:32</publishTime>
+      <publishTime>09/09/2026 08:54:31</publishTime>
     </File>
     <File Include="bin/CenIT.Solution.TOC.WebApp.dll.config">
       <publishTime>03/08/2026 17:25:39</publishTime>
     </File>
     <File Include="bin/CenIT.Solution.TOC.WebApp.pdb">
-      <publishTime>09/04/2026 09:18:32</publishTime>
+      <publishTime>09/09/2026 08:54:31</publishTime>
     </File>
     <File Include="bin/CenIT.SSOServices.dll">
-      <publishTime>09/04/2026 08:15:25</publishTime>
+      <publishTime>08/09/2026 08:28:30</publishTime>
     </File>
     <File Include="bin/CenIT.SSOServices.dll.config">
       <publishTime>10/23/2025 09:11:21</publishTime>
     </File>
     <File Include="bin/CenIT.SSOServices.pdb">
-      <publishTime>09/04/2026 08:15:25</publishTime>
+      <publishTime>08/09/2026 08:28:30</publishTime>
     </File>
     <File Include="bin/CenIT.SSOServices.XmlSerializers.dll">
-      <publishTime>09/04/2026 08:15:26</publishTime>
+      <publishTime>08/09/2026 08:28:31</publishTime>
     </File>
     <File Include="bin/CKFinder.dll">
       <publishTime>03/27/2026 14:42:48</publishTime>
@@ -1663,40 +1663,40 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>03/27/2026 14:42:48</publishTime>
     </File>
     <File Include="bin/Core.API.dll">
-      <publishTime>09/04/2026 09:18:31</publishTime>
+      <publishTime>09/09/2026 08:54:30</publishTime>
     </File>
     <File Include="bin/Core.API.dll.config">
       <publishTime>04/14/2026 16:12:11</publishTime>
     </File>
     <File Include="bin/Core.API.pdb">
-      <publishTime>09/04/2026 09:18:31</publishTime>
+      <publishTime>09/09/2026 08:54:30</publishTime>
     </File>
     <File Include="bin/Core.Cate.dll">
-      <publishTime>09/04/2026 09:18:28</publishTime>
+      <publishTime>08/09/2026 08:28:32</publishTime>
     </File>
     <File Include="bin/Core.Cate.dll.config">
       <publishTime>03/27/2026 14:41:49</publishTime>
     </File>
     <File Include="bin/Core.Cate.pdb">
-      <publishTime>09/04/2026 09:18:28</publishTime>
+      <publishTime>08/09/2026 08:28:32</publishTime>
     </File>
     <File Include="bin/Core.Log.dll">
-      <publishTime>09/04/2026 08:15:28</publishTime>
+      <publishTime>08/09/2026 08:28:31</publishTime>
     </File>
     <File Include="bin/Core.Log.dll.config">
       <publishTime>03/27/2026 14:44:49</publishTime>
     </File>
     <File Include="bin/Core.Log.pdb">
-      <publishTime>09/04/2026 08:15:28</publishTime>
+      <publishTime>08/09/2026 08:28:31</publishTime>
     </File>
     <File Include="bin/Core.Sys.dll">
-      <publishTime>09/04/2026 09:18:28</publishTime>
+      <publishTime>08/09/2026 08:28:32</publishTime>
     </File>
     <File Include="bin/Core.Sys.dll.config">
       <publishTime>03/27/2026 14:44:26</publishTime>
     </File>
     <File Include="bin/Core.Sys.pdb">
-      <publishTime>09/04/2026 09:18:28</publishTime>
+      <publishTime>08/09/2026 08:28:32</publishTime>
     </File>
     <File Include="bin/DocumentFormat.OpenXml.dll">
       <publishTime>03/27/2026 14:42:49</publishTime>
@@ -1816,22 +1816,22 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>03/27/2026 14:42:49</publishTime>
     </File>
     <File Include="bin/Modules.API.dll">
-      <publishTime>09/04/2026 09:18:31</publishTime>
+      <publishTime>09/09/2026 08:54:30</publishTime>
     </File>
     <File Include="bin/Modules.API.dll.config">
       <publishTime>04/14/2026 16:12:12</publishTime>
     </File>
     <File Include="bin/Modules.API.pdb">
-      <publishTime>09/04/2026 09:18:31</publishTime>
+      <publishTime>09/09/2026 08:54:30</publishTime>
     </File>
     <File Include="bin/Modules.Cate.dll">
-      <publishTime>09/04/2026 09:18:30</publishTime>
+      <publishTime>09/09/2026 08:54:29</publishTime>
     </File>
     <File Include="bin/Modules.Dashboard.dll">
-      <publishTime>09/04/2026 09:18:30</publishTime>
+      <publishTime>09/09/2026 08:53:51</publishTime>
     </File>
     <File Include="bin/Modules.Sys.dll">
-      <publishTime>09/04/2026 09:18:29</publishTime>
+      <publishTime>09/09/2026 08:54:29</publishTime>
     </File>
     <File Include="bin/Newtonsoft.Json.dll">
       <publishTime>03/27/2026 14:42:49</publishTime>
@@ -2038,13 +2038,13 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>03/27/2026 14:45:14</publishTime>
     </File>
     <File Include="bin/TSFramework.Libs.dll">
-      <publishTime>09/04/2026 08:15:26</publishTime>
+      <publishTime>08/09/2026 08:28:30</publishTime>
     </File>
     <File Include="bin/TSFramework.Libs.dll.config">
       <publishTime>03/27/2026 14:44:09</publishTime>
     </File>
     <File Include="bin/TSFramework.Libs.pdb">
-      <publishTime>09/04/2026 08:15:26</publishTime>
+      <publishTime>08/09/2026 08:28:30</publishTime>
     </File>
     <File Include="bin/WebGrease.dll">
       <publishTime>03/27/2026 14:42:49</publishTime>
@@ -10984,7 +10984,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>03/27/2026 14:42:42</publishTime>
     </File>
     <File Include="Libraries/Authorities/Plugable.SQLProcedureAuthority.dll">
-      <publishTime>09/04/2026 08:15:30</publishTime>
+      <publishTime>09/09/2026 08:53:47</publishTime>
     </File>
     <File Include="Libraries/Jobs/Jobs.AutoGenerateReviewBatch.dll">
       <publishTime>05/14/2026 16:50:15</publishTime>
@@ -10999,10 +10999,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>07/16/2026 11:22:42</publishTime>
     </File>
     <File Include="Libraries/Jobs/Jobs.SyncData.dll">
-      <publishTime>09/04/2026 09:18:30</publishTime>
+      <publishTime>09/09/2026 08:53:53</publishTime>
     </File>
     <File Include="Libraries/Procedures/Plugable.SQLProcedureProcessor.dll">
-      <publishTime>09/04/2026 08:15:29</publishTime>
+      <publishTime>09/09/2026 08:53:46</publishTime>
     </File>
     <File Include="Views/Account/Login.cshtml">
       <publishTime>08/25/2026 14:41:36</publishTime>
@@ -11107,7 +11107,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>03/27/2026 14:42:03</publishTime>
     </File>
     <File Include="Views/Shared/Manager/_Main.cshtml">
-      <publishTime>03/08/2026 14:44:18</publishTime>
+      <publishTime>09/09/2026 08:52:23</publishTime>
     </File>
     <File Include="Views/Shared/Manager/_Main.css">
       <publishTime>06/16/2026 08:16:46</publishTime>
@@ -11182,7 +11182,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>03/27/2026 14:42:03</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>09/07/2026 08:34:03</publishTime>
+      <publishTime>08/09/2026 16:40:09</publishTime>
     </File>
   </ItemGroup>
 </Project>

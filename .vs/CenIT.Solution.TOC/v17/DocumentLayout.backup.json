@@ -3,32 +3,16 @@
   "WorkspaceRootPath": "D:\\VNPT\\CRM\\trunk\\source\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F9BB9023-9D3C-4D19-B4C5-E2762F40808A}|Modules.Dashboard\\Modules.Dashboard.csproj|d:\\vnpt\\crm\\trunk\\source\\modules.dashboard\\areas\\dashboard\\views\\dashboard\\_opportunitytable.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{F9BB9023-9D3C-4D19-B4C5-E2762F40808A}|Modules.Dashboard\\Modules.Dashboard.csproj|solutionrelative:modules.dashboard\\areas\\dashboard\\views\\dashboard\\_opportunitytable.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{0BBB9BE8-79D6-4A04-81DF-615AE831F88C}|CenIT.Solution.TOC.WebApp\\CenIT.Solution.TOC.WebApp.csproj|d:\\vnpt\\crm\\trunk\\source\\cenit.solution.toc.webapp\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0BBB9BE8-79D6-4A04-81DF-615AE831F88C}|CenIT.Solution.TOC.WebApp\\CenIT.Solution.TOC.WebApp.csproj|solutionrelative:cenit.solution.toc.webapp\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F9BB9023-9D3C-4D19-B4C5-E2762F40808A}|Modules.Dashboard\\Modules.Dashboard.csproj|D:\\VNPT\\CRM\\trunk\\source\\modules.dashboard\\areas\\dashboard\\views\\dashboard\\_projecttable.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{F9BB9023-9D3C-4D19-B4C5-E2762F40808A}|Modules.Dashboard\\Modules.Dashboard.csproj|solutionrelative:modules.dashboard\\areas\\dashboard\\views\\dashboard\\_projecttable.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{72F9F77B-E45D-4EB6-8C6E-CC6E73EB643E}|Core.Cate\\Core.Cate.csproj|D:\\VNPT\\CRM\\trunk\\source\\core.cate\\models\\rm_dashboardmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{72F9F77B-E45D-4EB6-8C6E-CC6E73EB643E}|Core.Cate\\Core.Cate.csproj|solutionrelative:core.cate\\models\\rm_dashboardmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F9BB9023-9D3C-4D19-B4C5-E2762F40808A}|Modules.Dashboard\\Modules.Dashboard.csproj|D:\\VNPT\\CRM\\trunk\\source\\modules.dashboard\\areas\\dashboard\\views\\dashboard\\_staleupdates.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{F9BB9023-9D3C-4D19-B4C5-E2762F40808A}|Modules.Dashboard\\Modules.Dashboard.csproj|solutionrelative:modules.dashboard\\areas\\dashboard\\views\\dashboard\\_staleupdates.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F9BB9023-9D3C-4D19-B4C5-E2762F40808A}|Modules.Dashboard\\Modules.Dashboard.csproj|D:\\VNPT\\CRM\\trunk\\source\\modules.dashboard\\areas\\dashboard\\controllers\\dashboardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F9BB9023-9D3C-4D19-B4C5-E2762F40808A}|Modules.Dashboard\\Modules.Dashboard.csproj|solutionrelative:modules.dashboard\\areas\\dashboard\\controllers\\dashboardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C69BFABB-EE3B-4D42-8ED7-399A7E75FA73}|Modules.Cate\\Modules.Cate.csproj|d:\\vnpt\\crm\\trunk\\source\\modules.cate\\areas\\cate\\controllers\\chatbotcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C69BFABB-EE3B-4D42-8ED7-399A7E75FA73}|Modules.Cate\\Modules.Cate.csproj|solutionrelative:modules.cate\\areas\\cate\\controllers\\chatbotcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{C69BFABB-EE3B-4D42-8ED7-399A7E75FA73}|Modules.Cate\\Modules.Cate.csproj|D:\\VNPT\\CRM\\trunk\\source\\modules.cate\\areas\\cate\\controllers\\taskmanagementcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C69BFABB-EE3B-4D42-8ED7-399A7E75FA73}|Modules.Cate\\Modules.Cate.csproj|solutionrelative:modules.cate\\areas\\cate\\controllers\\taskmanagementcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0BBB9BE8-79D6-4A04-81DF-615AE831F88C}|CenIT.Solution.TOC.WebApp\\CenIT.Solution.TOC.WebApp.csproj|D:\\VNPT\\CRM\\trunk\\source\\cenit.solution.toc.webapp\\configs\\appsettings.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
-      "RelativeMoniker": "D:0:0:{0BBB9BE8-79D6-4A04-81DF-615AE831F88C}|CenIT.Solution.TOC.WebApp\\CenIT.Solution.TOC.WebApp.csproj|solutionrelative:cenit.solution.toc.webapp\\configs\\appsettings.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
     }
   ],
   "DocumentGroupContainers": [
@@ -51,79 +35,32 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "_OpportunityTable.cshtml",
-              "DocumentMoniker": "D:\\VNPT\\CRM\\trunk\\source\\Modules.Dashboard\\Areas\\Dashboard\\Views\\Dashboard\\_OpportunityTable.cshtml",
-              "RelativeDocumentMoniker": "Modules.Dashboard\\Areas\\Dashboard\\Views\\Dashboard\\_OpportunityTable.cshtml",
-              "ToolTip": "D:\\VNPT\\CRM\\trunk\\source\\Modules.Dashboard\\Areas\\Dashboard\\Views\\Dashboard\\_OpportunityTable.cshtml",
-              "RelativeToolTip": "Modules.Dashboard\\Areas\\Dashboard\\Views\\Dashboard\\_OpportunityTable.cshtml",
-              "ViewState": "AgIAADUAAAAAAAAAAAAowE8AAAATAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-09-04T02:18:15.35Z",
+              "Title": "AccountController.cs",
+              "DocumentMoniker": "D:\\VNPT\\CRM\\trunk\\source\\CenIT.Solution.TOC.WebApp\\Controllers\\AccountController.cs",
+              "RelativeDocumentMoniker": "CenIT.Solution.TOC.WebApp\\Controllers\\AccountController.cs",
+              "ToolTip": "D:\\VNPT\\CRM\\trunk\\source\\CenIT.Solution.TOC.WebApp\\Controllers\\AccountController.cs",
+              "RelativeToolTip": "CenIT.Solution.TOC.WebApp\\Controllers\\AccountController.cs",
+              "ViewState": "AgIAAPMAAAAAAAAAAAAIwAgBAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-09T01:21:22.556Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ChatbotController.cs",
+              "DocumentMoniker": "D:\\VNPT\\CRM\\trunk\\source\\Modules.Cate\\Areas\\Cate\\Controllers\\ChatbotController.cs",
+              "RelativeDocumentMoniker": "Modules.Cate\\Areas\\Cate\\Controllers\\ChatbotController.cs",
+              "ToolTip": "D:\\VNPT\\CRM\\trunk\\source\\Modules.Cate\\Areas\\Cate\\Controllers\\ChatbotController.cs",
+              "RelativeToolTip": "Modules.Cate\\Areas\\Cate\\Controllers\\ChatbotController.cs",
+              "ViewState": "AgIAACIAAAAAAAAAAAAAwDIAAAA9AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-08T08:58:04.314Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "RM_DashboardModel.cs",
-              "DocumentMoniker": "D:\\VNPT\\CRM\\trunk\\source\\Core.Cate\\Models\\RM_DashboardModel.cs",
-              "RelativeDocumentMoniker": "Core.Cate\\Models\\RM_DashboardModel.cs",
-              "ToolTip": "D:\\VNPT\\CRM\\trunk\\source\\Core.Cate\\Models\\RM_DashboardModel.cs",
-              "RelativeToolTip": "Core.Cate\\Models\\RM_DashboardModel.cs",
-              "ViewState": "AgIAAH8AAAAAAAAAAAAmwIwAAAAtAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-09-04T02:17:47.631Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "_ProjectTable.cshtml",
-              "DocumentMoniker": "D:\\VNPT\\CRM\\trunk\\source\\Modules.Dashboard\\Areas\\Dashboard\\Views\\Dashboard\\_ProjectTable.cshtml",
-              "RelativeDocumentMoniker": "Modules.Dashboard\\Areas\\Dashboard\\Views\\Dashboard\\_ProjectTable.cshtml",
-              "ToolTip": "D:\\VNPT\\CRM\\trunk\\source\\Modules.Dashboard\\Areas\\Dashboard\\Views\\Dashboard\\_ProjectTable.cshtml",
-              "RelativeToolTip": "Modules.Dashboard\\Areas\\Dashboard\\Views\\Dashboard\\_ProjectTable.cshtml",
-              "ViewState": "AgIAACYAAAAAAAAAAAAvwDoAAAAiAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-09-04T02:17:13.895Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "_StaleUpdates.cshtml",
-              "DocumentMoniker": "D:\\VNPT\\CRM\\trunk\\source\\Modules.Dashboard\\Areas\\Dashboard\\Views\\Dashboard\\_StaleUpdates.cshtml",
-              "RelativeDocumentMoniker": "Modules.Dashboard\\Areas\\Dashboard\\Views\\Dashboard\\_StaleUpdates.cshtml",
-              "ToolTip": "D:\\VNPT\\CRM\\trunk\\source\\Modules.Dashboard\\Areas\\Dashboard\\Views\\Dashboard\\_StaleUpdates.cshtml",
-              "RelativeToolTip": "Modules.Dashboard\\Areas\\Dashboard\\Views\\Dashboard\\_StaleUpdates.cshtml",
-              "ViewState": "AgIAACEAAAAAAAAAAAAAADMAAAAmAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-09-04T01:21:01.969Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "DashboardController.cs",
-              "DocumentMoniker": "D:\\VNPT\\CRM\\trunk\\source\\Modules.Dashboard\\Areas\\Dashboard\\Controllers\\DashboardController.cs",
-              "RelativeDocumentMoniker": "Modules.Dashboard\\Areas\\Dashboard\\Controllers\\DashboardController.cs",
-              "ToolTip": "D:\\VNPT\\CRM\\trunk\\source\\Modules.Dashboard\\Areas\\Dashboard\\Controllers\\DashboardController.cs",
-              "RelativeToolTip": "Modules.Dashboard\\Areas\\Dashboard\\Controllers\\DashboardController.cs",
-              "ViewState": "AgIAAMMAAAAAAAAAAAAYwKAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-09-03T09:14:00.909Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "AppSettings.config",
-              "DocumentMoniker": "D:\\VNPT\\CRM\\trunk\\source\\CenIT.Solution.TOC.WebApp\\Configs\\AppSettings.config",
-              "RelativeDocumentMoniker": "CenIT.Solution.TOC.WebApp\\Configs\\AppSettings.config",
-              "ToolTip": "D:\\VNPT\\CRM\\trunk\\source\\CenIT.Solution.TOC.WebApp\\Configs\\AppSettings.config",
-              "RelativeToolTip": "CenIT.Solution.TOC.WebApp\\Configs\\AppSettings.config",
-              "ViewState": "AgIAAH4AAAAAAAAAAAAtwJgAAABGAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
-              "WhenOpened": "2026-08-26T01:43:22.06Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
               "Title": "TaskManagementController.cs",
               "DocumentMoniker": "D:\\VNPT\\CRM\\trunk\\source\\Modules.Cate\\Areas\\Cate\\Controllers\\TaskManagementController.cs",
               "RelativeDocumentMoniker": "Modules.Cate\\Areas\\Cate\\Controllers\\TaskManagementController.cs",

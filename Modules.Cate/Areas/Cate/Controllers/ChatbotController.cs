@@ -1,82 +1,75 @@
-﻿using Core.Cate.Caches;
-using Core.Sys.BaseApp;
-using Newtonsoft.Json.Linq;
-using Newtonsoft.Json;
-using System.Net.Http;
+﻿using System;
+using System.Globalization;
 using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
-using System;
 using System.Web.Mvc;
-using TSFramework.Libs.Attributes;
-using TSFramework.Libs.Enums;
-using System.Configuration;
+using Core.Sys.BaseApp;
+using Modules.Cate.Chatbot;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using TSFramework.Libs.Processors;
 
 namespace Modules.Cate.Areas.Cate.Controllers
 {
     public class ChatbotController : AppController
     {
-        private readonly ChatbotCache _chatbotCache;
-        private static readonly HttpClient _httpClient = new HttpClient();
-        private static readonly string _baseUrl = ConfigurationManager.AppSettings["Chatbot_BaseUrl"];
-        private static readonly string _apiKey = ConfigurationManager.AppSettings["Chatbot_ApiKey"];
-        private static readonly string _botId = ConfigurationManager.AppSettings["Chatbot_BotId"];
+        private static readonly HttpClient Client = new HttpClient { Timeout = TimeSpan.FromSeconds(12) };
 
-        public ChatbotController()
-        {
-            _chatbotCache = new ChatbotCache();
-        }
-
+        // Avoid MVC login redirects: authenticate explicitly and return a real 401.
         [AllowAnonymous]
         [HttpPost]
-        public async Task<ActionResult> Session()
+        public new async Task<ActionResult> Session()
         {
+            Response.SuppressFormsAuthenticationRedirect = true;
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            Response.Cache.SetNoStore();
+            if (User?.Identity?.IsAuthenticated != true || string.IsNullOrWhiteSpace(User.UserName))
+                return new HttpUnauthorizedResult();
             try
             {
-                var subjectId = User?.UserName;
-                if (string.IsNullOrWhiteSpace(subjectId))
-                    return new HttpUnauthorizedResult();
-
-                var data = _chatbotCache.GetData(subjectId);
-
-                var body = new
+                DateTimeOffset expiresAt;
+                var capability = ChatbotIntegration.IssueCapability(User.UserName, out expiresAt);
+                var body = new { subjectId = User.UserName, toolCapability = new { token = capability, expiresAt } };
+                using (var request = new HttpRequestMessage(HttpMethod.Post, ChatbotIntegration.ViewerSessionUrl))
                 {
-                    subjectId,
-                    data
-                };
-
-                var url = $"{_baseUrl}/public/bots/{_botId}/viewer-session";
-
-                var request = new HttpRequestMessage(HttpMethod.Post, url);
-                request.Headers.Add("x-api-key", _apiKey);
-                request.Content = new StringContent(JsonConvert.SerializeObject(body), Encoding.UTF8, "application/json");
-                var response = await _httpClient.SendAsync(request);
-
-                var responseContent = await response.Content.ReadAsStringAsync();
-
-                if (!response.IsSuccessStatusCode)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadGateway, "Unable to create chatbot session.");
+                    request.Headers.Add("x-api-key", ChatbotIntegration.ApiKey);
+                    request.Content = new StringContent(JsonConvert.SerializeObject(body), Encoding.UTF8, "application/json");
+                    using (var response = await Client.SendAsync(request))
+                    {
+                        if (!response.IsSuccessStatusCode)
+                            return new HttpStatusCodeResult(HttpStatusCode.BadGateway, "Unable to create chatbot session.");
+                        var payload = JObject.Parse(await response.Content.ReadAsStringAsync());
+                        var session = payload["data"] as JObject;
+                        DateTimeOffset viewerExpiresAt;
+                        if (session == null
+                            || string.IsNullOrWhiteSpace((string)session["viewerToken"])
+                            || !DateTimeOffset.TryParse(
+                                (string)session["expiresAt"],
+                                CultureInfo.InvariantCulture,
+                                DateTimeStyles.AssumeUniversal | DateTimeStyles.AdjustToUniversal,
+                                out viewerExpiresAt)
+                            || viewerExpiresAt <= DateTimeOffset.UtcNow
+                        )
+                        {
+                            return new HttpStatusCodeResult(HttpStatusCode.BadGateway, "Chatbot returned an invalid or expired viewer session.");
+                        }
+                        return Json(new { viewerToken = (string)session["viewerToken"], expiresAt = (string)session["expiresAt"] });
+                    }
                 }
-
-                var payload = JObject.Parse(responseContent);
-                var viewerSession = payload["data"] as JObject ?? payload;
-
-                Response.Cache.SetCacheability(HttpCacheability.NoCache);
-                Response.Cache.SetNoStore();
-
-                return Json(new
-                {
-                    viewerToken = (string)viewerSession["viewerToken"],
-                    expiresAt = (string)viewerSession["expiresAt"]
-                });
             }
+            catch (TaskCanceledException)
+            { return new HttpStatusCodeResult(HttpStatusCode.BadGateway, "Chatbot viewer-session request timed out."); }
+            catch (JsonException)
+            { return new HttpStatusCodeResult(HttpStatusCode.BadGateway, "Chatbot returned an invalid viewer session."); }
+            catch (HttpRequestException)
+            { return new HttpStatusCodeResult(HttpStatusCode.BadGateway, "Unable to reach chatbot service."); }
             catch (Exception ex)
             {
-                AppProcessor.Logger.Error(new Exception($"[Chatbot Session] Create viewer session failed. {ex}", ex));
-                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
+                AppProcessor.Logger.Error(ex);
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, "Unable to create chatbot session.");
             }
         }
     }
