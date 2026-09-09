@@ -17,8 +17,8 @@ jobs:
       - name: 🚀 Upload publish_source to FTP Demo
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          server: ${{ secrets.FTP_SERVER_DEMO }}
-          username: ${{ secrets.FTP_USERNAME_DEMO }}
+          server: ${{ vars.FTP_SERVER_DEMO }}
+          username: ${{ vars.FTP_USERNAME_DEMO }}
           password: ${{ secrets.FTP_PASSWORD_DEMO }}
           local-dir: ./publish_source/
           server-dir: /
