@@ -22,73 +22,75 @@
         OnSuccess = "DigitalSalesWorkflow.onStatusSaveSuccess(data)"
     }, new { @class = "form-horizontal", id = "formStatusModal" }))
     {
-        @Html.AntiForgeryToken()
-        @Html.HiddenFor(m => m.StatusID)
+        <div id="bodyForm">
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(m => m.StatusID)
 
-        <div class="form-group row">
-            <label class="col-sm-3 col-form-label text-sm-right font-bold text-secondary-d1">Loại hình <span class="text-danger">*</span></label>
-            <div class="col-sm-8">
-                <div class="radio-inline d-inline-block mr-3">
-                    <label class="d-inline-flex align-items-center cursor-pointer">
-                        @Html.RadioButtonFor(m => m.BusinessType, 1, new { @class = "mr-1" })
-                        <span class="badge badge-lg bgc-blue-l2 text-blue-d2 border-1 brc-blue-m3 px-2 py-1"><i class="fa fa-lightbulb mr-1"></i>Cơ hội kinh doanh</span>
-                    </label>
-                </div>
-                <div class="radio-inline d-inline-block">
-                    <label class="d-inline-flex align-items-center cursor-pointer">
-                        @Html.RadioButtonFor(m => m.BusinessType, 2, new { @class = "mr-1" })
-                        <span class="badge badge-lg bgc-purple-l2 text-purple-d2 border-1 brc-purple-m3 px-2 py-1"><i class="fa fa-project-diagram mr-1"></i>Dự án</span>
-                    </label>
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <label class="col-sm-3 col-form-label text-sm-right font-bold text-secondary-d1">Mã trạng thái <span class="text-danger">*</span></label>
-            <div class="col-sm-8">
-                @Html.TextBoxFor(m => m.StatusCode, new { @class = "form-control", placeholder = "VD: CHO_CHUA_NAM_BAT, DU_AN_TRIEN_KHAI...", required = "required", maxlength = 50 })
-                @Html.ValidationMessageFor(m => m.StatusCode, "", new { @class = "text-danger text-90" })
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <label class="col-sm-3 col-form-label text-sm-right font-bold text-secondary-d1">Tên trạng thái <span class="text-danger">*</span></label>
-            <div class="col-sm-8">
-                @Html.TextBoxFor(m => m.StatusName, new { @class = "form-control", placeholder = "VD: Chưa nắm bắt, Đang tiếp cận...", required = "required", maxlength = 250 })
-                @Html.ValidationMessageFor(m => m.StatusName, "", new { @class = "text-danger text-90" })
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <label class="col-sm-3 col-form-label text-sm-right font-bold text-secondary-d1">Thứ tự hiển thị</label>
-            <div class="col-sm-4">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fa fa-sort-numeric-down"></i></span>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label text-sm-right font-bold text-secondary-d1">Loại hình <span class="text-danger">*</span></label>
+                <div class="col-sm-8">
+                    <div class="radio-inline d-inline-block mr-3">
+                        <label class="d-inline-flex align-items-center cursor-pointer">
+                            @Html.RadioButtonFor(m => m.BusinessType, 1, new { @class = "mr-1" })
+                            <span class="badge badge-lg bgc-blue-l2 text-blue-d2 border-1 brc-blue-m3 px-2 py-1"><i class="fa fa-lightbulb mr-1"></i>Cơ hội kinh doanh</span>
+                        </label>
                     </div>
-                    @Html.TextBoxFor(m => m.SortOrder, new { @class = "form-control", type = "number", min = "1", placeholder = "Thứ tự" })
+                    <div class="radio-inline d-inline-block">
+                        <label class="d-inline-flex align-items-center cursor-pointer">
+                            @Html.RadioButtonFor(m => m.BusinessType, 2, new { @class = "mr-1" })
+                            <span class="badge badge-lg bgc-purple-l2 text-purple-d2 border-1 brc-purple-m3 px-2 py-1"><i class="fa fa-project-diagram mr-1"></i>Dự án</span>
+                        </label>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="form-group row">
-            <label class="col-sm-3 col-form-label text-sm-right font-bold text-secondary-d1">Tùy chọn</label>
-            <div class="col-sm-8 pt-2">
-                <label class="mr-4 cursor-pointer">
-                    @Html.CheckBoxFor(m => m.IsDefault, new { @class = "ace-switch ace-switch-check input-lg" })
-                    <span class="ml-1 text-95 font-600 text-blue-d2">Mặc định khi tạo mới</span>
-                </label>
-                <label class="cursor-pointer">
-                    @Html.CheckBoxFor(m => m.IsActive, new { @class = "ace-switch ace-switch-check input-lg" })
-                    <span class="ml-1 text-95 font-600 text-success-d1">Kích hoạt</span>
-                </label>
+            <div class="form-group row">
+                @Html.TitleFor(m => m.StatusCode, new { @class = "col-sm-3 col-form-label text-sm-right font-bold text-secondary-d1" })
+                <div class="col-sm-8">
+                    @Html.TextBoxFor(m => m.StatusCode, new { @class = "form-control", placeholder = "VD: CHO_CHUA_NAM_BAT, DU_AN_TRIEN_KHAI...", required = "required", maxlength = 50 })
+                    @Html.ValidationMessageFor(m => m.StatusCode, "", new { @class = "text-danger text-90" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group row">
-            <label class="col-sm-3 col-form-label text-sm-right font-bold text-secondary-d1">Mô tả / Ghi chú</label>
-            <div class="col-sm-8">
-                @Html.TextAreaFor(m => m.Description, new { @class = "form-control", rows = 3, placeholder = "Mô tả mục đích hoặc hướng dẫn của trạng thái này..." })
+            <div class="form-group row">
+                @Html.TitleFor(m => m.StatusName, new { @class = "col-sm-3 col-form-label text-sm-right font-bold text-secondary-d1" })
+                <div class="col-sm-8">
+                    @Html.TextBoxFor(m => m.StatusName, new { @class = "form-control", placeholder = "VD: Chưa nắm bắt, Đang tiếp cận...", required = "required", maxlength = 250 })
+                    @Html.ValidationMessageFor(m => m.StatusName, "", new { @class = "text-danger text-90" })
+                </div>
+            </div>
+
+            <div class="form-group row">
+                @Html.TitleFor(m => m.SortOrder, new { @class = "col-sm-3 col-form-label text-sm-right font-bold text-secondary-d1" })
+                <div class="col-sm-4">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-sort-numeric-down"></i></span>
+                        </div>
+                        @Html.TextBoxFor(m => m.SortOrder, new { @class = "form-control", type = "number", min = "1", placeholder = "Thứ tự" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label text-sm-right font-bold text-secondary-d1">Tùy chọn</label>
+                <div class="col-sm-8 pt-2">
+                    <label class="mr-4 cursor-pointer">
+                        @Html.CheckBoxFor(m => m.IsDefault, new { @class = "ace-switch ace-switch-check input-lg" })
+                        <span class="ml-1 text-95 font-600 text-blue-d2">Mặc định khi tạo mới</span>
+                    </label>
+                    <label class="cursor-pointer">
+                        @Html.CheckBoxFor(m => m.IsActive, new { @class = "ace-switch ace-switch-check input-lg" })
+                        <span class="ml-1 text-95 font-600 text-success-d1">Kích hoạt</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                @Html.TitleFor(m => m.Description, new { @class = "col-sm-3 col-form-label text-sm-right font-bold text-secondary-d1" })
+                <div class="col-sm-8">
+                    @Html.TextAreaFor(m => m.Description, new { @class = "form-control", rows = 3, placeholder = "Mô tả mục đích hoặc hướng dẫn của trạng thái này..." })
+                </div>
             </div>
         </div>
     }

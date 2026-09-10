@@ -20,6 +20,39 @@
     deleteTracking: "/Cate/DigitalSales/DeleteTracking"
 };
 
+function executeResponseMessage(message, defaultText, isSuccess) {
+    if (!message && defaultText) {
+        message = defaultText;
+    }
+    if (message && typeof message === "string") {
+        if (message.indexOf("$.aceToaster") !== -1 || message.indexOf("toastr") !== -1 || message.indexOf("eval") !== -1) {
+            try {
+                eval(message);
+                return;
+            } catch (e) {
+                console.error("Execute message script error:", e);
+            }
+        }
+    }
+    if (typeof $.aceToaster !== "undefined") {
+        $.aceToaster.add({
+            placement: 'tr',
+            body: "<div class='p-3'>" + (message || defaultText) + "</div>",
+            width: '420px',
+            delay: 4000,
+            className: isSuccess ? 'bgc-success-d2 text-white' : 'bgc-danger-d2 text-white'
+        });
+    } else if (typeof toastr !== "undefined") {
+        if (isSuccess) {
+            toastr.success(message || defaultText);
+        } else {
+            toastr.error(message || defaultText);
+        }
+    } else {
+        alert(message || defaultText);
+    }
+}
+
 $(document).ready(function () {
     // Keep active tab on reload if anchor hash exists
     var hash = window.location.hash;
@@ -53,14 +86,16 @@ function openEditSalesModal(id) {
                 success: function (res) {
                     if (res.status) {
                         $modal.modal("hide");
-                        alert(res.message || "Cập nhật thành công!");
-                        location.reload();
+                        $modal.on("hidden.bs.modal", function () {
+                            executeResponseMessage(res.message, "Cập nhật thành công!", true);
+                            setTimeout(function () { location.reload(); }, 600);
+                        });
                     } else {
-                        alert(res.message || "Có lỗi xảy ra!");
+                        executeResponseMessage(res.message, "Có lỗi xảy ra!", false);
                     }
                 },
                 error: function () {
-                    alert("Lỗi kết nối máy chủ!");
+                    executeResponseMessage("Lỗi kết nối máy chủ!", "Lỗi kết nối máy chủ!", false);
                 }
             });
         });
@@ -89,14 +124,16 @@ function openChangeStatusModal(id) {
                 success: function (res) {
                     if (res.status) {
                         $modal.modal("hide");
-                        alert(res.message || "Chuyển trạng thái thành công!");
-                        location.reload();
+                        $modal.on("hidden.bs.modal", function () {
+                            executeResponseMessage(res.message, "Chuyển trạng thái thành công!", true);
+                            setTimeout(function () { location.reload(); }, 600);
+                        });
                     } else {
-                        alert(res.message || "Không thể chuyển trạng thái!");
+                        executeResponseMessage(res.message, "Không thể chuyển trạng thái!", false);
                     }
                 },
                 error: function () {
-                    alert("Lỗi kết nối máy chủ!");
+                    executeResponseMessage("Lỗi kết nối máy chủ!", "Lỗi kết nối máy chủ!", false);
                 }
             });
         });
@@ -118,10 +155,12 @@ function openAddProductModal(salesId) {
             $.post(_detailUrls.saveProduct, $(this).serialize(), function (res) {
                 if (res.status) {
                     $modal.modal("hide");
-                    alert(res.message || "Lưu sản phẩm thành công!");
-                    location.reload();
+                    $modal.on("hidden.bs.modal", function () {
+                        executeResponseMessage(res.message, "Lưu sản phẩm thành công!", true);
+                        setTimeout(function () { location.reload(); }, 600);
+                    });
                 } else {
-                    alert(res.message || "Không thể lưu sản phẩm!");
+                    executeResponseMessage(res.message, "Không thể lưu sản phẩm!", false);
                 }
             });
         });
@@ -142,10 +181,12 @@ function openEditProductModal(id, salesId) {
             $.post(_detailUrls.saveProduct, $(this).serialize(), function (res) {
                 if (res.status) {
                     $modal.modal("hide");
-                    alert(res.message || "Cập nhật sản phẩm thành công!");
-                    location.reload();
+                    $modal.on("hidden.bs.modal", function () {
+                        executeResponseMessage(res.message, "Cập nhật sản phẩm thành công!", true);
+                        setTimeout(function () { location.reload(); }, 600);
+                    });
                 } else {
-                    alert(res.message || "Không thể lưu sản phẩm!");
+                    executeResponseMessage(res.message, "Không thể lưu sản phẩm!", false);
                 }
             });
         });
@@ -156,10 +197,10 @@ function deleteProductItem(id, salesId) {
     if (!confirm("Bạn có chắc chắn muốn xóa sản phẩm / dịch vụ này không?")) return;
     $.post(_detailUrls.deleteProduct, { id: id }, function (res) {
         if (res.status) {
-            alert(res.message || "Xóa sản phẩm thành công!");
-            location.reload();
+            executeResponseMessage(res.message, "Xóa sản phẩm thành công!", true);
+            setTimeout(function () { location.reload(); }, 600);
         } else {
-            alert(res.message || "Không thể xóa sản phẩm!");
+            executeResponseMessage(res.message, "Không thể xóa sản phẩm!", false);
         }
     });
 }
@@ -179,10 +220,12 @@ function openAddMemberModal(salesId) {
             $.post(_detailUrls.saveMember, $(this).serialize(), function (res) {
                 if (res.status) {
                     $modal.modal("hide");
-                    alert(res.message || "Lưu thành viên thành công!");
-                    location.reload();
+                    $modal.on("hidden.bs.modal", function () {
+                        executeResponseMessage(res.message, "Lưu thành viên thành công!", true);
+                        setTimeout(function () { location.reload(); }, 600);
+                    });
                 } else {
-                    alert(res.message || "Không thể lưu thành viên!");
+                    executeResponseMessage(res.message, "Không thể lưu thành viên!", false);
                 }
             });
         });
@@ -193,10 +236,10 @@ function deleteMemberItem(id, salesId) {
     if (!confirm("Bạn có chắc chắn muốn xóa thành viên này khỏi dự án?")) return;
     $.post(_detailUrls.deleteMember, { id: id }, function (res) {
         if (res.status) {
-            alert(res.message || "Xóa thành viên thành công!");
-            location.reload();
+            executeResponseMessage(res.message, "Xóa thành viên thành công!", true);
+            setTimeout(function () { location.reload(); }, 600);
         } else {
-            alert(res.message || "Không thể xóa thành viên!");
+            executeResponseMessage(res.message, "Không thể xóa thành viên!", false);
         }
     });
 }
@@ -223,14 +266,16 @@ function openAddTrackingModal(salesId) {
                 success: function (res) {
                     if (res.status) {
                         $modal.modal("hide");
-                        alert(res.message || "Lưu tiến trình thành công!");
-                        location.reload();
+                        $modal.on("hidden.bs.modal", function () {
+                            executeResponseMessage(res.message, "Lưu tiến trình thành công!", true);
+                            setTimeout(function () { location.reload(); }, 600);
+                        });
                     } else {
-                        alert(res.message || "Không thể lưu tiến trình!");
+                        executeResponseMessage(res.message, "Không thể lưu tiến trình!", false);
                     }
                 },
                 error: function () {
-                    alert("Lỗi kết nối máy chủ!");
+                    executeResponseMessage("Lỗi kết nối máy chủ!", "Lỗi kết nối máy chủ!", false);
                 }
             });
         });
@@ -258,14 +303,16 @@ function openEditTrackingModal(id, salesId) {
                 success: function (res) {
                     if (res.status) {
                         $modal.modal("hide");
-                        alert(res.message || "Cập nhật tiến trình thành công!");
-                        location.reload();
+                        $modal.on("hidden.bs.modal", function () {
+                            executeResponseMessage(res.message, "Cập nhật tiến trình thành công!", true);
+                            setTimeout(function () { location.reload(); }, 600);
+                        });
                     } else {
-                        alert(res.message || "Không thể cập nhật tiến trình!");
+                        executeResponseMessage(res.message, "Không thể cập nhật tiến trình!", false);
                     }
                 },
                 error: function () {
-                    alert("Lỗi kết nối máy chủ!");
+                    executeResponseMessage("Lỗi kết nối máy chủ!", "Lỗi kết nối máy chủ!", false);
                 }
             });
         });
@@ -276,10 +323,10 @@ function deleteTrackingItem(id, salesId) {
     if (!confirm("Bạn có chắc chắn muốn xóa tiến trình / checklist này không?")) return;
     $.post(_detailUrls.deleteTracking, { id: id }, function (res) {
         if (res.status) {
-            alert(res.message || "Xóa tiến trình thành công!");
-            location.reload();
+            executeResponseMessage(res.message, "Xóa tiến trình thành công!", true);
+            setTimeout(function () { location.reload(); }, 600);
         } else {
-            alert(res.message || "Không thể xóa tiến trình!");
+            executeResponseMessage(res.message, "Không thể xóa tiến trình!", false);
         }
     });
 }

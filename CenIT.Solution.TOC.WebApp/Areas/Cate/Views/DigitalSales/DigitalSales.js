@@ -11,8 +11,26 @@ var _digitalSalesUrls = {
 };
 
 $(document).ready(function () {
+    initSearchDatepicker();
     initTableDigitalSales();
 });
+
+function initSearchDatepicker() {
+    if ($.fn.datepicker) {
+        $('#dpFromDate').datepicker({
+            format: 'dd/mm/yyyy',
+            autoclose: true,
+            todayHighlight: true,
+            language: 'vi'
+        });
+        $('#dpToDate').datepicker({
+            format: 'dd/mm/yyyy',
+            autoclose: true,
+            todayHighlight: true,
+            language: 'vi'
+        });
+    }
+}
 
 function initTableDigitalSales() {
     _tableDigitalSales = $("#tblDigitalSales").DataTable({
@@ -28,15 +46,15 @@ function initTableDigitalSales() {
             type: "POST",
             dataType: "JSON",
             data: function (d) {
-                d.Keyword = $("#SearchKeyword").val();
-                d.BusinessType = $("#SearchBusinessType").val();
-                d.StatusID = $("#SearchStatusID").val();
-                d.CustomerID = $("#SearchCustomerID").val();
-                d.ProductServiceID = $("#SearchProductServiceID").val();
-                d.EmployeeID = $("#SearchEmployeeID").val();
-                d.DepartmentID = $("#SearchDepartmentID").val();
-                d.FromDate = $("#SearchFromDate").val();
-                d.ToDate = $("#SearchToDate").val();
+                d.Keyword = ($("#Keyword").val() || $("#SearchKeyword").val() || "").trim();
+                d.BusinessType = $("#BusinessType").val() || $("#SearchBusinessType").val() || "";
+                d.StatusID = $("#StatusID").val() || $("#SearchStatusID").val() || "";
+                d.CustomerID = $("#CustomerID").val() || 0;
+                d.ProductServiceID = 0;
+                d.EmployeeID = $("#EmployeeID").val() || $("#SearchEmployeeID").val() || "";
+                d.DepartmentID = $("#DepartmentID").val() || $("#SearchDepartmentID").val() || "";
+                d.FromDate = $("#FromDate").val() || $("#SearchFromDate").val() || "";
+                d.ToDate = $("#ToDate").val() || $("#SearchToDate").val() || "";
             }
         },
         columns: [
@@ -162,17 +180,65 @@ function initTableDigitalSales() {
     });
 }
 
+function executeResponseMessage(message, defaultText, isSuccess) {
+    if (!message && defaultText) {
+        message = defaultText;
+    }
+    if (message && typeof message === "string") {
+        if (message.indexOf("$.aceToaster") !== -1 || message.indexOf("toastr") !== -1 || message.indexOf("eval") !== -1) {
+            try {
+                eval(message);
+                return;
+            } catch (e) {
+                console.error("Execute message script error:", e);
+            }
+        }
+    }
+    if (typeof $.aceToaster !== "undefined") {
+        $.aceToaster.add({
+            placement: 'tr',
+            body: "<div class='p-3'>" + (message || defaultText) + "</div>",
+            width: '420px',
+            delay: 4000,
+            className: isSuccess ? 'bgc-success-d2 text-white' : 'bgc-danger-d2 text-white'
+        });
+    } else if (typeof toastr !== "undefined") {
+        if (isSuccess) {
+            toastr.success(message || defaultText);
+        } else {
+            toastr.error(message || defaultText);
+        }
+    } else {
+        alert(message || defaultText);
+    }
+}
+
 function reloadSalesTable() {
     if (_tableDigitalSales) {
-        _tableDigitalSales.ajax.reload();
+        _tableDigitalSales.ajax.reload(null, false);
     }
 }
 
 function resetSalesSearch() {
-    $("#frmSearchDigitalSales")[0].reset();
-    if ($.fn.select2) {
-        $("#frmSearchDigitalSales select").val("").trigger("change");
+    $("#Keyword, #SearchKeyword").val("");
+    $("#BusinessType, #SearchBusinessType").val("");
+    $("#StatusID, #SearchStatusID").val("");
+    $("#DepartmentID, #SearchDepartmentID").val("");
+    $("#FromDate, #SearchFromDate").val("");
+    $("#ToDate, #SearchToDate").val("");
+    if ($.fn.datepicker) {
+        $('#dpFromDate').datepicker('update', '');
+        $('#dpToDate').datepicker('update', '');
     }
+    var $employee = $("#EmployeeID, #SearchEmployeeID");
+    $employee.empty().append('<option value="">-- Chọn nhân viên --</option>');
+    $.get('/Cate/DigitalSales/GetEmployeesByDepartment', { departmentId: 0 }, function (data) {
+        if (data && data.length > 0) {
+            $.each(data, function (i, item) {
+                $employee.append($('<option>').val(item.Value).text(item.Text));
+            });
+        }
+    });
     reloadSalesTable();
 }
 
@@ -197,18 +263,20 @@ function openAddSalesModal() {
                 success: function (res) {
                     if (res.status) {
                         $modal.modal("hide");
-                        alert(res.message || "Khởi tạo Cơ hội thành công!");
-                        if (res.id) {
-                            window.location.href = _digitalSalesUrls.detail + "/" + res.id;
-                        } else {
-                            reloadSalesTable();
-                        }
+                        $modal.on("hidden.bs.modal", function () {
+                            executeResponseMessage(res.message, "Khởi tạo Cơ hội thành công!", true);
+                            if (res.id) {
+                                window.location.href = _digitalSalesUrls.detail + "/" + res.id;
+                            } else {
+                                reloadSalesTable();
+                            }
+                        });
                     } else {
-                        alert(res.message || "Có lỗi xảy ra khi lưu cơ hội!");
+                        executeResponseMessage(res.message, "Có lỗi xảy ra khi lưu cơ hội!", false);
                     }
                 },
                 error: function () {
-                    alert("Lỗi kết nối máy chủ!");
+                    executeResponseMessage("Lỗi kết nối máy chủ!", "Lỗi kết nối máy chủ!", false);
                 }
             });
         });
@@ -236,14 +304,16 @@ function openEditSalesModal(id) {
                 success: function (res) {
                     if (res.status) {
                         $modal.modal("hide");
-                        alert(res.message || "Cập nhật thành công!");
-                        reloadSalesTable();
+                        $modal.on("hidden.bs.modal", function () {
+                            executeResponseMessage(res.message, "Cập nhật thành công!", true);
+                            reloadSalesTable();
+                        });
                     } else {
-                        alert(res.message || "Có lỗi xảy ra!");
+                        executeResponseMessage(res.message, "Có lỗi xảy ra!", false);
                     }
                 },
                 error: function () {
-                    alert("Lỗi kết nối máy chủ!");
+                    executeResponseMessage("Lỗi kết nối máy chủ!", "Lỗi kết nối máy chủ!", false);
                 }
             });
         });
@@ -271,14 +341,16 @@ function openChangeStatusModal(id) {
                 success: function (res) {
                     if (res.status) {
                         $modal.modal("hide");
-                        alert(res.message || "Chuyển trạng thái thành công!");
-                        reloadSalesTable();
+                        $modal.on("hidden.bs.modal", function () {
+                            executeResponseMessage(res.message, "Chuyển trạng thái thành công!", true);
+                            reloadSalesTable();
+                        });
                     } else {
-                        alert(res.message || "Không thể chuyển trạng thái!");
+                        executeResponseMessage(res.message, "Không thể chuyển trạng thái!", false);
                     }
                 },
                 error: function () {
-                    alert("Lỗi kết nối máy chủ!");
+                    executeResponseMessage("Lỗi kết nối máy chủ!", "Lỗi kết nối máy chủ!", false);
                 }
             });
         });
@@ -289,10 +361,10 @@ function deleteSales(id) {
     if (!confirm("Bạn có chắc chắn muốn xóa hồ sơ kinh doanh này không?")) return;
     $.post(_digitalSalesUrls.delete, { id: id }, function (res) {
         if (res.status) {
-            alert(res.message || "Xóa thành công!");
+            executeResponseMessage(res.message, "Xóa thành công!", true);
             reloadSalesTable();
         } else {
-            alert(res.message || "Không thể xóa hồ sơ!");
+            executeResponseMessage(res.message, "Không thể xóa hồ sơ!", false);
         }
     });
 }

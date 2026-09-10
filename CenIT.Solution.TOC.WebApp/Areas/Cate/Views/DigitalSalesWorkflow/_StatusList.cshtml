@@ -8,30 +8,30 @@
         {
             var activeClass = item.IsActive ? "" : "opacity-65";
             var defaultBadge = item.IsDefault ? "<span class='badge bgc-yellow-l1 text-dark-m2 border-1 brc-yellow-m3 ml-1 text-80' title='Trạng thái mặc định'><i class='fa fa-star text-orange-d1 mr-1'></i>Default</span>" : "";
-            var statusColor = "#0288d1";
+            var bgcClass = "bgc-blue-d1";
+            var brcClass = "brc-blue-tp1";
             var iconClass = "fa-flag";
             switch (item.StatusID)
             {
-                case 1: statusColor = "#0288d1"; iconClass = "fa-hourglass-start"; break; // Chưa nắm bắt
-                case 2: statusColor = "#f59e0b"; iconClass = "fa-paper-plane"; break; // Đang tiếp cận
-                case 3: statusColor = "#ef4444"; iconClass = "fa-times-circle"; break; // Đã bỏ mất
-                case 4: statusColor = "#8b5cf6"; iconClass = "fa-flask"; break; // Hình thành dự án (PoC)
-                case 5: statusColor = "#3b82f6"; iconClass = "fa-tasks"; break; // Triển khai dự án
-                case 6: statusColor = "#dc2626"; iconClass = "fa-ban"; break; // Mất dự án
-                case 7: statusColor = "#10b981"; iconClass = "fa-file-signature"; break; // Đã ký hợp đồng
-                case 8: statusColor = "#059669"; iconClass = "fa-check-circle"; break; // Hoàn thành
-                default: statusColor = "#6b7280"; iconClass = "fa-flag"; break;
+                case 1: bgcClass = "bgc-blue-d1"; brcClass = "brc-blue-tp1"; iconClass = "fa-hourglass-start"; break; // Chưa nắm bắt
+                case 2: bgcClass = "bgc-orange-d1"; brcClass = "brc-orange-tp1"; iconClass = "fa-paper-plane"; break; // Đang tiếp cận
+                case 3: bgcClass = "bgc-red-d1"; brcClass = "brc-danger-tp1"; iconClass = "fa-times-circle"; break; // Đã bỏ mất
+                case 4: bgcClass = "bgc-purple-d1"; brcClass = "brc-purple-tp1"; iconClass = "fa-flask"; break; // Hình thành dự án (PoC)
+                case 5: bgcClass = "bgc-primary-d1"; brcClass = "brc-primary-tp1"; iconClass = "fa-tasks"; break; // Triển khai dự án
+                case 6: bgcClass = "bgc-danger-d2"; brcClass = "brc-danger-tp1"; iconClass = "fa-ban"; break; // Mất dự án
+                case 7: bgcClass = "bgc-success-d1"; brcClass = "brc-success-tp1"; iconClass = "fa-file-signature"; break; // Đã ký hợp đồng
+                case 8: bgcClass = "bgc-green-d2"; brcClass = "brc-green-tp1"; iconClass = "fa-check-circle"; break; // Hoàn thành
+                default: bgcClass = "bgc-secondary-d1"; brcClass = "brc-secondary-tp1"; iconClass = "fa-flag"; break;
             }
 
-            <div class="list-group-item list-group-item-action status-item px-3 py-2 cursor-pointer border-l-4 brc-default-m2 mb-1 @activeClass"
+            <div class="list-group-item list-group-item-action status-item px-3 py-2 cursor-pointer border-1 brc-grey-l2 border-l-4 mb-2 radius-1 bgc-h-blue-l4 @brcClass @activeClass"
                  data-id="@item.StatusID"
                  data-name="@item.StatusName"
                  data-type="@item.BusinessType"
-                 style="border-left-color: @statusColor !important;"
                  onclick="DigitalSalesWorkflow.selectStatus(@item.StatusID, this)">
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="d-flex align-items-center text-truncate mr-2">
-                        <span class="badge badge-sm badge-pill mr-2 text-white" style="background-color: @statusColor;">
+                        <span class="badge badge-sm badge-pill mr-2 text-white @bgcClass">
                             <i class="fa @iconClass"></i>
                         </span>
                         <div class="text-truncate">

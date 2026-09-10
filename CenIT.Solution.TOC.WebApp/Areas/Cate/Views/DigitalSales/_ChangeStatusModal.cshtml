@@ -1,4 +1,5 @@
-﻿@model Core.Cate.Models.RM_DigitalSalesChangeStatusViewModel
+﻿@using TSFramework.Libs.Processors
+@model Core.Cate.Models.RM_DigitalSalesChangeStatusViewModel
 
 <div class="modal fade" id="modalChangeStatus" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
     <div class="modal-dialog modal-md" role="document">
@@ -13,7 +14,7 @@
             </div>
 
             <form id="frmChangeStatus" method="post" enctype="multipart/form-data">
-                <div class="modal-body">
+                <div class="modal-body" id="bodyForm">
                     @Html.AntiForgeryToken()
                     @Html.HiddenFor(m => m.DigitalSalesID)
 
@@ -45,18 +46,19 @@
                     </div>
 
                     <div class="form-group mb-3">
-                        <label class="text-85 text-600 mb-1">Trạng thái đích muốn chuyển sang <span class="text-danger">*</span></label>
+                        @Html.TitleFor(m => m.NewStatusID, new { @class = "text-85 text-600 mb-1 d-block font-bold" })
                         @Html.DropDownListFor(m => m.NewStatusID, Model.AvailableStatuses, "-- Chọn trạng thái mới --", new { @class = "form-control form-control-sm select2", required = "required", id = "cboNewStatusID" })
+                        @Html.ValidationMessageFor(m => m.NewStatusID, "", new { @class = "text-danger text-85" })
                     </div>
 
                     <div class="form-group mb-3">
-                        <label class="text-85 text-600 mb-1">File biên bản / Quyết định / Hợp đồng đính kèm</label>
+                        <label class="text-85 text-600 mb-1 d-block font-bold">File biên bản / Quyết định / Hợp đồng đính kèm</label>
                         <input type="file" name="attachmentFile" class="form-control-file border p-1 rounded" />
                         <small class="text-muted">Đính kèm file minh chứng cho việc chuyển trạng thái (nếu có)</small>
                     </div>
 
                     <div class="form-group mb-2">
-                        <label class="text-85 text-600 mb-1">Ghi chú / Lý do chuyển trạng thái</label>
+                        @Html.TitleFor(m => m.Note, new { @class = "text-85 text-600 mb-1 d-block font-bold" })
                         @Html.TextAreaFor(m => m.Note, 3, 50, new { @class = "form-control form-control-sm", placeholder = "Nhập lý do chuyển trạng thái, thông tin trao đổi hoặc thỏa thuận mới..." })
                     </div>
                 </div>

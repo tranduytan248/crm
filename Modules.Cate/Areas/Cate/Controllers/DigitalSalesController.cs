@@ -2,6 +2,7 @@
 using Core.Cate.Models;
 using Core.Sys.BaseApp;
 using Core.Sys.Caches.Sys;
+using Core.Sys.Models.Sys;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -28,6 +29,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
         private readonly RM_ContactPersonsCache _contactPersonCache;
         private readonly RM_ContractsCache _contractCache;
         private readonly SysUserCache _userCache;
+        private readonly SysUserBoPhanCache _userBoPhanCache;
 
         private readonly string _title = "Kinh doanh Sản phẩm Dịch vụ Số";
         private readonly string _folderUpload = ConfigurationManager.AppSettings["AppImageRoot_Path"] ?? "/Contents/File";
@@ -42,6 +44,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
             _contactPersonCache = new RM_ContactPersonsCache();
             _contractCache = new RM_ContractsCache();
             _userCache = new SysUserCache();
+            _userBoPhanCache = new SysUserBoPhanCache();
         }
 
         #region 1. Danh sách & Tìm kiếm (List & DataTables)
@@ -739,36 +742,94 @@ namespace Modules.Cate.Areas.Cate.Controllers
         #endregion
 
         #region 9. Helpers & Dropdown Population
+        [HttpGet]
+        public JsonResult GetEmployeesByDepartment(int departmentId)
+        {
+            List<SysUserModel> users;
+            if (departmentId > 0)
+            {
+                users = _userCache.GetByBoPhanAndChucVu(departmentId, null) ?? new List<SysUserModel>();
+            }
+            else
+            {
+                var accessibleDepts = GetAccessibleDepartments();
+                var allUsers = new List<SysUserModel>();
+                foreach (var dept in accessibleDepts)
+                {
+                    var uList = _userCache.GetByBoPhanAndChucVu(dept.BoPhan_ID, null);
+                    if (uList != null) allUsers.AddRange(uList);
+                }
+                users = allUsers.GroupBy(u => u.UserId).Select(g => g.First()).OrderBy(u => u.FullName).ToList();
+            }
+
+            var result = users.Select(x => new
+            {
+                Value = x.UserId,
+                Text = $"{x.FullName} ({x.UserName})"
+            }).ToList();
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        private List<MN_BoPhanModel> GetAccessibleDepartments()
+        {
+            var currentUser = _userCache.GetByUserName(User.UserName);
+            List<MN_BoPhanModel> list = null;
+            if (currentUser != null && !string.IsNullOrWhiteSpace(currentUser.Email))
+            {
+                list = (_userBoPhanCache.GetByEmail(currentUser.Email) ?? new List<MN_BoPhanModel>())
+                    .GroupBy(x => x.BoPhan_ID)
+                    .Select(x => x.First())
+                    .OrderBy(x => x.TenBoPhanView)
+                    .ToList();
+            }
+
+            if (list == null || list.Count == 0)
+            {
+                list = (_departmentCache.GetAll() ?? new List<MN_BoPhanModel>())
+                    .Where(x => (x.MaBoPhan != null && x.MaBoPhan.StartsWith("239.603")) || x.BoPhan_ID == 5749 || x.BoPhanCha_ID == 5749)
+                    .OrderBy(x => x.TenBoPhan)
+                    .ToList();
+            }
+
+            return list;
+        }
+
         private void PrepareSearchDropdowns(RM_DigitalSalesSearchModel model)
         {
-            model.ListCustomer = _customerCache.GetAll()?.Select(c => new SelectListItem
+            var accessibleDepts = GetAccessibleDepartments();
+            model.Departments = accessibleDepts.Select(d => new SelectListItem
             {
-                Value = c.CustomerID.ToString(),
-                Text = c.CustomerName
-            }).ToList() ?? new List<SelectListItem>();
+                Value = d.BoPhan_ID.ToString(),
+                Text = !string.IsNullOrEmpty(d.TenBoPhanView) ? d.TenBoPhanView : d.TenBoPhan
+            }).ToList();
 
-            model.ListProductService = _productServiceCache.GetAll()?.Select(p => new SelectListItem
+            List<SysUserModel> users;
+            if (model.DepartmentID > 0)
             {
-                Value = p.ProductServiceID.ToString(),
-                Text = string.IsNullOrEmpty(p.ShortNameProduct) ? p.NameProduct : $"{p.ShortNameProduct} - {p.NameProduct}"
-            }).ToList() ?? new List<SelectListItem>();
+                users = _userCache.GetByBoPhanAndChucVu(model.DepartmentID, null) ?? new List<SysUserModel>();
+            }
+            else
+            {
+                var allUsers = new List<SysUserModel>();
+                foreach (var dept in accessibleDepts)
+                {
+                    var uList = _userCache.GetByBoPhanAndChucVu(dept.BoPhan_ID, null);
+                    if (uList != null) allUsers.AddRange(uList);
+                }
+                users = allUsers.GroupBy(u => u.UserId).Select(g => g.First()).OrderBy(u => u.FullName).ToList();
+            }
+
+            model.ListEmployee = users.Select(e => new SelectListItem
+            {
+                Value = e.UserId.ToString(),
+                Text = $"{e.FullName} ({e.UserName})"
+            }).ToList();
 
             model.ListStatus = _salesCache.GetStatusList(null)?.Select(s => new SelectListItem
             {
                 Value = s.StatusID.ToString(),
                 Text = $"[{(s.BusinessType == 1 ? "Cơ hội" : "Dự án")}] {s.StatusName}"
-            }).ToList() ?? new List<SelectListItem>();
-
-            model.ListEmployee = _employeeCache.GetAll()?.Select(e => new SelectListItem
-            {
-                Value = e.Employee_ID.ToString(),
-                Text = e.FullName
-            }).ToList() ?? new List<SelectListItem>();
-
-            model.ListDepartment = _departmentCache.GetAll()?.Select(d => new SelectListItem
-            {
-                Value = d.BoPhan_ID.ToString(),
-                Text = d.TenBoPhan
             }).ToList() ?? new List<SelectListItem>();
         }
 

@@ -25,12 +25,17 @@
         autoSelectFirstStatus();
     }
 
-    function switchBusinessType(type) {
+    function switchBusinessType(type, element) {
         state.businessType = parseInt(type);
         state.statusId = 0;
         state.statusName = "";
         state.processId = 0;
         state.processName = "";
+
+        if (element) {
+            $("#workflowBusinessTypeTabs .nav-link").removeClass("active");
+            $(element).addClass("active");
+        }
 
         resetProcessColumn();
         resetProgressColumn();
@@ -67,9 +72,9 @@
         state.processId = 0;
         state.processName = "";
 
-        // Highlight active item
-        $("#statusContainer .status-item").removeClass("active bgc-blue-l3 border-l-4 brc-primary");
-        $(element).addClass("active bgc-blue-l3 border-l-4 brc-primary");
+        // Highlight active item với Ace Admin tokens
+        $("#statusContainer .status-item").removeClass("active bgc-primary-l3 text-primary-d2 shadow-sm font-bold");
+        $(element).addClass("active bgc-primary-l3 text-primary-d2 shadow-sm font-bold");
 
         // Update process column header
         $("#lblSelectedStatus").html('<i class="fa fa-tag text-blue mr-1"></i>' + state.statusName);
@@ -116,9 +121,9 @@
         state.processId = parseInt(processId);
         state.processName = $(element).attr("data-name") || "";
 
-        // Highlight active item
-        $("#processContainer .process-item").removeClass("active bgc-purple-l3 border-l-4 brc-purple");
-        $(element).addClass("active bgc-purple-l3 border-l-4 brc-purple");
+        // Highlight active item với Ace Admin tokens
+        $("#processContainer .process-item").removeClass("active bgc-blue-l3 text-blue-d2 shadow-sm font-bold");
+        $(element).addClass("active bgc-blue-l3 text-blue-d2 shadow-sm font-bold");
 
         // Update progress column header
         $("#lblSelectedProcess").html('<i class="fa fa-project-diagram text-purple mr-1"></i>' + state.processName);
@@ -166,7 +171,11 @@
 
     function openAddProcess() {
         if (!state.statusId) {
-            alert("Vui lòng chọn một trạng thái trước khi thêm quy trình.");
+            if (typeof toastr !== "undefined") {
+                toastr.warning("Vui lòng chọn một trạng thái trước khi thêm quy trình.");
+            } else {
+                alert("Vui lòng chọn một trạng thái trước khi thêm quy trình.");
+            }
             return;
         }
         var url = urls.addProcess + "?statusId=" + state.statusId;
@@ -178,7 +187,11 @@
 
     function openAddProgress() {
         if (!state.processId) {
-            alert("Vui lòng chọn một quy trình trước khi thêm tiến trình.");
+            if (typeof toastr !== "undefined") {
+                toastr.warning("Vui lòng chọn một quy trình trước khi thêm tiến trình.");
+            } else {
+                alert("Vui lòng chọn một quy trình trước khi thêm tiến trình.");
+            }
             return;
         }
         var url = urls.addProgress + "?processId=" + state.processId;
@@ -188,28 +201,37 @@
         btn.remove();
     }
 
-    // Modal Callback Handlers
+    // Modal Callback Handlers tuân thủ hidden.bs.modal để tránh kẹt backdrop
     function onStatusSaveSuccess(response) {
         if (response.status || response.success) {
-            if (response.message) {
-                eval(response.message);
-            }
-            $(".modal").modal("hide");
-            var targetStatusId = response.statusId || state.statusId;
-            $.ajax({
-                url: urls.getStatuses,
-                type: "GET",
-                data: { businessType: response.businessType || state.businessType },
-                success: function (html) {
-                    $("#statusContainer").html(html);
-                    var targetItem = $("#statusContainer .status-item[data-id='" + targetStatusId + "']");
-                    if (targetItem.length > 0) {
-                        targetItem.trigger("click");
-                    } else {
-                        autoSelectFirstStatus();
+            var activeModal = $(".modal.show");
+            if (activeModal.length > 0) {
+                activeModal.modal("hide");
+                activeModal.one("hidden.bs.modal", function () {
+                    if (response.message) {
+                        eval(response.message);
                     }
+                    var targetStatusId = response.statusId || state.statusId;
+                    $.ajax({
+                        url: urls.getStatuses,
+                        type: "GET",
+                        data: { businessType: response.businessType || state.businessType },
+                        success: function (html) {
+                            $("#statusContainer").html(html);
+                            var targetItem = $("#statusContainer .status-item[data-id='" + targetStatusId + "']");
+                            if (targetItem.length > 0) {
+                                targetItem.trigger("click");
+                            } else {
+                                autoSelectFirstStatus();
+                            }
+                        }
+                    });
+                });
+            } else {
+                if (response.message) {
+                    eval(response.message);
                 }
-            });
+            }
         } else {
             if (response.message) {
                 eval(response.message);
@@ -219,20 +241,29 @@
 
     function onProcessSaveSuccess(response) {
         if (response.status || response.success) {
-            if (response.message) {
-                eval(response.message);
-            }
-            $(".modal").modal("hide");
-            var stId = response.statusId || state.statusId;
-            var targetProcId = response.processId || state.processId;
-            loadProcesses(stId, function () {
-                var targetItem = $("#processContainer .process-item[data-id='" + targetProcId + "']");
-                if (targetItem.length > 0) {
-                    targetItem.trigger("click");
-                } else {
-                    autoSelectFirstProcess();
+            var activeModal = $(".modal.show");
+            if (activeModal.length > 0) {
+                activeModal.modal("hide");
+                activeModal.one("hidden.bs.modal", function () {
+                    if (response.message) {
+                        eval(response.message);
+                    }
+                    var stId = response.statusId || state.statusId;
+                    var targetProcId = response.processId || state.processId;
+                    loadProcesses(stId, function () {
+                        var targetItem = $("#processContainer .process-item[data-id='" + targetProcId + "']");
+                        if (targetItem.length > 0) {
+                            targetItem.trigger("click");
+                        } else {
+                            autoSelectFirstProcess();
+                        }
+                    });
+                });
+            } else {
+                if (response.message) {
+                    eval(response.message);
                 }
-            });
+            }
         } else {
             if (response.message) {
                 eval(response.message);
@@ -242,12 +273,21 @@
 
     function onProgressSaveSuccess(response) {
         if (response.status || response.success) {
-            if (response.message) {
-                eval(response.message);
+            var activeModal = $(".modal.show");
+            if (activeModal.length > 0) {
+                activeModal.modal("hide");
+                activeModal.one("hidden.bs.modal", function () {
+                    if (response.message) {
+                        eval(response.message);
+                    }
+                    var procId = response.processId || state.processId;
+                    loadProgresses(procId);
+                });
+            } else {
+                if (response.message) {
+                    eval(response.message);
+                }
             }
-            $(".modal").modal("hide");
-            var procId = response.processId || state.processId;
-            loadProgresses(procId);
         } else {
             if (response.message) {
                 eval(response.message);
@@ -257,16 +297,25 @@
 
     function onDeleteSuccess(response, targetType) {
         if (response.status || response.success) {
-            if (response.message) {
-                eval(response.message);
-            }
-            $(".modal").modal("hide");
-            if (targetType === "Status") {
-                switchBusinessType(state.businessType);
-            } else if (targetType === "Process") {
-                loadProcesses(state.statusId);
-            } else if (targetType === "Progress") {
-                loadProgresses(state.processId);
+            var activeModal = $(".modal.show");
+            if (activeModal.length > 0) {
+                activeModal.modal("hide");
+                activeModal.one("hidden.bs.modal", function () {
+                    if (response.message) {
+                        eval(response.message);
+                    }
+                    if (targetType === "Status") {
+                        switchBusinessType(state.businessType);
+                    } else if (targetType === "Process") {
+                        loadProcesses(state.statusId);
+                    } else if (targetType === "Progress") {
+                        loadProgresses(state.processId);
+                    }
+                });
+            } else {
+                if (response.message) {
+                    eval(response.message);
+                }
             }
         } else {
             if (response.message) {

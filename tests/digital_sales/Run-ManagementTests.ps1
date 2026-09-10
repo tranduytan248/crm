@@ -2,6 +2,9 @@ $ErrorActionPreference = 'Stop'
 
 $crmRoot = (Resolve-Path (Join-Path $PSScriptRoot '..\..')).Path
 $crmBin = Join-Path $crmRoot 'Modules.Cate\bin'
+if (-not (Test-Path (Join-Path $crmBin 'Core.Cate.dll'))) {
+    $crmBin = Join-Path $crmRoot 'publish_source\bin'
+}
 $csc = "C:\Program Files\Microsoft Visual Studio\18\Community\MSBuild\Current\Bin\Roslyn\csc.exe"
 if (-not (Test-Path $csc)) {
     $vswhere = Join-Path ${env:ProgramFiles(x86)} 'Microsoft Visual Studio\Installer\vswhere.exe'
