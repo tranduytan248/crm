@@ -1,0 +1,71 @@
+@model Core.Cate.Models.RM_DigitalSalesSearchModel
+
+<div class="card dcard">
+    <div class="card-body px-3 py-2">
+        <form id="frmSearchDigitalSales" onsubmit="return false;">
+            <div class="row align-items-center">
+                <div class="col-md-3 col-sm-6 mb-2">
+                    <label class="text-85 text-600 mb-1">Từ khóa tìm kiếm</label>
+                    <div class="input-group">
+                        <input type="text" id="SearchKeyword" name="Keyword" class="form-control form-control-sm" placeholder="Mã, tên hồ sơ, khách hàng..." value="@Model.Keyword" />
+                        <div class="input-group-append">
+                            <span class="input-group-text"><i class="fa fa-search text-grey-m1"></i></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-2 col-sm-6 mb-2">
+                    <label class="text-85 text-600 mb-1">Loại hình</label>
+                    <select id="SearchBusinessType" name="BusinessType" class="form-control form-control-sm select2">
+                        <option value="">-- Tất cả loại hình --</option>
+                        <option value="1" @(Model.BusinessType == 1 ? "selected" : "")>Cơ hội kinh doanh</option>
+                        <option value="2" @(Model.BusinessType == 2 ? "selected" : "")>Dự án</option>
+                    </select>
+                </div>
+
+                <div class="col-md-2 col-sm-6 mb-2">
+                    <label class="text-85 text-600 mb-1">Trạng thái</label>
+                    @Html.DropDownListFor(m => m.StatusID, Model.ListStatus, "-- Tất cả trạng thái --", new { @class = "form-control form-control-sm select2", id = "SearchStatusID" })
+                </div>
+
+                <div class="col-md-3 col-sm-6 mb-2">
+                    <label class="text-85 text-600 mb-1">Khách hàng</label>
+                    @Html.DropDownListFor(m => m.CustomerID, Model.ListCustomer, "-- Tất cả khách hàng --", new { @class = "form-control form-control-sm select2", id = "SearchCustomerID" })
+                </div>
+
+                <div class="col-md-2 col-sm-6 mb-2">
+                    <label class="text-85 text-600 mb-1">Sản phẩm / DV số</label>
+                    @Html.DropDownListFor(m => m.ProductServiceID, Model.ListProductService, "-- Tất cả sản phẩm --", new { @class = "form-control form-control-sm select2", id = "SearchProductServiceID" })
+                </div>
+
+                <div class="col-md-3 col-sm-6 mb-2">
+                    <label class="text-85 text-600 mb-1">Nhân sự phụ trách (AM)</label>
+                    @Html.DropDownListFor(m => m.EmployeeID, Model.ListEmployee, "-- Tất cả AM --", new { @class = "form-control form-control-sm select2", id = "SearchEmployeeID" })
+                </div>
+
+                <div class="col-md-3 col-sm-6 mb-2">
+                    <label class="text-85 text-600 mb-1">Bộ phận</label>
+                    @Html.DropDownListFor(m => m.DepartmentID, Model.ListDepartment, "-- Tất cả bộ phận --", new { @class = "form-control form-control-sm select2", id = "SearchDepartmentID" })
+                </div>
+
+                <div class="col-md-3 col-sm-6 mb-2">
+                    <label class="text-85 text-600 mb-1">Thời gian tạo (Từ ngày - Đến ngày)</label>
+                    <div class="input-group input-daterange">
+                        <input type="text" id="SearchFromDate" name="FromDate" class="form-control form-control-sm date-picker" placeholder="dd/MM/yyyy" autocomplete="off" />
+                        <div class="input-group-addon px-2 text-secondary">-</div>
+                        <input type="text" id="SearchToDate" name="ToDate" class="form-control form-control-sm date-picker" placeholder="dd/MM/yyyy" autocomplete="off" />
+                    </div>
+                </div>
+
+                <div class="col-md-3 col-sm-6 mb-2 text-right mt-3">
+                    <button type="button" class="btn btn-sm btn-primary px-3" onclick="reloadSalesTable();">
+                        <i class="fa fa-search mr-1"></i> Tìm kiếm
+                    </button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary px-3 ml-1" onclick="resetSalesSearch();">
+                        <i class="fa fa-refresh mr-1"></i> Đặt lại
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

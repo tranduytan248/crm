@@ -3,7 +3,10 @@ $crmRoot = (Resolve-Path (Join-Path $PSScriptRoot '..\..')).Path
 $crmBin = Join-Path $crmRoot 'Modules.Cate\bin'
 $vswhere = Join-Path ${env:ProgramFiles(x86)} 'Microsoft Visual Studio\Installer\vswhere.exe'
 $csc = & $vswhere -latest -products '*' -find 'MSBuild\Current\Bin\Roslyn\csc.exe' | Select-Object -First 1
-if (-not $csc) { throw 'Visual Studio Roslyn compiler was not found.' }
+if (-not $csc -or -not (Test-Path $csc)) {
+    $csc = "C:\Program Files\Microsoft Visual Studio\18\Community\MSBuild\Current\Bin\Roslyn\csc.exe"
+}
+if (-not $csc -or -not (Test-Path $csc)) { throw 'Visual Studio Roslyn compiler was not found.' }
 $testDir = Join-Path ([IO.Path]::GetTempPath()) ('crm-chatbot-tests-' + [Guid]::NewGuid().ToString('N'))
 [IO.Directory]::CreateDirectory($testDir) | Out-Null
 $testExe = Join-Path $testDir 'ChatbotTests.exe'

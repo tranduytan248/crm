@@ -1,0 +1,93 @@
+@model Core.Cate.Models.RM_DigitalSalesModel
+
+<div class="modal fade" id="modalAddSales" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header bgc-primary-d1 text-white">
+                <h5 class="modal-title text-110">
+                    <i class="fa fa-plus-circle mr-1"></i> Khởi tạo Cơ hội Kinh doanh Sản phẩm Dịch vụ Số
+                </h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form id="frmAddSales" method="post" enctype="multipart/form-data">
+                <div class="modal-body">
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(m => m.BusinessType)
+                    @Html.HiddenFor(m => m.StatusID)
+
+                    <div class="alert alert-info py-2 px-3 mb-3 text-90">
+                        <i class="fa fa-info-circle mr-1"></i>
+                        Hồ sơ mới mặc định thuộc loại hình <strong>Cơ hội kinh doanh</strong> với trạng thái <strong>Chưa nắm bắt</strong>. Sau khi tiếp cận khách hàng và có thông tin SPDV số + thành viên, bạn có thể chuyển đổi thành <strong>Dự án</strong>.
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-8 mb-3">
+                            <label class="text-85 text-600 mb-1">Tên Cơ hội / Dự án <span class="text-danger">*</span></label>
+                            @Html.TextBoxFor(m => m.Title, new { @class = "form-control form-control-sm", placeholder = "Ví dụ: Cung cấp giải pháp Hóa đơn điện tử cho Công ty ABC", required = "required" })
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <label class="text-85 text-600 mb-1">Mã hồ sơ</label>
+                            @Html.TextBoxFor(m => m.Code, new { @class = "form-control form-control-sm", placeholder = "Tự động sinh (SPDV-YYYY-XXXX)", @readonly = "readonly" })
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="text-85 text-600 mb-1">Khách hàng <span class="text-danger">*</span></label>
+                            @Html.DropDownListFor(m => m.CustomerID, Model.ListCustomer, "-- Chọn khách hàng --", new { @class = "form-control form-control-sm select2", required = "required", onchange = "loadContactPersonsByCustomer(this.value, '#modalAddSales #ContactPerson_ID');" })
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="text-85 text-600 mb-1">Người liên hệ khách hàng</label>
+                            @Html.DropDownListFor(m => m.ContactPerson_ID, Model.ListContactPerson, "-- Chọn người liên hệ --", new { @class = "form-control form-control-sm select2" })
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="text-85 text-600 mb-1">Nhân sự chủ trì (AM)</label>
+                            @Html.DropDownListFor(m => m.AssignedEmployeeID, Model.ListEmployee, "-- Chọn AM chủ trì --", new { @class = "form-control form-control-sm select2" })
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="text-85 text-600 mb-1">Bộ phận phụ trách</label>
+                            @Html.DropDownListFor(m => m.DepartmentID, Model.ListDepartment, "-- Chọn bộ phận --", new { @class = "form-control form-control-sm select2" })
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <label class="text-85 text-600 mb-1">Xác suất thành công (%)</label>
+                            @Html.TextBoxFor(m => m.ClosingProbability, new { @class = "form-control form-control-sm", type = "number", min = "0", max = "100", step = "5", placeholder = "50" })
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <label class="text-85 text-600 mb-1">Ngày bắt đầu tiếp cận</label>
+                            <input type="text" id="StartDate" name="StartDate" class="form-control form-control-sm date-picker" value="@(Model.StartDate.HasValue ? Model.StartDate.Value.ToString("dd/MM/yyyy") : DateTime.Today.ToString("dd/MM/yyyy"))" autocomplete="off" />
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <label class="text-85 text-600 mb-1">Ngày dự kiến hoàn thành</label>
+                            <input type="text" id="ExpectedDate" name="ExpectedDate" class="form-control form-control-sm date-picker" value="@(Model.ExpectedDate.HasValue ? Model.ExpectedDate.Value.ToString("dd/MM/yyyy") : DateTime.Today.AddMonths(1).ToString("dd/MM/yyyy"))" autocomplete="off" />
+                        </div>
+
+                        <div class="col-md-12 mb-3">
+                            <label class="text-85 text-600 mb-1">File đính kèm (Biên bản tiếp xúc, Yêu cầu KH...)</label>
+                            <input type="file" name="fileUpload" class="form-control-file border p-1 rounded" />
+                        </div>
+
+                        <div class="col-md-12 mb-2">
+                            <label class="text-85 text-600 mb-1">Ghi chú / Nhu cầu khách hàng</label>
+                            @Html.TextAreaFor(m => m.Note, 3, 50, new { @class = "form-control form-control-sm", placeholder = "Ghi chú các yêu cầu, nhu cầu dịch vụ số của khách hàng..." })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-sm btn-primary">
+                        <i class="fa fa-save mr-1"></i> Lưu và mở chi tiết
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,73 @@
+@model Core.Cate.Models.RM_DigitalSalesChangeStatusViewModel
+
+<div class="modal fade" id="modalChangeStatus" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header bgc-warning-d2 text-white">
+                <h5 class="modal-title text-110">
+                    <i class="fa fa-exchange-alt mr-1"></i> Chuyển Trạng thái Hồ sơ Kinh doanh Số
+                </h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form id="frmChangeStatus" method="post" enctype="multipart/form-data">
+                <div class="modal-body">
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(m => m.DigitalSalesID)
+
+                    <div class="card bgc-grey-l4 border-1 brc-grey-m4 p-2 mb-3">
+                        <div class="text-90 mb-1">
+                            <span class="text-secondary">Hồ sơ:</span>
+                            <strong class="text-dark">@Model.Title</strong>
+                        </div>
+                        <div class="text-90">
+                            <span class="text-secondary">Loại hình hiện tại:</span>
+                            <span class="badge @(Model.CurrentBusinessType == 1 ? "badge-primary" : "badge-success")">
+                                @Model.CurrentBusinessTypeName
+                            </span>
+                            <span class="mx-1 text-secondary">➔</span>
+                            <span class="text-secondary">Trạng thái:</span>
+                            <span class="badge badge-info font-weight-bold">
+                                @Model.CurrentStatusName
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="alert alert-warning py-2 px-3 mb-3 text-85" id="alertProjectRequirement">
+                        <i class="fa fa-exclamation-triangle mr-1 text-warning-d2"></i>
+                        <strong>Lưu ý khi chuyển sang DỰ ÁN:</strong>
+                        <ul class="mb-0 pl-3">
+                            <li>Bắt buộc phải có ít nhất 1 <strong>Sản phẩm / Dịch vụ số</strong> (kèm doanh thu).</li>
+                            <li>Bắt buộc phải có ít nhất 1 <strong>Thành viên tham gia dự án</strong>.</li>
+                        </ul>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label class="text-85 text-600 mb-1">Trạng thái đích muốn chuyển sang <span class="text-danger">*</span></label>
+                        @Html.DropDownListFor(m => m.NewStatusID, Model.AvailableStatuses, "-- Chọn trạng thái mới --", new { @class = "form-control form-control-sm select2", required = "required", id = "cboNewStatusID" })
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label class="text-85 text-600 mb-1">File biên bản / Quyết định / Hợp đồng đính kèm</label>
+                        <input type="file" name="attachmentFile" class="form-control-file border p-1 rounded" />
+                        <small class="text-muted">Đính kèm file minh chứng cho việc chuyển trạng thái (nếu có)</small>
+                    </div>
+
+                    <div class="form-group mb-2">
+                        <label class="text-85 text-600 mb-1">Ghi chú / Lý do chuyển trạng thái</label>
+                        @Html.TextAreaFor(m => m.Note, 3, 50, new { @class = "form-control form-control-sm", placeholder = "Nhập lý do chuyển trạng thái, thông tin trao đổi hoặc thỏa thuận mới..." })
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Hủy</button>
+                    <button type="submit" class="btn btn-sm btn-warning font-weight-bold text-dark">
+                        <i class="fa fa-check mr-1"></i> Xác nhận chuyển
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

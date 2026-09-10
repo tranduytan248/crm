@@ -1,0 +1,55 @@
+@model Core.Cate.Models.RM_DigitalSalesMemberModel
+
+<div class="modal fade" id="modalMember" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header bgc-primary-d1 text-white">
+                <h5 class="modal-title text-110">
+                    <i class="fa fa-user-plus mr-1"></i> Thêm Nhân sự tham gia Dự án
+                </h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form id="frmMemberModal" method="post">
+                <div class="modal-body">
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(m => m.MemberID)
+                    @Html.HiddenFor(m => m.DigitalSalesID)
+
+                    <div class="form-group mb-3">
+                        <label class="text-85 text-600 mb-1">Nhân sự <span class="text-danger">*</span></label>
+                        @Html.DropDownListFor(m => m.UserID, (List<SelectListItem>)ViewBag.UserList, "-- Chọn nhân sự --", new { @class = "form-control form-control-sm select2", required = "required" })
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label class="text-85 text-600 mb-1">Vai trò / Nhiệm vụ trong dự án</label>
+                        @Html.TextBoxFor(m => m.RoleTitle, new { @class = "form-control form-control-sm", placeholder = "Ví dụ: Kỹ thuật triển khai, Hỗ trợ PoC, Chăm sóc khách hàng..." })
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <div class="custom-control custom-checkbox">
+                            @Html.CheckBoxFor(m => m.IsAM, new { @class = "custom-control-input", id = "chkIsAM" })
+                            <label class="custom-control-label font-weight-bold text-primary" for="chkIsAM">
+                                Là AM chủ trì kinh doanh (Chuyển quyền chủ trì cho nhân sự này)
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-2">
+                        <label class="text-85 text-600 mb-1">Ghi chú</label>
+                        @Html.TextAreaFor(m => m.Note, 2, 50, new { @class = "form-control form-control-sm" })
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Hủy</button>
+                    <button type="submit" class="btn btn-sm btn-primary">
+                        <i class="fa fa-save mr-1"></i> Lưu thành viên
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

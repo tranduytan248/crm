@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -146,6 +146,10 @@
     <Compile Include="Biz\RM_TaskManagementBiz.cs" />
     <Compile Include="Biz\RM_TaskStatusBiz.cs" />
     <Compile Include="Biz\RM_TaskTypeBiz.cs" />
+    <Compile Include="Biz\RM_DigitalSalesBiz.cs" />
+    <Compile Include="Biz\RM_DigitalSalesWorkflowBiz.cs" />
+    <Compile Include="Caches\RM_DigitalSalesCache.cs" />
+    <Compile Include="Caches\RM_DigitalSalesWorkflowCache.cs" />
     <Compile Include="Caches\Cate_CustomerCache.cs" />
     <Compile Include="Caches\Cate_ProductServiceCache.cs" />
     <Compile Include="Caches\MN_BoPhanCache.cs" />
@@ -252,6 +256,15 @@
     <Compile Include="Models\ProductProjectOverviewModel.cs" />
     <Compile Include="Models\ProjectExportRow.cs" />
     <Compile Include="Models\ProjectOverviewModel.cs" />
+    <Compile Include="Models\RM_DigitalSalesModel.cs" />
+    <Compile Include="Models\RM_DigitalSalesMemberModel.cs" />
+    <Compile Include="Models\RM_DigitalSalesProductModel.cs" />
+    <Compile Include="Models\RM_DigitalSalesSearchModel.cs" />
+    <Compile Include="Models\RM_DigitalSalesStatusModel.cs" />
+    <Compile Include="Models\RM_DigitalSalesTimelineModel.cs" />
+    <Compile Include="Models\RM_DigitalSalesTrackingModel.cs" />
+    <Compile Include="Models\RM_DigitalSalesProcessModel.cs" />
+    <Compile Include="Models\RM_DigitalSalesProgressModel.cs" />
     <Compile Include="Models\RM_AnniversaryTypeModel.cs" />
     <Compile Include="Models\RM_BusinessOpportunityModel.cs" />
     <Compile Include="Models\RM_BusinessOpportunityOverviewModel.cs" />

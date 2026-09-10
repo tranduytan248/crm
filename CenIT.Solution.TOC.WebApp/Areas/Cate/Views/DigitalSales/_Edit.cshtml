@@ -1,0 +1,107 @@
+@model Core.Cate.Models.RM_DigitalSalesModel
+
+<div class="modal fade" id="modalEditSales" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header bgc-primary-d1 text-white">
+                <h5 class="modal-title text-110">
+                    <i class="fa fa-edit mr-1"></i> Cập nhật Thông tin Hồ sơ: @Model.Code
+                </h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form id="frmEditSales" method="post" enctype="multipart/form-data">
+                <div class="modal-body">
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(m => m.DigitalSalesID)
+                    @Html.HiddenFor(m => m.Code)
+                    @Html.HiddenFor(m => m.BusinessType)
+                    @Html.HiddenFor(m => m.StatusID)
+
+                    <div class="row">
+                        <div class="col-md-8 mb-3">
+                            <label class="text-85 text-600 mb-1">Tên Cơ hội / Dự án <span class="text-danger">*</span></label>
+                            @Html.TextBoxFor(m => m.Title, new { @class = "form-control form-control-sm", required = "required" })
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <label class="text-85 text-600 mb-1">Mã hồ sơ</label>
+                            <input type="text" class="form-control form-control-sm" value="@Model.Code" readonly="readonly" />
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="text-85 text-600 mb-1">Khách hàng <span class="text-danger">*</span></label>
+                            @Html.DropDownListFor(m => m.CustomerID, Model.ListCustomer, "-- Chọn khách hàng --", new { @class = "form-control form-control-sm select2", required = "required", onchange = "loadContactPersonsByCustomer(this.value, '#modalEditSales #ContactPerson_ID');" })
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="text-85 text-600 mb-1">Người liên hệ khách hàng</label>
+                            @Html.DropDownListFor(m => m.ContactPerson_ID, Model.ListContactPerson, "-- Chọn người liên hệ --", new { @class = "form-control form-control-sm select2" })
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="text-85 text-600 mb-1">Nhân sự chủ trì (AM)</label>
+                            @Html.DropDownListFor(m => m.AssignedEmployeeID, Model.ListEmployee, "-- Chọn AM chủ trì --", new { @class = "form-control form-control-sm select2" })
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="text-85 text-600 mb-1">Bộ phận phụ trách</label>
+                            @Html.DropDownListFor(m => m.DepartmentID, Model.ListDepartment, "-- Chọn bộ phận --", new { @class = "form-control form-control-sm select2" })
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <label class="text-85 text-600 mb-1">Xác suất thành công (%)</label>
+                            @Html.TextBoxFor(m => m.ClosingProbability, new { @class = "form-control form-control-sm", type = "number", min = "0", max = "100", step = "5" })
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <label class="text-85 text-600 mb-1">Ngày bắt đầu</label>
+                            <input type="text" id="EditStartDate" name="StartDate" class="form-control form-control-sm date-picker" value="@(Model.StartDate.HasValue ? Model.StartDate.Value.ToString("dd/MM/yyyy") : "")" autocomplete="off" />
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <label class="text-85 text-600 mb-1">Ngày dự kiến hoàn thành</label>
+                            <input type="text" id="EditExpectedDate" name="ExpectedDate" class="form-control form-control-sm date-picker" value="@(Model.ExpectedDate.HasValue ? Model.ExpectedDate.Value.ToString("dd/MM/yyyy") : "")" autocomplete="off" />
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="text-85 text-600 mb-1">Hợp đồng liên quan</label>
+                            @Html.DropDownListFor(m => m.ContractID, Model.ListContract, "-- Chọn hợp đồng liên quan --", new { @class = "form-control form-control-sm select2" })
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="text-85 text-600 mb-1">Số hợp đồng (nhập nếu chưa có trong DM)</label>
+                            @Html.TextBoxFor(m => m.ContractNo, new { @class = "form-control form-control-sm", placeholder = "Số HĐ / Phụ lục..." })
+                        </div>
+
+                        <div class="col-md-12 mb-3">
+                            <label class="text-85 text-600 mb-1">File đính kèm</label>
+                            @if (!string.IsNullOrEmpty(Model.FileAttach))
+                            {
+                                <div class="mb-1 text-90">
+                                    <i class="fa fa-paperclip mr-1 text-primary"></i>
+                                    <a href="@Model.FileAttach" target="_blank" class="text-primary font-weight-bold">Tải file hiện tại</a>
+                                </div>
+                            }
+                            <input type="file" name="fileUpload" class="form-control-file border p-1 rounded" />
+                        </div>
+
+                        <div class="col-md-12 mb-2">
+                            <label class="text-85 text-600 mb-1">Ghi chú</label>
+                            @Html.TextAreaFor(m => m.Note, 3, 50, new { @class = "form-control form-control-sm" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-sm btn-primary">
+                        <i class="fa fa-save mr-1"></i> Lưu thay đổi
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
