@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using TSFramework.Libs.Models.Base;
 
 namespace Core.Cate.Models

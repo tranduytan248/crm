@@ -1,4 +1,4 @@
-var DigitalSalesWorkflow = (function () {
+﻿var DigitalSalesWorkflow = (function () {
     var state = {
         businessType: 1,
         statusId: 0,

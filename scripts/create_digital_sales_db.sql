@@ -1,4 +1,4 @@
--- ========================================================
+﻿-- ========================================================
 -- KỊCH BẢN KHỞI TẠO CƠ SỞ DỮ LIỆU ĐẦY ĐỦ
 -- PHÂN HỆ: KINH DOANH SẢN PHẨM DỊCH VỤ SỐ (RM_DigitalSales)
 -- ========================================================
@@ -583,10 +583,12 @@ BEGIN
         END
 
         COMMIT TRANSACTION;
+        SELECT @DigitalSalesID;
         RETURN @DigitalSalesID;
     END TRY
     BEGIN CATCH
         IF @@TRANCOUNT > 0 ROLLBACK TRANSACTION;
+        SELECT 0;
         RETURN 0;
     END CATCH
 END
@@ -659,7 +661,7 @@ BEGIN
             VALUES
             (
                 @DigitalSalesID, @ProductServiceID, @ExpectedRevenue, @ActualRevenue,
-                @PackageName, ISNULL(@Quantity, 1), @StartDate, @EndDate, @Note,
+                @PackageName, CASE WHEN ISNULL(@Quantity, 0) <= 0 THEN 1 ELSE @Quantity END, @StartDate, @EndDate, @Note,
                 0, GETDATE(), @UserName
             );
             SET @SalesProductID = SCOPE_IDENTITY();
@@ -672,7 +674,7 @@ BEGIN
                 ExpectedRevenue = @ExpectedRevenue,
                 ActualRevenue = @ActualRevenue,
                 PackageName = @PackageName,
-                Quantity = ISNULL(@Quantity, 1),
+                Quantity = CASE WHEN ISNULL(@Quantity, 0) <= 0 THEN 1 ELSE @Quantity END,
                 StartDate = @StartDate,
                 EndDate = @EndDate,
                 Note = @Note,
@@ -691,10 +693,12 @@ BEGIN
         WHERE DigitalSalesID = @DigitalSalesID;
 
         COMMIT TRANSACTION;
+        SELECT @SalesProductID;
         RETURN @SalesProductID;
     END TRY
     BEGIN CATCH
         IF @@TRANCOUNT > 0 ROLLBACK TRANSACTION;
+        SELECT 0;
         RETURN 0;
     END CATCH
 END
@@ -713,7 +717,11 @@ BEGIN
     DECLARE @DigitalSalesID INT;
     SELECT @DigitalSalesID = DigitalSalesID FROM dbo.RM_DigitalSalesProduct WHERE SalesProductID = @SalesProductID;
 
-    IF @DigitalSalesID IS NULL RETURN 0;
+    IF @DigitalSalesID IS NULL 
+    BEGIN
+        SELECT 0;
+        RETURN 0;
+    END
 
     BEGIN TRANSACTION;
     BEGIN TRY
@@ -731,10 +739,12 @@ BEGIN
         WHERE DigitalSalesID = @DigitalSalesID;
 
         COMMIT TRANSACTION;
+        SELECT 1;
         RETURN 1;
     END TRY
     BEGIN CATCH
         IF @@TRANCOUNT > 0 ROLLBACK TRANSACTION;
+        SELECT 0;
         RETURN 0;
     END CATCH
 END
@@ -802,7 +812,9 @@ BEGIN
         VALUES
         (@DigitalSalesID, @UserID, @RoleTitle, ISNULL(@IsAM, 0), @Note, 1, GETDATE(), @UserName);
 
-        RETURN SCOPE_IDENTITY();
+        DECLARE @NewMemberID INT = SCOPE_IDENTITY();
+        SELECT @NewMemberID;
+        RETURN @NewMemberID;
     END
     ELSE
     BEGIN
@@ -821,6 +833,7 @@ BEGIN
             IsActive = 1
         WHERE MemberID = @MemberID;
 
+        SELECT @MemberID;
         RETURN @MemberID;
     END
 END
@@ -840,6 +853,7 @@ BEGIN
     SET IsActive = 0
     WHERE MemberID = @MemberID;
 
+    SELECT @@ROWCOUNT;
     RETURN @@ROWCOUNT;
 END
 GO
@@ -873,7 +887,11 @@ BEGIN
     FROM dbo.RM_DigitalSales
     WHERE DigitalSalesID = @DigitalSalesID AND IsDeleted = 0;
 
-    IF @CurrentStatusID IS NULL RETURN -1;
+    IF @CurrentStatusID IS NULL 
+    BEGIN
+        SELECT -1;
+        RETURN -1;
+    END
 
     SELECT 
         @NewBusinessType = BusinessType,
@@ -881,7 +899,11 @@ BEGIN
     FROM dbo.RM_DigitalSalesStatus
     WHERE StatusID = @NewStatusID AND IsActive = 1 AND IsDeleted = 0;
 
-    IF @NewBusinessType IS NULL RETURN -2;
+    IF @NewBusinessType IS NULL 
+    BEGIN
+        SELECT -2;
+        RETURN -2;
+    END
 
     -- ========================================================
     -- KIỂM TRA RÀNG BUỘC KHI CHUYỂN SANG DỰ ÁN (BusinessType = 2)
@@ -891,12 +913,14 @@ BEGIN
         -- 1. Bắt buộc có ít nhất 1 sản phẩm dịch vụ số
         IF NOT EXISTS (SELECT 1 FROM dbo.RM_DigitalSalesProduct WHERE DigitalSalesID = @DigitalSalesID AND IsDeleted = 0)
         BEGIN
+            SELECT -3;
             RETURN -3; -- Thiếu thông tin sản phẩm dịch vụ
         END
 
         -- 2. Bắt buộc có thành viên tham gia
         IF NOT EXISTS (SELECT 1 FROM dbo.RM_DigitalSalesMember WHERE DigitalSalesID = @DigitalSalesID AND IsActive = 1)
         BEGIN
+            SELECT -4;
             RETURN -4; -- Thiếu danh sách thành viên tham gia
         END
     END
@@ -966,10 +990,12 @@ BEGIN
           );
 
         COMMIT TRANSACTION;
+        SELECT 1;
         RETURN 1;
     END TRY
     BEGIN CATCH
         IF @@TRANCOUNT > 0 ROLLBACK TRANSACTION;
+        SELECT 0;
         RETURN 0;
     END CATCH
 END
@@ -1066,7 +1092,9 @@ BEGIN
             ISNULL(@StartDate, GETDATE()), @Deadline, ISNULL(@Status, 1), @ResultNote, @AttachmentFile, ISNULL(@IsCustomTask, 1), ISNULL(@SortOrder, 0),
             GETDATE(), @UserName
         );
-        RETURN SCOPE_IDENTITY();
+        DECLARE @NewTrackingID INT = SCOPE_IDENTITY();
+        SELECT @NewTrackingID;
+        RETURN @NewTrackingID;
     END
     ELSE
     BEGIN
@@ -1085,6 +1113,7 @@ BEGIN
             LastModifiedBy = @UserName
         WHERE TrackingID = @TrackingID;
 
+        SELECT @TrackingID;
         RETURN @TrackingID;
     END
 END
@@ -1117,6 +1146,7 @@ BEGIN
         LastModifiedBy = @UserName
     WHERE TrackingID = @TrackingID;
 
+    SELECT @@ROWCOUNT;
     RETURN @@ROWCOUNT;
 END
 GO
@@ -1132,6 +1162,7 @@ BEGIN
     SET NOCOUNT ON;
 
     DELETE FROM dbo.RM_DigitalSalesTracking WHERE TrackingID = @TrackingID;
+    SELECT @@ROWCOUNT;
     RETURN @@ROWCOUNT;
 END
 GO
@@ -1193,6 +1224,7 @@ BEGIN
         LastModifiedBy = @UserName
     WHERE DigitalSalesID = @DigitalSalesID;
 
+    SELECT @@ROWCOUNT;
     RETURN @@ROWCOUNT;
 END
 GO

@@ -1,4 +1,4 @@
-using Core.Cate.Caches;
+﻿using Core.Cate.Caches;
 using Core.Cate.Models;
 using Core.Sys.BaseApp;
 using Core.Sys.Caches.Sys;

@@ -1,4 +1,4 @@
-var _tableDigitalSales;
+﻿var _tableDigitalSales;
 var _digitalSalesUrls = {
     get: "/Cate/DigitalSales/Get",
     add: "/Cate/DigitalSales/Add",

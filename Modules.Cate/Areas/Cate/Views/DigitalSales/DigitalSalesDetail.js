@@ -1,4 +1,4 @@
-var _detailUrls = {
+﻿var _detailUrls = {
     editSales: "/Cate/DigitalSales/Edit",
     changeStatusModal: "/Cate/DigitalSales/ChangeStatusModal",
     changeStatus: "/Cate/DigitalSales/ChangeStatus",

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 
 <Provider xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<StoredProcedures ProviderName="CenIT.Provider.Major">
@@ -382,5 +382,48 @@
 		
 		<Procedure Name="Project_Opportunity_GetReminder"	Value="Project_Opportunity_GetReminder" />
 		<Procedure Name="Project_Opportunity_GetBotData"	Value="Project_Opportunity_GetBotData" />
+
+		<!-- RM_DigitalSales & Workflow -->
+		<Procedure Name="RM_DigitalSales_GetList" Value="RM_DigitalSales_GetList" />
+		<Procedure Name="RM_DigitalSales_GetByID" Value="RM_DigitalSales_GetByID" />
+		<Procedure Name="RM_DigitalSales_Save" Value="RM_DigitalSales_Save" />
+		<Procedure Name="RM_DigitalSales_Delete" Value="RM_DigitalSales_Delete" />
+		<Procedure Name="RM_DigitalSales_ChangeStatus" Value="RM_DigitalSales_ChangeStatus" />
+		<Procedure Name="RM_DigitalSales_GetTimeline" Value="RM_DigitalSales_GetTimeline" />
+
+		<!-- RM_DigitalSalesProduct -->
+		<Procedure Name="RM_DigitalSalesProduct_GetBySalesID" Value="RM_DigitalSalesProduct_GetBySalesID" />
+		<Procedure Name="RM_DigitalSalesProduct_Save" Value="RM_DigitalSalesProduct_Save" />
+		<Procedure Name="RM_DigitalSalesProduct_Delete" Value="RM_DigitalSalesProduct_Delete" />
+
+		<!-- RM_DigitalSalesMember -->
+		<Procedure Name="RM_DigitalSalesMember_GetBySalesID" Value="RM_DigitalSalesMember_GetBySalesID" />
+		<Procedure Name="RM_DigitalSalesMember_Save" Value="RM_DigitalSalesMember_Save" />
+		<Procedure Name="RM_DigitalSalesMember_Delete" Value="RM_DigitalSalesMember_Delete" />
+
+		<!-- RM_DigitalSalesTracking -->
+		<Procedure Name="RM_DigitalSalesTracking_GetBySalesID" Value="RM_DigitalSalesTracking_GetBySalesID" />
+		<Procedure Name="RM_DigitalSalesTracking_Save" Value="RM_DigitalSalesTracking_Save" />
+		<Procedure Name="RM_DigitalSalesTracking_Delete" Value="RM_DigitalSalesTracking_Delete" />
+		<Procedure Name="RM_DigitalSalesTracking_UpdateStatus" Value="RM_DigitalSalesTracking_UpdateStatus" />
+
+		<!-- RM_DigitalSalesStatus -->
+		<Procedure Name="RM_DigitalSalesStatus_GetAll" Value="RM_DigitalSalesStatus_GetAll" />
+		<Procedure Name="RM_DigitalSalesStatus_Get" Value="RM_DigitalSalesStatus_Get" />
+		<Procedure Name="RM_DigitalSalesStatus_GetByID" Value="RM_DigitalSalesStatus_GetByID" />
+		<Procedure Name="RM_DigitalSalesStatus_Save" Value="RM_DigitalSalesStatus_Save" />
+		<Procedure Name="RM_DigitalSalesStatus_Delete" Value="RM_DigitalSalesStatus_Delete" />
+
+		<!-- RM_DigitalSalesProcess -->
+		<Procedure Name="RM_DigitalSalesProcess_Get" Value="RM_DigitalSalesProcess_Get" />
+		<Procedure Name="RM_DigitalSalesProcess_GetByID" Value="RM_DigitalSalesProcess_GetByID" />
+		<Procedure Name="RM_DigitalSalesProcess_Save" Value="RM_DigitalSalesProcess_Save" />
+		<Procedure Name="RM_DigitalSalesProcess_Delete" Value="RM_DigitalSalesProcess_Delete" />
+
+		<!-- RM_DigitalSalesProgress -->
+		<Procedure Name="RM_DigitalSalesProgress_GetByProcess" Value="RM_DigitalSalesProgress_GetByProcess" />
+		<Procedure Name="RM_DigitalSalesProgress_GetByID" Value="RM_DigitalSalesProgress_GetByID" />
+		<Procedure Name="RM_DigitalSalesProgress_Save" Value="RM_DigitalSalesProgress_Save" />
+		<Procedure Name="RM_DigitalSalesProgress_Delete" Value="RM_DigitalSalesProgress_Delete" />
 	</StoredProcedures>
 </Provider>
