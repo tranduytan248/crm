@@ -1,0 +1,21 @@
+04:59:12.810 PM System.Data Format of the initialization string does not conform to specification starting at index 0.
+04:59:12.811 PM Stack: at System.Data.Common.DbConnectionOptions.GetKeyValuePair(String connectionString, Int32 currentPosition, StringBuilder buffer, Boolean useOdbcRules, String& keyname, String& keyvalue)
+   at System.Data.Common.DbConnectionOptions.ParseInternal(Hashtable parsetable, String connectionString, Boolean buildChain, Hashtable synonyms, Boolean firstKey)
+   at System.Data.Common.DbConnectionOptions..ctor(String connectionString, Hashtable synonyms, Boolean useOdbcRules)
+   at System.Data.SqlClient.SqlConnectionString..ctor(String connectionString)
+   at System.Data.SqlClient.SqlConnectionFactory.CreateConnectionOptions(String connectionString, DbConnectionOptions previous)
+   at System.Data.ProviderBase.DbConnectionFactory.GetConnectionPoolGroup(DbConnectionPoolKey key, DbConnectionPoolGroupOptions poolOptions, DbConnectionOptions& userConnectionOptions)
+   at System.Data.SqlClient.SqlConnection.ConnectionString_Set(DbConnectionPoolKey key)
+   at System.Data.SqlClient.SqlConnection.set_ConnectionString(String value)
+   at System.Data.SqlClient.SqlConnection..ctor(String connectionString, SqlCredential credential)
+   at TiSun.SqlDataProvider.CreateConnection(String newConnectionString)
+   at TiSun.SqlDataProvider.CreateConnection()
+   at TiSun.AutomaticConnectionScope..ctor(DataProvider provider)
+   at TiSun.SqlDataProvider.GetReader(QueryCommand qry)
+   at Plugable.SQLProcedureProcessor.SQLProcProcessor.GetProcedures()
+   at Plugable.SQLProcedureProcessor.SQLProcProcessor.get_ListProcedures()
+   at Plugable.SQLProcedureProcessor.SQLProcProcessor.InitStoreProcedure(String keySpName, Boolean useAlias, Object[] parameters)
+   at Plugable.SQLProcedureProcessor.SQLProcProcessor.ExecuteProcedureTypedList[T](String spName, Object[] parameters)
+   at Core.Sys.Biz.Sys.SysJobBiz.Get(Int32& total, BaseSearchModel search) in D:\VNPT\CRM-GIT\crm\Core.Sys\Biz\Sys\SysJobBiz.cs:line 20
+   at Core.Sys.Caches.Sys.SysJobCache.GetAll() in D:\VNPT\CRM-GIT\crm\Core.Sys\Caches\Sys\SysJobCache.cs:line 29
+   at CenIT.Solution.TOC.WebApp.WebApiApplication.Application_Start() in D:\VNPT\CRM-GIT\crm\CenIT.Solution.TOC.WebApp\Global.asax.cs:line 45
