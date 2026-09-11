@@ -60,7 +60,7 @@
                         <div class="col-md-6 mb-3">
                             @Html.TitleFor(m => m.AssignedEmployeeID, new { @class = "font-bold text-secondary-d2 mb-1 d-block text-90" })
                             @Html.DropDownListFor(m => m.AssignedEmployeeID, Model.ListEmployee, AppProcessor.Messagor.GetMessage("DigitalSales_AssignedEmployee_Option"), new { @class = "form-control form-control-sm select2" })
-                            @Html.HiddenFor(m => m.DepartmentID, new { id = "DepartmentID" })
+                            <input type="hidden" id="DepartmentID_Edit" name="DepartmentID" value="@Model.DepartmentID" />
                         </div>
 
                         <!-- Thẻ tóm tắt thông tin khách hàng được chọn -->
@@ -356,11 +356,11 @@
             if (empId && parseInt(empId) > 0) {
                 $.get('/Cate/DigitalSales/GetDepartmentByEmployee', { employeeId: empId }, function (res) {
                     if (res && res.departmentId && parseInt(res.departmentId) > 0) {
-                        $modal.find('#DepartmentID').val(res.departmentId);
+                        $modal.find('#DepartmentID_Edit').val(res.departmentId);
                     }
                 });
             } else {
-                $modal.find('#DepartmentID').val('');
+                $modal.find('#DepartmentID_Edit').val('');
             }
         });
 

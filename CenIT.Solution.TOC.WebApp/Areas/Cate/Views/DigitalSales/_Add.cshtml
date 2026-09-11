@@ -42,18 +42,18 @@
                         <!-- 2. KHÁCH HÀNG / DOANH NGHIỆP -->
                         <div class="col-md-6 mb-3">
                             @Html.TitleFor(m => m.CustomerID, new { @class = "font-bold text-secondary-d2 mb-1 d-block text-90" })
-                            @Html.HiddenFor(m => m.CustomerID, new { id = "CustomerID" })
+                            <input type="hidden" id="CustomerID_Add" name="CustomerID" value="@Model.CustomerID" />
                             <input type="hidden" name="ContactPerson_ID" id="ContactPerson_ID" value="" />
 
                             <div class="input-group">
-                                <input type="text" id="CustomerNameDisplay" class="form-control form-control-sm font-bold text-primary-d2 bgc-grey-l5" 
+                                <input type="text" id="CustomerNameDisplay_Add" class="form-control form-control-sm font-bold text-primary-d2 bgc-grey-l5" 
                                        placeholder="@AppProcessor.Messagor.GetMessage("DigitalSales_Customer_Placeholder")" readonly="readonly"
                                        value="@(Model.CustomerID > 0 ? Model.CustomerName : "")" />
                                 <div class="input-group-append">
-                                    <button type="button" class="btn btn-sm btn-primary font-bold px-3" onclick="openCustomerLookupModal();">
+                                    <button type="button" class="btn btn-sm btn-primary font-bold px-3" onclick="openCustomerLookupModal_Add();">
                                         <i class="fa fa-search mr-1"></i> Chọn khách hàng
                                     </button>
-                                    <button type="button" class="btn btn-sm btn-outline-danger" id="btnClearCustomer" onclick="clearSelectedCustomer();" title="Bỏ chọn" style="@(Model.CustomerID > 0 ? "" : "display:none;")">
+                                    <button type="button" class="btn btn-sm btn-outline-danger" id="btnClearCustomer_Add" onclick="clearSelectedCustomer_Add();" title="Bỏ chọn" style="@(Model.CustomerID > 0 ? "" : "display:none;")">
                                         <i class="fa fa-times"></i>
                                     </button>
                                 </div>
@@ -65,12 +65,12 @@
                         <div class="col-md-6 mb-3">
                             @Html.TitleFor(m => m.AssignedEmployeeID, new { @class = "font-bold text-secondary-d2 mb-1 d-block text-90" })
                             @Html.DropDownListFor(m => m.AssignedEmployeeID, Model.ListEmployee, AppProcessor.Messagor.GetMessage("DigitalSales_AssignedEmployee_Option"), new { @class = "form-control form-control-sm select2" })
-                            @Html.HiddenFor(m => m.DepartmentID, new { id = "DepartmentID" })
+                            <input type="hidden" id="DepartmentID_Add" name="DepartmentID" value="@Model.DepartmentID" />
                         </div>
 
                         <!-- Thẻ tóm tắt thông tin khách hàng được chọn -->
                         <div class="col-md-12">
-                            <div id="customerInfoCard" class="card border-1 brc-primary-m3 bgc-primary-l4 radius-1 p-2 mb-3 shadow-sm" style="display: none;"></div>
+                            <div id="customerInfoCard_Add" class="card border-1 brc-primary-m3 bgc-primary-l4 radius-1 p-2 mb-3 shadow-sm" style="display: none;"></div>
                         </div>
 
                         <input type="hidden" name="ClosingProbability" value="50" />
@@ -106,7 +106,7 @@
 </div>
 
 <!-- MODAL TRA CỨU KHÁCH HÀNG (CUSTOMER LOOKUP MODAL) -->
-<div class="modal fade" id="modalCustomerLookup" tabindex="-1" role="dialog" aria-hidden="true" style="z-index: 1060;">
+<div class="modal fade" id="modalCustomerLookup_Add" tabindex="-1" role="dialog" aria-hidden="true" style="z-index: 1060;">
     <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
         <div class="modal-content border-0 shadow-lg radius-2 overflow-hidden">
             <div class="modal-header bgc-primary-d2 text-white py-2 px-3">
@@ -125,12 +125,12 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text bg-white border-right-0"><i class="fa fa-search text-primary"></i></span>
                             </div>
-                            <input type="text" id="txtSearchCustomerKeyword" class="form-control border-left-0" 
+                            <input type="text" id="txtSearchCustomerKeyword_Add" class="form-control border-left-0" 
                                    placeholder="@AppProcessor.Messagor.GetMessage("DigitalSales_CustomerSearch_Placeholder")" />
                         </div>
                     </div>
                     <div class="col-md-3 d-flex">
-                        <button type="button" class="btn btn-primary btn-block font-bold" onclick="performCustomerLookup(1);">
+                        <button type="button" class="btn btn-primary btn-block font-bold" onclick="performCustomerLookup_Add(1);">
                             <i class="fa fa-search mr-1"></i> Tìm kiếm
                         </button>
                     </div>
@@ -138,7 +138,7 @@
 
                 <!-- Bảng danh sách kết quả -->
                 <div class="table-responsive" style="max-height: 380px; overflow-y: auto;">
-                    <table class="table table-bordered table-hover table-striped text-90 mb-0" id="tblCustomerLookupResults">
+                    <table class="table table-bordered table-hover table-striped text-90 mb-0" id="tblCustomerLookupResults_Add">
                         <thead class="bgc-secondary-l1 text-secondary-d2">
                             <tr>
                                 <th style="width: 40px;" class="text-center">STT</th>
@@ -149,7 +149,7 @@
                                 <th style="width: 80px;" class="text-center">Chọn</th>
                             </tr>
                         </thead>
-                        <tbody id="customerLookupTableBody">
+                        <tbody id="customerLookupTableBody_Add">
                             <tr>
                                 <td colspan="6" class="text-center py-4 text-muted">
                                     <i class="fa fa-spinner fa-spin fa-2x text-primary d-block mb-2"></i>
@@ -162,8 +162,8 @@
 
                 <!-- Phân trang -->
                 <div class="d-flex justify-content-between align-items-center mt-3 pt-2 border-t-1 brc-grey-l2 flex-wrap">
-                    <span class="text-secondary text-85" id="customerLookupTotalText">Đang tải...</span>
-                    <ul class="pagination pagination-sm mb-0 mt-1" id="customerLookupPagination"></ul>
+                    <span class="text-secondary text-85" id="customerLookupTotalText_Add">Đang tải...</span>
+                    <ul class="pagination pagination-sm mb-0 mt-1" id="customerLookupPagination_Add"></ul>
                 </div>
             </div>
             <div class="modal-footer bgc-grey-l5 py-2 px-3">
@@ -176,41 +176,42 @@
 </div>
 
 <script>
-    var _lookupPage = 1;
-    var _lookupPageSize = 10;
+    var _lookupPage_Add = 1;
+    var _lookupPageSize_Add = 10;
 
-    function openCustomerLookupModal() {
-        $('#modalCustomerLookup').modal('show');
-        $('#txtSearchCustomerKeyword').val('');
-        performCustomerLookup(1);
+    function openCustomerLookupModal_Add() {
+        $('#modalCustomerLookup_Add').modal('show');
+        $('#txtSearchCustomerKeyword_Add').val('');
+        performCustomerLookup_Add(1);
     }
 
-    function clearSelectedCustomer() {
-        $('#CustomerID').val('');
-        $('#CustomerNameDisplay').val('').attr('placeholder', '@Html.Raw(System.Web.HttpUtility.JavaScriptStringEncode(AppProcessor.Messagor.GetMessage("DigitalSales_Customer_Placeholder")))');
-        $('#btnClearCustomer').hide();
-        $('#customerInfoCard').slideUp(200).empty();
+    function clearSelectedCustomer_Add() {
+        $('#CustomerID_Add').val('');
+        $('#frmAddSales input[name="CustomerID"]').val('');
+        $('#CustomerNameDisplay_Add').val('').attr('placeholder', '@Html.Raw(System.Web.HttpUtility.JavaScriptStringEncode(AppProcessor.Messagor.GetMessage("DigitalSales_Customer_Placeholder")))');
+        $('#btnClearCustomer_Add').hide();
+        $('#customerInfoCard_Add').slideUp(200).empty();
     }
 
-    function performCustomerLookup(page) {
-        _lookupPage = page || 1;
-        var keyword = $('#txtSearchCustomerKeyword').val() || '';
-        $('#customerLookupTableBody').html(
+    function performCustomerLookup_Add(page) {
+        _lookupPage_Add = page || 1;
+        var keyword = $('#txtSearchCustomerKeyword_Add').val() || '';
+        $('#customerLookupTableBody_Add').html(
             '<tr><td colspan="6" class="text-center py-4 text-muted"><i class="fa fa-spinner fa-spin fa-2x text-primary d-block mb-2"></i>Đang tìm kiếm...</td></tr>'
         );
 
-        $.get('/Cate/DigitalSales/SearchCustomers', { q: keyword, page: _lookupPage, pageSize: _lookupPageSize }, function (res) {
+        $.get('/Cate/DigitalSales/SearchCustomers', { q: keyword, page: _lookupPage_Add, pageSize: _lookupPageSize_Add }, function (res) {
             if (!res || !res.data || res.data.length === 0) {
-                $('#customerLookupTableBody').html(
+                $('#customerLookupTableBody_Add').html(
                     '<tr><td colspan="6" class="text-center py-4 text-muted"><i class="fa fa-building fa-2x text-secondary-l1 d-block mb-2"></i>Không tìm thấy khách hàng nào phù hợp với từ khóa!</td></tr>'
                 );
-                $('#customerLookupTotalText').text('Hiển thị 0 kết quả');
-                $('#customerLookupPagination').empty();
+                $('#customerLookupTotalText_Add').text('Hiển thị 0 kết quả');
+                $('#customerLookupPagination_Add').empty();
                 return;
             }
 
             var rows = '';
-            var startIdx = (_lookupPage - 1) * _lookupPageSize + 1;
+            var startIdx = (_lookupPage_Add - 1) * _lookupPageSize_Add + 1;
             $.each(res.data, function (idx, c) {
                 var cusDataEscaped = encodeURIComponent(JSON.stringify(c));
                 rows += '<tr>' +
@@ -223,42 +224,43 @@
                     '<td>' + (c.phone ? '<span class="text-dark font-600">' + c.phone + '</span>' : '—') + '</td>' +
                     '<td class="text-85 text-muted">' + (c.address || '—') + '</td>' +
                     '<td class="text-center">' +
-                        '<button type="button" class="btn btn-xs btn-success font-bold px-2 py-1 radius-1" onclick="applySelectedCustomer(\'' + cusDataEscaped + '\');">' +
+                        '<button type="button" class="btn btn-xs btn-success font-bold px-2 py-1 radius-1" onclick="applySelectedCustomer_Add(\'' + cusDataEscaped + '\');">' +
                             '<i class="fa fa-check mr-1"></i> Chọn' +
                         '</button>' +
                     '</td>' +
                 '</tr>';
             });
-            $('#customerLookupTableBody').html(rows);
-            $('#customerLookupTotalText').text('Hiển thị ' + res.data.length + ' / ' + res.total + ' khách hàng (Trang ' + res.page + '/' + res.totalPages + ')');
+            $('#customerLookupTableBody_Add').html(rows);
+            $('#customerLookupTotalText_Add').text('Hiển thị ' + res.data.length + ' / ' + res.total + ' khách hàng (Trang ' + res.page + '/' + res.totalPages + ')');
 
-            renderLookupPagination(res.page, res.totalPages);
+            renderLookupPagination_Add(res.page, res.totalPages);
         });
     }
 
-    function renderLookupPagination(current, totalPages) {
-        var $p = $('#customerLookupPagination').empty();
+    function renderLookupPagination_Add(current, totalPages) {
+        var $p = $('#customerLookupPagination_Add').empty();
         if (totalPages <= 1) return;
 
-        $p.append('<li class="page-item ' + (current === 1 ? 'disabled' : '') + '"><a class="page-link" href="javascript:void(0);" onclick="performCustomerLookup(' + (current - 1) + ')">&laquo;</a></li>');
+        $p.append('<li class="page-item ' + (current === 1 ? 'disabled' : '') + '"><a class="page-link" href="javascript:void(0);" onclick="performCustomerLookup_Add(' + (current - 1) + ')">&laquo;</a></li>');
 
         var start = Math.max(1, current - 2);
         var end = Math.min(totalPages, current + 2);
         for (var i = start; i <= end; i++) {
-            $p.append('<li class="page-item ' + (i === current ? 'active font-bold' : '') + '"><a class="page-link" href="javascript:void(0);" onclick="performCustomerLookup(' + i + ')">' + i + '</a></li>');
+            $p.append('<li class="page-item ' + (i === current ? 'active font-bold' : '') + '"><a class="page-link" href="javascript:void(0);" onclick="performCustomerLookup_Add(' + i + ')">' + i + '</a></li>');
         }
 
-        $p.append('<li class="page-item ' + (current === totalPages ? 'disabled' : '') + '"><a class="page-link" href="javascript:void(0);" onclick="performCustomerLookup(' + (current + 1) + ')">&raquo;</a></li>');
+        $p.append('<li class="page-item ' + (current === totalPages ? 'disabled' : '') + '"><a class="page-link" href="javascript:void(0);" onclick="performCustomerLookup_Add(' + (current + 1) + ')">&raquo;</a></li>');
     }
 
-    function applySelectedCustomer(cusDataJson) {
+    function applySelectedCustomer_Add(cusDataJson) {
         try {
             var c = JSON.parse(decodeURIComponent(cusDataJson));
-            $('#CustomerID').val(c.id);
-            $('#CustomerNameDisplay').val(c.text);
-            $('#btnClearCustomer').show();
+            $('#CustomerID_Add').val(c.id);
+            $('#frmAddSales input[name="CustomerID"]').val(c.id);
+            $('#CustomerNameDisplay_Add').val(c.text);
+            $('#btnClearCustomer_Add').show();
 
-            $('#customerInfoCard').html(
+            $('#customerInfoCard_Add').html(
                 '<div class="d-flex align-items-start">' +
                     '<div class="bgc-primary-m1 text-white p-2 radius-1 mr-2 flex-shrink-0"><i class="fa fa-building fa-lg"></i></div>' +
                     '<div class="flex-grow-1 min-width-0">' +
@@ -272,7 +274,7 @@
                 '</div>'
             ).slideDown(200);
 
-            $('#modalCustomerLookup').modal('hide');
+            $('#modalCustomerLookup_Add').modal('hide');
         } catch (e) {
             console.error("Apply customer error:", e);
         }
@@ -304,24 +306,24 @@
             if (empId && parseInt(empId) > 0) {
                 $.get('/Cate/DigitalSales/GetDepartmentByEmployee', { employeeId: empId }, function (res) {
                     if (res && res.departmentId && parseInt(res.departmentId) > 0) {
-                        $modal.find('#DepartmentID').val(res.departmentId);
+                        $modal.find('#DepartmentID_Add').val(res.departmentId);
                     }
                 });
             } else {
-                $modal.find('#DepartmentID').val('');
+                $modal.find('#DepartmentID_Add').val('');
             }
         });
 
         // 3. Xử lý phím Enter trong thanh tìm kiếm khách hàng
-        $('#txtSearchCustomerKeyword').on('keypress', function (e) {
+        $('#txtSearchCustomerKeyword_Add').on('keypress', function (e) {
             if (e.which === 13) {
                 e.preventDefault();
-                performCustomerLookup(1);
+                performCustomerLookup_Add(1);
             }
         });
 
         // 4. Giữ cuộn modal cha khi đóng nested modal
-        $('#modalCustomerLookup').on('hidden.bs.modal', function () {
+        $('#modalCustomerLookup_Add').on('hidden.bs.modal', function () {
             if ($('#modalAddSales.show, #modalEditSales.show').length > 0) {
                 $('body').addClass('modal-open');
             }
@@ -365,18 +367,32 @@
         // 6. Xử lý submit Form Thêm mới qua AJAX khép kín (Self-contained)
         $('#frmAddSales').on('submit', function (e) {
             e.preventDefault();
+
+            var $form = $(this);
+            var cusId = parseInt($('#CustomerID_Add').val()) || parseInt($form.find('input[name="CustomerID"]').val()) || 0;
+            if (cusId <= 0) {
+                if (typeof executeResponseMessage === 'function') {
+                    executeResponseMessage("Vui lòng chọn khách hàng!", "Vui lòng chọn khách hàng!", false);
+                } else {
+                    alert("Vui lòng chọn khách hàng!");
+                }
+                return false;
+            }
+
             if (typeof CKEDITOR !== 'undefined') {
                 for (var inst in CKEDITOR.instances) {
                     try { CKEDITOR.instances[inst].updateElement(); } catch (err) { }
                 }
             }
 
-            var $form = $(this);
             var $btnSubmit = $form.find('button[type="submit"]');
             var originalBtnHtml = $btnSubmit.html();
             $btnSubmit.prop('disabled', true).html('<i class="fa fa-spinner fa-spin mr-1"></i> Đang lưu...');
 
             var formData = new FormData(this);
+            // Đảm bảo CustomerID chắc chắn có trong FormData
+            formData.set("CustomerID", cusId);
+
             $.ajax({
                 url: $form.attr('action') || '/Cate/DigitalSales/Add',
                 type: "POST",

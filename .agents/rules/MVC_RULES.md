@@ -1,4 +1,4 @@
-﻿# 📘 BỘ QUY TẮC PHÁT TRIỂN ỨNG DỤNG MVC (CENIT TOC CRM)
+# 📘 BỘ QUY TẮC PHÁT TRIỂN ỨNG DỤNG MVC (CENIT TOC CRM)
 
 > **Tài liệu tham chiếu chuẩn:** Phân hệ Cơ hội kinh doanh (`Cate/RM_BusinessOpportunity`) & Quản lý Dự án (`Cate/Project`).  
 > **Áp dụng cho:** Toàn bộ lập trình viên và AI Agent khi xây dựng View, Controller, JavaScript, Data Model trong hệ thống CenIT TOC CRM.  
@@ -670,4 +670,49 @@ Mọi màn hình hoặc tính năng mới trước khi bàn giao phải vượt 
    - Các attribute như `[CustomRequired]` phải bọc `try-catch` an toàn khi đọc resource để không văng lỗi khi chạy ngoài `HttpContext` hoặc khi `AppProcessor` chưa khởi tạo.
 3. **Kiểm thử Metadata trong Automated Verification Test:**
    - Trước khi nghiệm thu màn hình có Form Submit, bắt buộc phải có script reflection duyệt qua 100% properties của Model, xác nhận `GetDisplayName()` không trả về null và `ValidationContext.DisplayName` gán thành công.
+
+---
+
+## 18. QUY CHUẨN ĐẶT ID & CHỐNG XUNG ĐỘT DOM (ANTI-DOM ID COLLISION)
+
+### 18.1. Nguyên nhân lỗi xung đột DOM ID giữa Search Card và Modal
+- Trong kiến trúc SPA / Dynamic Modal của CenIT TOC CRM, các Partial View Modal (`_Add.cshtml`, `_Edit.cshtml`, `_ChangeStatus.cshtml`) được nhúng hoặc append động vào cùng DOM với View chính chứa thanh lọc (`_Search.cshtml`).
+- Nếu cả `_Search.cshtml` và `_Add.cshtml` đều chứa control có cùng ID (ví dụ: `CustomerID`, `StatusID`, `DepartmentID`, `EmployeeID`):
+  ```html
+  <!-- Trong _Search.cshtml (nằm trước trong DOM) -->
+  <input type="hidden" id="CustomerID" name="CustomerID" value="" />
+
+  <!-- Trong _Add.cshtml (nằm sau trong DOM) -->
+  <input type="hidden" id="CustomerID" name="CustomerID" value="" />
+  ```
+- Khi hàm JavaScript trong Modal thực thi `$('#CustomerID').val(c.id)`:
+  - Selector jQuery `$('#CustomerID')` luôn luôn trỏ vào phần tử **đầu tiên** trong DOM (thuộc Search Card ở ngoài trang chính).
+  - Phần tử `<input name="CustomerID">` bên trong `#frmAddSales` **hoàn toàn không được gán giá trị** (vẫn bằng `0` hoặc rỗng).
+  - Khi submit Form, `FormData` đọc trường rỗng `0` và gửi lên Server -> Server quăng thông báo validation: `"Vui lòng chọn khách hàng!"` dù người dùng đã chọn khách hàng trên giao diện modal!
+  - Đồng thời, giá trị vừa chọn làm thay đổi bộ lọc tìm kiếm ở ngoài trang chính, gây sai lệch kết quả DataTable.
+
+### 18.2. Quy tắc bắt buộc thi hành
+1. **Phân biệt ID bằng hậu tố theo ngữ cảnh (Context Suffix):**
+   - Các trường trong Modal Thêm mới (`_Add`) **BẮT BUỘC** đặt hậu tố `_Add`: `id="CustomerID_Add"`, `id="CustomerNameDisplay_Add"`, `id="btnClearCustomer_Add"`, `id="customerInfoCard_Add"`, `id="modalCustomerLookup_Add"`.
+   - Các trường trong Modal Cập nhật (`_Edit`) **BẮT BUỘC** đặt hậu tố `_Edit`: `id="CustomerID_Edit"`, `id="CustomerNameDisplay_Edit"`, `id="btnClearCustomer_Edit"`, `id="customerInfoCard_Edit"`, `id="modalCustomerLookup_Edit"`.
+   - Vẫn giữ nguyên thuộc tính `name` để Model Binding ASP.NET hoạt động chính xác: `<input type="hidden" id="CustomerID_Add" name="CustomerID" value="@Model.CustomerID" />`.
+2. **Gán giá trị kép & Scoped Selector qua Form:**
+   - Trong các hàm xử lý chọn dữ liệu (như `applySelectedCustomer_Add`):
+     ```javascript
+     $('#CustomerID_Add').val(c.id);
+     $('#frmAddSales input[name="CustomerID"]').val(c.id);
+     ```
+3. **Client-side Pre-submit Validation & Explicit FormData Set:**
+   - Trước khi gửi AJAX request lên Controller, form handler BẮT BUỘC kiểm tra tính hợp lệ của trường quan trọng:
+     ```javascript
+     var cusId = parseInt($('#CustomerID_Add').val()) || parseInt($form.find('input[name="CustomerID"]').val()) || 0;
+     if (cusId <= 0) {
+         executeResponseMessage("Vui lòng chọn khách hàng!", "Vui lòng chọn khách hàng!", false);
+         $btnSubmit.prop('disabled', false).html(originalBtnHtml);
+         return false;
+     }
+     formData.set("CustomerID", cusId);
+     ```
+4. **Kiểm tra trùng ID khi kiểm thử (Automated ID Collision Check):**
+   - Bộ test giao diện phải kiểm tra danh sách toàn bộ `[id]` trong trang chính và các Partial View Modal, đảm bảo không có bất kỳ cặp trùng lặp ID nào giữa `_Search` và `_Add` / `_Edit`.
 

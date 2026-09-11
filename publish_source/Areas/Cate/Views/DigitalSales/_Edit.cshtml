@@ -24,31 +24,25 @@
                     <div class="row">
                         <!-- 1. TIÊU ĐỀ VÀ MÃ HỒ SƠ -->
                         <div class="col-md-8 mb-3">
-                            <label class="font-bold text-secondary-d2 mb-1 d-block text-90" for="Title">
-                                <i class="fa fa-tag text-primary mr-1"></i> Tên hồ sơ / Tiêu đề cơ hội <span class="text-danger">(*)</span>
-                            </label>
+                            @Html.TitleFor(m => m.Title, new { @class = "font-bold text-secondary-d2 mb-1 d-block text-90" })
                             @Html.TextBoxFor(m => m.Title, new { @class = "form-control form-control-sm", required = "required" })
                             @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger text-85" })
                         </div>
 
                         <div class="col-md-4 mb-3">
-                            <label class="font-bold text-secondary-d2 mb-1 d-block text-90" for="Code">
-                                <i class="fa fa-barcode text-secondary mr-1"></i> Mã hồ sơ
-                            </label>
+                            @Html.TitleFor(m => m.Code, new { @class = "font-bold text-secondary-d2 mb-1 d-block text-90" })
                             @Html.TextBoxFor(m => m.Code, new { @class = "form-control form-control-sm bgc-grey-l4 text-secondary-d2 font-mono font-bold", @readonly = "readonly" })
                         </div>
 
                         <!-- 2. KHÁCH HÀNG / DOANH NGHIỆP -->
                         <div class="col-md-6 mb-3">
-                            <label class="font-bold text-secondary-d2 mb-1 d-block text-90" for="CustomerID_Edit">
-                                <i class="fa fa-building text-primary mr-1"></i> Khách hàng / Doanh nghiệp <span class="text-danger">(*)</span>
-                            </label>
+                            @Html.TitleFor(m => m.CustomerID, new { @class = "font-bold text-secondary-d2 mb-1 d-block text-90" })
                             <input type="hidden" id="CustomerID_Edit" name="CustomerID" value="@Model.CustomerID" />
                             @Html.HiddenFor(m => m.ContactPerson_ID)
 
                             <div class="input-group">
                                 <input type="text" id="CustomerNameDisplay_Edit" class="form-control form-control-sm font-bold text-primary-d2 bgc-grey-l5" 
-                                       placeholder="Chưa chọn khách hàng..." readonly="readonly" 
+                                       placeholder="@AppProcessor.Messagor.GetMessage("DigitalSales_Customer_Placeholder")" readonly="readonly"
                                        value="@(Model.CustomerID > 0 ? Model.CustomerName : "")" />
                                 <div class="input-group-append">
                                     <button type="button" class="btn btn-sm btn-primary font-bold px-3" onclick="openCustomerLookupModal_Edit();">
@@ -64,11 +58,9 @@
 
                         <!-- 3. PHÂN CÔNG AM CHỦ TRÌ -->
                         <div class="col-md-6 mb-3">
-                            <label class="font-bold text-secondary-d2 mb-1 d-block text-90" for="AssignedEmployeeID">
-                                <i class="fa fa-user-shield text-success mr-1"></i> Nhân sự AM chủ trì
-                            </label>
-                            @Html.DropDownListFor(m => m.AssignedEmployeeID, Model.ListEmployee, "-- Chọn AM chủ trì --", new { @class = "form-control form-control-sm select2" })
-                            @Html.HiddenFor(m => m.DepartmentID, new { id = "DepartmentID" })
+                            @Html.TitleFor(m => m.AssignedEmployeeID, new { @class = "font-bold text-secondary-d2 mb-1 d-block text-90" })
+                            @Html.DropDownListFor(m => m.AssignedEmployeeID, Model.ListEmployee, AppProcessor.Messagor.GetMessage("DigitalSales_AssignedEmployee_Option"), new { @class = "form-control form-control-sm select2" })
+                            <input type="hidden" id="DepartmentID_Edit" name="DepartmentID" value="@Model.DepartmentID" />
                         </div>
 
                         <!-- Thẻ tóm tắt thông tin khách hàng được chọn -->
@@ -82,24 +74,18 @@
 
                         <!-- 4. THÔNG TIN HỢP ĐỒNG (NẾU CÓ) -->
                         <div class="col-md-6 mb-3">
-                            <label class="font-bold text-secondary-d2 mb-1 d-block text-90" for="ContractID">
-                                <i class="fa fa-file-contract text-primary mr-1"></i> Hợp đồng liên quan
-                            </label>
-                            @Html.DropDownListFor(m => m.ContractID, Model.ListContract, "-- Chọn hợp đồng liên quan --", new { @class = "form-control form-control-sm select2" })
+                            @Html.TitleFor(m => m.ContractID, new { @class = "font-bold text-secondary-d2 mb-1 d-block text-90" })
+                            @Html.DropDownListFor(m => m.ContractID, Model.ListContract, AppProcessor.Messagor.GetMessage("DigitalSales_Contract_Option"), new { @class = "form-control form-control-sm select2" })
                         </div>
 
                         <div class="col-md-6 mb-3">
-                            <label class="font-bold text-secondary-d2 mb-1 d-block text-90" for="ContractNo">
-                                <i class="fa fa-receipt text-secondary mr-1"></i> Số hợp đồng / Phụ lục
-                            </label>
-                            @Html.TextBoxFor(m => m.ContractNo, new { @class = "form-control form-control-sm", placeholder = "Số HĐ / Phụ lục..." })
+                            @Html.TitleFor(m => m.ContractNo, new { @class = "font-bold text-secondary-d2 mb-1 d-block text-90" })
+                            @Html.TextBoxFor(m => m.ContractNo, new { @class = "form-control form-control-sm", placeholder = AppProcessor.Messagor.GetMessage("DigitalSales_ContractNo_Placeholder") })
                         </div>
 
                         <!-- 5. FILE ĐÍNH KÈM (CHO PHÉP CHỌN NHIỀU FILE) -->
                         <div class="col-md-12 mb-3">
-                            <label class="font-bold text-secondary-d2 mb-1 d-block text-90">
-                                <i class="fa fa-paperclip text-secondary mr-1"></i> File đính kèm
-                            </label>
+                            @Html.TitleFor(m => m.FileAttach, new { @class = "font-bold text-secondary-d2 mb-1 d-block text-90" })
                             @if (!string.IsNullOrEmpty(Model.FileAttach))
                             {
                                 var attachedFiles = Model.FileAttach.Split(new[] { ';', ',' }, StringSplitOptions.RemoveEmptyEntries);
@@ -127,9 +113,7 @@
 
                         <!-- 6. MÔ TẢ QUA CKEDITOR -->
                         <div class="col-md-12 mb-2">
-                            <label class="font-bold text-secondary-d2 mb-1 d-block text-90" for="DigitalSales_Edit_Note">
-                                <i class="fa fa-file-alt text-primary mr-1"></i> Mô tả chi tiết nhu cầu / Ghi chú dịch vụ số
-                            </label>
+                            @Html.TitleFor(m => m.Note, new { @class = "font-bold text-secondary-d2 mb-1 d-block text-90" })
                             @Html.TextAreaFor(m => m.Note, new { @id = "DigitalSales_Edit_Note", @name = "Note", @class = "form-control form-control-sm", rows = "4" })
                         </div>
                     </div>
@@ -169,7 +153,7 @@
                                 <span class="input-group-text bg-white border-right-0"><i class="fa fa-search text-primary"></i></span>
                             </div>
                             <input type="text" id="txtSearchCustomerKeyword_Edit" class="form-control border-left-0" 
-                                   placeholder="Nhập tên doanh nghiệp, mã số thuế, số điện thoại, địa chỉ để tìm..." />
+                                   placeholder="@AppProcessor.Messagor.GetMessage("DigitalSales_CustomerSearch_Placeholder")" />
                         </div>
                     </div>
                     <div class="col-md-3 d-flex">
@@ -231,7 +215,7 @@
 
     function clearSelectedCustomer_Edit() {
         $('#CustomerID_Edit').val('');
-        $('#CustomerNameDisplay_Edit').val('').attr('placeholder', 'Chưa chọn khách hàng...');
+        $('#CustomerNameDisplay_Edit').val('').attr('placeholder', '@Html.Raw(System.Web.HttpUtility.JavaScriptStringEncode(AppProcessor.Messagor.GetMessage("DigitalSales_Customer_Placeholder")))');
         $('#btnClearCustomer_Edit').hide();
         $('#customerInfoCard_Edit').slideUp(200).empty();
         loadContactPersonsByCustomer('', '#modalEditSales #ContactPerson_ID');
@@ -372,11 +356,11 @@
             if (empId && parseInt(empId) > 0) {
                 $.get('/Cate/DigitalSales/GetDepartmentByEmployee', { employeeId: empId }, function (res) {
                     if (res && res.departmentId && parseInt(res.departmentId) > 0) {
-                        $modal.find('#DepartmentID').val(res.departmentId);
+                        $modal.find('#DepartmentID_Edit').val(res.departmentId);
                     }
                 });
             } else {
-                $modal.find('#DepartmentID').val('');
+                $modal.find('#DepartmentID_Edit').val('');
             }
         });
 
