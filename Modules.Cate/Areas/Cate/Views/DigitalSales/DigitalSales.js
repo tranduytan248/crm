@@ -219,17 +219,59 @@ function reloadSalesTable() {
     }
 }
 
+function loadStatusesByBusinessType(businessType, selectedStatusId) {
+    var $status = $('#StatusID, #SearchStatusID');
+    var currentVal = selectedStatusId !== undefined ? selectedStatusId : $status.val();
+
+    $status.empty().append('<option value="">-- Chọn trạng thái --</option>');
+
+    $.get('/Cate/DigitalSales/GetStatusesByBusinessType', {
+        businessType: businessType ? businessType : ''
+    }, function (data) {
+        if (data && data.length > 0) {
+            var hasCurrentVal = false;
+            $.each(data, function (i, item) {
+                var isSelected = (currentVal && item.id == currentVal);
+                if (isSelected) hasCurrentVal = true;
+                $status.append(
+                    $('<option>').val(item.id).text(item.name).prop('selected', isSelected)
+                );
+            });
+            if (!hasCurrentVal) {
+                $status.val('');
+            }
+        } else {
+            $status.val('');
+        }
+        $status.trigger("chosen:updated");
+        if ($.fn.select2) {
+            $status.trigger("change.select2");
+        }
+        reloadSalesTable();
+    });
+}
+
 function resetSalesSearch() {
     $("#Keyword, #SearchKeyword").val("");
     $("#BusinessType, #SearchBusinessType").val("");
-    $("#StatusID, #SearchStatusID").val("");
+    $("#BusinessType, #SearchBusinessType").trigger("chosen:updated");
+    if ($.fn.select2) {
+        $("#BusinessType, #SearchBusinessType").trigger("change.select2");
+    }
+
     $("#DepartmentID, #SearchDepartmentID").val("");
+    $("#DepartmentID, #SearchDepartmentID").trigger("chosen:updated");
+    if ($.fn.select2) {
+        $("#DepartmentID, #SearchDepartmentID").trigger("change.select2");
+    }
+
     $("#FromDate, #SearchFromDate").val("");
     $("#ToDate, #SearchToDate").val("");
     if ($.fn.datepicker) {
         $('#dpFromDate').datepicker('update', '');
         $('#dpToDate').datepicker('update', '');
     }
+
     var $employee = $("#EmployeeID, #SearchEmployeeID");
     $employee.empty().append('<option value="">-- Chọn nhân viên --</option>');
     $.get('/Cate/DigitalSales/GetEmployeesByDepartment', { departmentId: 0 }, function (data) {
@@ -238,8 +280,13 @@ function resetSalesSearch() {
                 $employee.append($('<option>').val(item.Value).text(item.Text));
             });
         }
+        $employee.trigger("chosen:updated");
+        if ($.fn.select2) {
+            $employee.trigger("change.select2");
+        }
     });
-    reloadSalesTable();
+
+    loadStatusesByBusinessType("");
 }
 
 function openAddSalesModal() {
@@ -247,41 +294,6 @@ function openAddSalesModal() {
         $("#modalContainer").html(html);
         var $modal = $("#modalAddSales");
         $modal.modal("show");
-
-        $("#frmAddSales").on("submit", function (e) {
-            e.preventDefault();
-            if (typeof CKEDITOR !== 'undefined') {
-                for (var inst in CKEDITOR.instances) {
-                    try { CKEDITOR.instances[inst].updateElement(); } catch (err) { }
-                }
-            }
-            var formData = new FormData(this);
-            $.ajax({
-                url: _digitalSalesUrls.add,
-                type: "POST",
-                data: formData,
-                contentType: false,
-                processData: false,
-                success: function (res) {
-                    if (res.status) {
-                        $modal.modal("hide");
-                        $modal.on("hidden.bs.modal", function () {
-                            executeResponseMessage(res.message, "Khởi tạo Cơ hội thành công!", true);
-                            if (res.id) {
-                                window.location.href = _digitalSalesUrls.detail + "/" + res.id;
-                            } else {
-                                reloadSalesTable();
-                            }
-                        });
-                    } else {
-                        executeResponseMessage(res.message, "Có lỗi xảy ra khi lưu cơ hội!", false);
-                    }
-                },
-                error: function () {
-                    executeResponseMessage("Lỗi kết nối máy chủ!", "Lỗi kết nối máy chủ!", false);
-                }
-            });
-        });
     });
 }
 
@@ -290,37 +302,6 @@ function openEditSalesModal(id) {
         $("#modalContainer").html(html);
         var $modal = $("#modalEditSales");
         $modal.modal("show");
-
-        $("#frmEditSales").on("submit", function (e) {
-            e.preventDefault();
-            if (typeof CKEDITOR !== 'undefined') {
-                for (var inst in CKEDITOR.instances) {
-                    try { CKEDITOR.instances[inst].updateElement(); } catch (err) { }
-                }
-            }
-            var formData = new FormData(this);
-            $.ajax({
-                url: _digitalSalesUrls.edit,
-                type: "POST",
-                data: formData,
-                contentType: false,
-                processData: false,
-                success: function (res) {
-                    if (res.status) {
-                        $modal.modal("hide");
-                        $modal.on("hidden.bs.modal", function () {
-                            executeResponseMessage(res.message, "Cập nhật thành công!", true);
-                            reloadSalesTable();
-                        });
-                    } else {
-                        executeResponseMessage(res.message, "Có lỗi xảy ra!", false);
-                    }
-                },
-                error: function () {
-                    executeResponseMessage("Lỗi kết nối máy chủ!", "Lỗi kết nối máy chủ!", false);
-                }
-            });
-        });
     });
 }
 

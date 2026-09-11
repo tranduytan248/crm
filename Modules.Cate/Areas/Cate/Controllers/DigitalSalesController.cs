@@ -1181,14 +1181,14 @@ namespace Modules.Cate.Areas.Cate.Controllers
             return null;
         }
 
-        [AjaxOnly]
         [HttpGet]
-        public ActionResult GetStatusesByBusinessType(byte businessType)
+        public ActionResult GetStatusesByBusinessType(byte? businessType)
         {
-            var list = _salesCache.GetStatusList(businessType)?.Select(s => new
+            byte? bType = (businessType.HasValue && businessType.Value > 0) ? businessType : (byte?)null;
+            var list = _salesCache.GetStatusList(bType)?.Select(s => new
             {
                 id = s.StatusID,
-                name = s.StatusName
+                name = bType.HasValue ? s.StatusName : $"[{(s.BusinessType == 1 ? "Cơ hội" : "Dự án")}] {s.StatusName}"
             }).ToList();
 
             return Json(list, JsonRequestBehavior.AllowGet);
@@ -1453,10 +1453,12 @@ namespace Modules.Cate.Areas.Cate.Controllers
                 Text = $"{e.FullName} ({e.UserName})"
             }).ToList();
 
-            model.ListStatus = _salesCache.GetStatusList(null)?.Select(s => new SelectListItem
+            byte? bType = model.BusinessType > 0 ? (byte?)model.BusinessType : (byte?)null;
+            model.ListStatus = _salesCache.GetStatusList(bType)?.Select(s => new SelectListItem
             {
                 Value = s.StatusID.ToString(),
-                Text = $"[{(s.BusinessType == 1 ? "Cơ hội" : "Dự án")}] {s.StatusName}"
+                Text = bType.HasValue ? s.StatusName : $"[{(s.BusinessType == 1 ? "Cơ hội" : "Dự án")}] {s.StatusName}",
+                Selected = s.StatusID == model.StatusID
             }).ToList() ?? new List<SelectListItem>();
         }
 

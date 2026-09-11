@@ -1,4 +1,4 @@
----
+﻿---
 trigger: always_on
 ---
 
@@ -11,28 +11,50 @@ Bạn phải tuân thủ nghiêm ngặt quy trình kiểm thử và xác minh sa
 ## 1. Nguyên tắc viết Test (Test Design)
 - **Bao phủ 3 tầng kịch bản:** Mọi tính năng/hàm logic mới phải có test cho:
   1. *Happy Path:* Trường hợp đầu vào chuẩn, hoạt động đúng mong đợi.
-  2. *Edge Cases:* Dữ liệu biên (null, undefined, rỗng, số âm, mảng rỗng, chuỗi quá dài).
+  2. *Edge Cases:* Dữ liệu biên (null, undefined, rỗng, số âm, mảng rỗng, chuỗi quá dài, ký tự đặc biệt, thẻ HTML từ CKEditor).
   3. *Error Handling:* Trường hợp lỗi (sai mật khẩu, mất mạng, token hết hạn, dữ liệu không hợp lệ) và kiểm tra xem có throw đúng mã lỗi/thông báo không.
 - **Assertion có ý nghĩa:** Tuyệt đối không viết test rỗng hoặc assert hình thức (ví dụ: `expect(res).toBeDefined()`). Phải assert chính xác dữ liệu trả về và trạng thái mong muốn.
-- **Mocking chuẩn:** Mock toàn bộ các phụ thuộc ngoại vi (Database, Network API, Third-party service, File system) để bộ test có thể chạy độc lập, cô lập và ổn định.
+- **Mocking chuẩn:** Mock toàn bộ các phụ thuộc ngoại vi (Database, Network API, Third-party service, File system) để bộ test có thể chạy độc lập, cô lập và ổn định khi chạy unit test. Khi chạy integration/verification test, phải kiểm tra luồng dữ liệu thực.
 
 ---
 
-## 2. Quy trình Thực thi & Sửa lỗi (Debug Loop)
-- **Tự động chạy test:** Ngay sau khi viết hoặc sửa code, PHẢI chạy lệnh test của file đó qua terminal.
+## 2. Quy chuẩn Kiểm thử Giao diện Web, Runtime JavaScript & AJAX
+- **CẤM NGHIỆM THU NẾU CÒN LỖI CONSOLE (No Console Errors):**
+  - Mọi thao tác tương tác người dùng (chọn dropdown Loại hình, chuyển tab, mở modal, submit form, tìm kiếm) PHẢI đảm bảo không văng bất kỳ lỗi Console nào (`Uncaught ReferenceError: ... is not defined`, `TypeError`, `SyntaxError`).
+  - Mọi hàm JavaScript được gọi từ sự kiện trên View/Partial View (`onchange`, `onclick`) PHẢI được kiểm tra tồn tại trên scope trước khi người dùng tương tác.
+  - Mọi script tag nhúng file `.js` tự viết phải có cache-busting timestamp: `?v=@DateTime.Now.Ticks` để chống client chạy file JS cũ từ cache trình duyệt.
+- **Kiểm thử Form Submission & Chống lỗi 500 (Safe Form Lifecycle):**
+  - BẮT BUỘC kiểm thử việc submit form:
+    - Khi submit hợp lệ: Phải trả về JSON `{ status: true }`, hiển thị đúng Toastr thông báo, đóng modal mượt mà, không kẹt backdrop.
+    - Khi có lỗi nghiệp vụ: Phải hiển thị thông báo lỗi rõ ràng từ `App_Message`, không được làm sập trang.
+    - Tuyệt đối KHÔNG để xảy ra tình trạng submit native làm sập trang sang `/Error/Error` (HTTP 500) do thiếu thuộc tính `action` hoặc mất event `e.preventDefault()`.
+  - Mọi form có trường nhập nội dung từ trình soạn thảo (CKEditor/Summernote) PHẢI được kiểm thử lưu chuỗi có chứa các thẻ HTML (`<p>`, `<div>`, `<br>`, `<b>`). Phải xác minh C# Model có thuộc tính `[AllowHtml]` và `Web.config` có `requestValidationMode="2.0"` để không bị `HttpRequestValidationException`.
+  - **Kiểm thử An toàn Model Binding & DisplayName (Anti-Null DisplayName):** Mọi Model C# dùng làm tham số nhận dữ liệu Form POST/PUT PHẢI được xác minh:
+    - Không có bất kỳ property nào có `CustomDisplayName` hoặc `DisplayName` trả về `null`.
+    - Gán thử vào `ValidationContext.DisplayName` thành công, không được quăng `ArgumentNullException: Value cannot be null. Parameter name: value`.
+- **Kiểm thử phản hồi AJAX Network:**
+  - Kiểm tra toàn bộ các request AJAX: Bắt buộc mã trạng thái `200 OK`. Cấm tuyệt đối mã lỗi HTTP 404, 500 hoặc 302 Redirect sang trang lỗi.
+
+---
+
+## 3. Quy trình Thực thi, Sửa lỗi & Nghiêm cấm "Đoán mò"
+- **NGHIÊM CẤM "CODE XONG KHÔNG TEST LẠI":**
+  - **Cấm tuyệt đối** việc chỉ biên dịch C# thành công (Build 0 errors) rồi tự ý kết luận nhiệm vụ hoàn thành. Biên dịch C# chỉ chứng minh cú pháp hợp lệ, KHÔNG chứng minh mã chạy đúng trên giao diện và luồng dữ liệu.
+  - Bắt buộc PHẢI chạy script kiểm thử thực tế (PowerShell test script vào DB/Service, hoặc gọi API/kiểm tra view) xác nhận luồng chạy trơn tru trước khi bàn giao.
 - **Quy tắc phân tích nguyên nhân gốc rễ (Root Cause Analysis):**
-  - Khi test FAIL: Đọc kỹ stack trace, xác định chính xác dòng bị lỗi và lý do logic trước khi sửa.
+  - Khi test FAIL hoặc phát hiện lỗi: Đọc kỹ stack trace, xác định chính xác dòng bị lỗi và lý do logic trước khi sửa.
   - **TUYỆT ĐỐI KHÔNG sửa file Test** để làm cho bài test PASS, trừ khi yêu cầu nghiệp vụ thực sự thay đổi. Trách nhiệm của bạn là sửa file Implementation (mã nguồn chính).
   - Không được đoán mò hoặc thử các cách sửa ngẫu nhiên lặp đi lặp lại.
-- **Kiểm tra hồi quy (Regression Check):** Sau khi bài test của tính năng mới PASS, phải chạy lại toàn bộ test suite liên quan trong module để đảm bảo không làm hỏng tính năng cũ.
+- **Kiểm tra hồi quy (Regression Check):** Sau khi tính năng mới PASS, phải chạy lại toàn bộ test suite liên quan trong module để đảm bảo không làm hỏng tính năng cũ.
 
 ---
 
-## 3. Giới hạn Vòng lặp & Báo cáo
+## 4. Giới hạn Vòng lặp & Báo cáo
 - **Giới hạn 3 lần thử:** Nếu sau 3 lần tự sửa mà test vẫn FAIL:
   - DỪNG vòng lặp tự sửa lại.
   - Trích dẫn log lỗi và stack trace chính xác.
   - Giải thích cho người dùng: (1) Bạn đang muốn làm gì, (2) Lỗi thực sự nằm ở đâu (môi trường, logic, hay dependency), (3) Đề xuất hướng giải quyết.
 - Chỉ xem nhiệm vụ là HOÀN THÀNH khi:
   - Tất cả các test đều PASS 100%.
+  - Không còn bất kỳ lỗi runtime, JavaScript console error hay lỗi 500 nào.
   - Không còn bất kỳ cảnh báo Linting hay Type Error nào.

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 using TSFramework.Libs.Attributes;
@@ -77,6 +77,7 @@ namespace Core.Cate.Models
         public int? DepartmentID { get; set; }
         public string DepartmentName { get; set; }
 
+        [AllowHtml]
         [CustomDisplayName("DigitalSales_Note_Label")]
         public string Note { get; set; }
 

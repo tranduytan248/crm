@@ -82,6 +82,41 @@
 </div>
 
 <script>
+    function loadStatusesByBusinessType(businessType, selectedStatusId) {
+        var $status = $('#StatusID, #SearchStatusID');
+        var currentVal = selectedStatusId !== undefined ? selectedStatusId : $status.val();
+
+        $status.empty().append('<option value="">-- Chọn trạng thái --</option>');
+
+        $.get('/Cate/DigitalSales/GetStatusesByBusinessType', {
+            businessType: businessType ? businessType : ''
+        }, function (data) {
+            if (data && data.length > 0) {
+                var hasCurrentVal = false;
+                $.each(data, function (i, item) {
+                    var isSelected = (currentVal && item.id == currentVal);
+                    if (isSelected) hasCurrentVal = true;
+                    $status.append(
+                        $('<option>').val(item.id).text(item.name).prop('selected', isSelected)
+                    );
+                });
+                if (!hasCurrentVal) {
+                    $status.val('');
+                }
+            } else {
+                $status.val('');
+            }
+            $status.trigger("chosen:updated");
+            if ($.fn.select2) {
+                $status.trigger("change.select2");
+            }
+            if (typeof reloadSalesTable === 'function') {
+                reloadSalesTable();
+            }
+        });
+    }
+    window.loadStatusesByBusinessType = loadStatusesByBusinessType;
+
     $(document).ready(function () {
         if ($.fn.datepicker) {
             $('#dpFromDate').datepicker({
@@ -101,12 +136,22 @@
         $('#SearchDigitalSales').on('keydown', 'input, select', function (e) {
             if (e.key === 'Enter') {
                 e.preventDefault();
+                if (typeof reloadSalesTable === 'function') {
+                    reloadSalesTable();
+                }
+            }
+        });
+
+        $('#SearchDigitalSales').on('change', 'select:not(#DepartmentID):not(#BusinessType)', function () {
+            if (typeof reloadSalesTable === 'function') {
                 reloadSalesTable();
             }
         });
 
-        $('#SearchDigitalSales').on('change', 'select:not(#DepartmentID)', function () {
-            reloadSalesTable();
+        // Load danh sách trạng thái theo Loại hình (Cơ hội kinh doanh / Dự án)
+        $('#BusinessType').change(function () {
+            var businessType = $(this).val();
+            loadStatusesByBusinessType(businessType);
         });
 
         // Load danh sách nhân sự phụ trách (AM) theo phòng ban thuộc TTKDGP
@@ -126,7 +171,13 @@
                         );
                     });
                 }
-                reloadSalesTable();
+                $employee.trigger("chosen:updated");
+                if ($.fn.select2) {
+                    $employee.trigger("change.select2");
+                }
+                if (typeof reloadSalesTable === 'function') {
+                    reloadSalesTable();
+                }
             });
         });
     });

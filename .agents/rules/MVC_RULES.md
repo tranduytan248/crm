@@ -480,6 +480,10 @@ Mỗi khi tạo mới hoặc chỉnh sửa file:
    Sau đó sao chép file `.dll` sang `publish_source\bin` và `CenIT.Solution.TOC.WebApp\bin`.
 3. Chạy script kiểm tra và bảo đảm 100% file có **UTF-8 with BOM**.
 4. Chạy toàn bộ test suites (`Run-Tests.ps1`, `Run-ManagementTests.ps1`) và chỉ hoàn thành khi đạt **100% PASS**.
+5. **Quy định về Git Branch & Upcode Demo:**
+   - **CẤM TUYỆT ĐỐI** tự động merge hoặc push code sang nhánh `upcode-demo` trong quá trình phát triển hoặc sửa lỗi thông thường.
+   - Mọi commit và push hàng ngày **CHỈ ĐƯỢC PHÉP** thực hiện trên nhánh làm việc hiện tại (`crm_v2`).
+   - **CHỈ ĐƯỢC PHÉP** merge hoặc push sang `upcode-demo` KHI VÀ CHỈ KHI người dùng có chỉ định rõ ràng bằng văn bản (ví dụ: *"upcode demo"*, *"đẩy code demo"*, *"deploy demo"*).
 
 ---
 
@@ -489,6 +493,8 @@ Mỗi khi tạo mới hoặc chỉnh sửa file:
 
 | AI / Lập trình viên bao biện | Thực tế & Hậu quả thực tế | Quy tắc bắt buộc thi hành |
 | :--- | :--- | :--- |
+| *"Dùng CustomDisplayName với chuỗi text tự do, không cần quan tâm nó có trả về null hay không."* | Khi thuộc tính DisplayName trả về null, DataAnnotationsModelValidator sẽ gán `context.DisplayName = null`, quăng ngoại lệ `ArgumentNullException: Value cannot be null. Parameter name: value` làm sập HTTP 500 ngay tại tầng Model Binding trước khi Action được gọi. | **BẮT BUỘC CustomDisplayName KHÔNG BAO GIỜ ĐƯỢC PHÉP TRẢ VỀ NULL**. Bắt buộc kế thừa `base(resourceName ?? string.Empty)` và có fallback chuỗi hợp lệ. |
+| *"Tiện tay merge và push luôn sang nhánh `upcode-demo` cho server demo cập nhật."* | Vi phạm quy trình kiểm soát release, đẩy mã nguồn đang trong giai đoạn dev/sửa lỗi lên môi trường demo mà chưa được người dùng kiểm duyệt. | **CẤM TỰ Ý PUSH SANG UPCODE-DEMO**. Mọi push thông thường chỉ thực hiện trên `crm_v2`. Chỉ tương tác với `upcode-demo` khi người dùng yêu cầu rõ ràng. |
 | *"Gõ thẳng chuỗi tiếng Việt vào View hoặc Controller cho tiện, khai báo Sys_Messages mất công."* | Làm mất khả năng đa ngôn ngữ, khó tùy biến nội dung theo từng khách hàng/triển khai, không đồng bộ thông điệp toàn hệ thống, dễ lỗi font mojibake. | **BẮT BUỘC 100% dùng App_Message**. Mọi chuỗi text trên View và thông báo trong Controller phải được khai báo trong `Sys_Messages` và gọi qua `AppProcessor.Messagor.GetMessage`. |
 | *"Dùng thẻ `<input>` hoặc `<label>` thuần cho nhanh, viết `@Html.*` rườm rà."* | Làm mất cơ chế Model Binding 2 chiều, mất thông báo validation đỏ khi nhập sai, mất dấu sao đỏ `(*)` bắt buộc. | **BẮT BUỘC 100% dùng `@Html.*`**. Chỉ dùng thẻ HTML thuần khi cả source code không có helper tương ứng. |
 | *"Lồng thẻ `<h1>` và `<div class="page-header">` vào `@section PageTitle` cho đẹp và rõ ràng."* | Phá vỡ flexbox layout của `_PageContent.cshtml`. Khi `BE-ConfigBreadcrumb.js` chạy, nó sẽ xóa sạch nội dung, làm giật màn hình (FOUC). | **`@section PageTitle` CHỈ ĐƯỢC CHỨA `@ViewBag.Title`**. Mọi badge, nút thao tác phải đưa vào `@section PageAction`. |
@@ -499,6 +505,10 @@ Mỗi khi tạo mới hoặc chỉnh sửa file:
 | *"Không cần đặt `data_width`, để Modal tự co giãn theo nội dung."* | Modal sẽ bị co rúm trên màn hình lớn hoặc tràn màn hình trên laptop nhỏ, làm vỡ bố cục form 2 cột. | **BẮT BUỘC chỉ định `data_width = "1024px"` (form lớn), `800px`/`700px` (form vừa), `600px`/`500px` (xóa/xác nhận)**. |
 | *"Không cần bọc PartialView ruột trong `<div id="bodyForm">`."* | Khi validation thất bại, Javascript không tìm thấy nơi để đè HTML lỗi, form bị đơ hoặc tải lại toàn trang làm mất dữ liệu người dùng đã gõ. | **BẮT BUỘC có `<div id="bodyForm">` bọc PartialView ruột trong `_Add.cshtml` và `_Edit.cshtml`**. |
 | *"Kích hoạt Toastr ngay khi nhận phản hồi, không cần đợi sự kiện `hidden.bs.modal`."* | Gây giật lag, xung đột DOM làm modal bị kẹt lớp mờ đen (`modal-backdrop`), người dùng bị khóa chuột không thể thao tác tiếp. | **BẮT BUỘC đặt `eval(response.message)` và `reload(null, false)` bên trong sự kiện `hidden.bs.modal`**. |
+| *"Phó thác submit Form Modal cho file JS bên ngoài, không cần đặt `action` cho form."* | File JS ngoài bị lỗi runtime hoặc cache trình duyệt làm mất event listener, form chuyển sang submit native lên `/Cate/[Entity]` không có Action POST gây sập trang HTTP 500 redirect về `/Error/Error`. | **BẮT BUỘC đặt `action="@Url.Action(...)"` trên `<form>` và code logic submit AJAX khép kín (`e.preventDefault()`) ngay trong Partial View**. |
+| *"Định nghĩa hàm JS ở file dưới đáy trang rồi gọi trên View giữa trang, không thêm timestamp `?v=...`."* | Gây lỗi `Uncaught ReferenceError: ... is not defined` do DOM gọi hàm trước khi script đáy trang tải, hoặc do trình duyệt client cache file JS cũ. | **BẮT BUỘC định nghĩa hàm ngay trong Partial View gọi nó, gán `window.funcName`, và thêm `?v=@DateTime.Now.Ticks` cho mọi script tag**. |
+| *"Không gắn `[AllowHtml]` cho trường nhập liệu có chứa CKEditor."* | Gây lỗi `HttpRequestValidationException` (HTTP 500) khi người dùng lưu nội dung có thẻ HTML `<p>`, `<div>`. | **BẮT BUỘC gắn `[AllowHtml]` cho trường Note/Description trong C# Model và cấu hình `requestValidationMode="2.0"` trong `Web.config`**. |
+| *"Chỉ cần biên dịch C# thành công (Build 0 errors) là xong việc, không cần test lại trên giao diện/dữ liệu thực."* | Biên dịch chỉ kiểm tra cú pháp, hoàn toàn không phát hiện lỗi Javascript runtime, lỗi cache trình duyệt, lỗi validation ASP.NET hay lỗi lệch schema SQL. | **CẤM NGHIỆM THU NẾU CHƯA TEST RUNTIME THỰC TẾ**. Bắt buộc chạy script kiểm thử DB/Service và kiểm tra Console Error trước khi bàn giao. |
 | *"Chỉ cần sửa ở `Modules.Cate`, không cần chép sang `publish_source` hay `WebApp`."* | Website IIS chạy trên `publish_source` hoặc `WebApp` sẽ không nhận được thay đổi, gây lỗi không tìm thấy file hoặc chạy code cũ. | **BẮT BUỘC ĐỒNG BỘ 3 NƠI (Triple Mirroring)** và biên dịch DLL đầy đủ. |
 | *"Lưu file dạng UTF-8 No BOM cũng chạy được."* | IIS và Razor Engine trên Windows Server sẽ bị lỗi phân tích cú pháp ký tự tiếng Việt có dấu, sinh ra lỗi font mojibake trên production. | **BẮT BUỘC 100% file lưu định dạng UTF-8 with BOM (`0xEF, 0xBB, 0xBF`)**. |
 
@@ -511,14 +521,153 @@ Mọi màn hình hoặc tính năng mới trước khi bàn giao phải vượt 
 - [ ] **App_Message Compliance:** 100% chuỗi văn bản trên View và thông báo phản hồi trong Controller được định nghĩa trong `Sys_Messages` và gọi qua `AppProcessor.Messagor.GetMessage`, không hardcode chuỗi text trần.
 - [ ] **Encoding:** Toàn bộ file liên quan (`.cshtml`, `.js`, `.cs`, `.sql`) là **UTF-8 with BOM**.
 - [ ] **Triple Mirroring:** File đã được đồng bộ đầy đủ ở cả 3 nơi (`Modules.*`, `publish_source`, `WebApp`).
+- [ ] **DLL Rebuild & Copy:** Đã biên dịch C# DLL thành công 0 lỗi và copy DLL sang `publish_source\bin` và `WebApp\bin`.
 - [ ] **Page Title Cleanliness:** `@section PageTitle` chỉ chứa `@ViewBag.Title`, không lồng thẻ `<h1>` hay `.page-header`.
 - [ ] **Search Box Standard:** Card có class `.Search.card.bcard.border-0.shadow-sm.radius-0`, controls cao chuẩn 32px, **KHÔNG dùng Select2**, nút Tìm kiếm/Làm mới đặt ở góc dưới bên trái.
 - [ ] **Design Tokens Compliance:** Dùng hoàn toàn class Ace Admin v4 (`.card.bcard`, `.bgc-*-d1`, `.nav-tabs-simple`,...). Không có CSS riêng hoặc mã màu hex tùy tiện.
 - [ ] **Form Controls:** 100% sử dụng `@Html.TitleFor`, `@Html.TextBoxFor`, `@Html.DropDownListFor`, `@Html.TextAreaFor`, `@Html.FileFor`. Không dùng thẻ HTML thuần cho controls.
+- [ ] **Self-contained Form Submit:** `<form>` có thuộc tính `action` rõ ràng, toàn bộ submit AJAX (`e.preventDefault()`) nằm khép kín trong Partial View, không bị submit native gây lỗi 500.
+- [ ] **CKEditor HTML Safe:** Các trường HTML có `[AllowHtml]` trong Model, `requestValidationMode="2.0"` trong `Web.config`, và gọi `updateElement()` trước khi serialize.
+- [ ] **No ReferenceError:** Không có hàm JS nào bị thiếu hoặc lỗi scope, mọi hàm gọi từ sự kiện trên view đã được định nghĩa và gán `window`.
+- [ ] **Cache-Busting:** Toàn bộ thẻ `<script src="...js">` tự viết đều có query timestamp `?v=@DateTime.Now.Ticks`.
 - [ ] **Validation:** Đầy đủ `@Html.ValidationMessageFor` màu đỏ dưới các ô nhập liệu bắt buộc.
 - [ ] **Modal Width:** Thuộc tính `data_width` đặt đúng chuẩn (`1024px`, `800px`/`700px`, hoặc `600px`/`500px`).
 - [ ] **Form Layout & BodyForm:** Kế thừa đúng `Layout = "~/Views/Shared/_Form.cshtml"`, có `<div id="bodyForm">` bọc ruột.
 - [ ] **Modal Lifecycle:** Có cơ chế chờ `hidden.bs.modal` trước khi kích hoạt `eval(message)` hoặc reload dữ liệu, ngăn ngừa triệt để lỗi kẹt backdrop đen.
 - [ ] **No Alert:** Không dùng hàm `alert()` thuần, thay bằng `toastr` hoặc `CreateMessage`.
-- [ ] **Automated Tests:** Bộ unit test / regression test đạt 100% PASS (3 tầng: Happy Path, Edge Cases, Error Handling theo `TESTING.md`).
+- [ ] **Automated Tests:** Bộ unit test / regression test / verification test đạt 100% PASS (3 tầng: Happy Path, Edge Cases, Error Handling theo `TESTING.md`).
+- [ ] **Model Binding & Anti-Null DisplayName:** 100% thuộc tính của Model có `DisplayName` hoặc `CustomDisplayName` trả về chuỗi hợp lệ, không trả về null; `ValidationContext.DisplayName` gán thành công không văng `ArgumentNullException`.
+
+---
+
+## 14. QUY CHUẨN FORM MODAL KHÉP KÍN (SELF-CONTAINED AJAX SUBMIT) & PHÒNG CHỐNG LỖI 500 / REDIRECT /Error/Error
+
+### 14.1. Nguyên nhân gốc rễ lỗi sập trang khi lưu Modal
+- `<form>` trong Modal không có thuộc tính `action` hợp lệ hoặc phó mặc việc bind event submit cho file script bên ngoài (`.js`).
+- Khi script bên ngoài bị lỗi runtime (do cache hoặc lỗi cú pháp) hoặc chưa kịp gắn listener, người dùng bấm nút submit sẽ kích hoạt **native browser form POST** tới URL hiện tại (`/Cate/[Entity]`).
+- Do Controller không có Action `[HttpPost] Index()`, IIS / ASP.NET MVC sẽ quăng lỗi 500 và CustomErrors tự động redirect trình duyệt sang trang `/Error/Error`.
+
+### 14.2. Quy tắc bắt buộc thi hành
+1. **BẮT BUỘC khai báo `action` và `method="post"` tường minh cho `<form>`:**
+   ```razor
+   <form id="frmAdd[Entity]" method="post" action="@Url.Action("Add", "[Entity]", new { area = "Cate" })">
+   ```
+2. **BẮT BUỘC xử lý AJAX Submit KHÉP KÍN (Self-contained) ngay trong Partial View:**
+   - Toàn bộ logic submit AJAX (chặn submit native bằng `e.preventDefault()`, hiển thị icon xoay loading, disable nút submit để chống double-click, bắt phản hồi và chuyển hướng) **PHẢI NẰM NGAY TRONG THẺ `<script>` CỦA CHÍNH FILE `_Add.cshtml` HOẶC `_Edit.cshtml`**.
+   - CẤM phó thác việc bắt sự kiện submit của form modal cho file JS chung bên ngoài.
+   - Cú pháp mẫu chuẩn khép kín trong Modal:
+   ```javascript
+   $('#frmAddSales').off('submit').on('submit', function (e) {
+       e.preventDefault();
+       // Đồng bộ CKEditor nếu có
+       if (typeof CKEDITOR !== 'undefined') {
+           for (var instance in CKEDITOR.instances) {
+               CKEDITOR.instances[instance].updateElement();
+           }
+       }
+       var $form = $(this);
+       var $btnSubmit = $form.find('button[type="submit"]');
+       $btnSubmit.prop('disabled', true).prepend('<i class="fa fa-spinner fa-spin mr-1"></i>');
+       
+       $.ajax({
+           url: $form.attr('action'),
+           type: 'POST',
+           data: $form.serialize(),
+           success: function (res) {
+               $btnSubmit.prop('disabled', false).find('i.fa-spinner').remove();
+               if (res.status) {
+                   var $modal = $form.closest('.modal');
+                   if ($modal.length) {
+                       $modal.modal('hide');
+                   }
+                   toastr.success(res.message);
+                   if (res.redirectUrl) {
+                       window.location.href = res.redirectUrl;
+                   } else if (typeof reloadData === 'function') {
+                       reloadData();
+                   }
+               } else {
+                   toastr.error(res.message);
+               }
+           },
+           error: function (xhr) {
+               $btnSubmit.prop('disabled', false).find('i.fa-spinner').remove();
+               toastr.error('Có lỗi xảy ra khi xử lý yêu cầu (' + xhr.status + ')');
+           }
+       });
+   });
+   ```
+
+---
+
+## 15. QUY CHUẨN PHẠM VI JAVASCRIPT & CACHE-BUSTING (CHỐNG LỖI ReferenceError)
+
+### 15.1. Nguyên nhân lỗi `ReferenceError: ... is not defined`
+- View hoặc Partial View (ví dụ `_Search.cshtml`) nằm ở giữa trang, gọi hàm JS từ sự kiện inline (`onchange="loadStatusesByBusinessType(this.value)"`) trong khi hàm đó lại được viết ở file `.js` tải dưới đáy trang (`@section BottomScript`).
+- Trình duyệt người dùng lưu cache file `.js` phiên bản cũ, nên dù file trên server đã có hàm mới thì client vẫn không có hàm đó trong bộ nhớ execution context.
+
+### 15.2. Quy tắc bắt buộc thi hành
+1. **Hàm của View/Partial View nào thì định nghĩa ngay trong thẻ `<script>` của chính View đó:**
+   - Các hàm phục vụ dropdown liên kết, lọc tìm kiếm, toggle control của `_Search.cshtml` phải được viết ngay bên trong `_Search.cshtml` và gắn tường minh vào `window`:
+   ```javascript
+   function loadStatusesByBusinessType(businessType, selectedStatusId) { ... }
+   window.loadStatusesByBusinessType = loadStatusesByBusinessType;
+   ```
+2. **BẮT BUỘC Cache-Busting cho mọi thẻ `<script>` nhúng file JS tự viết:**
+   ```razor
+   @section BottomScript {
+       <script src="~/Areas/Cate/Views/DigitalSales/DigitalSales.js?v=@DateTime.Now.Ticks"></script>
+   }
+   ```
+   - CẤM TUYỆT ĐỐI viết `<script src="...file.js"></script>` trần trụi không có query timestamp version.
+
+---
+
+## 16. QUY CHUẨN XỬ LÝ NỘI DUNG HTML CKEDITOR ([AllowHtml] & requestValidationMode="2.0")
+
+### 16.1. Nguyên nhân lỗi `HttpRequestValidationException`
+- Khi form submit dữ liệu có chứa thẻ HTML từ WYSIWYG editor (CKEditor, Summernote,...), cơ chế ASP.NET Request Validation mặc định (chế độ 4.5) sẽ quăng ngoại lệ HTTP 500 trước khi dữ liệu chạm tới Controller.
+
+### 16.2. Quy tắc bắt buộc thi hành
+1. **Model C# BẮT BUỘC có thuộc tính `[AllowHtml]`:**
+   - Mọi thuộc tính model nhận nội dung giàu định dạng (Ghi chú, Nội dung bài viết, Mô tả chi tiết) phải khai báo:
+   ```csharp
+   [AllowHtml]
+   public string Note { get; set; }
+   ```
+2. **Cấu hình `requestValidationMode="2.0"` trong `Web.config`:**
+   - Trong thẻ `<httpRuntime>` của `Web.config`, bắt buộc có thuộc tính `requestValidationMode="2.0"`:
+   ```xml
+   <httpRuntime targetFramework="4.8" requestValidationMode="2.0" maxRequestLength="1048576" />
+   ```
+3. **Đồng bộ CKEditor trước khi Serialize Form:**
+   - Trước khi gọi `$form.serialize()` hoặc `new FormData()`, bắt buộc duyệt qua các instances của CKEditor và gọi `updateElement()` để đẩy nội dung từ iframe soạn thảo vào thẻ `<textarea>` ẩn tương ứng.
+
+---
+
+## 17. QUY CHUẨN AN TOÀN MODEL BINDING, DISPLAYNAME & VALIDATION CONTEXT
+
+### 17.1. Nguyên nhân gốc rễ lỗi 500 khi Model Binding (`Value cannot be null. Parameter name: value`)
+- Khi Model có các thuộc tính sử dụng `[CustomDisplayName("...")]`, nếu class `CustomDisplayNameAttribute` trả về `null` (do không tìm thấy resource key trong DB/Sys_Messages và `DisplayNameValue` trong base class bị null), ASP.NET MVC Model Binding (`DataAnnotationsModelValidator`) sẽ thực thi:
+  ```csharp
+  ValidationContext context = new ValidationContext(container, null, null);
+  context.DisplayName = metadata.GetDisplayName(); // Nhận giá trị null!
+  ```
+- Setter `ValidationContext.set_DisplayName(value)` trong .NET Framework quăng ngoại lệ nghiêm ngặt:
+  ```csharp
+  if (value == null) throw new ArgumentNullException("value");
+  ```
+  Ngoại lệ này sập ngay tại tầng Model Binding trước khi Action được gọi, khiến toàn bộ form submit bị HTTP 500 và redirect sang `/Error/Error`.
+
+### 17.2. Quy tắc bắt buộc thi hành
+1. **`DisplayName` KHÔNG BAO GIỜ ĐƯỢC PHÉP TRẢ VỀ NULL:**
+   - Mọi attribute kế thừa `DisplayNameAttribute` BẮT BUỘC gọi constructor cơ sở:
+     ```csharp
+     public CustomDisplayNameAttribute(string resourceName) : base(resourceName ?? string.Empty)
+     ```
+   - Thuộc tính `DisplayName` phải luôn có giá trị fallback an toàn (Message -> ResourceName -> `string.Empty`), tuyệt đối cấm trả về null.
+2. **An toàn trong Constructor của Custom Validation Attributes:**
+   - Các attribute như `[CustomRequired]` phải bọc `try-catch` an toàn khi đọc resource để không văng lỗi khi chạy ngoài `HttpContext` hoặc khi `AppProcessor` chưa khởi tạo.
+3. **Kiểm thử Metadata trong Automated Verification Test:**
+   - Trước khi nghiệm thu màn hình có Form Submit, bắt buộc phải có script reflection duyệt qua 100% properties của Model, xác nhận `GetDisplayName()` không trả về null và `ValidationContext.DisplayName` gán thành công.
 
