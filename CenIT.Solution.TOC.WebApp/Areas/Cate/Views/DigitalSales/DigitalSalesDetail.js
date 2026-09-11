@@ -69,13 +69,15 @@ function openEditSalesModal(id) {
     $.get(_detailUrls.editSales + "/" + id, function (html) {
         $("#modalContainer").html(html);
         var $modal = $("#modalEditSales");
-        if ($.fn.select2) {
-            $modal.find(".select2").select2({ width: "100%", dropdownParent: $modal });
-        }
         $modal.modal("show");
 
         $("#frmEditSales").on("submit", function (e) {
             e.preventDefault();
+            if (typeof CKEDITOR !== 'undefined') {
+                for (var inst in CKEDITOR.instances) {
+                    try { CKEDITOR.instances[inst].updateElement(); } catch (err) { }
+                }
+            }
             var formData = new FormData(this);
             $.ajax({
                 url: _detailUrls.editSales,
@@ -195,7 +197,7 @@ function openEditProductModal(id, salesId) {
 
 function deleteProductItem(id, salesId) {
     if (!confirm("Bạn có chắc chắn muốn xóa sản phẩm / dịch vụ này không?")) return;
-    $.post(_detailUrls.deleteProduct, { id: id }, function (res) {
+    $.post(_detailUrls.deleteProduct, { id: id, salesId: salesId }, function (res) {
         if (res.status) {
             executeResponseMessage(res.message, "Xóa sản phẩm thành công!", true);
             setTimeout(function () { location.reload(); }, 600);
@@ -234,7 +236,7 @@ function openAddMemberModal(salesId) {
 
 function deleteMemberItem(id, salesId) {
     if (!confirm("Bạn có chắc chắn muốn xóa thành viên này khỏi dự án?")) return;
-    $.post(_detailUrls.deleteMember, { id: id }, function (res) {
+    $.post(_detailUrls.deleteMember, { id: id, salesId: salesId }, function (res) {
         if (res.status) {
             executeResponseMessage(res.message, "Xóa thành viên thành công!", true);
             setTimeout(function () { location.reload(); }, 600);
@@ -321,7 +323,7 @@ function openEditTrackingModal(id, salesId) {
 
 function deleteTrackingItem(id, salesId) {
     if (!confirm("Bạn có chắc chắn muốn xóa tiến trình / checklist này không?")) return;
-    $.post(_detailUrls.deleteTracking, { id: id }, function (res) {
+    $.post(_detailUrls.deleteTracking, { id: id, salesId: salesId }, function (res) {
         if (res.status) {
             executeResponseMessage(res.message, "Xóa tiến trình thành công!", true);
             setTimeout(function () { location.reload(); }, 600);

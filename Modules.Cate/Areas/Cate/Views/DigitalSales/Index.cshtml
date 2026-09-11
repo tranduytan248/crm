@@ -2,12 +2,12 @@
 @model Core.Cate.Models.RM_DigitalSalesSearchModel
 
 @{
-    ViewBag.Title = "Quản lý Kinh doanh Sản phẩm Dịch vụ Số";
+    ViewBag.Title = "Danh sách kinh doanh sản phẩm dịch vụ số";
 }
 
 @section PageTitle {
     <i class="fa fa-chart-line text-primary mr-1"></i>
-    Quản lý Kinh doanh Sản phẩm Dịch vụ Số
+    Danh sách kinh doanh sản phẩm dịch vụ số
     <small class="page-info text-secondary-d2 text-90 font-normal ml-2">
         (Cơ hội kinh doanh ➔ Dự án số)
     </small>
@@ -55,5 +55,6 @@
 <div id="modalContainer"></div>
 
 @section BottomScript {
+    <script type="text/javascript" src="@Url.Content("~/Contents/Modules/Major/ckeditor4/ckeditor.js")"></script>
     <script src="~/Areas/Cate/Views/DigitalSales/DigitalSales.js"></script>
 }

@@ -6,49 +6,149 @@
     var totalTasks = Model.TrackingTasks?.Count ?? 0;
     var completedTasks = Model.TrackingTasks?.Count(t => t.Status == 3) ?? 0;
     var progressPercent = totalTasks > 0 ? (int)Math.Round((double)completedTasks * 100 / totalTasks) : 0;
+    bool canEdit = ViewBag.CanEdit == true;
 }
 
-@section PageTitle{
-    <div class="page-header pb-2">
-        <div class="d-flex justify-content-between align-items-center flex-wrap">
-            <div>
-                <a href="@Url.Action("Index", "DigitalSales", new { area = "Cate" })" class="btn btn-sm btn-outline-secondary mr-2">
-                    <i class="fa fa-arrow-left mr-1"></i> Danh sách
-                </a>
-                <span class="badge @(Model.BusinessType == 1 ? "badge-primary" : "badge-success") text-90 px-2 py-1 mr-1">
-                    @(Model.BusinessType == 1 ? "Cơ hội kinh doanh" : "Dự án")
+@section PageTitle {
+    <div class="d-flex align-items-center">
+        <a href="@Url.Action("Index", "DigitalSales", new { area = "Cate" })" 
+           class="btn btn-sm btn-white btn-h-light-primary btn-a-light-primary border-1 brc-grey-l1 text-secondary-d2 font-600 px-3 py-2 radius-1 shadow-sm mr-3 flex-shrink-0" 
+           title="Quay lại danh sách hồ sơ">
+            <i class="fa fa-arrow-left text-primary mr-1"></i> Danh sách
+        </a>
+        <div class="d-flex flex-column justify-content-center">
+            <div class="d-flex align-items-center flex-wrap">
+                <span class="badge bgc-secondary-l3 text-secondary-d3 border-1 brc-secondary-m3 font-mono text-90 px-2 py-1 mr-2 radius-1 font-bold">
+                    <i class="fa fa-hashtag mr-1 opacity-75"></i>@Model.Code
                 </span>
-                <span class="badge badge-info text-90 px-2 py-1 mr-2">
-                    @Model.StatusName
+                <span class="text-125 font-bolder text-dark-m1 text-truncate" style="max-width: 600px;" title="@Model.Title">
+                    @Model.Title
                 </span>
-                <span class="text-120 font-weight-bold text-dark">[@Model.Code] @Model.Title</span>
             </div>
-            <div class="mt-2 mt-md-0">
-                <button type="button" class="btn btn-sm btn-warning text-dark font-weight-bold px-3 mr-1" onclick="openChangeStatusModal(@Model.DigitalSalesID);">
-                    <i class="fa fa-exchange-alt mr-1"></i> Chuyển trạng thái
-                </button>
-                <button type="button" class="btn btn-sm btn-primary px-3" onclick="openEditSalesModal(@Model.DigitalSalesID);">
-                    <i class="fa fa-edit mr-1"></i> Chỉnh sửa
-                </button>
+            <div class="d-flex align-items-center mt-1 flex-wrap">
+                <span class="badge badge-lg @(Model.BusinessType == 1 ? "bgc-blue-l2 text-blue-d2 border-1 brc-blue-m3" : "bgc-purple-l2 text-purple-d2 border-1 brc-purple-m3") text-85 font-bold px-25 py-1 mr-2 radius-1">
+                    <i class="fa @(Model.BusinessType == 1 ? "fa-lightbulb" : "fa-project-diagram") mr-1"></i>@(Model.BusinessType == 1 ? "Cơ hội kinh doanh" : "Dự án")
+                </span>
+                <span class="badge badge-lg bgc-green-l2 text-green-d3 border-1 brc-green-m3 text-85 font-bold px-25 py-1 radius-1">
+                    <i class="fa fa-check-circle mr-1"></i>@Model.StatusName
+                </span>
             </div>
         </div>
     </div>
 }
+
+@section PageAction {
+    <div class="d-inline-flex align-items-center">
+        @if (canEdit)
+        {
+            <button type="button" class="btn btn-sm btn-warning btn-h-light-warning text-dark-tp1 font-bolder px-3 py-15 mr-2 radius-1 shadow-sm" onclick="openChangeStatusModal(@Model.DigitalSalesID);" title="Chuyển đổi trạng thái quy trình">
+                <i class="fa fa-exchange-alt mr-1"></i> Chuyển trạng thái
+            </button>
+            <button type="button" class="btn btn-sm btn-primary font-bolder px-3 py-15 mr-2 radius-1 shadow-sm" onclick="openEditSalesModal(@Model.DigitalSalesID);" title="Chỉnh sửa thông tin hồ sơ">
+                <i class="fa fa-pencil-alt mr-1"></i> Chỉnh sửa
+            </button>
+        }
+        else
+        {
+            <span class="badge badge-lg bgc-secondary-l3 text-secondary-d3 border-1 brc-secondary-m2 px-3 py-2 mr-2 radius-1 font-bold">
+                <i class="fa fa-eye mr-1"></i> Chế độ xem (Chỉ đọc)
+            </span>
+        }
+        <button type="button" class="btn btn-sm btn-white btn-h-light-default border-1 brc-grey-l1 text-secondary-d2 px-25 py-15 radius-1 shadow-sm" onclick="location.reload();" title="Tải lại trang">
+            <i class="fa fa-sync-alt"></i>
+        </button>
+    </div>
+}
+
+<style>
+    #PageTitle.page-header {
+        padding-top: 0.5rem;
+        padding-bottom: 0.75rem !important;
+        border-bottom: 1px solid #e1e6eb;
+        margin-bottom: 0.75rem;
+    }
+    .ds-metric-card {
+        border-radius: 8px;
+        border: none;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        padding: 1.1rem 1.25rem;
+        min-height: 90px;
+    }
+    .ds-metric-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.14);
+    }
+    .ds-metric-blue {
+        background: linear-gradient(135deg, #1e88e5 0%, #1565c0 100%);
+    }
+    .ds-metric-green {
+        background: linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%);
+    }
+    .ds-metric-purple {
+        background: linear-gradient(135deg, #8e24aa 0%, #5c148c 100%);
+    }
+    .ds-metric-orange {
+        background: linear-gradient(135deg, #fb8c00 0%, #e65100 100%);
+    }
+    .ds-metric-icon {
+        width: 46px;
+        height: 46px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.22);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #ffffff;
+        font-size: 1.35rem;
+        flex-shrink: 0;
+    }
+    .ds-metric-title {
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        font-weight: 700;
+        line-height: 1.2;
+        margin-bottom: 0.25rem;
+    }
+    .ds-metric-value {
+        color: #ffffff;
+        font-size: 1.45rem;
+        font-weight: 800;
+        line-height: 1.2;
+    }
+    .ds-metric-unit {
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 0.85rem;
+        font-weight: 600;
+        margin-left: 0.2rem;
+    }
+    .ds-metric-progress-track {
+        background: rgba(255, 255, 255, 0.28);
+        height: 8px;
+        border-radius: 4px;
+        overflow: hidden;
+        margin-top: 0.5rem;
+    }
+    .ds-metric-progress-bar {
+        background-color: #ffffff !important;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+    }
+</style>
 
 <!-- THẺ CHỈ SỐ NHANH (METRIC TILES) -->
 <div class="row mb-3">
     <div class="col-xl-3 col-md-6 mb-2">
-        <div class="card border-0 bgc-primary-l4 border-l-4 brc-primary-m1 p-3">
+        <div class="card ds-metric-card ds-metric-blue">
             <div class="d-flex align-items-center">
-                <div class="mr-3">
-                    <span class="d-inline-block bgc-primary text-white text-140 p-2 radius-round">
-                        <i class="fa fa-money-bill-wave fa-fw"></i>
-                    </span>
+                <div class="ds-metric-icon mr-3">
+                    <i class="fa fa-money-bill-wave fa-fw"></i>
                 </div>
-                <div>
-                    <div class="text-secondary text-85 text-uppercase font-weight-bold">Doanh thu dự kiến</div>
-                    <div class="text-130 font-weight-bold text-primary-d2">
-                        @((Model.TotalExpectedRevenue ?? 0).ToString("N0")) <small class="text-80">VNĐ</small>
+                <div class="flex-grow-1 min-width-0">
+                    <div class="ds-metric-title text-truncate">Doanh thu dự kiến</div>
+                    <div class="ds-metric-value text-truncate">
+                        @((Model.TotalExpectedRevenue ?? 0).ToString("N0"))<span class="ds-metric-unit">VNĐ</span>
                     </div>
                 </div>
             </div>
@@ -56,17 +156,15 @@
     </div>
 
     <div class="col-xl-3 col-md-6 mb-2">
-        <div class="card border-0 bgc-success-l4 border-l-4 brc-success-m1 p-3">
+        <div class="card ds-metric-card ds-metric-green">
             <div class="d-flex align-items-center">
-                <div class="mr-3">
-                    <span class="d-inline-block bgc-success text-white text-140 p-2 radius-round">
-                        <i class="fa fa-file-invoice-dollar fa-fw"></i>
-                    </span>
+                <div class="ds-metric-icon mr-3">
+                    <i class="fa fa-file-invoice-dollar fa-fw"></i>
                 </div>
-                <div>
-                    <div class="text-secondary text-85 text-uppercase font-weight-bold">Doanh thu thực tế (Ký HĐ)</div>
-                    <div class="text-130 font-weight-bold text-success-d2">
-                        @((Model.TotalActualRevenue ?? 0).ToString("N0")) <small class="text-80">VNĐ</small>
+                <div class="flex-grow-1 min-width-0">
+                    <div class="ds-metric-title text-truncate">Doanh thu thực tế (Ký HĐ)</div>
+                    <div class="ds-metric-value text-truncate">
+                        @((Model.TotalActualRevenue ?? 0).ToString("N0"))<span class="ds-metric-unit">VNĐ</span>
                     </div>
                 </div>
             </div>
@@ -74,17 +172,15 @@
     </div>
 
     <div class="col-xl-3 col-md-6 mb-2">
-        <div class="card border-0 bgc-purple-l4 border-l-4 brc-purple-m1 p-3">
+        <div class="card ds-metric-card ds-metric-purple">
             <div class="d-flex align-items-center">
-                <div class="mr-3">
-                    <span class="d-inline-block bgc-purple text-white text-140 p-2 radius-round">
-                        <i class="fa fa-cubes fa-fw"></i>
-                    </span>
+                <div class="ds-metric-icon mr-3">
+                    <i class="fa fa-cubes fa-fw"></i>
                 </div>
-                <div>
-                    <div class="text-secondary text-85 text-uppercase font-weight-bold">Sản phẩm / Dịch vụ số</div>
-                    <div class="text-130 font-weight-bold text-purple-d2">
-                        @(Model.Products?.Count ?? 0) <small class="text-80">sản phẩm</small>
+                <div class="flex-grow-1 min-width-0">
+                    <div class="ds-metric-title text-truncate">Sản phẩm / Dịch vụ số</div>
+                    <div class="ds-metric-value text-truncate">
+                        @(Model.Products?.Count ?? 0)<span class="ds-metric-unit">sản phẩm</span>
                     </div>
                 </div>
             </div>
@@ -92,20 +188,18 @@
     </div>
 
     <div class="col-xl-3 col-md-6 mb-2">
-        <div class="card border-0 bgc-orange-l4 border-l-4 brc-orange-m1 p-3">
+        <div class="card ds-metric-card ds-metric-orange">
             <div class="d-flex align-items-center">
-                <div class="mr-3">
-                    <span class="d-inline-block bgc-orange text-white text-140 p-2 radius-round">
-                        <i class="fa fa-tasks fa-fw"></i>
-                    </span>
+                <div class="ds-metric-icon mr-3">
+                    <i class="fa fa-tasks fa-fw"></i>
                 </div>
-                <div class="w-100">
-                    <div class="d-flex justify-content-between">
-                        <span class="text-secondary text-85 text-uppercase font-weight-bold">Tiến trình thực hiện</span>
-                        <span class="text-85 font-weight-bold text-orange-d2">@completedTasks/@totalTasks công việc</span>
+                <div class="flex-grow-1 min-width-0">
+                    <div class="d-flex justify-content-between align-items-baseline">
+                        <span class="ds-metric-title text-truncate">Tiến trình thực hiện</span>
+                        <span class="font-weight-bold text-white text-90 ml-2 text-nowrap">@completedTasks/@totalTasks công việc</span>
                     </div>
-                    <div class="progress mt-1" style="height: 10px;">
-                        <div class="progress-bar bgc-orange" role="progressbar" style="width: @progressPercent%;" aria-valuenow="@progressPercent" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="ds-metric-progress-track">
+                        <div class="progress-bar ds-metric-progress-bar h-100" role="progressbar" style="width: @progressPercent%;" aria-valuenow="@progressPercent" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                 </div>
             </div>
@@ -113,7 +207,7 @@
     </div>
 </div>
 
-<!-- 5 TABS NỘI DUNG 360 ĐỘ -->
+<!-- 4 TABS NỘI DUNG 360 ĐỘ -->
 <div class="card dcard">
     <div class="card-header p-0 bgc-grey-l4 border-b-1 brc-grey-l1">
         <ul class="nav nav-tabs nav-tabs-simple border-0" role="tablist">
@@ -129,20 +223,14 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link px-4 py-3 font-weight-bold" id="tab-members-link" data-toggle="tab" href="#tab-members" role="tab" aria-selected="false">
-                    <i class="fa fa-users mr-1 text-blue"></i> 3. Thành viên tham gia
-                    <span class="badge badge-pill badge-primary ml-1">@(Model.Members?.Count ?? 0)</span>
-                </a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link px-4 py-3 font-weight-bold" id="tab-tracking-link" data-toggle="tab" href="#tab-tracking" role="tab" aria-selected="false">
-                    <i class="fa fa-clipboard-check mr-1 text-orange"></i> 4. Tiến trình & Checklist
+                    <i class="fa fa-clipboard-check mr-1 text-orange"></i> 3. Tiến trình & Checklist
                     <span class="badge badge-pill badge-warning ml-1">@completedTasks/@totalTasks</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link px-4 py-3 font-weight-bold" id="tab-timeline-link" data-toggle="tab" href="#tab-timeline" role="tab" aria-selected="false">
-                    <i class="fa fa-history mr-1 text-green"></i> 5. Dòng thời gian (Timeline)
+                    <i class="fa fa-history mr-1 text-green"></i> 4. Dòng thời gian (Timeline)
                     <span class="badge badge-pill badge-success ml-1">@(Model.Timelines?.Count ?? 0)</span>
                 </a>
             </li>
@@ -212,6 +300,94 @@
                         </div>
                     </div>
 
+                    <!-- THÀNH VIÊN THAM GIA & VAI TRÒ -->
+                    <div class="col-md-12">
+                        <div class="card border-1 brc-grey-l2 p-3 mb-3">
+                            <div class="d-flex justify-content-between align-items-center border-b-1 brc-grey-l2 pb-2 mb-3">
+                                <h6 class="text-primary font-weight-bold mb-0">
+                                    <i class="fa fa-users mr-1"></i> Thành viên tham gia & Vai trò
+                                    <span class="badge badge-primary badge-pill ml-1">@(Model.Members?.Count ?? 0)</span>
+                                </h6>
+                                @if (canEdit)
+                                {
+                                    <button type="button" class="btn btn-xs btn-outline-primary radius-1" onclick="openAddMemberModal(@Model.DigitalSalesID);" title="Thêm thành viên">
+                                        <i class="fa fa-user-plus mr-1"></i> Thêm thành viên
+                                    </button>
+                                }
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-sm table-bordered table-striped table-hover text-90 mb-0">
+                                    <thead class="bgc-grey-l3 text-secondary-d2">
+                                        <tr>
+                                            <th style="width: 40px;" class="text-center">STT</th>
+                                            <th>Họ và tên</th>
+                                            <th style="width: 140px;">Tài khoản</th>
+                                            <th>Vai trò / Nhiệm vụ</th>
+                                            <th style="width: 150px;" class="text-center">Quyền cập nhật TT</th>
+                                            <th>Liên hệ (Email / SĐT)</th>
+                                            <th>Ghi chú</th>
+                                            @if (canEdit)
+                                            {
+                                                <th style="width: 70px;" class="text-center">Thao tác</th>
+                                            }
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (Model.Members != null && Model.Members.Count > 0)
+                                        {
+                                            int mIdx = 1;
+                                            foreach (var m in Model.Members)
+                                            {
+                                                <tr>
+                                                    <td class="text-center">@mIdx</td>
+                                                    <td class="font-weight-bold text-dark">
+                                                        <i class="fa fa-user-circle text-primary mr-1"></i>@m.FullName
+                                                    </td>
+                                                    <td><span class="badge bgc-secondary-l3 text-secondary-d2 font-mono">@m.UserName</span></td>
+                                                    <td>
+                                                        <span class="badge badge-info px-2 py-1 font-bold">
+                                                            @(string.IsNullOrEmpty(m.RoleTitle) ? "Thành viên" : m.RoleTitle)
+                                                        </span>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        @if (m.IsAM)
+                                                        {
+                                                            <span class="badge badge-success px-2 py-1"><i class="fa fa-check-circle mr-1"></i> Được cập nhật</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class="text-muted">—</span>
+                                                        }
+                                                    </td>
+                                                    <td>@(m.Email ?? m.Phone ?? "—")</td>
+                                                    <td>@(string.IsNullOrEmpty(m.Note) ? "—" : m.Note)</td>
+                                                    @if (canEdit)
+                                                    {
+                                                        <td class="text-center">
+                                                            <a href="javascript:void(0);" class="text-danger" title="Xóa thành viên" onclick="deleteMemberItem(@m.MemberID, @Model.DigitalSalesID);">
+                                                                <i class="fa fa-trash-alt"></i>
+                                                            </a>
+                                                        </td>
+                                                    }
+                                                </tr>
+                                                mIdx++;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <tr>
+                                                <td colspan="@(canEdit ? 8 : 7)" class="text-center text-muted py-3">
+                                                    <i class="fa fa-user-slash fa-lg mr-1 text-secondary-l1"></i>
+                                                    Chưa có thành viên tham gia nào.@(canEdit ? " Bấm \"Thêm thành viên\" để phân công nhân sự vào hồ sơ." : "")
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="col-md-12">
                         <div class="card border-1 brc-grey-l2 p-3 mb-3">
                             <h6 class="text-primary font-weight-bold border-b-1 brc-grey-l2 pb-2 mb-3">
@@ -261,9 +437,12 @@
                     <h6 class="text-purple font-weight-bold mb-0">
                         <i class="fa fa-cubes mr-1"></i> Danh sách Sản phẩm / Dịch vụ số đính kèm
                     </h6>
-                    <button type="button" class="btn btn-sm btn-purple px-3" onclick="openAddProductModal(@Model.DigitalSalesID);">
-                        <i class="fa fa-plus mr-1"></i> Thêm sản phẩm / DV số
-                    </button>
+                    @if (canEdit)
+                    {
+                        <button type="button" class="btn btn-sm btn-purple px-3" onclick="openAddProductModal(@Model.DigitalSalesID);">
+                            <i class="fa fa-plus mr-1"></i> Thêm sản phẩm / DV số
+                        </button>
+                    }
                 </div>
 
                 <div class="table-responsive">
@@ -278,7 +457,10 @@
                                 <th class="text-right">DT thực tế (VNĐ)</th>
                                 <th>Thời hạn</th>
                                 <th>Ghi chú</th>
-                                <th style="width: 100px;" class="text-center">Thao tác</th>
+                                @if (canEdit)
+                                {
+                                    <th style="width: 100px;" class="text-center">Thao tác</th>
+                                }
                             </tr>
                         </thead>
                         <tbody>
@@ -299,14 +481,17 @@
                                             @(p.EndDate.HasValue ? " ➔ " + p.EndDate.Value.ToString("dd/MM/yyyy") : "")
                                         </td>
                                         <td>@(string.IsNullOrEmpty(p.Note) ? "—" : p.Note)</td>
-                                        <td class="text-center">
-                                            <a href="javascript:void(0);" class="text-primary mr-2" title="Chỉnh sửa" onclick="openEditProductModal(@p.SalesProductID, @Model.DigitalSalesID);">
-                                                <i class="fa fa-edit"></i>
-                                            </a>
-                                            <a href="javascript:void(0);" class="text-danger" title="Xóa" onclick="deleteProductItem(@p.SalesProductID, @Model.DigitalSalesID);">
-                                                <i class="fa fa-trash-alt"></i>
-                                            </a>
-                                        </td>
+                                        @if (canEdit)
+                                        {
+                                            <td class="text-center">
+                                                <a href="javascript:void(0);" class="text-primary mr-2" title="Chỉnh sửa" onclick="openEditProductModal(@p.SalesProductID, @Model.DigitalSalesID);">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>
+                                                <a href="javascript:void(0);" class="text-danger" title="Xóa" onclick="deleteProductItem(@p.SalesProductID, @Model.DigitalSalesID);">
+                                                    <i class="fa fa-trash-alt"></i>
+                                                </a>
+                                            </td>
+                                        }
                                     </tr>
                                     idx++;
                                 }
@@ -314,9 +499,9 @@
                             else
                             {
                                 <tr>
-                                    <td colspan="9" class="text-center py-4 text-muted">
+                                    <td colspan="@(canEdit ? 9 : 8)" class="text-center py-4 text-muted">
                                         <i class="fa fa-inbox fa-2x mb-2 d-block text-secondary-l1"></i>
-                                        Chưa có sản phẩm / dịch vụ số nào. Vui lòng bấm <strong>"Thêm sản phẩm / DV số"</strong>.
+                                        Chưa có sản phẩm / dịch vụ số nào.@(canEdit ? " Vui lòng bấm \"Thêm sản phẩm / DV số\"." : "")
                                     </td>
                                 </tr>
                             }
@@ -326,93 +511,25 @@
                                 <td colspan="4" class="text-right">TỔNG CỘNG:</td>
                                 <td class="text-right text-primary">@((Model.TotalExpectedRevenue ?? 0).ToString("N0")) VNĐ</td>
                                 <td class="text-right text-success">@((Model.TotalActualRevenue ?? 0).ToString("N0")) VNĐ</td>
-                                <td colspan="3"></td>
+                                <td colspan="@(canEdit ? 3 : 2)"></td>
                             </tr>
                         </tfoot>
                     </table>
                 </div>
             </div>
 
-            <!-- TAB 3: THÀNH VIÊN THAM GIA -->
-            <div class="tab-pane fade" id="tab-members" role="tabpanel">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h6 class="text-blue font-weight-bold mb-0">
-                        <i class="fa fa-users mr-1"></i> Danh sách Nhân sự / Thành viên tham gia
-                    </h6>
-                    <button type="button" class="btn btn-sm btn-primary px-3" onclick="openAddMemberModal(@Model.DigitalSalesID);">
-                        <i class="fa fa-user-plus mr-1"></i> Thêm thành viên
-                    </button>
-                </div>
-
-                <div class="table-responsive">
-                    <table class="table table-bordered table-striped table-hover text-90" id="tblMembers">
-                        <thead class="bgc-secondary-l1 text-secondary-d2">
-                            <tr>
-                                <th style="width: 40px;" class="text-center">STT</th>
-                                <th>Họ và tên</th>
-                                <th>Tài khoản</th>
-                                <th>Liên hệ (Email / Phone)</th>
-                                <th>Vai trò / Nhiệm vụ</th>
-                                <th style="width: 120px;" class="text-center">Chủ trì (AM)</th>
-                                <th>Ghi chú</th>
-                                <th style="width: 80px;" class="text-center">Thao tác</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @if (Model.Members != null && Model.Members.Count > 0)
-                            {
-                                int idx = 1;
-                                foreach (var m in Model.Members)
-                                {
-                                    <tr>
-                                        <td class="text-center">@idx</td>
-                                        <td class="font-weight-bold text-dark">@m.FullName</td>
-                                        <td>@m.UserName</td>
-                                        <td>@(m.Email ?? m.Phone ?? "—")</td>
-                                        <td>@(string.IsNullOrEmpty(m.RoleTitle) ? "Thành viên" : m.RoleTitle)</td>
-                                        <td class="text-center">
-                                            @if (m.IsAM)
-                                            {
-                                                <span class="badge badge-success px-2 py-1"><i class="fa fa-check mr-1"></i> AM Chủ trì</span>
-                                            }
-                                            else
-                                            {
-                                                <span class="text-muted">—</span>
-                                            }
-                                        </td>
-                                        <td>@(string.IsNullOrEmpty(m.Note) ? "—" : m.Note)</td>
-                                        <td class="text-center">
-                                            <a href="javascript:void(0);" class="text-danger" title="Xóa thành viên" onclick="deleteMemberItem(@m.MemberID, @Model.DigitalSalesID);">
-                                                <i class="fa fa-trash-alt"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    idx++;
-                                }
-                            }
-                            else
-                            {
-                                <tr>
-                                    <td colspan="8" class="text-center py-4 text-muted">
-                                        <i class="fa fa-user-friends fa-2x mb-2 d-block text-secondary-l1"></i>
-                                        Chưa có thành viên nào. Bấm <strong>"Thêm thành viên"</strong> để phân công nhân sự.
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- TAB 4: TIẾN TRÌNH & CHECKLIST -->
+            <!-- TAB 3: TIẾN TRÌNH & CHECKLIST -->
             <div class="tab-pane fade" id="tab-tracking" role="tabpanel">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h6 class="text-orange font-weight-bold mb-0">
                         <i class="fa fa-tasks mr-1"></i> Checklist Tiến trình thực hiện dự án theo chuẩn SLA
                     </h6>
-                    <button type="button" class="btn btn-sm btn-orange px-3" onclick="openAddTrackingModal(@Model.DigitalSalesID);">
-                        <i class="fa fa-plus mr-1"></i> Thêm công việc tùy biến
-                    </button>
+                    @if (canEdit)
+                    {
+                        <button type="button" class="btn btn-sm btn-orange px-3" onclick="openAddTrackingModal(@Model.DigitalSalesID);">
+                            <i class="fa fa-plus mr-1"></i> Thêm công việc tùy biến
+                        </button>
+                    }
                 </div>
 
                 <div class="table-responsive">
@@ -427,7 +544,10 @@
                                 <th>Hạn chót (Deadline)</th>
                                 <th style="width: 130px;" class="text-center">Trạng thái</th>
                                 <th>Kết quả / File</th>
-                                <th style="width: 110px;" class="text-center">Thao tác</th>
+                                @if (canEdit)
+                                {
+                                    <th style="width: 110px;" class="text-center">Thao tác</th>
+                                }
                             </tr>
                         </thead>
                         <tbody>
@@ -493,14 +613,17 @@
                                             }
                                             @(string.IsNullOrEmpty(t.ResultNote) ? "" : t.ResultNote)
                                         </td>
-                                        <td class="text-center">
-                                            <a href="javascript:void(0);" class="text-primary mr-2" title="Cập nhật tiến trình" onclick="openEditTrackingModal(@t.TrackingID, @Model.DigitalSalesID);">
-                                                <i class="fa fa-edit"></i>
-                                            </a>
-                                            <a href="javascript:void(0);" class="text-danger" title="Xóa tiến trình" onclick="deleteTrackingItem(@t.TrackingID, @Model.DigitalSalesID);">
-                                                <i class="fa fa-trash-alt"></i>
-                                            </a>
-                                        </td>
+                                        @if (canEdit)
+                                        {
+                                            <td class="text-center">
+                                                <a href="javascript:void(0);" class="text-primary mr-2" title="Cập nhật tiến trình" onclick="openEditTrackingModal(@t.TrackingID, @Model.DigitalSalesID);">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>
+                                                <a href="javascript:void(0);" class="text-danger" title="Xóa tiến trình" onclick="deleteTrackingItem(@t.TrackingID, @Model.DigitalSalesID);">
+                                                    <i class="fa fa-trash-alt"></i>
+                                                </a>
+                                            </td>
+                                        }
                                     </tr>
                                     idx++;
                                 }
@@ -508,9 +631,9 @@
                             else
                             {
                                 <tr>
-                                    <td colspan="9" class="text-center py-4 text-muted">
+                                    <td colspan="@(canEdit ? 9 : 8)" class="text-center py-4 text-muted">
                                         <i class="fa fa-clipboard-list fa-2x mb-2 d-block text-secondary-l1"></i>
-                                        Chưa có tiến trình công việc nào. Bấm <strong>"Thêm công việc tùy biến"</strong> hoặc chuyển trạng thái để tự sinh tiến trình theo danh mục.
+                                        Chưa có tiến trình công việc nào.@(canEdit ? " Bấm \"Thêm công việc tùy biến\" hoặc chuyển trạng thái để tự sinh tiến trình theo danh mục." : "")
                                     </td>
                                 </tr>
                             }
@@ -519,7 +642,7 @@
                 </div>
             </div>
 
-            <!-- TAB 5: DÒNG THỜI GIAN (TIMELINE) -->
+            <!-- TAB 4: DÒNG THỜI GIAN (TIMELINE) -->
             <div class="tab-pane fade" id="tab-timeline" role="tabpanel">
                 <h6 class="text-green font-weight-bold mb-3">
                     <i class="fa fa-history mr-1"></i> Lịch sử và Dòng thời gian chuyển đổi trạng thái (Audit Trail)
@@ -583,5 +706,6 @@
 <div id="modalContainer"></div>
 
 @section BottomScript {
+    <script type="text/javascript" src="@Url.Content("~/Contents/Modules/Major/ckeditor4/ckeditor.js")"></script>
     <script src="~/Areas/Cate/Views/DigitalSales/DigitalSalesDetail.js"></script>
 }

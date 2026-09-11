@@ -1,4 +1,4 @@
-﻿using Core.Cate.Models;
+using Core.Cate.Models;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -302,6 +302,27 @@ namespace Core.Cate.Biz
                 businessType.HasValue ? (object)businessType.Value : DBNull.Value
             );
             return list ?? new List<RM_DigitalSalesStatusModel>();
+        }
+
+        public string GenerateNextCode()
+        {
+            try
+            {
+                var currentYear = DateTime.Now.Year.ToString();
+                int total = 0;
+                var latest = LoadList(out total, new RM_DigitalSalesSearchModel());
+                int maxId = 0;
+                if (latest != null && latest.Count > 0)
+                {
+                    maxId = latest.Max(x => x.DigitalSalesID);
+                }
+                int nextSeq = maxId + 1;
+                return $"SPDV-{currentYear}-{nextSeq:D4}";
+            }
+            catch
+            {
+                return $"SPDV-{DateTime.Now.Year}-0001";
+            }
         }
     }
 }
