@@ -13,7 +13,7 @@
                 </button>
             </div>
 
-            <form id="frmAddSales" method="post" enctype="multipart/form-data">
+            <form id="frmAddSales" action="@Url.Action("Add", "DigitalSales", new { area = "Cate" })" method="post" enctype="multipart/form-data">
                 <div class="modal-body p-3" id="bodyForm">
                     @Html.AntiForgeryToken()
                     @Html.HiddenFor(m => m.BusinessType)
@@ -374,11 +374,61 @@
 
         setTimeout(initAddSalesCKEditor, 200);
 
-        // 6. Cập nhật CKEditor trước khi submit
-        $('#frmAddSales').on('submit', function () {
-            if (typeof CKEDITOR !== 'undefined' && CKEDITOR.instances['DigitalSales_Note']) {
-                CKEDITOR.instances['DigitalSales_Note'].updateElement();
+        // 6. Xử lý submit Form Thêm mới qua AJAX khép kín (Self-contained)
+        $('#frmAddSales').on('submit', function (e) {
+            e.preventDefault();
+            if (typeof CKEDITOR !== 'undefined') {
+                for (var inst in CKEDITOR.instances) {
+                    try { CKEDITOR.instances[inst].updateElement(); } catch (err) { }
+                }
             }
+
+            var $form = $(this);
+            var $btnSubmit = $form.find('button[type="submit"]');
+            var originalBtnHtml = $btnSubmit.html();
+            $btnSubmit.prop('disabled', true).html('<i class="fa fa-spinner fa-spin mr-1"></i> Đang lưu...');
+
+            var formData = new FormData(this);
+            $.ajax({
+                url: $form.attr('action') || '/Cate/DigitalSales/Add',
+                type: "POST",
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (res) {
+                    $btnSubmit.prop('disabled', false).html(originalBtnHtml);
+                    if (res && res.status) {
+                        $modal.modal('hide');
+                        $modal.one('hidden.bs.modal', function () {
+                            if (typeof executeResponseMessage === 'function') {
+                                executeResponseMessage(res.message, "Khởi tạo Cơ hội thành công!", true);
+                            }
+                            if (res.id) {
+                                window.location.href = '/Cate/DigitalSales/Detail/' + res.id;
+                            } else if (typeof reloadSalesTable === 'function') {
+                                reloadSalesTable();
+                            }
+                        });
+                    } else {
+                        var msg = (res && res.message) ? res.message : "Có lỗi xảy ra khi lưu cơ hội!";
+                        if (typeof executeResponseMessage === 'function') {
+                            executeResponseMessage(msg, msg, false);
+                        } else {
+                            alert(msg);
+                        }
+                    }
+                },
+                error: function (xhr, status, err) {
+                    $btnSubmit.prop('disabled', false).html(originalBtnHtml);
+                    var errMsg = "Lỗi kết nối máy chủ!";
+                    if (typeof executeResponseMessage === 'function') {
+                        executeResponseMessage(errMsg, errMsg, false);
+                    } else {
+                        alert(errMsg);
+                    }
+                }
+            });
+            return false;
         });
 
         // 7. Dọn dẹp CKEditor khi đóng modal

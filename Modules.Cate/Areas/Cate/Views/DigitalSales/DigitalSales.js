@@ -294,41 +294,6 @@ function openAddSalesModal() {
         $("#modalContainer").html(html);
         var $modal = $("#modalAddSales");
         $modal.modal("show");
-
-        $("#frmAddSales").on("submit", function (e) {
-            e.preventDefault();
-            if (typeof CKEDITOR !== 'undefined') {
-                for (var inst in CKEDITOR.instances) {
-                    try { CKEDITOR.instances[inst].updateElement(); } catch (err) { }
-                }
-            }
-            var formData = new FormData(this);
-            $.ajax({
-                url: _digitalSalesUrls.add,
-                type: "POST",
-                data: formData,
-                contentType: false,
-                processData: false,
-                success: function (res) {
-                    if (res.status) {
-                        $modal.modal("hide");
-                        $modal.on("hidden.bs.modal", function () {
-                            executeResponseMessage(res.message, "Khởi tạo Cơ hội thành công!", true);
-                            if (res.id) {
-                                window.location.href = _digitalSalesUrls.detail + "/" + res.id;
-                            } else {
-                                reloadSalesTable();
-                            }
-                        });
-                    } else {
-                        executeResponseMessage(res.message, "Có lỗi xảy ra khi lưu cơ hội!", false);
-                    }
-                },
-                error: function () {
-                    executeResponseMessage("Lỗi kết nối máy chủ!", "Lỗi kết nối máy chủ!", false);
-                }
-            });
-        });
     });
 }
 
@@ -337,37 +302,6 @@ function openEditSalesModal(id) {
         $("#modalContainer").html(html);
         var $modal = $("#modalEditSales");
         $modal.modal("show");
-
-        $("#frmEditSales").on("submit", function (e) {
-            e.preventDefault();
-            if (typeof CKEDITOR !== 'undefined') {
-                for (var inst in CKEDITOR.instances) {
-                    try { CKEDITOR.instances[inst].updateElement(); } catch (err) { }
-                }
-            }
-            var formData = new FormData(this);
-            $.ajax({
-                url: _digitalSalesUrls.edit,
-                type: "POST",
-                data: formData,
-                contentType: false,
-                processData: false,
-                success: function (res) {
-                    if (res.status) {
-                        $modal.modal("hide");
-                        $modal.on("hidden.bs.modal", function () {
-                            executeResponseMessage(res.message, "Cập nhật thành công!", true);
-                            reloadSalesTable();
-                        });
-                    } else {
-                        executeResponseMessage(res.message, "Có lỗi xảy ra!", false);
-                    }
-                },
-                error: function () {
-                    executeResponseMessage("Lỗi kết nối máy chủ!", "Lỗi kết nối máy chủ!", false);
-                }
-            });
-        });
     });
 }
 
