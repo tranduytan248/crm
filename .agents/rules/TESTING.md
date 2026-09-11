@@ -29,6 +29,9 @@ Bạn phải tuân thủ nghiêm ngặt quy trình kiểm thử và xác minh sa
     - Khi có lỗi nghiệp vụ: Phải hiển thị thông báo lỗi rõ ràng từ `App_Message`, không được làm sập trang.
     - Tuyệt đối KHÔNG để xảy ra tình trạng submit native làm sập trang sang `/Error/Error` (HTTP 500) do thiếu thuộc tính `action` hoặc mất event `e.preventDefault()`.
   - Mọi form có trường nhập nội dung từ trình soạn thảo (CKEditor/Summernote) PHẢI được kiểm thử lưu chuỗi có chứa các thẻ HTML (`<p>`, `<div>`, `<br>`, `<b>`). Phải xác minh C# Model có thuộc tính `[AllowHtml]` và `Web.config` có `requestValidationMode="2.0"` để không bị `HttpRequestValidationException`.
+  - **Kiểm thử An toàn Model Binding & DisplayName (Anti-Null DisplayName):** Mọi Model C# dùng làm tham số nhận dữ liệu Form POST/PUT PHẢI được xác minh:
+    - Không có bất kỳ property nào có `CustomDisplayName` hoặc `DisplayName` trả về `null`.
+    - Gán thử vào `ValidationContext.DisplayName` thành công, không được quăng `ArgumentNullException: Value cannot be null. Parameter name: value`.
 - **Kiểm thử phản hồi AJAX Network:**
   - Kiểm tra toàn bộ các request AJAX: Bắt buộc mã trạng thái `200 OK`. Cấm tuyệt đối mã lỗi HTTP 404, 500 hoặc 302 Redirect sang trang lỗi.
 
