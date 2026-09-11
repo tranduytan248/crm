@@ -1,25 +1,38 @@
-# Local direct upload script for Demo FTP (fallback / direct execution)
+# Direct upload to Demo FTP from a workstation inside the VNPT network.
 [CmdletBinding()]
 param(
-    [string]$Server = $env:FTP_SERVER_DEMO,
+    [string]$Server = $(if ($env:FTP_SERVER_DEMO) { $env:FTP_SERVER_DEMO } else { "10.57.30.10" }),
     [int]$Port = 21,
-    [string]$User = $env:FTP_USERNAME_DEMO,
+    [string]$User = $(if ($env:FTP_USERNAME_DEMO) { $env:FTP_USERNAME_DEMO } else { "quanlydoanhthucenit" }),
     [string]$Password = $env:FTP_PASSWORD_DEMO,
-    [string]$SourceDir = "publish_source"
+    [string]$SourceDir = "publish_source",
+    [string]$CredentialPath = ".secrets/ftp-demo.credential.xml"
 )
-
-if ([string]::IsNullOrWhiteSpace($Server)) { $Server = "10.57.30.10" }
-if ([string]::IsNullOrWhiteSpace($User)) { $User = "quanlydoanhthucenit" }
-if ([string]::IsNullOrWhiteSpace($Password)) { $Password = "fsJD37sH@23" }
 
 $ErrorActionPreference = "Stop"
 
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 $rootDir = Split-Path -Parent $scriptDir
 $localPublishDir = Join-Path $rootDir $SourceDir
+$localCredentialPath = Join-Path $rootDir $CredentialPath
 
 if (-not (Test-Path $localPublishDir)) {
     throw "Directory $localPublishDir does not exist! Please run build_publish.ps1 first."
+}
+
+$mainDll = Join-Path $localPublishDir "bin/CenIT.Solution.TOC.WebApp.dll"
+if (-not (Test-Path -LiteralPath $mainDll -PathType Leaf)) {
+    throw "Published application DLL is missing: $mainDll"
+}
+
+if ([string]::IsNullOrWhiteSpace($Password)) {
+    if (-not (Test-Path -LiteralPath $localCredentialPath -PathType Leaf)) {
+        throw "FTP credential is missing. Set FTP_PASSWORD_DEMO or create $localCredentialPath with Export-Clixml."
+    }
+
+    $storedCredential = Import-Clixml -LiteralPath $localCredentialPath
+    $User = $storedCredential.UserName
+    $Password = $storedCredential.GetNetworkCredential().Password
 }
 
 Write-Host "==========================================" -ForegroundColor Cyan
@@ -58,29 +71,60 @@ function Upload-FtpFile {
 $cred = New-Object System.Net.NetworkCredential($User, $Password)
 $baseUri = "ftp://$Server`:$Port/"
 
-$files = Get-ChildItem -Path $localPublishDir -Recurse -File
+function Get-RelativeFtpPath {
+    param([string]$FullName)
+    return $FullName.Substring($localPublishDir.Length).TrimStart('\', '/').Replace('\', '/')
+}
+
+$excludedRelativePaths = [System.Collections.Generic.HashSet[string]]::new(
+    [System.StringComparer]::OrdinalIgnoreCase
+)
+[void]$excludedRelativePaths.Add("Web.config")
+[void]$excludedRelativePaths.Add("Configs/AppSettings.config")
+
+$allFiles = @(Get-ChildItem -Path $localPublishDir -Recurse -File)
+$files = @($allFiles | Where-Object {
+    -not $excludedRelativePaths.Contains((Get-RelativeFtpPath -FullName $_.FullName))
+})
+$skippedFiles = @($allFiles | Where-Object {
+    $excludedRelativePaths.Contains((Get-RelativeFtpPath -FullName $_.FullName))
+})
 $total = $files.Count
 $current = 0
+$uploaded = 0
+$failed = [System.Collections.Generic.List[string]]::new()
 
-Write-Host "Starting upload of $total files..." -ForegroundColor Yellow
+Write-Host "Starting upload of $total files; skipping $($skippedFiles.Count) environment config file(s)..." -ForegroundColor Yellow
+foreach ($skippedFile in $skippedFiles) {
+    Write-Host "[SKIP] $(Get-RelativeFtpPath -FullName $skippedFile.FullName)" -ForegroundColor DarkYellow
+}
 
 # Ensure directories first
 $dirs = Get-ChildItem -Path $localPublishDir -Recurse -Directory | Sort-Object FullName
 foreach ($d in $dirs) {
-    $rel = $d.FullName.Substring($localPublishDir.Length).TrimStart('\', '/').Replace('\', '/')
+    $rel = Get-RelativeFtpPath -FullName $d.FullName
     Ensure-FtpDirectory -remoteUri "$baseUri$rel/" -cred $cred
 }
 
 foreach ($f in $files) {
     $current++
-    $rel = $f.FullName.Substring($localPublishDir.Length).TrimStart('\', '/').Replace('\', '/')
+    $rel = Get-RelativeFtpPath -FullName $f.FullName
     $targetUri = "$baseUri$rel"
-    Write-Progress -Activity "Uploading to FTP Demo" -Status "$current/$total: $rel" -PercentComplete (($current / $total) * 100)
+    Write-Progress -Activity "Uploading to FTP Demo" -Status "$current/${total}: $rel" -PercentComplete (($current / $total) * 100)
     try {
         Upload-FtpFile -localFile $f.FullName -remoteUri $targetUri -cred $cred
+        $uploaded++
     } catch {
         Write-Warning "Failed to upload $rel : $($_.Exception.Message)"
+        $failed.Add($rel)
     }
 }
 
-Write-Host "`n[SUCCESS] Direct upload to FTP Demo completed!" -ForegroundColor Green
+Write-Progress -Activity "Uploading to FTP Demo" -Completed
+if ($failed.Count -gt 0) {
+    Write-Error "FTP upload failed: $($failed.Count)/$total file(s) failed; $uploaded uploaded successfully."
+    exit 1
+}
+
+Write-Host "`n[SUCCESS] Uploaded $uploaded/$total files to FTP Demo; skipped $($skippedFiles.Count) environment config file(s)." -ForegroundColor Green
+exit 0

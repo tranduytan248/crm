@@ -1,0 +1,59 @@
+﻿@using TSFramework.Libs.Processors
+@model Core.Cate.Models.RM_DigitalSalesSearchModel
+
+@{
+    ViewBag.Title = "Quản lý Kinh doanh Sản phẩm Dịch vụ Số";
+}
+
+@section PageTitle {
+    <i class="fa fa-chart-line text-primary mr-1"></i>
+    Quản lý Kinh doanh Sản phẩm Dịch vụ Số
+    <small class="page-info text-secondary-d2 text-90 font-normal ml-2">
+        (Cơ hội kinh doanh ➔ Dự án số)
+    </small>
+}
+
+@section PageAction {
+    <a href="@Url.Action("Index", "DigitalSalesWorkflow", new { area = "Cate" })" class="btn btn-sm btn-outline-purple mr-2">
+        <i class="fa fa-sitemap mr-1"></i> Cấu hình Quy trình & Tiến trình
+    </a>
+    <button type="button" class="btn btn-sm btn-primary" onclick="openAddSalesModal();">
+        <i class="fa fa-plus-circle mr-1"></i> Khởi tạo Cơ hội mới
+    </button>
+}
+
+<div class="mb-3">
+    @Html.Partial("_Search", Model)
+</div>
+
+<div class="card dcard">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table id="tblDigitalSales" class="table table-striped table-hover text-90 w-100 border-y-1 brc-black-tp11">
+                <thead class="bgc-secondary-l1 text-secondary-d2 text-85 text-uppercase font-weight-bold">
+                    <tr>
+                        <th style="width: 40px;" class="text-center">STT</th>
+                        <th style="width: 120px;">Mã số</th>
+                        <th>Tên Cơ hội / Dự án</th>
+                        <th style="width: 100px;" class="text-center">Loại hình</th>
+                        <th style="width: 140px;" class="text-center">Trạng thái</th>
+                        <th>Khách hàng</th>
+                        <th>AM chủ trì</th>
+                        <th class="text-right" style="width: 130px;">DT dự kiến (VNĐ)</th>
+                        <th class="text-right" style="width: 130px;">DT thực tế (VNĐ)</th>
+                        <th style="width: 120px;" class="text-center">Tiến độ</th>
+                        <th style="width: 130px;" class="text-center">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- CONTAINER LOAD MODALS AJAX -->
+<div id="modalContainer"></div>
+
+@section BottomScript {
+    <script src="~/Areas/Cate/Views/DigitalSales/DigitalSales.js"></script>
+}

@@ -191,7 +191,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
         [HttpPost]
         [ActionType(Type = EnumActionType.Create)]
         [ValidateInput(false)]
-        public ActionResult ReviewBatch(RM_ReviewFormModel model)
+        public ActionResult ReviewBatch(RM_ReviewFormModel model, bool continueReview = false)
         {
             if (!ModelState.IsValid)
             {
@@ -204,7 +204,72 @@ namespace Modules.Cate.Areas.Cate.Controllers
             if (result == 0) response = CreateMessage($"{_reviewBatchTitle} [{model.ReviewBatchID}]", EnumProcessType.Add, EnumMsgIcon.Error);
             else if (result == -9) response = CreateMessage($"{_reviewBatchTitle} [{model.ReviewBatchID}]", EnumProcessType.DataExisted, EnumMsgIcon.Error);
             else response = CreateMessage($"{_reviewBatchTitle} [{model.ReviewBatchID}]", EnumProcessType.Add, EnumMsgIcon.Success);
-            return Json(new { status = true, message = response, tab = model.ObjectType, reviewBatchID = model.ReviewBatchID }, JsonRequestBehavior.AllowGet);
+            var nextReviewUrl = result > 0 && continueReview ? GetNextReviewUrl(model) : null;
+            return Json(new
+            {
+                status = true,
+                message = response,
+                tab = model.ObjectType,
+                reviewBatchID = model.ReviewBatchID,
+                nextReviewUrl
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// Lấy đối tượng chưa rà soát kế tiếp trong cùng đợt và cùng loại đối tượng.
+        /// </summary>
+        private string GetNextReviewUrl(RM_ReviewFormModel model)
+        {
+            var search = new BaseSearchModel
+            {
+                Search = null,
+                Order = "1",
+                OrderDir = "DESC",
+                StartIndex = 0,
+                PageSize = 1
+            };
+
+            if (model.ObjectType == 2)
+            {
+                var projectSearch = new RM_ReviewProjectSearchModel
+                {
+                    ReviewBatchID = model.ReviewBatchID,
+                    IsReviewed = false,
+                    UserName = User.UserName
+                };
+                var projects = _reviewBatchItemCache.LoadProject(out _, projectSearch, search);
+                var nextProject = projects?.FirstOrDefault();
+                return nextProject == null
+                    ? null
+                    : Url.Action("Index", "ProjectOverview", new
+                    {
+                        area = "Cate",
+                        id = nextProject.ProjectID,
+                        reviewBatchID = model.ReviewBatchID
+                    });
+            }
+
+            if (model.ObjectType == 1)
+            {
+                var opportunitySearch = new RM_ReviewBusinessOpportunitySearchModel
+                {
+                    ReviewBatchID = model.ReviewBatchID,
+                    IsReviewed = false,
+                    UserName = User.UserName
+                };
+                var opportunities = _reviewBatchItemCache.LoadBusinessOpportunity(out _, opportunitySearch, search);
+                var nextOpportunity = opportunities?.FirstOrDefault();
+                return nextOpportunity == null
+                    ? null
+                    : Url.Action("Index", "BusinessOpportunityOverview", new
+                    {
+                        area = "Cate",
+                        id = nextOpportunity.BusinessOpportunityID,
+                        reviewBatchID = model.ReviewBatchID
+                    });
+            }
+
+            return null;
         }
 
         /// <summary>

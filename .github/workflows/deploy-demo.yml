@@ -23,3 +23,6 @@ jobs:
           local-dir: ./publish_source/
           server-dir: /
           dangerous-clean-slate: false
+          exclude: |
+            Web.config
+            Configs/AppSettings.config

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -364,6 +364,26 @@
     <Content Include="Areas\Cate\Views\ReviewBatch\ReviewBatch.js" />
     <Content Include="Areas\Cate\Views\RM_BusinessOpportunity\Index.cshtml" />
     <Content Include="Areas\Cate\Views\RM_BusinessOpportunity\RM_BusinessOpportunity.js" />
+    <Content Include="Areas\Cate\Views\DigitalSales\Detail.cshtml" />
+    <Content Include="Areas\Cate\Views\DigitalSales\DigitalSales.js" />
+    <Content Include="Areas\Cate\Views\DigitalSales\DigitalSalesDetail.js" />
+    <Content Include="Areas\Cate\Views\DigitalSales\Index.cshtml" />
+    <Content Include="Areas\Cate\Views\DigitalSales\_Add.cshtml" />
+    <Content Include="Areas\Cate\Views\DigitalSales\_ChangeStatusModal.cshtml" />
+    <Content Include="Areas\Cate\Views\DigitalSales\_Edit.cshtml" />
+    <Content Include="Areas\Cate\Views\DigitalSales\_MemberModal.cshtml" />
+    <Content Include="Areas\Cate\Views\DigitalSales\_ProductModal.cshtml" />
+    <Content Include="Areas\Cate\Views\DigitalSales\_Search.cshtml" />
+    <Content Include="Areas\Cate\Views\DigitalSales\_TrackingModal.cshtml" />
+    <Content Include="Areas\Cate\Views\DigitalSalesWorkflow\DigitalSalesWorkflow.js" />
+    <Content Include="Areas\Cate\Views\DigitalSalesWorkflow\Index.cshtml" />
+    <Content Include="Areas\Cate\Views\DigitalSalesWorkflow\_DeleteConfirm.cshtml" />
+    <Content Include="Areas\Cate\Views\DigitalSalesWorkflow\_ProcessList.cshtml" />
+    <Content Include="Areas\Cate\Views\DigitalSalesWorkflow\_ProcessModal.cshtml" />
+    <Content Include="Areas\Cate\Views\DigitalSalesWorkflow\_ProgressList.cshtml" />
+    <Content Include="Areas\Cate\Views\DigitalSalesWorkflow\_ProgressModal.cshtml" />
+    <Content Include="Areas\Cate\Views\DigitalSalesWorkflow\_StatusList.cshtml" />
+    <Content Include="Areas\Cate\Views\DigitalSalesWorkflow\_StatusModal.cshtml" />
     <Content Include="Areas\Cate\Views\RM_BusinessPlan\BusinessPlan.js" />
     <Content Include="Areas\Cate\Views\RM_Contracts\RM_Contracts.js" />
     <Content Include="Areas\Cate\Views\RM_ExchangeHistory\ExchangeHistory.js" />

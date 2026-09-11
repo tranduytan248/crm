@@ -1,0 +1,80 @@
+﻿@using TSFramework.Libs.Processors
+@model Core.Cate.Models.RM_DigitalSalesProcessModel
+
+@{
+    var isNew = Model.ProcessID == 0;
+    ViewBag.Title = (isNew ? "Thêm mới" : "Cập nhật") + " Quy trình";
+    Layout = "~/Views/Shared/_Form.cshtml";
+}
+
+@section FormType{
+    info
+}
+
+@section FormIcon{
+    <i class="fa fa-@(isNew ? "plus" : "pencil-alt")"></i>
+}
+
+@section FormBody{
+    @using (Ajax.BeginForm("SaveProcess", "DigitalSalesWorkflow", new { area = "Cate" }, new AjaxOptions
+    {
+        HttpMethod = "POST",
+        OnSuccess = "DigitalSalesWorkflow.onProcessSaveSuccess(data)"
+    }, new { @class = "form-horizontal", id = "formProcessModal" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.ProcessID)
+        @Html.HiddenFor(m => m.StatusID)
+        @Html.HiddenFor(m => m.BusinessType)
+
+        <div class="form-group row">
+            <label class="col-sm-3 col-form-label text-sm-right font-bold text-secondary-d1">Trạng thái cha</label>
+            <div class="col-sm-8 pt-2">
+                <span class="badge badge-lg bgc-blue-l2 text-blue-d2 border-1 brc-blue-m3 px-3 py-1">
+                    <i class="fa fa-tag mr-1"></i>@(string.IsNullOrEmpty(Model.StatusName) ? "Trạng thái #" + Model.StatusID : Model.StatusName)
+                </span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-3 col-form-label text-sm-right font-bold text-secondary-d1">Mã quy trình <span class="text-danger">*</span></label>
+            <div class="col-sm-8">
+                @Html.TextBoxFor(m => m.ProcessCode, new { @class = "form-control", placeholder = "VD: QT_KHAOSAT, QT_THIETKE, QT_BAOGIA...", required = "required", maxlength = 50 })
+                @Html.ValidationMessageFor(m => m.ProcessCode, "", new { @class = "text-danger text-90" })
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-3 col-form-label text-sm-right font-bold text-secondary-d1">Tên quy trình <span class="text-danger">*</span></label>
+            <div class="col-sm-8">
+                @Html.TextBoxFor(m => m.ProcessName, new { @class = "form-control", placeholder = "VD: Khảo sát hiện trạng, Lập phương án kỹ thuật...", required = "required", maxlength = 250 })
+                @Html.ValidationMessageFor(m => m.ProcessName, "", new { @class = "text-danger text-90" })
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-3 col-form-label text-sm-right font-bold text-secondary-d1">Thứ tự thực hiện</label>
+            <div class="col-sm-4">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fa fa-sort-numeric-down"></i></span>
+                    </div>
+                    @Html.TextBoxFor(m => m.SortOrder, new { @class = "form-control", type = "number", min = "1", placeholder = "Thứ tự" })
+                </div>
+            </div>
+            <div class="col-sm-4 pt-2">
+                <label class="cursor-pointer">
+                    @Html.CheckBoxFor(m => m.IsActive, new { @class = "ace-switch ace-switch-check input-lg" })
+                    <span class="ml-1 text-95 font-600 text-success-d1">Kích hoạt</span>
+                </label>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-3 col-form-label text-sm-right font-bold text-secondary-d1">Mô tả / Hướng dẫn</label>
+            <div class="col-sm-8">
+                @Html.TextAreaFor(m => m.Description, new { @class = "form-control", rows = 3, placeholder = "Mô tả chi tiết mục tiêu, kết quả mong đợi của quy trình..." })
+            </div>
+        </div>
+    }
+}

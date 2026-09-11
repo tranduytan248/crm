@@ -33,6 +33,7 @@
             display: flex;
             align-items: stretch;
             pointer-events: auto;
+            transition: width .25s ease-out, max-width .25s ease-out, transform .25s ease-out;
         }
 
         #modal_ReviewBatch.review-dock-right .modal-content {
@@ -47,21 +48,59 @@
 
         #modal_ReviewBatch.review-dock-right .modal-body {
             flex: 1 1 auto;
+            min-height: 0;
             overflow-y: auto;
         }
 
         #modal_ReviewBatch.review-dock-right .modal-footer {
             flex: 0 0 auto;
+            background: #fff;
+            z-index: 1;
         }
 
         /* Hiệu ứng trượt vào từ cạnh phải */
         #modal_ReviewBatch.review-dock-right.fade .modal-dialog {
             transform: translateX(100%);
-            transition: transform .25s ease-out;
+            transition: transform .25s ease-out, width .25s ease-out, max-width .25s ease-out;
         }
 
         #modal_ReviewBatch.review-dock-right.show .modal-dialog {
             transform: translateX(0);
+        }
+
+        #modal_ReviewBatch .review-dock-toggle {
+            margin-left: auto;
+        }
+
+        #modal_ReviewBatch.review-dock-collapsed .modal-dialog {
+            width: 48px;
+            max-width: 48px;
+        }
+
+        #modal_ReviewBatch.review-dock-collapsed .modal-header {
+            width: 48px;
+            height: 100%;
+            padding: 0 !important;
+            justify-content: center;
+            border-radius: 0;
+        }
+
+        #modal_ReviewBatch.review-dock-collapsed .modal-title,
+        #modal_ReviewBatch.review-dock-collapsed .modal-header [data-dismiss],
+        #modal_ReviewBatch.review-dock-collapsed .modal-body,
+        #modal_ReviewBatch.review-dock-collapsed .modal-footer {
+            display: none;
+        }
+
+        #modal_ReviewBatch.review-dock-collapsed .review-dock-toggle {
+            display: flex;
+            width: 48px;
+            height: 100%;
+            margin: 0;
+            align-items: center;
+            justify-content: center;
+            border: 0;
+            border-radius: 0;
         }
 
         /* Thu gọn vùng soạn thảo để form vừa một màn hình, không phải cuộn nhiều */
@@ -75,6 +114,70 @@
             padding-right: 0 !important;
         }
 
+        .review-split-view {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr);
+            gap: 16px;
+            align-items: start;
+        }
+
+        .review-detail-pane,
+        .review-form-pane {
+            min-width: 0;
+        }
+
+        .review-form-pane {
+            position: sticky;
+            top: 8px;
+            align-self: start;
+            height: calc(100vh - 16px);
+            max-height: calc(100vh - 16px);
+            overflow: hidden;
+        }
+
+        #reviewFormPane #modal_ReviewBatch.review-dock-right {
+            position: static !important;
+            display: block !important;
+            width: 100%;
+            height: 100%;
+            padding: 0 !important;
+            overflow: visible;
+            z-index: auto;
+        }
+
+        #reviewFormPane #modal_ReviewBatch.review-dock-right .modal-dialog {
+            position: static;
+            width: 100%;
+            max-width: none;
+            height: 100%;
+            margin: 0;
+            transform: none !important;
+        }
+
+        #reviewFormPane #modal_ReviewBatch.review-dock-right .modal-header {
+            width: auto;
+            height: auto;
+        }
+
+        #reviewSplitView.review-split-collapsed #reviewFormPane #modal_ReviewBatch .modal-dialog,
+        #reviewSplitView.review-split-collapsed #reviewFormPane #modal_ReviewBatch .modal-header {
+            width: 48px;
+        }
+
+        #reviewSplitView.review-split-collapsed #reviewFormPane #modal_ReviewBatch .modal-header {
+            height: 100%;
+        }
+
+        @@media (min-width: 992px) {
+            .review-split-view.review-split-active {
+                grid-template-columns: minmax(0, 1fr) minmax(360px, 34%);
+            }
+
+            .review-split-view.review-split-active.review-split-collapsed {
+                grid-template-columns: minmax(0, 1fr) 48px;
+            }
+        }
+
         @@media (max-width: 991.98px) {
             #modal_ReviewBatch.review-dock-right .modal-dialog {
                 width: 100%;
@@ -85,6 +188,7 @@
 
     @using (Html.BeginForm("ReviewBatch", "ReviewBatchItem", new { area = "Cate" }, FormMethod.Post, new { encType = "multipart/form-data", id = "ReviewBatch", @class = "form-horizontal" }))
     {
+        <input type="hidden" id="ReviewBatchContinueReview" name="ContinueReview" value="false" />
         <div id="bodyForm">
             @Html.Partial("_ReviewForm")
         </div>
@@ -94,69 +198,135 @@
         // Neo panel rà soát về bên phải màn hình.
         // Khởi tạo với backdrop:false ngay trước khi framework gọi modal("show")
         // để không sinh lớp phủ chặn thao tác với nội dung phía sau.
-        $('#modal_ReviewBatch')
+        var $reviewDock = $('#modal_ReviewBatch');
+        var $reviewSplitView = $('#reviewSplitView');
+        var $reviewFormPane = $('#reviewFormPane');
+
+        function resizeReviewFormPane() {
+            if (!$reviewFormPane.length) return;
+            var paneTop = $reviewFormPane.data('fixedTop');
+            if (paneTop === undefined) {
+                paneTop = Math.max($reviewFormPane[0].getBoundingClientRect().top, 8);
+                $reviewFormPane.data('fixedTop', paneTop);
+            }
+            var availableHeight = Math.max(window.innerHeight - paneTop - 8, 180);
+            $reviewFormPane.css({
+                top: paneTop + 'px',
+                height: availableHeight + 'px',
+                maxHeight: availableHeight + 'px'
+            });
+        }
+
+        if (!$reviewDock.find('.review-dock-toggle').length) {
+            $reviewDock.find('.modal-header').append(
+                '<button type="button" class="review-dock-toggle btn btn-outline-white btn-h-primary btn-a-primary mr-2" ' +
+                'title="Thu gọn form rà soát" aria-label="Thu gọn form rà soát" aria-expanded="true">' +
+                '<i class="fas fa-chevron-right"></i></button>'
+            );
+        }
+
+        $reviewDock
             .addClass('review-dock-right')
             .removeClass('modal-lg modal-fs')
             .modal({ backdrop: false, keyboard: true, show: false })
+            .on('show.bs.modal', function () {
+                if ($reviewFormPane.length) {
+                    $(this).appendTo($reviewFormPane);
+                    $reviewSplitView.addClass('review-split-active');
+                    resizeReviewFormPane();
+                }
+            })
             .on('shown.bs.modal', function () {
                 $('body').addClass('review-dock-open');
             })
             .on('hidden.bs.modal', function () {
                 $('body').removeClass('review-dock-open');
+                $(this).removeClass('review-dock-collapsed');
+                $reviewSplitView.removeClass('review-split-active review-split-collapsed');
+                $(this).find('.review-dock-toggle')
+                    .attr('title', 'Thu gọn form rà soát')
+                    .attr('aria-label', 'Thu gọn form rà soát')
+                    .attr('aria-expanded', 'true')
+                    .find('i')
+                    .removeClass('fa-chevron-left')
+                    .addClass('fa-chevron-right');
+            });
+
+        $(window)
+            .off('resize.reviewDockSize')
+            .on('resize.reviewDockSize', resizeReviewFormPane);
+
+        $reviewDock
+            .off('click.reviewDockToggle', '.review-dock-toggle')
+            .on('click.reviewDockToggle', '.review-dock-toggle', function () {
+                var isCollapsed = $reviewDock.toggleClass('review-dock-collapsed')
+                    .hasClass('review-dock-collapsed');
+                $reviewSplitView.toggleClass('review-split-collapsed', isCollapsed);
+                $(this)
+                    .attr('title', isCollapsed ? 'Mở rộng form rà soát' : 'Thu gọn form rà soát')
+                    .attr('aria-label', isCollapsed ? 'Mở rộng form rà soát' : 'Thu gọn form rà soát')
+                    .attr('aria-expanded', (!isCollapsed).toString())
+                    .find('i')
+                    .toggleClass('fa-chevron-right', !isCollapsed)
+                    .toggleClass('fa-chevron-left', isCollapsed);
             });
     </script>
 
     <script type="text/javascript">
+        var reviewBatchSaveAndContinue = false;
+
+        $(document)
+            .off('click.reviewBatchSubmit', '#modal_ReviewBatch .js-review-batch-submit')
+            .on('click.reviewBatchSubmit', '#modal_ReviewBatch .js-review-batch-submit', function () {
+                reviewBatchSaveAndContinue = $(this).data('continue') === true;
+                $('#ReviewBatchContinueReview').val(reviewBatchSaveAndContinue ? 'true' : 'false');
+                $('#modal_ReviewBatch form#ReviewBatch').trigger('submit');
+            });
+
         $('form#ReviewBatch').ajaxForm({
             success: function (response) {
                 const formId = "ReviewBatch";
-                const $modal = $("#ModalContent #modal_" + formId);
+                const $modal = $("#modal_" + formId);
                 // validate fail
                 if (response.status === undefined) {
                     $modal.find("#bodyForm").html(response);
                     return;
                 }
-                const processSuccess = () => {
+                const processSuccess = (targetUrl) => {
                     eval(response.message);
-                    let tab = "project";
-                    // opportunity
-                    if (response.tab === 1) {
-                        tab = "opportunity";
-                    }
-                    // project
-                    if (response.tab === 2) {
-                        tab = "project";
-                    }
-                    // Quay lại đúng đợt rà soát vừa thao tác thay vì danh sách rỗng
-                    const batchId = response.reviewBatchID || 0;
-                    const backUrl = batchId > 0
-                        ? "/Cate/ReviewBatchItem/Index/" + batchId + "?tab=" + tab
-                        : "/Cate/ReviewBatchItem?tab=" + tab;
-                    window.location.href = backUrl;
+                    window.location.href = targetUrl;
                     response.status = undefined;
                 };
 
-                const isKeepOpen = $modal.find("#chkNotDismissModal").is(":checked");
-
-                if (isKeepOpen) {
-                    processSuccess();
-                    const urlAction = $modal.find("form").attr("action");
-                    $modal.find("#modal-content")
-                        .load(urlAction, function () {
-                            _initElement();
-                        });
-                } else {
-                    $modal.off("hidden.bs.modal")
-                        .on("hidden.bs.modal", function () {
-                            processSuccess();
-                        });
-                    $modal.modal("hide");
+                let tab = "project";
+                if (response.tab === 1) {
+                    tab = "opportunity";
                 }
+
+                // Quay lại đúng đợt và đúng tab khi không tiếp tục hoặc đã rà soát hết.
+                const batchId = response.reviewBatchID || 0;
+                const backUrl = batchId > 0
+                    ? "/Cate/ReviewBatchItem/Index/" + batchId + "?tab=" + tab
+                    : "/Cate/ReviewBatchItem?tab=" + tab;
+                const targetUrl = reviewBatchSaveAndContinue && response.nextReviewUrl
+                    ? response.nextReviewUrl
+                    : backUrl;
+
+                $modal.off("hidden.bs.modal")
+                    .on("hidden.bs.modal", function () {
+                        processSuccess(targetUrl);
+                    });
+                $modal.modal("hide");
             }
         });
     </script>
 }
 
-@section ContinueForm{
-
+@section SubmitControl{
+    <button type="button" class="js-review-batch-submit btn px-4 btn-outline-primary mb-1" data-continue="false">
+        <i class="fa fa-save"></i>&nbsp;@AppProcessor.Messagor.GetMessage("Button_Save")
+    </button>
+    <button type="button" class="js-review-batch-submit btn px-4 btn-primary mb-1" data-continue="true">
+        <i class="fa fa-save"></i>&nbsp;@AppProcessor.Messagor.GetMessage("Modal_ContinueForm")
+    </button>
 }

@@ -7,7 +7,11 @@ namespace CenIT.Solution.TOC.WebApp
         // For more information on bundling, visit https://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
+#if !DEBUG
+            BundleTable.EnableOptimizations = true;
+#else
             BundleTable.EnableOptimizations = false;
+#endif
 
             //bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
             //            "~/Scripts/jquery-{version}.js"));

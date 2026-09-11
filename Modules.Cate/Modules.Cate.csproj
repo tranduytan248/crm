@@ -1,4 +1,4 @@
-﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -198,6 +198,26 @@
     <Content Include="Areas\Cate\Views\SalesTeamMembers\SalesTeamMembers.js" />
     <Content Include="Areas\Cate\Views\TaskGroup\TaskGroup.js" />
     <Content Include="Areas\Cate\Views\Task\Task.js" />
+    <Content Include="Areas\Cate\Views\DigitalSalesWorkflow\Index.cshtml" />
+    <Content Include="Areas\Cate\Views\DigitalSalesWorkflow\DigitalSalesWorkflow.js" />
+    <Content Include="Areas\Cate\Views\DigitalSalesWorkflow\_StatusList.cshtml" />
+    <Content Include="Areas\Cate\Views\DigitalSalesWorkflow\_StatusModal.cshtml" />
+    <Content Include="Areas\Cate\Views\DigitalSalesWorkflow\_ProcessList.cshtml" />
+    <Content Include="Areas\Cate\Views\DigitalSalesWorkflow\_ProcessModal.cshtml" />
+    <Content Include="Areas\Cate\Views\DigitalSalesWorkflow\_ProgressList.cshtml" />
+    <Content Include="Areas\Cate\Views\DigitalSalesWorkflow\_ProgressModal.cshtml" />
+    <Content Include="Areas\Cate\Views\DigitalSalesWorkflow\_DeleteConfirm.cshtml" />
+    <Content Include="Areas\Cate\Views\DigitalSales\Index.cshtml" />
+    <Content Include="Areas\Cate\Views\DigitalSales\Detail.cshtml" />
+    <Content Include="Areas\Cate\Views\DigitalSales\_Search.cshtml" />
+    <Content Include="Areas\Cate\Views\DigitalSales\_Add.cshtml" />
+    <Content Include="Areas\Cate\Views\DigitalSales\_Edit.cshtml" />
+    <Content Include="Areas\Cate\Views\DigitalSales\_ChangeStatusModal.cshtml" />
+    <Content Include="Areas\Cate\Views\DigitalSales\_ProductModal.cshtml" />
+    <Content Include="Areas\Cate\Views\DigitalSales\_MemberModal.cshtml" />
+    <Content Include="Areas\Cate\Views\DigitalSales\_TrackingModal.cshtml" />
+    <Content Include="Areas\Cate\Views\DigitalSales\DigitalSales.js" />
+    <Content Include="Areas\Cate\Views\DigitalSales\DigitalSalesDetail.js" />
     <Content Include="Areas\Cate\Views\web.config" />
     <Content Include="Areas\Cate\Views\_ViewStart.cshtml" />
     <Content Include="Global.asax" />
@@ -207,6 +227,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Cate\CateAreaRegistration.cs" />
+    <Compile Include="Areas\Cate\Controllers\DigitalSalesWorkflowController.cs" />
+    <Compile Include="Areas\Cate\Controllers\DigitalSalesController.cs" />
     <Compile Include="Areas\Cate\Controllers\AnniversaryTypeController.cs" />
     <Compile Include="Areas\Cate\Controllers\BusinessOpportunityOverviewController.cs" />
     <Compile Include="Areas\Cate\Controllers\BusinessOpportunityWeeklyReportController.cs" />

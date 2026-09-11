@@ -1,0 +1,74 @@
+﻿@model Core.Cate.Models.RM_DigitalSalesProductModel
+
+<div class="modal fade" id="modalProduct" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header bgc-primary-d1 text-white">
+                <h5 class="modal-title text-110">
+                    <i class="fa fa-cubes mr-1"></i> @(Model.SalesProductID > 0 ? "Cập nhật Sản phẩm / Dịch vụ số" : "Thêm mới Sản phẩm / Dịch vụ số")
+                </h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form id="frmProductModal" method="post">
+                <div class="modal-body">
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(m => m.SalesProductID)
+                    @Html.HiddenFor(m => m.DigitalSalesID)
+
+                    <div class="form-group mb-3">
+                        <label class="text-85 text-600 mb-1">Sản phẩm / Dịch vụ số <span class="text-danger">*</span></label>
+                        @Html.DropDownListFor(m => m.ProductServiceID, (List<SelectListItem>)ViewBag.ProductList, "-- Chọn sản phẩm dịch vụ số --", new { @class = "form-control form-control-sm select2", required = "required" })
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-7 mb-3">
+                            <label class="text-85 text-600 mb-1">Gói cước / Quy mô</label>
+                            @Html.TextBoxFor(m => m.PackageName, new { @class = "form-control form-control-sm", placeholder = "Ví dụ: Gói Doanh nghiệp 500 người dùng, Gói 12 tháng..." })
+                        </div>
+                        <div class="col-md-5 mb-3">
+                            <label class="text-85 text-600 mb-1">Số lượng <span class="text-danger">*</span></label>
+                            @Html.TextBoxFor(m => m.Quantity, new { @class = "form-control form-control-sm", type = "number", min = "1", required = "required" })
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="text-85 text-600 mb-1">Doanh thu dự kiến (VNĐ)</label>
+                            @Html.TextBoxFor(m => m.ExpectedRevenue, new { @class = "form-control form-control-sm text-right", placeholder = "0", type = "number", step = "1000" })
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="text-85 text-600 mb-1">Doanh thu thực tế (sau ký HĐ)</label>
+                            @Html.TextBoxFor(m => m.ActualRevenue, new { @class = "form-control form-control-sm text-right", placeholder = "0", type = "number", step = "1000" })
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="text-85 text-600 mb-1">Thời hạn bắt đầu</label>
+                            <input type="text" id="ProdStartDate" name="StartDate" class="form-control form-control-sm date-picker" value="@(Model.StartDate.HasValue ? Model.StartDate.Value.ToString("dd/MM/yyyy") : "")" autocomplete="off" />
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="text-85 text-600 mb-1">Thời hạn kết thúc</label>
+                            <input type="text" id="ProdEndDate" name="EndDate" class="form-control form-control-sm date-picker" value="@(Model.EndDate.HasValue ? Model.EndDate.Value.ToString("dd/MM/yyyy") : "")" autocomplete="off" />
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-2">
+                        <label class="text-85 text-600 mb-1">Ghi chú</label>
+                        @Html.TextAreaFor(m => m.Note, 2, 50, new { @class = "form-control form-control-sm" })
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Hủy</button>
+                    <button type="submit" class="btn btn-sm btn-primary">
+                        <i class="fa fa-save mr-1"></i> Lưu sản phẩm
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

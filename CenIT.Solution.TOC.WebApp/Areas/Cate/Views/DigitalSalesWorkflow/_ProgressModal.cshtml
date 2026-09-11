@@ -1,0 +1,97 @@
+﻿@using TSFramework.Libs.Processors
+@model Core.Cate.Models.RM_DigitalSalesProgressModel
+
+@{
+    var isNew = Model.ProgressID == 0;
+    ViewBag.Title = (isNew ? "Thêm mới" : "Cập nhật") + " Tiến trình thực hiện";
+    Layout = "~/Views/Shared/_Form.cshtml";
+}
+
+@section FormType{
+    success
+}
+
+@section FormIcon{
+    <i class="fa fa-@(isNew ? "plus" : "pencil-alt")"></i>
+}
+
+@section FormBody{
+    @using (Ajax.BeginForm("SaveProgress", "DigitalSalesWorkflow", new { area = "Cate" }, new AjaxOptions
+    {
+        HttpMethod = "POST",
+        OnSuccess = "DigitalSalesWorkflow.onProgressSaveSuccess(data)"
+    }, new { @class = "form-horizontal", id = "formProgressModal" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.ProgressID)
+        @Html.HiddenFor(m => m.ProcessID)
+
+        <div class="form-group row">
+            <label class="col-sm-3 col-form-label text-sm-right font-bold text-secondary-d1">Quy trình cha</label>
+            <div class="col-sm-8 pt-2">
+                <span class="badge badge-lg bgc-purple-l2 text-purple-d2 border-1 brc-purple-m3 px-3 py-1">
+                    <i class="fa fa-project-diagram mr-1"></i>@(string.IsNullOrEmpty(Model.ProcessName) ? "Quy trình #" + Model.ProcessID : Model.ProcessName)
+                </span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-3 col-form-label text-sm-right font-bold text-secondary-d1">Mã tiến trình <span class="text-danger">*</span></label>
+            <div class="col-sm-8">
+                @Html.TextBoxFor(m => m.ProgressCode, new { @class = "form-control", placeholder = "VD: TT_HEN_GAP, TT_DEMO_SP, TT_GUI_BAOGIA...", required = "required", maxlength = 50 })
+                @Html.ValidationMessageFor(m => m.ProgressCode, "", new { @class = "text-danger text-90" })
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-3 col-form-label text-sm-right font-bold text-secondary-d1">Tên tiến trình <span class="text-danger">*</span></label>
+            <div class="col-sm-8">
+                @Html.TextBoxFor(m => m.ProgressName, new { @class = "form-control", placeholder = "VD: Hẹn gặp khách hàng, Trình diễn giải pháp Demo...", required = "required", maxlength = 250 })
+                @Html.ValidationMessageFor(m => m.ProgressName, "", new { @class = "text-danger text-90" })
+            </div>
+        </div>
+
+        <div class="form-group row bgc-blue-l4 py-2 border-1 brc-blue-l2 radius-1 mb-3">
+            <label class="col-sm-3 col-form-label text-sm-right font-bold text-blue-d2">
+                <i class="fa fa-hourglass-half mr-1"></i>Thời hạn (SLA) <span class="text-danger">*</span>
+            </label>
+            <div class="col-sm-8">
+                <div class="input-group" style="max-width: 250px;">
+                    @Html.TextBoxFor(m => m.DefaultDurationDays, new { @class = "form-control font-bolder text-blue-d2", type = "number", min = "1", max = "365", required = "required", placeholder = "3" })
+                    <div class="input-group-append">
+                        <span class="input-group-text bgc-blue-l1 text-blue-d3 font-bold">ngày làm việc</span>
+                    </div>
+                </div>
+                <small class="text-muted d-block mt-1">
+                    <i class="fa fa-info-circle text-blue mr-1"></i>Thời hạn mặc định để hoàn thành tiến trình này (dùng tự động tính deadline khi sinh công việc).
+                </small>
+                @Html.ValidationMessageFor(m => m.DefaultDurationDays, "", new { @class = "text-danger text-90" })
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-3 col-form-label text-sm-right font-bold text-secondary-d1">Thứ tự & Kích hoạt</label>
+            <div class="col-sm-4">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fa fa-sort-numeric-down"></i></span>
+                    </div>
+                    @Html.TextBoxFor(m => m.SortOrder, new { @class = "form-control", type = "number", min = "1", placeholder = "Thứ tự" })
+                </div>
+            </div>
+            <div class="col-sm-4 pt-2">
+                <label class="cursor-pointer">
+                    @Html.CheckBoxFor(m => m.IsActive, new { @class = "ace-switch ace-switch-check input-lg" })
+                    <span class="ml-1 text-95 font-600 text-success-d1">Kích hoạt</span>
+                </label>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-3 col-form-label text-sm-right font-bold text-secondary-d1">Mô tả / Checklist</label>
+            <div class="col-sm-8">
+                @Html.TextAreaFor(m => m.Description, new { @class = "form-control", rows = 3, placeholder = "Hướng dẫn chi tiết, biểu mẫu cần có hoặc tiêu chí hoàn thành tiến trình..." })
+            </div>
+        </div>
+    }
+}
