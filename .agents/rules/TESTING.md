@@ -32,6 +32,10 @@ Bạn phải tuân thủ nghiêm ngặt quy trình kiểm thử và xác minh sa
   - **Kiểm thử An toàn Model Binding & DisplayName (Anti-Null DisplayName):** Mọi Model C# dùng làm tham số nhận dữ liệu Form POST/PUT PHẢI được xác minh:
     - Không có bất kỳ property nào có `CustomDisplayName` hoặc `DisplayName` trả về `null`.
     - Gán thử vào `ValidationContext.DisplayName` thành công, không được quăng `ArgumentNullException: Value cannot be null. Parameter name: value`.
+  - **Kiểm thử Chống xung đột DOM ID (Anti-DOM ID Collision):**
+    - Kiểm tra toàn bộ các phần tử `[id]` giữa trang danh sách (View cha, `_Search`) và các Partial View Modal (`_Add`, `_Edit`).
+    - CẤM TUYỆT ĐỐI việc trùng ID các control dữ liệu (như `CustomerID`, `StatusID`, `EmployeeID`), vì selector jQuery `$('#CustomerID')` sẽ trỏ sai vào trang ngoài, khiến form modal gửi dữ liệu rỗng/0 lên server dù người dùng đã chọn trên giao diện.
+    - Bắt buộc các trường trong Modal phải có hậu tố phân biệt: `CustomerID_Add`, `CustomerID_Edit`.
 - **Kiểm thử phản hồi AJAX Network:**
   - Kiểm tra toàn bộ các request AJAX: Bắt buộc mã trạng thái `200 OK`. Cấm tuyệt đối mã lỗi HTTP 404, 500 hoặc 302 Redirect sang trang lỗi.
 

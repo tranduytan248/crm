@@ -141,20 +141,18 @@ namespace Modules.Cate.Areas.Cate.Controllers
         {
             if (model.CustomerID <= 0)
             {
-                return Json(new
-                {
-                    status = false,
-                    message = GetAppMessage("DigitalSales_Msg_CustomerRequired", "Vui lòng chọn khách hàng!")
-                });
+                ModelState.AddModelError("CustomerID", GetAppMessage("DigitalSales_Msg_CustomerRequired", "Vui lòng chọn khách hàng!"));
             }
 
             if (string.IsNullOrWhiteSpace(model.Title))
             {
-                return Json(new
-                {
-                    status = false,
-                    message = GetAppMessage("DigitalSales_Msg_TitleRequired", "Vui lòng nhập tên cơ hội / dự án!")
-                });
+                ModelState.AddModelError("Title", GetAppMessage("DigitalSales_Msg_TitleRequired", "Vui lòng nhập tên cơ hội / dự án!"));
+            }
+
+            if (!ModelState.IsValid)
+            {
+                PrepareSalesDropdowns(model);
+                return PartialView("_DigitalSales", model);
             }
 
             var uploadedFiles = new List<string>();
@@ -252,6 +250,22 @@ namespace Modules.Cate.Areas.Cate.Controllers
                     status = false,
                     message = GetAppMessage("DigitalSales_Msg_NoPermission", "Bạn không có quyền chỉnh sửa hồ sơ này! Chỉ tài khoản QTHT hoặc nhân sự được cấp quyền cập nhật trạng thái mới được thực hiện.")
                 });
+            }
+
+            if (model.CustomerID <= 0)
+            {
+                ModelState.AddModelError("CustomerID", GetAppMessage("DigitalSales_Msg_CustomerRequired", "Vui lòng chọn khách hàng!"));
+            }
+
+            if (string.IsNullOrWhiteSpace(model.Title))
+            {
+                ModelState.AddModelError("Title", GetAppMessage("DigitalSales_Msg_TitleRequired", "Vui lòng nhập tên cơ hội / dự án!"));
+            }
+
+            if (!ModelState.IsValid)
+            {
+                PrepareSalesDropdowns(model);
+                return PartialView("_DigitalSales", model);
             }
 
             var uploadedFiles = new List<string>();

@@ -289,18 +289,77 @@ function resetSalesSearch() {
     loadStatusesByBusinessType("");
 }
 
+function DigitalSales_OnProcessSuccess(response, formId) {
+    var $modal = $("#modal_" + formId);
+    if ($modal.length === 0) {
+        $modal = $("#modalContainer .modal.show");
+    }
+    if ($modal.length === 0) {
+        $modal = $(".modal.show");
+    }
+
+    if (response && response.status !== undefined) {
+        // TRƯỜNG HỢP 1: JSON response
+        if (response.status === true) {
+            $modal.modal("hide");
+            $modal.one("hidden.bs.modal", function () {
+                executeResponseMessage(response.message, "Thao tác thành công!", true);
+                if (response.id) {
+                    window.location.href = _digitalSalesUrls.detail + "/" + response.id;
+                } else {
+                    reloadSalesTable();
+                }
+            });
+        } else {
+            executeResponseMessage(response.message, "Thao tác thất bại!", false);
+        }
+    } else {
+        // TRƯỜNG HỢP 2: HTML PartialView response do validation lỗi
+        var $body = $modal.find("#bodyForm");
+        if ($body.length === 0) {
+            $body = $("#bodyForm");
+        }
+        $body.html(response);
+
+        // Tự động các thẻ @Html.ValidationMessageFor hiển thị dòng chữ đỏ!
+        if (typeof initDigitalSalesFormPlugins === "function") {
+            initDigitalSalesFormPlugins();
+        }
+    }
+}
+
 function openAddSalesModal() {
-    $.get(_digitalSalesUrls.add, function (html) {
-        $("#modalContainer").html(html);
-        var $modal = $("#modalAddSales");
+    var idModal = "modal_AddDigitalSales";
+    var $modal = $("#" + idModal);
+    if ($modal.length === 0) {
+        var htmlModal = '<div class="modal fade" id="' + idModal + '" data-backdrop="static" tabindex="-1" role="dialog" aria-hidden="true">' +
+            '<div class="modal-dialog modal-xl" style="max-width: 1024px;" role="document">' +
+            '<div id="modal-content" class="modal-content border-0 shadow-lg radius-2 overflow-hidden"></div>' +
+            '</div></div>';
+        $("#modalContainer").html(htmlModal);
+        $modal = $("#" + idModal);
+    }
+    if (typeof _onWaiting === "function") _onWaiting();
+    $modal.find("#modal-content").load(_digitalSalesUrls.add, function () {
+        if (typeof _endWaiting === "function") _endWaiting();
         $modal.modal("show");
     });
 }
 
 function openEditSalesModal(id) {
-    $.get(_digitalSalesUrls.edit + "/" + id, function (html) {
-        $("#modalContainer").html(html);
-        var $modal = $("#modalEditSales");
+    var idModal = "modal_EditDigitalSales";
+    var $modal = $("#" + idModal);
+    if ($modal.length === 0) {
+        var htmlModal = '<div class="modal fade" id="' + idModal + '" data-backdrop="static" tabindex="-1" role="dialog" aria-hidden="true">' +
+            '<div class="modal-dialog modal-xl" style="max-width: 1024px;" role="document">' +
+            '<div id="modal-content" class="modal-content border-0 shadow-lg radius-2 overflow-hidden"></div>' +
+            '</div></div>';
+        $("#modalContainer").html(htmlModal);
+        $modal = $("#" + idModal);
+    }
+    if (typeof _onWaiting === "function") _onWaiting();
+    $modal.find("#modal-content").load(_digitalSalesUrls.edit + "/" + id, function () {
+        if (typeof _endWaiting === "function") _endWaiting();
         $modal.modal("show");
     });
 }
