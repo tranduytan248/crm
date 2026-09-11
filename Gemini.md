@@ -351,7 +351,92 @@ public ActionResult Add(RM_BusinessOpportunityModel model)
 
 ---
 
-## 10. QUY TẮC ĐỒNG BỘ 3 NƠI (TRIPLE MIRRORING) & BIÊN DỊCH BẮT BUỘC
+## 10. QUY CHUẨN RÀNG BUỘC APP_MESSAGE CHO VIEW VÀ CONTROLLER (STRICT LOCALIZATION & MESSAGING)
+
+### 10.1. Nguyên tắc cốt lõi
+> **TUYỆT ĐỐI NGHIÊM CẤM** hardcode chuỗi ký tự văn bản thuần (plain text), nhãn tiêu đề (labels), chú thích (placeholders/tooltips) trực tiếp trên View (`.cshtml`) và các chuỗi thông báo phản hồi (messages, alert, validation, error/success response) bên trong Controller (`.cs`).  
+> **100% CÁC THÔNG TIN TEXT VÀ MESSAGE BẮT BUỘC PHẢI KHAI BÁO TRONG HỆ THỐNG `App_Message`** (bảng cơ sở dữ liệu `Sys_Messages` với `LangCode = 'vi-VN'`).
+
+### 10.2. Quy tắc khai báo và sử dụng trên View (.cshtml)
+1. **Tiêu đề trang & Header:**
+   - Dùng `@AppProcessor.Messagor.GetMessage("LabelKey")`:
+     ```razor
+     @{
+         ViewBag.Title = AppProcessor.Messagor.GetMessage("DigitalSales_Title");
+     }
+     @section PageTitle {
+         @ViewBag.Title
+     }
+     ```
+2. **Nút bấm thao tác & Tiêu đề Form:**
+   - Sử dụng các key chuẩn cho nút:
+     ```razor
+     @Html.Button(true, "Add", Url.Action("Add", ...), "<i class='fa fa-plus'></i>", AppProcessor.Messagor.GetMessage("Button_Add"), new { ... })
+     ```
+3. **Nhãn trường nhập liệu (Labels):**
+   - Bắt buộc dùng `@Html.TitleFor(m => m.FieldName)` để tự động đọc nhãn từ thuộc tính `[CustomDisplayName("LabelKey")]` trong Model.
+   - Nếu bắt buộc viết nhãn tùy chỉnh ngoài Form Control, phải dùng `@AppProcessor.Messagor.GetMessage("LabelKey")`.
+4. **Chú thích, Placeholder, Cột bảng dữ liệu DataTable:**
+   - Tiêu đề cột `<th>`: `@AppProcessor.Messagor.GetMessage("[Module]_[Field]_Header")` hoặc khai báo danh mục nhãn tương ứng.
+
+### 10.3. Quy tắc khai báo và sử dụng trong Controller (.cs)
+1. **Định nghĩa tiêu đề phân hệ (`_title`):**
+   ```csharp
+   private readonly string _title = AppProcessor.Messagor.GetMessage("DigitalSales_Title");
+   ```
+2. **Hàm helper đọc Message an toàn (bắt buộc có):**
+   ```csharp
+   private string GetAppMessage(string labelKey, string defaultMessage = "")
+   {
+       var msg = AppProcessor.Messagor.GetMessage(labelKey);
+       return !string.IsNullOrEmpty(msg) ? msg : defaultMessage;
+   }
+   ```
+3. **Thông báo trả về cho Client (JSON / Toastr / AJAX Response):**
+   - **Thành công:**
+     ```csharp
+     return Json(new
+     {
+         status = true,
+         code = 1,
+         message = GetAppMessage("DigitalSales_Msg_ChangeStatusSuccess", "Chuyển trạng thái thành công!")
+     });
+     ```
+   - **Ràng buộc nghiệp vụ / Cảnh báo:**
+     ```csharp
+     return Json(new
+     {
+         status = false,
+         code = -3,
+         message = GetAppMessage("DigitalSales_Msg_ReqProductBeforeProject", "RÀNG BUỘC CHUYỂN DỰ ÁN: Chưa có Sản phẩm / Dịch vụ số đính kèm!")
+     });
+     ```
+   - **Kiểm tra phân quyền:**
+     ```csharp
+     return Json(new
+     {
+         status = false,
+         message = GetAppMessage("DigitalSales_Msg_NoPermission", "Bạn không có quyền thao tác trên hồ sơ này!")
+     });
+     ```
+   - **Thông báo CRUD chuẩn:** Sử dụng `CreateMessage(_title, EnumProcessType.[Add/Edit/Delete], EnumMsgIcon.[Success/Error])`.
+
+### 10.4. Quy chuẩn đặt tên LabelKey trong Sys_Messages
+| Loại thông điệp | Quy tắc đặt LabelKey | Ví dụ |
+| :--- | :--- | :--- |
+| **Tiêu đề phân hệ / chức năng** | `[Module]_[Feature]_Title` | `DigitalSales_Title`, `Project_Title` |
+| **Nhãn trường thông tin** | `[Module]_[Field]_Label` | `DigitalSales_Customer_Label`, `User_Label_FullName` |
+| **Tiêu đề cột bảng** | `[Module]_[Column]_Header` | `DigitalSales_Col_Status`, `DigitalSales_Col_Revenue` |
+| **Nút bấm thao tác** | `Button_[Action]` | `Button_Save`, `Button_Cancel`, `Button_Add`, `Button_Delete` |
+| **Thông báo nghiệp vụ thành công** | `[Module]_Msg_[Action]Success` | `DigitalSales_Msg_ChangeStatusSuccess`, `DigitalSales_Msg_SaveProductSuccess` |
+| **Thông báo nghiệp vụ thất bại / Lỗi** | `[Module]_Msg_[Action]Fail` | `DigitalSales_Msg_ChangeStatusFail`, `DigitalSales_Msg_SaveMemberFail` |
+| **Ràng buộc điều kiện (Gatekeeper)** | `[Module]_Msg_Req[Condition]` | `DigitalSales_Msg_ReqProductBeforeProject`, `DigitalSales_Msg_ReqMemberBeforeProject` |
+| **Xác thực / Bắt buộc nhập** | `[Module]_Msg_[Field]Required` | `DigitalSales_Msg_CustomerRequired`, `DigitalSales_Msg_TitleRequired` |
+| **Phân quyền truy cập** | `[Module]_Msg_NoPermission` | `DigitalSales_Msg_NoPermission` |
+
+---
+
+## 11. QUY TẮC ĐỒNG BỘ 3 NƠI (TRIPLE MIRRORING) & BIÊN DỊCH BẮT BUỘC
 
 Mỗi khi tạo mới hoặc chỉnh sửa file:
 1. **Source phát triển:** `Modules.Cate\...` (hoặc `Modules.Manager\...`)
@@ -370,12 +455,13 @@ Mỗi khi tạo mới hoặc chỉnh sửa file:
 
 ---
 
-## 11. BẢNG CHỐNG BAO BIỆN (ANTI-RATIONALIZATION TABLE)
+## 12. BẢNG CHỐNG BAO BIỆN (ANTI-RATIONALIZATION TABLE)
 
 *Theo triết lý kỹ thuật cao cấp từ Addy Osmani's Agent Skills:*
 
 | AI / Lập trình viên bao biện | Thực tế & Hậu quả thực tế | Quy tắc bắt buộc thi hành |
 | :--- | :--- | :--- |
+| *"Gõ thẳng chuỗi tiếng Việt vào View hoặc Controller cho tiện, khai báo Sys_Messages mất công."* | Làm mất khả năng đa ngôn ngữ, khó tùy biến nội dung theo từng khách hàng/triển khai, không đồng bộ thông điệp toàn hệ thống, dễ lỗi font mojibake. | **BẮT BUỘC 100% dùng App_Message**. Mọi chuỗi text trên View và thông báo trong Controller phải được khai báo trong `Sys_Messages` và gọi qua `AppProcessor.Messagor.GetMessage`. |
 | *"Dùng thẻ `<input>` hoặc `<label>` thuần cho nhanh, viết `@Html.*` rườm rà."* | Làm mất cơ chế Model Binding 2 chiều, mất thông báo validation đỏ khi nhập sai, mất dấu sao đỏ `(*)` bắt buộc. | **BẮT BUỘC 100% dùng `@Html.*`**. Chỉ dùng thẻ HTML thuần khi cả source code không có helper tương ứng. |
 | *"Lồng thẻ `<h1>` và `<div class="page-header">` vào `@section PageTitle` cho đẹp và rõ ràng."* | Phá vỡ flexbox layout của `_PageContent.cshtml`. Khi `BE-ConfigBreadcrumb.js` chạy, nó sẽ xóa sạch nội dung, làm giật màn hình (FOUC). | **`@section PageTitle` CHỈ ĐƯỢC CHỨA `@ViewBag.Title`**. Mọi badge, nút thao tác phải đưa vào `@section PageAction`. |
 | *"Dùng Select2 cho các combobox trong Search Card cho hiện đại."* | Select2 sinh thẻ dynamic gây lỗi chiều cao không đồng bộ, làm vỡ form "input to, input nhỏ", lệch hàng so với TextBox. | **CẤM SELECT2 TRONG SEARCH CARD**. 100% combobox dùng thẻ select hoặc `@Html.DropDownListFor` chuẩn 32px. |
@@ -390,10 +476,11 @@ Mỗi khi tạo mới hoặc chỉnh sửa file:
 
 ---
 
-## 12. BẢNG CHECKLIST KIỂM THỬ TRƯỚC KHI BÀN GIAO (QA CHECKLIST)
+## 13. BẢNG CHECKLIST KIỂM THỬ TRƯỚC KHI BÀN GIAO (QA CHECKLIST)
 
 Mọi màn hình hoặc tính năng mới trước khi bàn giao phải vượt qua 100% các tiêu chí:
 
+- [ ] **App_Message Compliance:** 100% chuỗi văn bản trên View và thông báo phản hồi trong Controller được định nghĩa trong `Sys_Messages` và gọi qua `AppProcessor.Messagor.GetMessage`, không hardcode chuỗi text trần.
 - [ ] **Encoding:** Toàn bộ file liên quan (`.cshtml`, `.js`, `.cs`, `.sql`) là **UTF-8 with BOM**.
 - [ ] **Triple Mirroring:** File đã được đồng bộ đầy đủ ở cả 3 nơi (`Modules.*`, `publish_source`, `WebApp`).
 - [ ] **Page Title Cleanliness:** `@section PageTitle` chỉ chứa `@ViewBag.Title`, không lồng thẻ `<h1>` hay `.page-header`.
@@ -406,3 +493,4 @@ Mọi màn hình hoặc tính năng mới trước khi bàn giao phải vượt 
 - [ ] **Modal Lifecycle:** Có cơ chế chờ `hidden.bs.modal` trước khi kích hoạt `eval(message)` hoặc reload dữ liệu, ngăn ngừa triệt để lỗi kẹt backdrop đen.
 - [ ] **No Alert:** Không dùng hàm `alert()` thuần, thay bằng `toastr` hoặc `CreateMessage`.
 - [ ] **Automated Tests:** Bộ unit test / regression test đạt 100% PASS (3 tầng: Happy Path, Edge Cases, Error Handling theo `TESTING.md`).
+
