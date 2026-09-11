@@ -189,3 +189,60 @@ Khi deploy FTP Demo, không upload `Web.config` và `Configs/AppSettings.config`
 - [ ] Gia cố `JobLogWriter` để lỗi ghi log không làm sập `Application_Start`.
 - [x] Xác định chính xác lệnh yêu cầu quyền ghi: `File.AppendAllText` tại `TSFramework.Libs/Models/Log/JobLogWriter.cs:144`, đường dẫn cố định `Contents/JobLogs`.
 - [ ] Tạm đặt `App_Register_Job=0` trên Demo để cô lập khối khởi tạo job, sau đó phục hồi về `1` khi ACL đã sửa.
+
+---
+
+# 2026-09-11 Vấn đề: Phân luồng đăng nhập SSO theo host triển khai
+
+## 1. Mô tả vấn đề
+Cập nhật `CenIT.Solution.TOC.WebApp/Controllers/AccountController.cs`: site Demo và site chính đăng nhập qua SSO; khi chạy local hoặc truy cập bằng host khác thì sử dụng lại màn hình và luồng đăng nhập cũ.
+
+## 2. Phân tích ban đầu
+- Bối cảnh: `GET Account/Login` hiện luôn chuyển tới cổng SSO; hai action GET/POST đăng nhập cũ vẫn còn đầy đủ nhưng đang bị comment. `Logout` cũng luôn chuyển sang SSO sau khi xóa session CRM.
+- Cấu hình hiện có: Demo đặt `App_HostUrl=http://crm.cenit.vn/`, `appCode=CRM_DEMO`; Production đặt `App_HostUrl=http://crm.vnptkhanhhoa.vn/`, `appCode=CRM_LIVE`. Vì cùng một code nhưng cấu hình riêng theo server, có thể nhận diện site chính thức bằng cách so sánh `Request.Url.Host` với host trong `App_HostUrl` thay vì hard-code tên miền.
+- Mục tiêu: Bắt buộc SSO trên đúng host chính thức của từng môi trường, đồng thời cho phép lập trình viên hoặc host thử nghiệm dùng form đăng nhập cũ để phát triển/kiểm thử.
+- Phạm vi: Phân nhánh GET Login, khôi phục POST Login cũ, phân nhánh Logout, chống open redirect và ngăn POST đăng nhập cũ trở thành đường vòng bỏ qua SSO trên host chính thức.
+- Ngoài phạm vi: Không thay đổi cách xác thực SSO, mapping tài khoản, cấp quyền mặc định, giao diện form login hoặc cấu hình tài khoản.
+- Các bên liên quan: Người dùng Demo/Production, lập trình viên chạy local, tài khoản nội bộ/VNPT, cổng SSO.
+- Ràng buộc: `Web.config` dùng `configSource` cho AppSettings; file cấu hình Demo/Production khác nhau và không được FTP ghi đè. So sánh host phải không phân biệt hoa thường, không phụ thuộc port và không tin trực tiếp header proxy không được kiểm soát.
+- Rủi ro / Giả định: Nếu chỉ phân nhánh GET mà mở lại POST cũ, người dùng có thể gọi POST trực tiếp để né SSO. Nếu SSO lỗi rồi tự fallback sang form cũ trên host chính thức, chính sách SSO có thể bị vô hiệu hóa. Khóa cấu hình cổng SSO hiện có dấu hiệu không thống nhất: code đọc `ssoPortaUrl`, còn config dùng `ssoPortalBaseUrl`.
+- Phương án sơ bộ: (A, khuyến nghị) coi host là chính thức khi trùng host của `App_HostUrl`; GET/Logout dùng SSO, POST cũ bị chặn trên host này; mọi host khác dùng login cũ. (B) hard-code whitelist `crm.cenit.vn` và `crm.vnptkhanhhoa.vn`; dễ hiểu nhưng phải sửa code khi đổi tên miền. (C) thêm danh sách host SSO mới trong AppSettings; linh hoạt nhưng cần đồng bộ cấu hình riêng trên mọi server.
+
+## 3. Câu hỏi làm rõ
+1. Có chốt phương án A: so sánh host truy cập với host cấu hình trong `App_HostUrl`; trùng thì dùng SSO, khác (kể cả `localhost`, IP hoặc domain test) thì dùng login cũ không?
+2. Trên host chính thức, có chặn luôn `POST /Account/Login` cũ để không thể dùng form/login request trực tiếp nhằm bỏ qua SSO không? (Khuyến nghị: có.)
+3. Khi SSO lỗi trên Demo/Production, hệ thống tiếp tục hiển thị lỗi SSO và không fallback sang form cũ, đúng không? (Khuyến nghị: không fallback để giữ chính sách bảo mật.)
+4. “Login như cũ” có nghĩa khôi phục nguyên luồng cũ, gồm cả tài khoản nội bộ và tài khoản email `@vnpt.vn` qua `VNPTEmailMembershipProvider`, đúng không?
+5. Khi logout ở local/host khác, có xác nhận chỉ xóa Forms Authentication/session rồi quay về form Login; chỉ host chính thức mới gọi logout SSO và chuyển tới cổng SSO không?
+
+## 4. Câu trả lời & Quyết định
+- Dùng `App_HostUrl` để phân biệt host được phép đăng nhập SSO; giá trị này tự cấu hình khác nhau giữa site Demo và site chính.
+- Giữ code giống nhau trên cả hai site; không hard-code tên miền Demo/Production trong `AccountController`.
+- Tiếp tục không upload `Configs/AppSettings.config` khi deploy, nên cấu hình `App_HostUrl` riêng của từng server được giữ nguyên.
+- Trên host trùng `App_HostUrl`, chặn POST login cũ; lỗi SSO không fallback sang form đăng nhập cũ.
+- Trên host khác, khôi phục nguyên luồng login cũ gồm tài khoản nội bộ và tài khoản `@vnpt.vn`.
+- Logout qua SSO chỉ áp dụng cho host trùng `App_HostUrl`; host khác chỉ xóa Forms Authentication/session và quay về form login cũ.
+
+## 5. Checklist
+### Chuẩn bị
+- [x] [Bắt buộc] Tách điều kiện so sánh host thành hàm thuần, không phân biệt hoa thường và không phụ thuộc port.
+- [x] [Bắt buộc] Kiểm tra đầy đủ code login cũ còn tương thích với model, view và các helper hiện tại.
+
+### Thực hiện
+- [x] [Bắt buộc] Cập nhật GET Login để chọn SSO hoặc form cũ theo `App_HostUrl`.
+- [x] [Bắt buộc] Khôi phục POST Login cũ cho host không chính thức và chặn POST này trên host SSO.
+- [x] [Bắt buộc] Cập nhật Logout để chỉ gọi dịch vụ/cổng SSO trên host chính thức.
+- [x] [Bắt buộc] Sửa khóa cấu hình URL cổng SSO sang `ssoPortalBaseUrl`, giữ tương thích khóa cũ nếu có.
+- [x] [Nên có] Giữ kiểm tra local URL cho mọi `returnUrl` trước khi redirect.
+
+### Kiểm tra / Nghiệm thu
+- [x] [Bắt buộc] Build WebApp Debug thành công, không phát sinh lỗi biên dịch.
+- [x] [Bắt buộc] Test host trùng khác hoa thường, khác port và có dấu chấm cuối hostname vẫn dùng SSO.
+- [x] [Bắt buộc] Test localhost, IP, host khác, cấu hình rỗng/sai đều dùng form login cũ.
+- [x] [Bắt buộc] Kiểm tra code POST trên host SSO chuyển về GET Login SSO trước khi chạy xác thực cũ.
+- [x] [Bắt buộc] Kiểm tra code logout local không gọi SSO và logout site chính thức vẫn hủy ticket/chuyển cổng SSO.
+
+### Ghi chú
+- `App_HostUrl` là cấu hình do từng server sở hữu và tiếp tục bị loại khỏi danh sách file upload FTP.
+- Bộ test tự động `tests/account-login/Run-HostPolicyTests.ps1` build WebApp và gọi trực tiếp hàm policy đã biên dịch; kết quả 10/10 PASS.
+- Không thay đổi `Configs/AppSettings.config`; Demo và Production tiếp tục dùng cấu hình server riêng.

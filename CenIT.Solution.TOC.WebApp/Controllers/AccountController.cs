@@ -64,10 +64,14 @@ namespace CenIT.Solution.TOC.WebApp.Controllers
         private readonly string _resetPasswordEmailSentMessage =
             AppProcessor.Messagor.GetMessage("Account_Message_ResetPasswordEmailSent");
         private readonly string appCode = ConfigurationManager.AppSettings["appCode"] ?? "";
+        private readonly string _appHostUrl = ConfigurationManager.AppSettings["App_HostUrl"] ?? "";
 
         // SSO tập đoàn theo cơ chế AppCode (cổng cenit + web service CheckUser)
         private const string SSO_TICKET_SESSION_KEY = "SSO_Ticket";
-        private readonly string _ssoPortalUrl = ConfigurationManager.AppSettings["ssoPortaUrl"] ?? "http://ssovnpt.cenit.vn/Login.aspx";
+        private readonly string _ssoPortalUrl =
+            ConfigurationManager.AppSettings["ssoPortalBaseUrl"]
+            ?? ConfigurationManager.AppSettings["ssoPortaUrl"]
+            ?? "http://ssovnpt.cenit.vn/Login.aspx";
         private readonly string _ssoServiceUrl = ConfigurationManager.AppSettings["ssoServiceUrl"] ?? "";
 
         /// <summary>
@@ -84,6 +88,33 @@ namespace CenIT.Solution.TOC.WebApp.Controllers
         }
 
         /// <summary>
+        /// Xác định request hiện tại có thuộc host chính thức được cấu hình để dùng SSO hay không.
+        /// Chỉ so sánh hostname, không phụ thuộc giao thức hoặc port.
+        /// </summary>
+        private bool IsSsoRequest()
+        {
+            return IsSameHost(Request?.Url?.Host, _appHostUrl);
+        }
+
+        /// <summary>
+        /// So sánh hostname của request với hostname trong App_HostUrl.
+        /// Cấu hình rỗng/sai hoặc request không có host được xem là môi trường không dùng SSO.
+        /// </summary>
+        private static bool IsSameHost(string requestHost, string configuredHostUrl)
+        {
+            if (string.IsNullOrWhiteSpace(requestHost) || string.IsNullOrWhiteSpace(configuredHostUrl))
+                return false;
+
+            if (!Uri.TryCreate(configuredHostUrl.Trim(), UriKind.Absolute, out var configuredUri))
+                return false;
+
+            return string.Equals(
+                requestHost.Trim().TrimEnd('.'),
+                configuredUri.Host.TrimEnd('.'),
+                StringComparison.OrdinalIgnoreCase);
+        }
+
+        /// <summary>
         /// Hiển thị màn hình đăng nhập và làm sạch session cũ của người dùng.
         /// </summary>
         /// <param name="returnUrl">Đường dẫn điều hướng sau khi đăng nhập thành công.</param>
@@ -97,6 +128,23 @@ namespace CenIT.Solution.TOC.WebApp.Controllers
             {
                 returnUrl = "/Dashboard/Dashboard";
             }
+
+            // Local, IP hoặc host thử nghiệm dùng lại màn hình đăng nhập cũ.
+            if (!IsSsoRequest())
+            {
+                if (Session[SESSION_VARIABLE_NAME] == null) Session[SESSION_VARIABLE_NAME] = 0;
+                List<string> sessionKeys = Session.Keys.Cast<string>().ToList();
+                foreach (string key in sessionKeys)
+                {
+                    if (!string.Equals(key, "FrontEndUser"))
+                        Session.Remove(key);
+                }
+                ViewBag.ReturnUrl = returnUrl;
+                FormsAuthentication.SignOut();
+                if (Request.IsAjaxRequest()) Response.StatusCode = 401;
+                return View(new LoginModel());
+            }
+
             // =====================================================
             // LẤY THÔNG TIN SSO CALLBACK
             // =====================================================
@@ -167,101 +215,75 @@ namespace CenIT.Solution.TOC.WebApp.Controllers
             }
         }
 
-        //[HttpGet]
-        //[AllowAnonymous]
-        //public ActionResult Login(string returnUrl = "")
-        //{
-        //    if (Session[SESSION_VARIABLE_NAME] == null) Session[SESSION_VARIABLE_NAME] = 0;
-        //    List<string> sessionKeys = Session.Keys.Cast<string>().ToList();
-        //    foreach (string key in sessionKeys)
-        //    {
-        //        if (!string.Equals(key, "FrontEndUser"))
-        //            Session.Remove(key);
-        //    }
-        //    ViewBag.ReturnUrl = returnUrl;
-        //    FormsAuthentication.SignOut();
-        //    if (Request.IsAjaxRequest()) Response.StatusCode = 401;
-        //    return View(new LoginModel());
-        //}
+        /// <summary>
+        /// Xử lý đăng nhập cũ cho local, IP và các host không trùng App_HostUrl.
+        /// Host chính thức luôn quay về GET Login để bắt đầu luồng SSO.
+        /// </summary>
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult Login(LoginModel model, string returnUrl = "")
+        {
+            if (IsSsoRequest())
+            {
+                if (!Url.IsLocalUrl(returnUrl)) returnUrl = "/Dashboard/Dashboard";
+                return RedirectToAction("Login", "Account", new { returnUrl });
+            }
 
-        ///// <summary>
-        ///// Xử lý đăng nhập hệ thống, bao gồm luồng xác thực tài khoản VNPT và tài khoản nội bộ.
-        ///// </summary>
-        ///// <param name="model">Thông tin đăng nhập từ màn hình.</param>
-        ///// <param name="returnUrl">Đường dẫn điều hướng sau đăng nhập.</param>
-        ///// <returns>Kết quả đăng nhập và URL cần điều hướng.</returns>
-        //[HttpPost]
-        //[AllowAnonymous]
-        //public ActionResult Login(LoginModel model, string returnUrl = "")
-        //{
-        //    if (!string.IsNullOrEmpty(model.URLLink))
-        //    {
-        //        ModelState.Remove("Password");
-        //        ModelState.Remove("UserName");
-        //    }
+            model = model ?? new LoginModel();
 
-        //    UpdateLoginFailCount(model);
+            if (!string.IsNullOrEmpty(model.URLLink))
+            {
+                ModelState.Remove("Password");
+                ModelState.Remove("UserName");
+            }
 
-        //    if (!string.IsNullOrEmpty(model.URLLink))
-        //    {
-        //        ModelState.Remove("Password");
-        //        ModelState.Remove("UserName");
-        //    }
+            UpdateLoginFailCount(model);
 
-        //    if (!ModelState.IsValidField("UserName") || !ModelState.IsValidField("Password"))
-        //    {
-        //        ViewBag.ReturnUrl = returnUrl;
-        //        return PartialView("_LoginBody", model);
-        //    }
+            if (!ModelState.IsValidField("UserName") || !ModelState.IsValidField("Password"))
+            {
+                ViewBag.ReturnUrl = returnUrl;
+                return PartialView("_LoginBody", model);
+            }
 
-        //    ApplyLoginCredentials(model);
+            ApplyLoginCredentials(model);
+            model.SenderIP = Request.UserHostAddress;
+            model.SenderHeader = string.Join(",", Request.Headers);
 
-        //    model.SenderIP = Request.UserHostAddress;
-        //    model.SenderHeader = string.Join(",", Request.Headers);
+            bool isVNPTAccount;
+            SysUserModel vnptUser;
+            string loginFailMessage;
+            if (!TryAuthenticateUser(model, out isVNPTAccount, out vnptUser, out loginFailMessage))
+            {
+                SendResponseNotify("MsgLoginFail", loginFailMessage, EnumProcessType.NonFormat, EnumMsgIcon.Error);
+                return PartialView("_LoginBody", model);
+            }
 
-        //    bool isVNPTAccount;
-        //    SysUserModel vnptUser = null;
-        //    string loginFailMessage;
+            AppPrincipalSerializeModel loginUser = BuildLoginUser(model.UserName, isVNPTAccount, vnptUser);
+            List<SysRoleModel> roles = _userCache.GetRoles(loginUser.UserId);
+            if (roles == null || roles.Count <= 0)
+            {
+                SendResponseNotify("MsgLoginFail", AppProcessor.Messagor.GetMessage("API_No_Right"),
+                    EnumProcessType.NonFormat, EnumMsgIcon.Error);
+                Session[SESSION_VARIABLE_NAME] = 0;
+                model.LoginFailCount = 0;
+                model.NeedCaptcha = false;
+                return PartialView("_LoginBody", model);
+            }
 
-        //    if (!TryAuthenticateUser(model, out isVNPTAccount, out vnptUser, out loginFailMessage))
-        //    {
-        //        SendResponseNotify(
-        //            "MsgLoginFail",
-        //            loginFailMessage,
-        //            EnumProcessType.NonFormat,
-        //            EnumMsgIcon.Error);
-        //        return PartialView("_LoginBody", model);
-        //    }
+            SignInUser(loginUser);
+            AppProcessor.Author.SaveLogin(loginUser.UserName, true, model.SenderIP, model.SenderHeader);
 
-        //    AppPrincipalSerializeModel loginUser = BuildLoginUser(model.UserName, isVNPTAccount, vnptUser);
+            if (!Url.IsLocalUrl(returnUrl))
+                returnUrl = Url.Action("Index", "Home");
 
-        //    // Kiểm tra phân quyền
-        //    List<SysRoleModel> dsRole = _userCache.GetRoles(loginUser.UserId);
-        //    if (dsRole == null || dsRole.Count <= 0)
-        //    {
-        //        SendResponseNotify("MsgLoginFail",
-        //            AppProcessor.Messagor.GetMessage("API_No_Right"),
-        //            EnumProcessType.NonFormat, EnumMsgIcon.Error);
-        //        Session[SESSION_VARIABLE_NAME] = 0;
-        //        model.LoginFailCount = 0;
-        //        model.NeedCaptcha = false;
-        //        return PartialView("_LoginBody", model);
-        //    }
-
-        //    SignInUser(loginUser);
-        //    AppProcessor.Author.SaveLogin(loginUser.UserName, true, model.SenderIP, model.SenderHeader);
-
-        //    if (!Url.IsLocalUrl(returnUrl))
-        //        returnUrl = Url.Action("Index", "Home");
-
-        //    return Json(new
-        //    {
-        //        status = true,
-        //        returnUrl,
-        //        message = CreateMessage(_loginSuccessMessage, EnumProcessType.NonFormat,
-        //            EnumMsgIcon.Success, EnumMsgPlacement.TopCenter)
-        //    }, JsonRequestBehavior.AllowGet);
-        //}
+            return Json(new
+            {
+                status = true,
+                returnUrl,
+                message = CreateMessage(_loginSuccessMessage, EnumProcessType.NonFormat,
+                    EnumMsgIcon.Success, EnumMsgPlacement.TopCenter)
+            }, JsonRequestBehavior.AllowGet);
+        }
 
         /// <summary>
         /// Hiển thị popup đổi mật khẩu cho tài khoản được chọn.
@@ -538,12 +560,13 @@ namespace CenIT.Solution.TOC.WebApp.Controllers
         [AllowAnonymous]
         public ActionResult Logout()
         {
+            bool useSso = IsSsoRequest();
             // Lấy SSO Ticket trước khi xóa Session
             string ssoTicket = Session[SSO_TICKET_SESSION_KEY] as string;
             try
             {
-                // Hủy ticket của ứng dụng hiện tại
-                if (!string.IsNullOrWhiteSpace(ssoTicket))
+                // Chỉ hủy ticket SSO trên host chính thức.
+                if (useSso && !string.IsNullOrWhiteSpace(ssoTicket))
                 {
                     CreateSsoService().LogOutByTicket(ssoTicket);
                 }
@@ -557,8 +580,13 @@ namespace CenIT.Solution.TOC.WebApp.Controllers
             // Xóa toàn bộ Session CRM
             Session.Clear();
             Session.Abandon();
+
+            // Local, IP hoặc host thử nghiệm quay lại form đăng nhập cũ.
+            if (!useSso)
+                return RedirectToAction("Login", "Account");
+
             // Logout khỏi SSO
-            string ssoLogoutUrl = string.Format("{0}?appcode={1}&do=logout", _ssoPortalUrl, Server.UrlEncode(appCode));
+            string ssoLogoutUrl = string.Format("{0}?appcode={1}&do=logout", _ssoPortalUrl.TrimEnd('/'), Server.UrlEncode(appCode));
             return Redirect(ssoLogoutUrl);
         }
 
