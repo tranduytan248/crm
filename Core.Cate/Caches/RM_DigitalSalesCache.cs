@@ -1,4 +1,4 @@
-﻿using Core.Cate.Biz;
+using Core.Cate.Biz;
 using Core.Cate.Models;
 using System;
 using System.Collections.Generic;
@@ -173,6 +173,11 @@ namespace Core.Cate.Caches
             data = Api.GetStatusList(businessType);
             AddCacheItem(rawKey, data);
             return data;
+        }
+
+        public string GenerateNextCode()
+        {
+            return Api.GenerateNextCode();
         }
     }
 }

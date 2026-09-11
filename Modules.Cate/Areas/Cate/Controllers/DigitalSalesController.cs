@@ -1,4 +1,4 @@
-﻿using Core.Cate.Caches;
+using Core.Cate.Caches;
 using Core.Cate.Models;
 using Core.Sys.BaseApp;
 using Core.Sys.Caches.Sys;
@@ -28,11 +28,18 @@ namespace Modules.Cate.Areas.Cate.Controllers
         private readonly MN_BoPhanCache _departmentCache;
         private readonly RM_ContactPersonsCache _contactPersonCache;
         private readonly RM_ContractsCache _contractCache;
+        private readonly RM_RolesCache _rolesCache;
         private readonly SysUserCache _userCache;
         private readonly SysUserBoPhanCache _userBoPhanCache;
 
-        private readonly string _title = "Kinh doanh Sản phẩm Dịch vụ Số";
+        private readonly string _title = "Danh sách kinh doanh sản phẩm dịch vụ số";
         private readonly string _folderUpload = ConfigurationManager.AppSettings["AppImageRoot_Path"] ?? "/Contents/File";
+        private string GetAppMessage(string labelKey, string defaultMessage)
+        {
+            var msg = AppProcessor.Messagor.GetMessage(labelKey);
+            return !string.IsNullOrEmpty(msg) ? msg : defaultMessage;
+        }
+
 
         public DigitalSalesController()
         {
@@ -43,6 +50,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
             _departmentCache = new MN_BoPhanCache();
             _contactPersonCache = new RM_ContactPersonsCache();
             _contractCache = new RM_ContractsCache();
+            _rolesCache = new RM_RolesCache();
             _userCache = new SysUserCache();
             _userBoPhanCache = new SysUserBoPhanCache();
         }
@@ -105,6 +113,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
         {
             var model = new RM_DigitalSalesModel
             {
+                Code = _salesCache.GenerateNextCode(),
                 BusinessType = businessType ?? 1,
                 StatusID = 1, // Default: Chưa nắm bắt
                 CustomerID = customerId.GetValueOrDefault(0),
@@ -117,6 +126,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
             if (currentUser != null)
             {
                 model.AssignedEmployeeID = currentUser.UserId;
+                model.DepartmentID = GetDepartmentIdByUserId(currentUser.UserId);
             }
 
             PrepareSalesDropdowns(model);
@@ -134,7 +144,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
                 return Json(new
                 {
                     status = false,
-                    message = "Vui lòng chọn khách hàng!"
+                    message = GetAppMessage("DigitalSales_Msg_CustomerRequired", "Vui lòng chọn khách hàng!")
                 });
             }
 
@@ -143,13 +153,35 @@ namespace Modules.Cate.Areas.Cate.Controllers
                 return Json(new
                 {
                     status = false,
-                    message = "Vui lòng nhập tên cơ hội / dự án!"
+                    message = GetAppMessage("DigitalSales_Msg_TitleRequired", "Vui lòng nhập tên cơ hội / dự án!")
                 });
             }
 
-            if (fileUpload != null && fileUpload.ContentLength > 0)
+            var uploadedFiles = new List<string>();
+            if (Request.Files.Count > 0)
             {
-                model.FileAttach = SaveUploadedFile(fileUpload);
+                for (int i = 0; i < Request.Files.Count; i++)
+                {
+                    var file = Request.Files[i];
+                    if (file != null && file.ContentLength > 0)
+                    {
+                        var path = SaveUploadedFile(file);
+                        if (!string.IsNullOrEmpty(path))
+                        {
+                            uploadedFiles.Add(path);
+                        }
+                    }
+                }
+            }
+
+            if (uploadedFiles.Count > 0)
+            {
+                model.FileAttach = string.Join(";", uploadedFiles);
+            }
+
+            if ((!model.DepartmentID.HasValue || model.DepartmentID.Value <= 0) && model.AssignedEmployeeID.HasValue)
+            {
+                model.DepartmentID = GetDepartmentIdByUserId(model.AssignedEmployeeID.Value);
             }
 
             var id = _salesCache.Save(model, User.UserName);
@@ -175,6 +207,15 @@ namespace Modules.Cate.Areas.Cate.Controllers
         [ActionType(Type = EnumActionType.Edit)]
         public ActionResult Edit(int id)
         {
+            if (!HasDetailPermission(id, User.UserName))
+            {
+                return Json(new
+                {
+                    status = false,
+                    message = GetAppMessage("DigitalSales_Msg_NoPermission", "Bạn không có quyền chỉnh sửa hồ sơ này! Chỉ tài khoản QTHT hoặc nhân sự được cấp quyền cập nhật trạng thái mới được thực hiện.")
+                }, JsonRequestBehavior.AllowGet);
+            }
+
             var model = _salesCache.GetByID(id);
             if (model == null)
             {
@@ -204,9 +245,43 @@ namespace Modules.Cate.Areas.Cate.Controllers
                 });
             }
 
-            if (fileUpload != null && fileUpload.ContentLength > 0)
+            if (!HasDetailPermission(model.DigitalSalesID, User.UserName))
             {
-                model.FileAttach = SaveUploadedFile(fileUpload);
+                return Json(new
+                {
+                    status = false,
+                    message = GetAppMessage("DigitalSales_Msg_NoPermission", "Bạn không có quyền chỉnh sửa hồ sơ này! Chỉ tài khoản QTHT hoặc nhân sự được cấp quyền cập nhật trạng thái mới được thực hiện.")
+                });
+            }
+
+            var uploadedFiles = new List<string>();
+            if (Request.Files.Count > 0)
+            {
+                for (int i = 0; i < Request.Files.Count; i++)
+                {
+                    var file = Request.Files[i];
+                    if (file != null && file.ContentLength > 0)
+                    {
+                        var path = SaveUploadedFile(file);
+                        if (!string.IsNullOrEmpty(path))
+                        {
+                            uploadedFiles.Add(path);
+                        }
+                    }
+                }
+            }
+
+            if (uploadedFiles.Count > 0)
+            {
+                var newPaths = string.Join(";", uploadedFiles);
+                model.FileAttach = !string.IsNullOrEmpty(model.FileAttach)
+                    ? model.FileAttach + ";" + newPaths
+                    : newPaths;
+            }
+
+            if ((!model.DepartmentID.HasValue || model.DepartmentID.Value <= 0) && model.AssignedEmployeeID.HasValue)
+            {
+                model.DepartmentID = GetDepartmentIdByUserId(model.AssignedEmployeeID.Value);
             }
 
             var result = _salesCache.Save(model, User.UserName);
@@ -261,6 +336,14 @@ namespace Modules.Cate.Areas.Cate.Controllers
             }
 
             ViewBag.Title = $"Hồ sơ: {model.Code} - {model.Title}";
+            try
+            {
+                ViewBag.CanEdit = HasDetailPermission(model, User.UserName);
+            }
+            catch
+            {
+                ViewBag.CanEdit = false;
+            }
             ViewBag.UsersList = _userCache.GetAll()?.Select(u => new SelectListItem
             {
                 Value = u.UserId.ToString(),
@@ -283,6 +366,15 @@ namespace Modules.Cate.Areas.Cate.Controllers
         [ActionType(Type = EnumActionType.Edit)]
         public ActionResult ChangeStatusModal(int id)
         {
+            if (!HasDetailPermission(id, User.UserName))
+            {
+                return Json(new
+                {
+                    status = false,
+                    message = GetAppMessage("DigitalSales_Msg_NoPermission", "Bạn không có quyền chuyển trạng thái hồ sơ này! Chỉ tài khoản QTHT hoặc nhân sự được cấp quyền cập nhật trạng thái mới được thực hiện.")
+                }, JsonRequestBehavior.AllowGet);
+            }
+
             var sales = _salesCache.GetByID(id);
             if (sales == null)
             {
@@ -316,12 +408,21 @@ namespace Modules.Cate.Areas.Cate.Controllers
         [ActionType(Type = EnumActionType.Edit)]
         public ActionResult ChangeStatus(int digitalSalesId, int newStatusId, string note, HttpPostedFileBase attachmentFile)
         {
+            if (!HasDetailPermission(digitalSalesId, User.UserName))
+            {
+                return Json(new
+                {
+                    status = false,
+                    message = GetAppMessage("DigitalSales_Msg_NoPermission", "Bạn không có quyền chuyển trạng thái hồ sơ này! Chỉ tài khoản QTHT hoặc nhân sự được cấp quyền cập nhật trạng thái mới được thực hiện.")
+                });
+            }
+
             if (digitalSalesId <= 0 || newStatusId <= 0)
             {
                 return Json(new
                 {
                     status = false,
-                    message = "Dữ liệu không hợp lệ!"
+                    message = GetAppMessage("DigitalSales_Msg_InvalidData", "Dữ liệu không hợp lệ!")
                 });
             }
 
@@ -339,7 +440,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
                 {
                     status = true,
                     code = 1,
-                    message = "Chuyển trạng thái thành công!"
+                    message = GetAppMessage("DigitalSales_Msg_ChangeStatusSuccess", "Chuyển trạng thái thành công!")
                 });
             }
             else if (code == -3)
@@ -348,7 +449,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
                 {
                     status = false,
                     code = -3,
-                    message = "RÀNG BUỘC CHUYỂN DỰ ÁN: Chưa có Sản phẩm / Dịch vụ số đính kèm! Vui lòng vào Tab 'Sản phẩm & Doanh thu' để thêm sản phẩm dịch vụ trước khi chuyển sang Dự án."
+                    message = GetAppMessage("DigitalSales_Msg_ReqProductBeforeProject", "RÀNG BUỘC CHUYỂN DỰ ÁN: Chưa có Sản phẩm / Dịch vụ số đính kèm! Vui lòng vào Tab 'Sản phẩm & Doanh thu' để thêm sản phẩm dịch vụ trước khi chuyển sang Dự án.")
                 });
             }
             else if (code == -4)
@@ -357,7 +458,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
                 {
                     status = false,
                     code = -4,
-                    message = "RÀNG BUỘC CHUYỂN DỰ ÁN: Chưa có Thành viên tham gia dự án! Vui lòng vào Tab 'Thành viên tham gia' để chỉ định nhân sự trước khi chuyển sang Dự án."
+                    message = GetAppMessage("DigitalSales_Msg_ReqMemberBeforeProject", "RÀNG BUỘC CHUYỂN DỰ ÁN: Chưa có Thành viên tham gia dự án! Vui lòng vào Tab 'Thành viên tham gia' để chỉ định nhân sự trước khi chuyển sang Dự án.")
                 });
             }
             else if (code == -1)
@@ -366,7 +467,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
                 {
                     status = false,
                     code = -1,
-                    message = "Không tìm thấy hồ sơ kinh doanh số!"
+                    message = GetAppMessage("DigitalSales_Msg_NotFound", "Không tìm thấy hồ sơ kinh doanh số!")
                 });
             }
             else if (code == -2)
@@ -375,7 +476,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
                 {
                     status = false,
                     code = -2,
-                    message = "Trạng thái mới không tồn tại hoặc đã bị khóa!"
+                    message = GetAppMessage("DigitalSales_Msg_StatusInvalid", "Trạng thái mới không tồn tại hoặc đã bị khóa!")
                 });
             }
 
@@ -383,7 +484,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
             {
                 status = false,
                 code = 0,
-                message = "Không thể cập nhật trạng thái. Vui lòng thử lại!"
+                message = GetAppMessage("DigitalSales_Msg_ChangeStatusFail", "Không thể cập nhật trạng thái. Vui lòng thử lại!")
             });
         }
         #endregion
@@ -394,6 +495,15 @@ namespace Modules.Cate.Areas.Cate.Controllers
         [ActionType(Type = EnumActionType.Create)]
         public ActionResult AddProductModal(int digitalSalesId)
         {
+            if (!HasDetailPermission(digitalSalesId, User.UserName))
+            {
+                return Json(new
+                {
+                    status = false,
+                    message = GetAppMessage("DigitalSales_Msg_NoPermission", "Bạn không có quyền thêm sản phẩm trên hồ sơ này! Chỉ tài khoản QTHT hoặc nhân sự được cấp quyền cập nhật trạng thái mới được thực hiện.")
+                }, JsonRequestBehavior.AllowGet);
+            }
+
             var model = new RM_DigitalSalesProductModel
             {
                 DigitalSalesID = digitalSalesId,
@@ -416,6 +526,15 @@ namespace Modules.Cate.Areas.Cate.Controllers
         [ActionType(Type = EnumActionType.Edit)]
         public ActionResult EditProductModal(int id, int digitalSalesId)
         {
+            if (!HasDetailPermission(digitalSalesId, User.UserName))
+            {
+                return Json(new
+                {
+                    status = false,
+                    message = GetAppMessage("DigitalSales_Msg_NoPermission", "Bạn không có quyền chỉnh sửa sản phẩm trên hồ sơ này! Chỉ tài khoản QTHT hoặc nhân sự được cấp quyền cập nhật trạng thái mới được thực hiện.")
+                }, JsonRequestBehavior.AllowGet);
+            }
+
             var products = _salesCache.GetProductsBySalesID(digitalSalesId);
             var model = products.FirstOrDefault(p => p.SalesProductID == id);
             if (model == null)
@@ -446,7 +565,16 @@ namespace Modules.Cate.Areas.Cate.Controllers
                 return Json(new
                 {
                     status = false,
-                    message = "Vui lòng chọn sản phẩm / dịch vụ số!"
+                    message = GetAppMessage("DigitalSales_Msg_ProductRequired", "Vui lòng chọn sản phẩm / dịch vụ số!")
+                });
+            }
+
+            if (!HasDetailPermission(model.DigitalSalesID, User.UserName))
+            {
+                return Json(new
+                {
+                    status = false,
+                    message = GetAppMessage("DigitalSales_Msg_NoPermission", "Bạn không có quyền lưu sản phẩm trên hồ sơ này! Chỉ tài khoản QTHT hoặc nhân sự được cấp quyền cập nhật trạng thái mới được thực hiện.")
                 });
             }
 
@@ -457,36 +585,45 @@ namespace Modules.Cate.Areas.Cate.Controllers
                 {
                     status = true,
                     id = id,
-                    message = "Lưu sản phẩm / dịch vụ thành công!"
+                    message = GetAppMessage("DigitalSales_Msg_SaveProductSuccess", "Lưu sản phẩm / dịch vụ thành công!")
                 });
             }
 
             return Json(new
             {
                 status = false,
-                message = "Không thể lưu sản phẩm / dịch vụ!"
+                message = GetAppMessage("DigitalSales_Msg_SaveProductFail", "Không thể lưu sản phẩm / dịch vụ!")
             });
         }
 
         [AjaxOnly]
         [HttpPost]
         [ActionType(Type = EnumActionType.Delete)]
-        public ActionResult DeleteProduct(int id)
+        public ActionResult DeleteProduct(int id, int? salesId = null)
         {
+            if (salesId.HasValue && salesId.Value > 0 && !HasDetailPermission(salesId.Value, User.UserName))
+            {
+                return Json(new
+                {
+                    status = false,
+                    message = GetAppMessage("DigitalSales_Msg_NoPermission", "Bạn không có quyền xóa sản phẩm trên hồ sơ này! Chỉ tài khoản QTHT hoặc nhân sự được cấp quyền cập nhật trạng thái mới được thực hiện.")
+                });
+            }
+
             var result = _salesCache.DeleteProduct(id, User.UserName);
             if (result > 0)
             {
                 return Json(new
                 {
                     status = true,
-                    message = "Xóa sản phẩm thành công!"
+                    message = GetAppMessage("DigitalSales_Msg_DeleteProductSuccess", "Xóa sản phẩm thành công!")
                 });
             }
 
             return Json(new
             {
                 status = false,
-                message = "Không thể xóa sản phẩm!"
+                message = GetAppMessage("DigitalSales_Msg_DeleteProductFail", "Không thể xóa sản phẩm!")
             });
         }
         #endregion
@@ -497,11 +634,82 @@ namespace Modules.Cate.Areas.Cate.Controllers
         [ActionType(Type = EnumActionType.Create)]
         public ActionResult AddMemberModal(int digitalSalesId)
         {
+            if (!HasDetailPermission(digitalSalesId, User.UserName))
+            {
+                return Json(new
+                {
+                    status = false,
+                    message = GetAppMessage("DigitalSales_Msg_NoPermission", "Bạn không có quyền thêm thành viên trên hồ sơ này! Chỉ tài khoản QTHT hoặc nhân sự được cấp quyền cập nhật trạng thái mới được thực hiện.")
+                }, JsonRequestBehavior.AllowGet);
+            }
+
             var model = new RM_DigitalSalesMemberModel
             {
                 DigitalSalesID = digitalSalesId,
                 IsActive = true
             };
+
+            var accessibleDepts = GetAccessibleDepartments() ?? new List<MN_BoPhanModel>();
+            var accessibleDeptIds = accessibleDepts.Select(d => d.BoPhan_ID).ToHashSet();
+
+            // Bao gồm cả các đơn vị con thuộc các đơn vị đang quản lý
+            var allDepts = _departmentCache.GetAll() ?? new List<MN_BoPhanModel>();
+            foreach (var d in allDepts)
+            {
+                if (d.BoPhanCha_ID.HasValue && accessibleDeptIds.Contains(d.BoPhanCha_ID.Value))
+                {
+                    accessibleDeptIds.Add(d.BoPhan_ID);
+                }
+            }
+
+            // Lọc danh sách nhân sự CHỈ thuộc các đơn vị người dùng đang quản lý
+            var allEmployees = _employeeCache.GetAll() ?? new List<MN_EmployeeModel>();
+            var employees = allEmployees.Where(e => accessibleDeptIds.Contains(e.BoPhan_ID)).ToList();
+
+            // Fallback: nếu danh sách nhân sự rỗng, load theo _userCache dựa trên các đơn vị quản lý
+            if (employees.Count == 0)
+            {
+                var userList = new List<SysUserModel>();
+                foreach (var dId in accessibleDeptIds)
+                {
+                    var uList = _userCache.GetByBoPhanAndChucVu(dId, null);
+                    if (uList != null) userList.AddRange(uList);
+                }
+                employees = userList.GroupBy(u => u.UserId).Select(g =>
+                {
+                    var u = g.First();
+                    return new MN_EmployeeModel
+                    {
+                        Employee_ID = u.UserId ?? 0,
+                        FullName = u.FullName,
+                        BoPhan_ID = accessibleDeptIds.FirstOrDefault(),
+                        TenBoPhan = u.OfficeName
+                    };
+                }).Where(e => e.Employee_ID > 0).ToList();
+            }
+
+            var existingMembers = _salesCache.GetMembersBySalesID(digitalSalesId) ?? new List<RM_DigitalSalesMemberModel>();
+            var existingUserIds = existingMembers.Select(m => m.UserID).ToHashSet();
+
+            employees.ForEach(employee => employee.IsSaleMember = existingUserIds.Contains(employee.Employee_ID));
+
+            ViewBag.Employees = employees;
+            ViewBag.Departments = accessibleDepts;
+
+            var roles = _rolesCache.GetAll() ?? new List<RM_RolesModel>();
+            if (roles.Count == 0)
+            {
+                roles = new List<RM_RolesModel>
+                {
+                    new RM_RolesModel { RoleID = 1, RoleName = "AM Kinh doanh" },
+                    new RM_RolesModel { RoleID = 2, RoleName = "Kỹ thuật giải pháp" },
+                    new RM_RolesModel { RoleID = 3, RoleName = "Chuyên gia triển khai" },
+                    new RM_RolesModel { RoleID = 4, RoleName = "Hỗ trợ PoC" },
+                    new RM_RolesModel { RoleID = 5, RoleName = "Quản trị dự án" },
+                    new RM_RolesModel { RoleID = 6, RoleName = "Chăm sóc khách hàng" }
+                };
+            }
+            ViewBag.Roles = roles;
 
             ViewBag.UserList = _userCache.GetAll()?.Select(u => new SelectListItem
             {
@@ -515,54 +723,140 @@ namespace Modules.Cate.Areas.Cate.Controllers
         [AjaxOnly]
         [HttpPost]
         [ActionType(Type = EnumActionType.Create)]
-        public ActionResult SaveMember(RM_DigitalSalesMemberModel model)
+        public ActionResult SaveMember(RM_DigitalSalesMemberModel model, string EmployeeIDs, string RoleIDs, string CustomRole)
         {
-            if (model.DigitalSalesID <= 0 || model.UserID <= 0)
+            if (model.DigitalSalesID <= 0)
             {
                 return Json(new
                 {
                     status = false,
-                    message = "Vui lòng chọn nhân sự tham gia!"
+                    message = GetAppMessage("DigitalSales_Msg_InvalidSalesRecord", "Hồ sơ không hợp lệ!")
                 });
             }
 
-            var id = _salesCache.SaveMember(model, User.UserName);
-            if (id > 0)
+            if (!HasDetailPermission(model.DigitalSalesID, User.UserName))
+            {
+                return Json(new
+                {
+                    status = false,
+                    message = GetAppMessage("DigitalSales_Msg_NoPermission", "Bạn không có quyền quản lý thành viên trên hồ sơ này! Chỉ tài khoản QTHT hoặc nhân sự được cấp quyền cập nhật trạng thái mới được thực hiện.")
+                });
+            }
+
+            var empIdList = new List<int>();
+            if (!string.IsNullOrWhiteSpace(EmployeeIDs))
+            {
+                foreach (var part in EmployeeIDs.Split(new[] { ';', ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    if (int.TryParse(part.Trim(), out int eid) && eid > 0 && !empIdList.Contains(eid))
+                    {
+                        empIdList.Add(eid);
+                    }
+                }
+            }
+            else if (model.UserID > 0)
+            {
+                empIdList.Add(model.UserID);
+            }
+
+            if (empIdList.Count == 0)
+            {
+                return Json(new
+                {
+                    status = false,
+                    message = GetAppMessage("DigitalSales_Msg_MemberRequired", "Vui lòng chọn ít nhất một nhân sự tham gia!")
+                });
+            }
+
+            var roleNamesList = new List<string>();
+            if (!string.IsNullOrWhiteSpace(RoleIDs))
+            {
+                var allRoles = _rolesCache.GetAll() ?? new List<RM_RolesModel>();
+                var roleIdSet = RoleIDs.Split(new[] { ';', ',' }, StringSplitOptions.RemoveEmptyEntries)
+                    .Select(s => s.Trim())
+                    .ToHashSet();
+
+                foreach (var r in allRoles)
+                {
+                    if (roleIdSet.Contains(r.RoleID.ToString()))
+                    {
+                        roleNamesList.Add(r.RoleName);
+                    }
+                }
+            }
+
+            if (!string.IsNullOrWhiteSpace(CustomRole))
+            {
+                roleNamesList.Add(CustomRole.Trim());
+            }
+            else if (!string.IsNullOrWhiteSpace(model.RoleTitle))
+            {
+                roleNamesList.Add(model.RoleTitle.Trim());
+            }
+
+            var finalRoleTitle = roleNamesList.Count > 0 ? string.Join(", ", roleNamesList.Distinct()) : "Thành viên";
+
+            int savedCount = 0;
+            foreach (var empId in empIdList)
+            {
+                var m = new RM_DigitalSalesMemberModel
+                {
+                    MemberID = 0,
+                    DigitalSalesID = model.DigitalSalesID,
+                    UserID = empId,
+                    RoleTitle = finalRoleTitle,
+                    IsAM = model.IsAM, // Tất cả nhân sự được chọn đều nhận quyền cập nhật trạng thái nếu được tích
+                    Note = model.Note,
+                    IsActive = true
+                };
+                var id = _salesCache.SaveMember(m, User.UserName);
+                if (id > 0) savedCount++;
+            }
+
+            if (savedCount > 0)
             {
                 return Json(new
                 {
                     status = true,
-                    id = id,
-                    message = "Lưu thành viên thành công!"
+                    message = savedCount == 1 ? "Lưu thành viên thành công!" : $"Đã lưu thành công {savedCount} nhân sự tham gia!"
                 });
             }
 
             return Json(new
             {
                 status = false,
-                message = "Không thể lưu thành viên!"
+                message = GetAppMessage("DigitalSales_Msg_SaveMemberFail", "Không thể lưu thành viên!")
             });
         }
 
         [AjaxOnly]
         [HttpPost]
         [ActionType(Type = EnumActionType.Delete)]
-        public ActionResult DeleteMember(int id)
+        public ActionResult DeleteMember(int id, int? salesId = null)
         {
+            if (salesId.HasValue && salesId.Value > 0 && !HasDetailPermission(salesId.Value, User.UserName))
+            {
+                return Json(new
+                {
+                    status = false,
+                    message = GetAppMessage("DigitalSales_Msg_NoPermission", "Bạn không có quyền xóa thành viên trên hồ sơ này! Chỉ tài khoản QTHT hoặc nhân sự được cấp quyền cập nhật trạng thái mới được thực hiện.")
+                });
+            }
+
             var result = _salesCache.DeleteMember(id, User.UserName);
             if (result > 0)
             {
                 return Json(new
                 {
                     status = true,
-                    message = "Xóa thành viên thành công!"
+                    message = GetAppMessage("DigitalSales_Msg_DeleteMemberSuccess", "Xóa thành viên thành công!")
                 });
             }
 
             return Json(new
             {
                 status = false,
-                message = "Không thể xóa thành viên!"
+                message = GetAppMessage("DigitalSales_Msg_DeleteMemberFail", "Không thể xóa thành viên!")
             });
         }
         #endregion
@@ -573,6 +867,11 @@ namespace Modules.Cate.Areas.Cate.Controllers
         [ActionType(Type = EnumActionType.Create)]
         public ActionResult AddTrackingModal(int digitalSalesId)
         {
+            if (!HasDetailPermission(digitalSalesId, User.UserName))
+            {
+                return Content("<div class='alert alert-warning m-3'><i class='fa fa-lock'></i> Bạn không có quyền thêm tiến trình trên hồ sơ này! Chỉ tài khoản QTHT hoặc nhân sự được cấp quyền cập nhật trạng thái mới được thực hiện.</div>");
+            }
+
             var model = new RM_DigitalSalesTrackingModel
             {
                 DigitalSalesID = digitalSalesId,
@@ -596,6 +895,11 @@ namespace Modules.Cate.Areas.Cate.Controllers
         [ActionType(Type = EnumActionType.Edit)]
         public ActionResult EditTrackingModal(int id, int digitalSalesId)
         {
+            if (!HasDetailPermission(digitalSalesId, User.UserName))
+            {
+                return Content("<div class='alert alert-warning m-3'><i class='fa fa-lock'></i> Bạn không có quyền chỉnh sửa tiến trình trên hồ sơ này! Chỉ tài khoản QTHT hoặc nhân sự được cấp quyền cập nhật trạng thái mới được thực hiện.</div>");
+            }
+
             var tasks = _salesCache.GetTrackingTasks(digitalSalesId);
             var model = tasks.FirstOrDefault(t => t.TrackingID == id);
             if (model == null)
@@ -626,7 +930,16 @@ namespace Modules.Cate.Areas.Cate.Controllers
                 return Json(new
                 {
                     status = false,
-                    message = "Vui lòng nhập tên công việc / tiến trình!"
+                    message = GetAppMessage("DigitalSales_Msg_TaskNameRequired", "Vui lòng nhập tên công việc / tiến trình!")
+                });
+            }
+
+            if (!HasDetailPermission(model.DigitalSalesID, User.UserName))
+            {
+                return Json(new
+                {
+                    status = false,
+                    message = GetAppMessage("DigitalSales_Msg_NoPermission", "Bạn không có quyền thực hiện trên hồ sơ này! Chỉ tài khoản QTHT hoặc nhân sự được cấp quyền cập nhật trạng thái mới có quyền thao tác.")
                 });
             }
 
@@ -642,28 +955,37 @@ namespace Modules.Cate.Areas.Cate.Controllers
                 {
                     status = true,
                     id = id,
-                    message = "Lưu tiến trình thành công!"
+                    message = GetAppMessage("DigitalSales_Msg_SaveTaskSuccess", "Lưu tiến trình thành công!")
                 });
             }
 
             return Json(new
             {
                 status = false,
-                message = "Không thể lưu tiến trình!"
+                message = GetAppMessage("DigitalSales_Msg_SaveTaskFail", "Không thể lưu tiến trình!")
             });
         }
 
         [AjaxOnly]
         [HttpPost]
         [ActionType(Type = EnumActionType.Edit)]
-        public ActionResult UpdateTrackingStatus(int trackingId, byte status, string resultNote, HttpPostedFileBase attachmentFile, int? assignedUserId, DateTime? deadline)
+        public ActionResult UpdateTrackingStatus(int trackingId, byte status, string resultNote, HttpPostedFileBase attachmentFile, int? assignedUserId, DateTime? deadline, int? salesId = null)
         {
             if (trackingId <= 0)
             {
                 return Json(new
                 {
                     status = false,
-                    message = "Mã tiến trình không hợp lệ!"
+                    message = GetAppMessage("DigitalSales_Msg_InvalidTaskCode", "Mã tiến trình không hợp lệ!")
+                });
+            }
+
+            if (salesId.HasValue && salesId.Value > 0 && !HasDetailPermission(salesId.Value, User.UserName))
+            {
+                return Json(new
+                {
+                    status = false,
+                    message = GetAppMessage("DigitalSales_Msg_NoPermission", "Bạn không có quyền cập nhật tiến trình trên hồ sơ này! Chỉ tài khoản QTHT hoặc nhân sự được cấp quyền cập nhật trạng thái mới được thực hiện.")
                 });
             }
 
@@ -679,41 +1001,127 @@ namespace Modules.Cate.Areas.Cate.Controllers
                 return Json(new
                 {
                     status = true,
-                    message = "Cập nhật tiến trình thành công!"
+                    message = GetAppMessage("DigitalSales_Msg_UpdateTaskSuccess", "Cập nhật tiến trình thành công!")
                 });
             }
 
             return Json(new
             {
                 status = false,
-                message = "Không thể cập nhật tiến trình!"
+                message = GetAppMessage("DigitalSales_Msg_UpdateTaskFail", "Không thể cập nhật tiến trình!")
             });
         }
 
         [AjaxOnly]
         [HttpPost]
         [ActionType(Type = EnumActionType.Delete)]
-        public ActionResult DeleteTracking(int id)
+        public ActionResult DeleteTracking(int id, int? salesId = null)
         {
+            if (salesId.HasValue && salesId.Value > 0 && !HasDetailPermission(salesId.Value, User.UserName))
+            {
+                return Json(new
+                {
+                    status = false,
+                    message = GetAppMessage("DigitalSales_Msg_NoPermission", "Bạn không có quyền xóa tiến trình trên hồ sơ này! Chỉ tài khoản QTHT hoặc nhân sự được cấp quyền cập nhật trạng thái mới được thực hiện.")
+                });
+            }
+
             var result = _salesCache.DeleteTracking(id, User.UserName);
             if (result > 0)
             {
                 return Json(new
                 {
                     status = true,
-                    message = "Xóa tiến trình thành công!"
+                    message = GetAppMessage("DigitalSales_Msg_DeleteTaskSuccess", "Xóa tiến trình thành công!")
                 });
             }
 
             return Json(new
             {
                 status = false,
-                message = "Không thể xóa tiến trình!"
+                message = GetAppMessage("DigitalSales_Msg_DeleteTaskFail", "Không thể xóa tiến trình!")
             });
         }
         #endregion
 
         #region 8. Ajax Helpers
+        [AjaxOnly]
+        [HttpGet]
+        public ActionResult SearchCustomers(string q, int page = 1, int pageSize = 20)
+        {
+            try
+            {
+                var searchModel = new RM_CustomerSearchModel
+                {
+                    Keyword = q
+                };
+                var baseSearch = new BaseSearchModel
+                {
+                    StartIndex = (page - 1) * pageSize,
+                    PageSize = pageSize,
+                    Order = "0",
+                    OrderDir = "ASC"
+                };
+
+                int total = 0;
+                var list = _customerCache.Get(out total, searchModel, baseSearch);
+
+                var items = list?.Select(c => (object)new
+                {
+                    id = c.CustomerID,
+                    text = c.CustomerName,
+                    shortName = c.ShortName,
+                    taxCode = c.TaxCode,
+                    phone = c.Phone,
+                    address = c.AddressCus
+                }).ToList() ?? new List<object>();
+
+                int totalPages = (int)Math.Ceiling((double)total / (pageSize > 0 ? pageSize : 10));
+                bool more = (page * pageSize) < total;
+
+                return Json(new
+                {
+                    total = total,
+                    page = page,
+                    pageSize = pageSize,
+                    totalPages = totalPages,
+                    data = items,
+                    results = items,
+                    pagination = new { more = more }
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+                return Json(new { total = 0, page = 1, totalPages = 0, data = new List<object>(), results = new List<object>(), pagination = new { more = false } }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [AjaxOnly]
+        [HttpGet]
+        public ActionResult GetCustomerDetail(int id)
+        {
+            if (id <= 0) return Json(null, JsonRequestBehavior.AllowGet);
+            try
+            {
+                var c = _customerCache.GetById(id);
+                if (c == null) return Json(null, JsonRequestBehavior.AllowGet);
+                return Json(new
+                {
+                    id = c.CustomerID,
+                    customerName = c.CustomerName,
+                    shortName = c.ShortName,
+                    taxCode = c.TaxCode,
+                    phone = c.Phone,
+                    email = c.Email,
+                    address = c.AddressCus
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+                return Json(null, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         [AjaxOnly]
         [HttpGet]
         public ActionResult GetContactPersons(int customerId)
@@ -729,6 +1137,52 @@ namespace Modules.Cate.Areas.Cate.Controllers
 
         [AjaxOnly]
         [HttpGet]
+        public ActionResult GetDepartmentByEmployee(int employeeId)
+        {
+            var deptId = GetDepartmentIdByUserId(employeeId);
+            return Json(new { departmentId = deptId ?? 0 }, JsonRequestBehavior.AllowGet);
+        }
+
+        private int? GetDepartmentIdByUserId(int? userId)
+        {
+            if (!userId.HasValue || userId.Value <= 0) return null;
+            try
+            {
+                var connStr = ConfigurationManager.ConnectionStrings["TOC.Conn.Major"]?.ConnectionString;
+                if (!string.IsNullOrEmpty(connStr))
+                {
+                    using (var conn = new System.Data.SqlClient.SqlConnection(connStr))
+                    {
+                        conn.Open();
+                        using (var cmd = conn.CreateCommand())
+                        {
+                            cmd.CommandText = "SELECT TOP 1 bp.BoPhan_ID FROM dbo.Sys_Users u INNER JOIN dbo.MN_BoPhan bp ON u.MaBoPhan = bp.MaBoPhan WHERE u.UserId = @UserId";
+                            cmd.Parameters.AddWithValue("@UserId", userId.Value);
+                            var obj = cmd.ExecuteScalar();
+                            if (obj != null && obj != DBNull.Value)
+                            {
+                                return Convert.ToInt32(obj);
+                            }
+                        }
+                    }
+                }
+
+                var user = _userCache.GetById(userId.Value);
+                if (user != null && !string.IsNullOrEmpty(user.Email))
+                {
+                    var userBoPhans = _userBoPhanCache.GetByEmail(user.Email);
+                    if (userBoPhans != null && userBoPhans.Count > 0)
+                    {
+                        return userBoPhans.FirstOrDefault()?.BoPhan_ID;
+                    }
+                }
+            }
+            catch { }
+            return null;
+        }
+
+        [AjaxOnly]
+        [HttpGet]
         public ActionResult GetStatusesByBusinessType(byte businessType)
         {
             var list = _salesCache.GetStatusList(businessType)?.Select(s => new
@@ -740,8 +1194,88 @@ namespace Modules.Cate.Areas.Cate.Controllers
             return Json(list, JsonRequestBehavior.AllowGet);
         }
         #endregion
-
+        
         #region 9. Helpers & Dropdown Population
+        private List<SysUserModel> GetAccessibleEmployees()
+        {
+            var list = new List<SysUserModel>();
+            try
+            {
+                var connStr = ConfigurationManager.ConnectionStrings["TOC.Conn.Major"]?.ConnectionString 
+                    ?? ConfigurationManager.ConnectionStrings["CenITConnection"]?.ConnectionString;
+                var currentUser = _userCache.GetByUserName(User.UserName);
+                if (currentUser != null && !string.IsNullOrWhiteSpace(currentUser.Email) && !string.IsNullOrEmpty(connStr))
+                {
+                    using (var conn = new System.Data.SqlClient.SqlConnection(connStr))
+                    {
+                        conn.Open();
+                        using (var cmd = conn.CreateCommand())
+                        {
+                            cmd.CommandText = @"
+                                SELECT DISTINCT u.UserId, u.UserName, u.FullName
+                                FROM Sys_Users u
+                                INNER JOIN MN_BoPhan bp ON u.MaBoPhan = bp.MaBoPhan
+                                INNER JOIN Sys_UserBoPhan ub ON bp.MaBoPhan = ub.MaBoPhan
+                                WHERE ub.Email = @Email AND u.IsActive = 1 AND u.IsDeleted = 0
+                                ORDER BY u.FullName";
+                            cmd.Parameters.AddWithValue("@Email", currentUser.Email);
+                            using (var reader = cmd.ExecuteReader())
+                            {
+                                while (reader.Read())
+                                {
+                                    list.Add(new SysUserModel
+                                    {
+                                        UserId = Convert.ToInt32(reader["UserId"]),
+                                        UserName = reader["UserName"]?.ToString(),
+                                        FullName = reader["FullName"]?.ToString()
+                                    });
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (list.Count == 0 && !string.IsNullOrEmpty(connStr))
+                {
+                    var accessibleDepts = GetAccessibleDepartments();
+                    if (accessibleDepts != null && accessibleDepts.Count > 0)
+                    {
+                        var deptIds = string.Join(",", accessibleDepts.Select(d => d.BoPhan_ID));
+                        using (var conn = new System.Data.SqlClient.SqlConnection(connStr))
+                        {
+                            conn.Open();
+                            using (var cmd = conn.CreateCommand())
+                            {
+                                cmd.CommandText = $@"
+                                    SELECT DISTINCT u.UserId, u.UserName, u.FullName
+                                    FROM Sys_Users u
+                                    INNER JOIN MN_BoPhan bp ON u.MaBoPhan = bp.MaBoPhan
+                                    WHERE bp.BoPhan_ID IN ({deptIds}) AND u.IsActive = 1 AND u.IsDeleted = 0
+                                    ORDER BY u.FullName";
+                                using (var reader = cmd.ExecuteReader())
+                                {
+                                    while (reader.Read())
+                                    {
+                                        list.Add(new SysUserModel
+                                        {
+                                            UserId = Convert.ToInt32(reader["UserId"]),
+                                            UserName = reader["UserName"]?.ToString(),
+                                            FullName = reader["FullName"]?.ToString()
+                                        });
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                // Fallback safe
+            }
+            return list;
+        }
+
         [HttpGet]
         public JsonResult GetEmployeesByDepartment(int departmentId)
         {
@@ -795,6 +1329,99 @@ namespace Modules.Cate.Areas.Cate.Controllers
             return list;
         }
 
+        #region Authorization Helper (QTHT & Quyền cập nhật trạng thái)
+        private bool IsUserQTHT(string userName, int? userId = null)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(userName)) return false;
+                if (userName.Equals("admin", StringComparison.OrdinalIgnoreCase) || userName.Equals("quantri", StringComparison.OrdinalIgnoreCase)) return true;
+
+                if (!userId.HasValue || userId.Value <= 0)
+                {
+                    var u = _userCache.GetByUserName(userName);
+                    userId = u?.UserId;
+                }
+
+                if (userId.HasValue && userId.Value > 0)
+                {
+                    var roles = _userCache.GetRoles(userId.Value);
+                    if (roles != null && roles.Any(r => r.RoleId == 1 || (r.Name != null && (r.Name.Equals("QTHT", StringComparison.OrdinalIgnoreCase) || r.Name.IndexOf("quản trị", StringComparison.OrdinalIgnoreCase) >= 0))))
+                    {
+                        return true;
+                    }
+                }
+            }
+            catch
+            {
+                // Fallback safe
+            }
+
+            return false;
+        }
+
+        private bool HasDetailPermission(RM_DigitalSalesModel sales, string userName)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(userName)) return false;
+
+                // 1. Đối với những tài khoản được phân quyền QTHT thì sẽ có quyền thao tác toàn bộ các chức năng
+                if (IsUserQTHT(userName)) return true;
+
+                // 2. Đối với những người được check quyền cập nhật trạng thái
+                if (sales != null)
+                {
+                    var currentUser = _userCache.GetByUserName(userName);
+                    var currentUserId = currentUser?.UserId;
+
+                    if (sales.Members != null && sales.Members.Count > 0)
+                    {
+                        var hasStatusPermission = sales.Members.Any(m =>
+                            m.IsAM && (
+                                (!string.IsNullOrEmpty(m.UserName) && m.UserName.Equals(userName, StringComparison.OrdinalIgnoreCase)) ||
+                                (currentUserId.HasValue && currentUserId.Value > 0 && m.UserID == currentUserId.Value)
+                            )
+                        );
+                        if (hasStatusPermission) return true;
+                    }
+
+                    if (currentUserId.HasValue && currentUserId.Value > 0 && sales.AssignedEmployeeID == currentUserId.Value)
+                    {
+                        return true;
+                    }
+                }
+            }
+            catch
+            {
+                // Fallback safe
+            }
+
+            return false;
+        }
+
+        private bool HasDetailPermission(int digitalSalesId, string userName)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(userName)) return false;
+                if (IsUserQTHT(userName)) return true;
+
+                if (digitalSalesId > 0)
+                {
+                    var sales = _salesCache.GetByID(digitalSalesId);
+                    return HasDetailPermission(sales, userName);
+                }
+            }
+            catch
+            {
+                // Fallback safe
+            }
+
+            return false;
+        }
+        #endregion
+
         private void PrepareSearchDropdowns(RM_DigitalSalesSearchModel model)
         {
             var accessibleDepts = GetAccessibleDepartments();
@@ -835,11 +1462,26 @@ namespace Modules.Cate.Areas.Cate.Controllers
 
         private void PrepareSalesDropdowns(RM_DigitalSalesModel model)
         {
-            model.ListCustomer = _customerCache.GetAll()?.Select(c => new SelectListItem
+            if (model.CustomerID > 0)
             {
-                Value = c.CustomerID.ToString(),
-                Text = c.CustomerName
-            }).ToList() ?? new List<SelectListItem>();
+                var cus = _customerCache.GetById(model.CustomerID);
+                if (cus != null)
+                {
+                    model.ListCustomer = new List<SelectListItem>
+                    {
+                        new SelectListItem { Value = cus.CustomerID.ToString(), Text = cus.CustomerName, Selected = true }
+                    };
+                    model.CustomerName = cus.CustomerName;
+                }
+                else
+                {
+                    model.ListCustomer = new List<SelectListItem>();
+                }
+            }
+            else
+            {
+                model.ListCustomer = new List<SelectListItem>();
+            }
 
             if (model.CustomerID > 0)
             {
@@ -849,6 +1491,10 @@ namespace Modules.Cate.Areas.Cate.Controllers
                     Text = $"{c.FullName} - {c.Position}"
                 }).ToList() ?? new List<SelectListItem>();
             }
+            else
+            {
+                model.ListContactPerson = new List<SelectListItem>();
+            }
 
             model.ListStatus = _salesCache.GetStatusList(model.BusinessType)?.Select(s => new SelectListItem
             {
@@ -856,11 +1502,37 @@ namespace Modules.Cate.Areas.Cate.Controllers
                 Text = s.StatusName
             }).ToList() ?? new List<SelectListItem>();
 
-            model.ListEmployee = _userCache.GetAll()?.Select(u => new SelectListItem
+            var accessibleUsers = GetAccessibleEmployees();
+
+            var currentLoginUser = _userCache.GetByUserName(User.UserName);
+            if (currentLoginUser != null && !accessibleUsers.Any(u => u.UserId == currentLoginUser.UserId))
             {
-                Value = u.UserId.ToString(),
-                Text = $"{u.FullName} ({u.UserName})"
-            }).ToList() ?? new List<SelectListItem>();
+                accessibleUsers.Add(currentLoginUser);
+            }
+
+            if (model.AssignedEmployeeID.HasValue && model.AssignedEmployeeID.Value > 0 && !accessibleUsers.Any(u => u.UserId == model.AssignedEmployeeID.Value))
+            {
+                var assignedUser = _userCache.GetById(model.AssignedEmployeeID.Value);
+                if (assignedUser != null)
+                {
+                    accessibleUsers.Add(assignedUser);
+                }
+            }
+
+            model.ListEmployee = accessibleUsers
+                .GroupBy(u => u.UserId)
+                .Select(g => g.First())
+                .OrderBy(u => u.FullName)
+                .Select(u => new SelectListItem
+                {
+                    Value = u.UserId.ToString(),
+                    Text = $"{u.FullName} ({u.UserName})"
+                }).ToList();
+
+            if ((!model.DepartmentID.HasValue || model.DepartmentID.Value <= 0) && model.AssignedEmployeeID.HasValue)
+            {
+                model.DepartmentID = GetDepartmentIdByUserId(model.AssignedEmployeeID.Value);
+            }
 
             model.ListDepartment = _departmentCache.GetAll()?.Select(d => new SelectListItem
             {

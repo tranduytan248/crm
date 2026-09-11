@@ -246,13 +246,15 @@ function openAddSalesModal() {
     $.get(_digitalSalesUrls.add, function (html) {
         $("#modalContainer").html(html);
         var $modal = $("#modalAddSales");
-        if ($.fn.select2) {
-            $modal.find(".select2").select2({ width: "100%", dropdownParent: $modal });
-        }
         $modal.modal("show");
 
         $("#frmAddSales").on("submit", function (e) {
             e.preventDefault();
+            if (typeof CKEDITOR !== 'undefined') {
+                for (var inst in CKEDITOR.instances) {
+                    try { CKEDITOR.instances[inst].updateElement(); } catch (err) { }
+                }
+            }
             var formData = new FormData(this);
             $.ajax({
                 url: _digitalSalesUrls.add,
@@ -287,13 +289,15 @@ function openEditSalesModal(id) {
     $.get(_digitalSalesUrls.edit + "/" + id, function (html) {
         $("#modalContainer").html(html);
         var $modal = $("#modalEditSales");
-        if ($.fn.select2) {
-            $modal.find(".select2").select2({ width: "100%", dropdownParent: $modal });
-        }
         $modal.modal("show");
 
         $("#frmEditSales").on("submit", function (e) {
             e.preventDefault();
+            if (typeof CKEDITOR !== 'undefined') {
+                for (var inst in CKEDITOR.instances) {
+                    try { CKEDITOR.instances[inst].updateElement(); } catch (err) { }
+                }
+            }
             var formData = new FormData(this);
             $.ajax({
                 url: _digitalSalesUrls.edit,
