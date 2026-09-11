@@ -7,7 +7,8 @@ var _digitalSalesUrls = {
     detail: "/Cate/DigitalSales/Detail",
     changeStatusModal: "/Cate/DigitalSales/ChangeStatusModal",
     changeStatus: "/Cate/DigitalSales/ChangeStatus",
-    getContactPersons: "/Cate/DigitalSales/GetContactPersons"
+    getContactPersons: "/Cate/DigitalSales/GetContactPersons",
+    export: "/Cate/DigitalSales/Export"
 };
 
 $(document).ready(function () {
@@ -86,7 +87,7 @@ function initTableDigitalSales() {
 
                     var html = '<div class="mb-1 d-flex align-items-center flex-wrap">' +
                         badgeType + ' ' + badgeStatus +
-                        '<span class="badge bgc-grey-l3 text-secondary-d3 ml-1 font-mono">' + (row.Code || '—') + '</span>' +
+                        '<span class="badge bgc-warning-l3 text-warning-d3 border-1 brc-warning-m2 ml-1 font-mono font-bold px-2 py-1 radius-1 shadow-sm"><i class="fa fa-hashtag mr-1 opacity-75"></i>' + (row.Code || '—') + '</span>' +
                         '</div>';
 
                     html += '<a href="' + _digitalSalesUrls.detail + '/' + row.DigitalSalesID + '" class="font-weight-bold text-primary text-100 d-block" style="font-size: 14px;" title="Xem chi tiết 360 độ">' +
@@ -140,7 +141,6 @@ function initTableDigitalSales() {
                 render: function (data, type, row) {
                     var expRev = row.TotalExpectedRevenue != null ? Number(row.TotalExpectedRevenue).toLocaleString('vi-VN') : '0';
                     var actRev = row.TotalActualRevenue != null ? Number(row.TotalActualRevenue).toLocaleString('vi-VN') : '0';
-                    var prob = row.ClosingProbability != null ? row.ClosingProbability : 0;
 
                     var html = '<div class="text-95">' +
                         '<span class="text-secondary">Dự kiến:</span> <span class="font-weight-bold text-primary">' + expRev + ' đ</span>' +
@@ -148,10 +148,6 @@ function initTableDigitalSales() {
                     html += '<div class="text-95 mt-1">' +
                         '<span class="text-secondary">Thực tế:</span> <span class="font-weight-bold text-success">' + actRev + ' đ</span>' +
                         '</div>';
-                    if (prob > 0) {
-                        var probColor = prob >= 70 ? 'badge-success' : (prob >= 40 ? 'badge-warning text-dark' : 'badge-danger');
-                        html += '<div class="mt-1"><span class="badge ' + probColor + ' px-1 text-85">Xác suất: ' + prob + '%</span></div>';
-                    }
                     return html;
                 }
             },
@@ -169,7 +165,9 @@ function initTableDigitalSales() {
                     }
                     if (row.CanDelete) {
                         hasAction = true;
-                        html += '<a href="javascript:void(0);" onclick="deleteSales(' + row.DigitalSalesID + ');" class="btn btn-xs btn-outline-danger btn-h-outline-danger btn-a-outline-danger radius-1 px-2 py-1" title="Xóa">' +
+                        var safeCode = (row.Code || '').replace(/'/g, "\\'");
+                        var safeTitle = (row.Title || '').replace(/'/g, "\\'");
+                        html += '<a href="javascript:void(0);" onclick="confirmDeleteSales(' + row.DigitalSalesID + ', \'' + safeCode + '\', \'' + safeTitle + '\');" class="btn btn-xs btn-outline-danger btn-h-outline-danger btn-a-outline-danger radius-1 px-2 py-1" title="Xóa">' +
                             '<i class="fa fa-trash-alt mr-1"></i>Xóa</a>';
                     }
                     if (!hasAction) {
@@ -333,14 +331,26 @@ function DigitalSales_OnProcessSuccess(response, formId) {
         $modal = $(".modal.show");
     }
 
-    // 1. Phục hồi trạng thái nút Lưu
+    // 1. Phục hồi trạng thái nút Lưu và nút Lưu và di chuyển tới chi tiết
     var $btnSave = $modal.find("#btnSave, .modal-footer #btnSave, button[type='submit']");
-    $btnSave.prop("disabled", false).html('<i class="fa fa-save"></i> Lưu');
+    $btnSave.prop("disabled", false).html('<i class="fa fa-save mr-1"></i> Lưu');
+    var $btnSaveAndDetail = $modal.find("#btnSaveAndDetail");
+    $btnSaveAndDetail.prop("disabled", false).html('<i class="fa fa-external-link-alt mr-1"></i> Lưu và di chuyển tới chi tiết');
 
     if (response && response.status !== undefined) {
         // TRƯỜNG HỢP 1: JSON response
         if (response.status === true) {
-            // Hiển thị Toastr thành công NGAY LẬP TỨC
+            // Chỉ chuyển qua màn hình chi tiết nếu có yêu cầu điều hướng (Lưu và di chuyển tới chi tiết)
+            if (response.redirectToDetail && response.id) {
+                $modal.off("hidden.bs.modal hide.bs.modal");
+                $btnSaveAndDetail.prop("disabled", true).removeClass("btn-primary").addClass("btn-success")
+                    .html('<i class="fa fa-check mr-1"></i> Thành công! Đang chuyển đến chi tiết...');
+                if (typeof _onWaiting === "function") _onWaiting();
+                window.location.href = _digitalSalesUrls.detail + "/" + response.id;
+                return;
+            }
+
+            // Đối với Sửa (Edit) hoặc thao tác không chuyển trang:
             executeResponseMessage(response.message, "Thao tác thành công!", true);
 
             // Đóng modal và dọn dẹp backdrop
@@ -348,12 +358,7 @@ function DigitalSales_OnProcessSuccess(response, formId) {
             $(".modal-backdrop").remove();
             $("body").removeClass("modal-open").css("padding-right", "");
 
-            // Điều hướng sang trang chi tiết 360 độ hoặc tải lại bảng
-            if (response.id) {
-                setTimeout(function () {
-                    window.location.href = _digitalSalesUrls.detail + "/" + response.id;
-                }, 300);
-            } else {
+            if (typeof reloadSalesTable === "function") {
                 reloadSalesTable();
             }
         } else {
@@ -472,16 +477,73 @@ function openChangeStatusModal(id) {
     });
 }
 
-function deleteSales(id) {
-    if (!confirm("Bạn có chắc chắn muốn xóa hồ sơ kinh doanh này không?")) return;
-    $.post(_digitalSalesUrls.delete, { id: id }, function (res) {
-        if (res.status) {
-            executeResponseMessage(res.message, "Xóa thành công!", true);
-            reloadSalesTable();
-        } else {
-            executeResponseMessage(res.message, "Không thể xóa hồ sơ!", false);
-        }
+function deleteSales(id, code, title) {
+    confirmDeleteSales(id, code, title);
+}
+
+function confirmDeleteSales(id, code, title) {
+    var $modal = $('#modalConfirmDeleteSales');
+    if ($modal.length === 0) {
+        var modalHtml = '<div class="modal fade" id="modalConfirmDeleteSales" tabindex="-1" role="dialog" aria-hidden="true" style="z-index: 1065;">' +
+            '<div class="modal-dialog modal-dialog-centered" style="max-width: 480px;" role="document">' +
+            '<div class="modal-content border-0 shadow-lg radius-2 overflow-hidden">' +
+            '<div class="modal-header bgc-danger text-white py-2 px-3">' +
+            '<h6 class="modal-title font-bold text-white mb-0"><i class="fa fa-exclamation-triangle mr-1"></i> Xác nhận xóa hồ sơ</h6>' +
+            '<button type="button" class="close text-white" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>' +
+            '</div>' +
+            '<div class="modal-body p-3 text-center">' +
+            '<i class="fa fa-trash-alt fa-3x text-danger mb-3 d-block"></i>' +
+            '<p class="text-dark mb-2 font-weight-bold text-105">Bạn có chắc chắn muốn xóa hồ sơ kinh doanh này không?</p>' +
+            '<div class="bgc-grey-l4 radius-1 p-2 my-2 text-left border-1 brc-grey-l2" id="delSalesInfoBox">' +
+            '<div class="font-bold text-primary-d2 text-95" id="delSalesTitleDisplay"></div>' +
+            '<div class="text-85 text-secondary font-mono mt-1" id="delSalesCodeDisplay"></div>' +
+            '</div>' +
+            '<small class="text-muted text-85 d-block"><i class="fa fa-info-circle text-warning mr-1"></i>Thao tác này sẽ xóa hồ sơ và không thể hoàn tác.</small>' +
+            '</div>' +
+            '<div class="modal-footer py-2 bgc-grey-l5 d-flex justify-content-center">' +
+            '<button type="button" class="btn btn-sm btn-outline-secondary radius-1 px-3" data-dismiss="modal"><i class="fa fa-times mr-1"></i> Hủy bỏ</button>' +
+            '<button type="button" id="btnConfirmDeleteSalesSubmit" class="btn btn-sm btn-danger radius-1 px-4 font-bold shadow-sm"><i class="fa fa-trash-alt mr-1"></i> Đồng ý xóa</button>' +
+            '</div>' +
+            '</div></div></div>';
+        $('body').append(modalHtml);
+        $modal = $('#modalConfirmDeleteSales');
+    }
+
+    if (title || code) {
+        $modal.find('#delSalesTitleDisplay').text(title || '').show();
+        $modal.find('#delSalesCodeDisplay').text(code ? 'Mã: ' + code : '').show();
+        $modal.find('#delSalesInfoBox').show();
+    } else {
+        $modal.find('#delSalesInfoBox').hide();
+    }
+
+    $modal.find('#btnConfirmDeleteSalesSubmit').off('click').on('click', function () {
+        var $btn = $(this);
+        $btn.prop('disabled', true).html('<i class="fa fa-spinner fa-spin mr-1"></i> Đang xóa...');
+        $.ajax({
+            url: _digitalSalesUrls.delete,
+            type: 'POST',
+            data: { id: id },
+            success: function (res) {
+                $btn.prop('disabled', false).html('<i class="fa fa-trash-alt mr-1"></i> Đồng ý xóa');
+                $modal.modal('hide');
+                $('.modal-backdrop').remove();
+                $('body').removeClass('modal-open').css('padding-right', '');
+                if (res.status) {
+                    executeResponseMessage(res.message, "Xóa hồ sơ thành công!", true);
+                    reloadSalesTable();
+                } else {
+                    executeResponseMessage(res.message, "Không thể xóa hồ sơ!", false);
+                }
+            },
+            error: function () {
+                $btn.prop('disabled', false).html('<i class="fa fa-trash-alt mr-1"></i> Đồng ý xóa');
+                executeResponseMessage("Lỗi kết nối máy chủ!", "Lỗi kết nối máy chủ!", false);
+            }
+        });
     });
+
+    $modal.modal('show');
 }
 
 function loadContactPersonsByCustomer(customerId, targetSelector) {
@@ -508,3 +570,29 @@ $(document).on('hidden.bs.modal', '#modal_AddDigitalSales, #modal_EditDigitalSal
     $('#modalCustomerLookup_Form').modal('hide');
     $('body > #modalCustomerLookup_Form').remove();
 });
+
+function exportDigitalSales() {
+    var baseUrl = _digitalSalesUrls.export || "/Cate/DigitalSales/Export";
+    var keyword = $("#SearchDigitalSales #Keyword").val() || $("#Keyword").val() || "";
+    var businessType = $("#SearchDigitalSales #BusinessType").val() || $("#BusinessType").val() || "";
+    var statusID = $("#SearchDigitalSales #StatusID").val() || $("#StatusID").val() || "";
+    var departmentID = $("#SearchDigitalSales #DepartmentID").val() || $("#DepartmentID").val() || "";
+    var employeeID = $("#SearchDigitalSales #EmployeeID").val() || $("#EmployeeID").val() || "";
+    var fromDate = $("#SearchDigitalSales #FromDate").val() || $("#FromDate").val() || "";
+    var toDate = $("#SearchDigitalSales #ToDate").val() || $("#ToDate").val() || "";
+    var customerID = $("#SearchDigitalSales #CustomerID").val() || $("#CustomerID").val() || "";
+
+    var qs = [];
+    if (keyword) qs.push("keyword=" + encodeURIComponent(keyword));
+    if (businessType) qs.push("businessType=" + encodeURIComponent(businessType));
+    if (statusID) qs.push("statusID=" + encodeURIComponent(statusID));
+    if (departmentID) qs.push("departmentID=" + encodeURIComponent(departmentID));
+    if (employeeID) qs.push("employeeID=" + encodeURIComponent(employeeID));
+    if (fromDate) qs.push("fromDate=" + encodeURIComponent(fromDate));
+    if (toDate) qs.push("toDate=" + encodeURIComponent(toDate));
+    if (customerID) qs.push("customerID=" + encodeURIComponent(customerID));
+
+    var url = baseUrl + (qs.length ? "?" + qs.join("&") : "");
+    window.location.href = url;
+}
+

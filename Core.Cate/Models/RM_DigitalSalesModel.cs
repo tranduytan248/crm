@@ -78,6 +78,9 @@ namespace Core.Cate.Models
         public int? DepartmentID { get; set; }
         public string DepartmentName { get; set; }
 
+        /// <summary>
+        /// Mô tả chi tiết nhu cầu / Ghi chú dịch vụ số (Không phải Lý do chuyển trạng thái)
+        /// </summary>
         [AllowHtml]
         [CustomDisplayName("DigitalSales_Note_Label")]
         public string Note { get; set; }
@@ -87,6 +90,7 @@ namespace Core.Cate.Models
 
         public DateTime CreatedDate { get; set; }
         public string CreatedBy { get; set; }
+        public string CreatedByName { get; set; }
         public DateTime? LastModifiedDate { get; set; }
         public string LastModifiedBy { get; set; }
 

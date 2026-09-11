@@ -1,7 +1,8 @@
 ﻿@using TSFramework.Libs.Processors
 @model Core.Cate.Models.RM_DigitalSalesModel
 @{
-    ViewBag.Title = string.Format(AppProcessor.Messagor.GetMessage("Modal_Title_Edit"), "Hồ sơ kinh doanh SPDV Số");
+    var editTypeTitle = (Model != null && Model.BusinessType == 2) ? "Dự án SPDV Số" : "Cơ hội kinh doanh SPDV Số";
+    ViewBag.Title = string.Format(AppProcessor.Messagor.GetMessage("Modal_Title_Edit"), editTypeTitle);
     Layout = "~/Views/Shared/_Form.cshtml";
 }
 @section FormType {
@@ -23,16 +24,39 @@
             var $form = $('form#EditDigitalSales');
             var $modal = $form.closest('.modal');
 
+            function syncCKEditorData() {
+                if (typeof CKEDITOR !== 'undefined') {
+                    for (var inst in CKEDITOR.instances) {
+                        try {
+                            var data = CKEDITOR.instances[inst].getData();
+                            $('#' + inst).val(data);
+                            CKEDITOR.instances[inst].updateElement();
+                        } catch (e) { }
+                    }
+                }
+            }
+
             // Gắn sự kiện click rõ ràng cho nút Lưu ở footer modal
             $modal.find('#btnSave, .modal-footer #btnSave').off('click.digitalsales').on('click.digitalsales', function (e) {
                 e.preventDefault();
+                syncCKEditorData();
                 $form.submit();
             });
 
             $form.ajaxForm({
-                beforeSubmit: function () {
-                    if (typeof CKEDITOR !== 'undefined' && CKEDITOR.instances['DigitalSales_Form_Note']) {
-                        try { CKEDITOR.instances['DigitalSales_Form_Note'].updateElement(); } catch (e) { }
+                beforeSerialize: function ($f, options) {
+                    syncCKEditorData();
+                },
+                beforeSubmit: function (arr, $f, options) {
+                    syncCKEditorData();
+
+                    if (arr && arr.length) {
+                        var noteVal = $('#DigitalSales_Form_Note').val() || '';
+                        for (var i = 0; i < arr.length; i++) {
+                            if (arr[i].name === 'Note') {
+                                arr[i].value = noteVal;
+                            }
+                        }
                     }
 
                     // 1. Kiểm tra validation nhanh ở Client-side

@@ -10,6 +10,14 @@
 @section FormIcon {
     <i class="fa fa-plus-circle"></i>
 }
+@section SubmitControl {
+    <button type="button" id="btnSaveAndDetail" class="btn px-3 btn-primary mb-1 mr-1 font-bold shadow-sm">
+        <i class="fa fa-external-link-alt mr-1"></i>@AppProcessor.Messagor.GetMessage("Button_SaveAndDetail")
+    </button>
+    <button type="button" id="btnSave" class="btn px-4 btn-outline-primary mb-1 mr-1">
+        <i class="fa fa-save mr-1"></i>@AppProcessor.Messagor.GetMessage("Button_Save")
+    </button>
+}
 @section FormBody {
     @using (Html.BeginForm("Add", "DigitalSales", new { area = "Cate" }, FormMethod.Post, new { encType = "multipart/form-data", id = "AddDigitalSales", @class = "form-horizontal" }))
     {
@@ -22,17 +30,50 @@
         (function () {
             var $form = $('form#AddDigitalSales');
             var $modal = $form.closest('.modal');
+            var isRedirectToDetail = false;
 
-            // Gắn sự kiện click rõ ràng cho nút Lưu ở footer modal
-            $modal.find('#btnSave, .modal-footer #btnSave').off('click.digitalsales').on('click.digitalsales', function (e) {
+            function syncCKEditorData() {
+                if (typeof CKEDITOR !== 'undefined') {
+                    for (var inst in CKEDITOR.instances) {
+                        try {
+                            var data = CKEDITOR.instances[inst].getData();
+                            $('#' + inst).val(data);
+                            CKEDITOR.instances[inst].updateElement();
+                        } catch (e) { }
+                    }
+                }
+            }
+
+            // Gắn sự kiện cho nút "Lưu và di chuyển tới chi tiết"
+            $modal.find('#btnSaveAndDetail').off('click.digitalsales').on('click.digitalsales', function (e) {
                 e.preventDefault();
+                isRedirectToDetail = true;
+                syncCKEditorData();
+                $form.submit();
+            });
+
+            // Gắn sự kiện cho nút "Lưu" (thêm mới, ở lại trang và reload danh sách)
+            $modal.find('#btnSave').off('click.digitalsales').on('click.digitalsales', function (e) {
+                e.preventDefault();
+                isRedirectToDetail = false;
+                syncCKEditorData();
                 $form.submit();
             });
 
             $form.ajaxForm({
-                beforeSubmit: function () {
-                    if (typeof CKEDITOR !== 'undefined' && CKEDITOR.instances['DigitalSales_Form_Note']) {
-                        try { CKEDITOR.instances['DigitalSales_Form_Note'].updateElement(); } catch (e) { }
+                beforeSerialize: function ($f, options) {
+                    syncCKEditorData();
+                },
+                beforeSubmit: function (arr, $f, options) {
+                    syncCKEditorData();
+
+                    if (arr && arr.length) {
+                        var noteVal = $('#DigitalSales_Form_Note').val() || '';
+                        for (var i = 0; i < arr.length; i++) {
+                            if (arr[i].name === 'Note') {
+                                arr[i].value = noteVal;
+                            }
+                        }
                     }
 
                     // 1. Kiểm tra validation nhanh ở Client-side
@@ -71,17 +112,64 @@
                         return false; // Ngăn chặn submit để người dùng chỉnh sửa ngay
                     }
 
-                    // 2. Hiển thị trạng thái loading spinner trên nút Lưu
-                    var $btn = $modal.find('#btnSave, .modal-footer #btnSave');
-                    $btn.prop('disabled', true).html('<i class="fa fa-spinner fa-spin mr-1"></i> Đang lưu...');
+                    // 2. Hiển thị trạng thái loading spinner trên nút được bấm
+                    var $btnSave = $modal.find('#btnSave');
+                    var $btnSaveAndDetail = $modal.find('#btnSaveAndDetail');
+
+                    if (isRedirectToDetail) {
+                        $btnSaveAndDetail.prop('disabled', true).html('<i class="fa fa-spinner fa-spin mr-1"></i> Đang lưu...');
+                        $btnSave.prop('disabled', true);
+                    } else {
+                        $btnSave.prop('disabled', true).html('<i class="fa fa-spinner fa-spin mr-1"></i> Đang lưu...');
+                        $btnSaveAndDetail.prop('disabled', true);
+                    }
                     return true;
                 },
                 success: function (response) {
-                    DigitalSales_OnProcessSuccess(response, "AddDigitalSales");
+                    var $btnSave = $modal.find('#btnSave');
+                    var $btnSaveAndDetail = $modal.find('#btnSaveAndDetail');
+
+                    if (response && response.status === true) {
+                        // Trường hợp 1: Bấm nút "Lưu và di chuyển tới chi tiết"
+                        if (isRedirectToDetail && response.id) {
+                            $modal.off('hidden.bs.modal hide.bs.modal');
+                            $btnSaveAndDetail.prop('disabled', true).removeClass('btn-primary').addClass('btn-success')
+                                .html('<i class="fa fa-check mr-1"></i> Thành công! Đang chuyển đến chi tiết...');
+                            if (typeof _onWaiting === "function") _onWaiting();
+                            window.location.href = _digitalSalesUrls.detail + "/" + response.id;
+                            return;
+                        }
+
+                        // Trường hợp 2: Bấm nút "Lưu" -> load lại danh sách và ở lại trang
+                        var successMsg = response.message || "Thao tác thành công!";
+                        executeResponseMessage(successMsg, "Thao tác thành công!", true);
+
+                        // Đóng modal an toàn, dọn dẹp backdrop
+                        $modal.modal('hide');
+                        $('.modal-backdrop').remove();
+                        $('body').removeClass('modal-open').css('padding-right', '');
+
+                        // Tải lại bảng danh sách
+                        if (typeof reloadSalesTable === 'function') {
+                            reloadSalesTable();
+                        } else if (typeof ReloadLastTable === 'function') {
+                            ReloadLastTable();
+                        }
+                        return;
+                    }
+
+                    // Xử lý lỗi trả về từ server
+                    $btnSave.prop('disabled', false).html('<i class="fa fa-save mr-1"></i> @AppProcessor.Messagor.GetMessage("Button_Save")');
+                    $btnSaveAndDetail.prop('disabled', false).html('<i class="fa fa-external-link-alt mr-1"></i> @AppProcessor.Messagor.GetMessage("Button_SaveAndDetail")');
+
+                    var errMsg = (response && response.message) ? response.message : "Thao tác thất bại!";
+                    executeResponseMessage(errMsg, "Thao tác thất bại!", false);
                 },
                 error: function () {
-                    var $btn = $modal.find('#btnSave, .modal-footer #btnSave');
-                    $btn.prop('disabled', false).html('<i class="fa fa-save"></i> Lưu');
+                    var $btnSave = $modal.find('#btnSave');
+                    var $btnSaveAndDetail = $modal.find('#btnSaveAndDetail');
+                    $btnSave.prop('disabled', false).html('<i class="fa fa-save mr-1"></i> @AppProcessor.Messagor.GetMessage("Button_Save")');
+                    $btnSaveAndDetail.prop('disabled', false).html('<i class="fa fa-external-link-alt mr-1"></i> @AppProcessor.Messagor.GetMessage("Button_SaveAndDetail")');
                     executeResponseMessage("Lỗi kết nối máy chủ!", "Lỗi kết nối máy chủ!", false);
                 }
             });

@@ -8,6 +8,10 @@
 @Html.HiddenFor(m => m.ClosingProbability)
 @Html.HiddenFor(m => m.StartDate)
 @Html.HiddenFor(m => m.ExpectedDate)
+@Html.HiddenFor(m => m.ContractID)
+@Html.HiddenFor(m => m.ContractNo)
+@Html.HiddenFor(m => m.ContractValue)
+@Html.HiddenFor(m => m.ContractSignDate)
 
 @if (Model.DigitalSalesID <= 0)
 {
@@ -17,6 +21,7 @@
             Hồ sơ mới mặc định thuộc loại hình <strong>Cơ hội kinh doanh</strong> với trạng thái <strong>Chưa nắm bắt</strong>. Sau khi tiếp cận khách hàng và có thông tin SPDV số, bạn có thể chuyển đổi thành <strong>Dự án</strong>.
         </div>
     </div>
+}
 <style>
     /* Đồng bộ chiều cao chuẩn 38px cho ô Khách hàng và Dropdown Select2 AM chủ trì */
     #bodyForm .input-group > .form-control {
@@ -58,7 +63,7 @@
 
     <div class="col-md-4 mb-3">
         @Html.TitleFor(m => m.Code, new { @class = "font-bold text-secondary-d2 mb-1 d-block text-90" })
-        @Html.TextBoxFor(m => m.Code, new { @class = "form-control form-control-sm bgc-grey-l4 text-secondary-d2 font-mono font-bold", placeholder = AppProcessor.Messagor.GetMessage("DigitalSales_Code_Placeholder"), @readonly = "readonly" })
+        @Html.TextBoxFor(m => m.Code, new { @class = "form-control form-control-sm bgc-warning-l4 text-warning-d3 border-1 brc-warning-m2 font-mono font-bold", placeholder = AppProcessor.Messagor.GetMessage("DigitalSales_Code_Placeholder"), @readonly = "readonly" })
     </div>
 
     <!-- 2. KHÁCH HÀNG / DOANH NGHIỆP -->
@@ -96,19 +101,7 @@
         <div id="customerInfoCard_Form" class="card border-1 brc-primary-m3 bgc-primary-l4 radius-1 p-2 mb-3 shadow-sm" style="display: none;"></div>
     </div>
 
-    @if (Model.DigitalSalesID > 0)
-    {
-        <!-- 4. THÔNG TIN HỢP ĐỒNG (CHO EDIT) -->
-        <div class="col-md-6 mb-3">
-            @Html.TitleFor(m => m.ContractID, new { @class = "font-bold text-secondary-d2 mb-1 d-block text-90" })
-            @Html.DropDownListFor(m => m.ContractID, Model.ListContract, AppProcessor.Messagor.GetMessage("DigitalSales_Contract_Option"), new { @class = "form-control form-control-sm select2" })
-        </div>
 
-        <div class="col-md-6 mb-3">
-            @Html.TitleFor(m => m.ContractNo, new { @class = "font-bold text-secondary-d2 mb-1 d-block text-90" })
-            @Html.TextBoxFor(m => m.ContractNo, new { @class = "form-control form-control-sm", placeholder = AppProcessor.Messagor.GetMessage("DigitalSales_ContractNo_Placeholder") })
-        </div>
-    }
 
     <!-- 5. FILE ĐÍNH KÈM -->
     <div class="col-md-12 mb-3">
@@ -359,7 +352,6 @@
     }
 
     function removeAttachedFile_Form(el, filePath) {
-        if (!confirm("Bạn có chắc chắn muốn bỏ tệp đính kèm này không?")) return;
         var currentFiles = ($('#ExistingFileAttach_Form').val() || '').split(';');
         var newFiles = [];
         for (var i = 0; i < currentFiles.length; i++) {
@@ -385,8 +377,13 @@
 
         // 2. Select2
         if ($.fn.select2) {
-            $container.find('select.select2').select2({
-                width: '100%'
+            $container.find('select.select2').each(function () {
+                var $sel = $(this);
+                var $m = $sel.closest('.modal');
+                $sel.select2({
+                    width: '100%',
+                    dropdownParent: $m.length ? $m : $(document.body)
+                });
             });
         }
 
@@ -426,15 +423,15 @@
 
         // 6. Hiển thị thẻ tóm tắt khách hàng ban đầu nếu có
         var initCusId = $('#CustomerID_Form').val();
-        if (initCusId && parseInt(initCusId) > 0 && !$('#customerInfoCard_Form').is(':visible')) {
-            $.get('/Cate/DigitalSales/SearchCustomers', { q: '', page: 1, pageSize: 1, customerId: initCusId }, function(res) {
-                if (res && res.data && res.data.length > 0) {
-                    var c = res.data[0];
+        if (initCusId && parseInt(initCusId) > 0) {
+            $.get('/Cate/DigitalSales/GetCustomerDetail', { id: initCusId }, function (c) {
+                if (c && c.id) {
+                    var cusName = c.customerName || c.text || '';
                     $('#customerInfoCard_Form').html(
                         '<div class="d-flex align-items-start">' +
                             '<div class="bgc-primary-m1 text-white p-2 radius-1 mr-2 flex-shrink-0"><i class="fa fa-building fa-lg"></i></div>' +
                             '<div class="flex-grow-1 min-width-0">' +
-                                '<div class="font-weight-bold text-primary-d2 text-95">' + c.text + '</div>' +
+                                '<div class="font-weight-bold text-primary-d2 text-95">' + (c.shortName ? '(' + c.shortName + ') ' : '') + cusName + '</div>' +
                                 '<div class="text-85 text-secondary mt-1">' +
                                     (c.taxCode ? '<span class="mr-3"><i class="fa fa-id-card mr-1"></i>MST: <strong>' + c.taxCode + '</strong></span>' : '') +
                                     (c.phone ? '<span><i class="fa fa-phone mr-1"></i>' + c.phone + '</span>' : '') +
@@ -455,19 +452,45 @@
 
             function createCK() {
                 if (typeof CKEDITOR === 'undefined') return;
-                if (CKEDITOR.instances['DigitalSales_Form_Note']) {
-                    try { CKEDITOR.instances['DigitalSales_Form_Note'].destroy(true); } catch (e) { }
+                var editor = CKEDITOR.instances['DigitalSales_Form_Note'];
+                if (editor) {
+                    try { editor.destroy(true); } catch (e) { }
                 }
-                CKEDITOR.replace('DigitalSales_Form_Note', {
+                var initContent = $('#DigitalSales_Form_Note').val() || '';
+                if (initContent.indexOf('&lt;') !== -1 && initContent.indexOf('&gt;') !== -1) {
+                    var $d = document.createElement('div');
+                    $d.innerHTML = initContent;
+                    initContent = $d.textContent || $d.innerText || initContent;
+                }
+
+                var newEditor = CKEDITOR.replace('DigitalSales_Form_Note', {
                     customConfig: '',
-                    height: 150,
+                    height: 160,
+                    entities: false,
+                    basicEntities: false,
+                    entities_latin: false,
+                    entities_greek: false,
+                    entities_processNumerical: false,
+                    fillEmptyBlocks: false,
                     toolbar: [
                         { name: 'basicstyles', items: ['Bold', 'Italic', 'Underline', 'Strike'] },
-                        { name: 'paragraph', items: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent'] },
+                        { name: 'paragraph', items: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote'] },
                         { name: 'styles', items: ['Format', 'FontSize'] },
                         { name: 'colors', items: ['TextColor', 'BGColor'] },
                         { name: 'tools', items: ['Maximize'] }
                     ]
+                });
+                newEditor.on('instanceReady', function () {
+                    if (initContent) {
+                        try {
+                            newEditor.setData(initContent);
+                        } catch (e) { }
+                    }
+                });
+                newEditor.on('change', function () {
+                    try {
+                        $('#DigitalSales_Form_Note').val(newEditor.getData());
+                    } catch (e) { }
                 });
             }
 
@@ -484,6 +507,7 @@
         setTimeout(initCK, 200);
     }
 
+    initDigitalSalesFormPlugins();
     $(document).ready(function () {
         initDigitalSalesFormPlugins();
     });

@@ -1,3 +1,4 @@
+using ClosedXML.Excel;
 using Core.Cate.Caches;
 using Core.Cate.Models;
 using Core.Sys.BaseApp;
@@ -41,6 +42,30 @@ namespace Modules.Cate.Areas.Cate.Controllers
         }
 
 
+        private string FormatHtmlContent(string content)
+        {
+            if (string.IsNullOrWhiteSpace(content)) return string.Empty;
+            var text = content.Trim();
+            if (text.Contains("\u00C3") || text.Contains("\u00C4") || text.Contains("\u00E1\u00BA") || text.Contains("\u00E1\u00BB") || text.Contains("\u00C2"))
+            {
+                try
+                {
+                    byte[] bytes = System.Text.Encoding.GetEncoding(1252).GetBytes(text);
+                    string fixedText = System.Text.Encoding.UTF8.GetString(bytes);
+                    if (!string.IsNullOrEmpty(fixedText))
+                    {
+                        text = fixedText;
+                    }
+                }
+                catch { }
+            }
+            if (text.Contains("&lt;") && text.Contains("&gt;"))
+            {
+                text = HttpUtility.HtmlDecode(text);
+            }
+            return text;
+        }
+
         public DigitalSalesController()
         {
             _salesCache = new RM_DigitalSalesCache();
@@ -71,6 +96,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
 
             PrepareSearchDropdowns(model);
             ViewBag.Title = _title;
+            ViewBag.IsQTHT = IsUserQTHT(User.UserName);
             return View(model);
         }
 
@@ -95,17 +121,51 @@ namespace Modules.Cate.Areas.Cate.Controllers
 
             var data = _salesCache.LoadList(out int total, model);
 
-            // Kiểm tra phân quyền sửa / xóa cho người dùng hiện tại
-            bool canSystemEdit = IsUserQTHT(User.UserName) || AppProcessor.Author.IsAllow(HttpContext, User.UserName, "Cate", "DigitalSales", "Edit");
-            bool canSystemDelete = IsUserQTHT(User.UserName) || AppProcessor.Author.IsAllow(HttpContext, User.UserName, "Cate", "DigitalSales", "Delete");
+            // Kiểm tra phân quyền sửa / xóa tối ưu: tránh lặp IsUserQTHT và N+1 queries
+            bool isQTHT = IsUserQTHT(User.UserName);
+            bool canSystemEdit = isQTHT || AppProcessor.Author.IsAllow(HttpContext, User.UserName, "Cate", "DigitalSales", "Edit");
+            bool canSystemDelete = isQTHT || AppProcessor.Author.IsAllow(HttpContext, User.UserName, "Cate", "DigitalSales", "Delete");
 
             if (data != null && data.Count > 0)
             {
-                foreach (var item in data)
+                if (isQTHT)
                 {
-                    bool hasRecordPerm = HasDetailPermission(item, User.UserName);
-                    item.CanEdit = canSystemEdit && hasRecordPerm;
-                    item.CanDelete = canSystemDelete && hasRecordPerm;
+                    for (int i = 0; i < data.Count; i++)
+                    {
+                        data[i].CanEdit = canSystemEdit;
+                        data[i].CanDelete = canSystemDelete;
+                    }
+                }
+                else
+                {
+                    var currentUser = _userCache.GetByUserName(User.UserName);
+                    int currentUserId = currentUser?.UserId ?? 0;
+
+                    for (int i = 0; i < data.Count; i++)
+                    {
+                        var item = data[i];
+                        bool hasRecordPerm = (!string.IsNullOrEmpty(item.CreatedBy) && item.CreatedBy.Equals(User.UserName, StringComparison.OrdinalIgnoreCase))
+                                           || (currentUserId > 0 && item.AssignedEmployeeID == currentUserId);
+
+                        if (!hasRecordPerm && item.DigitalSalesID > 0)
+                        {
+                            var members = item.Members;
+                            if (members == null || members.Count == 0)
+                            {
+                                members = _salesCache.GetMembersBySalesID(item.DigitalSalesID);
+                            }
+                            if (members != null && members.Count > 0)
+                            {
+                                hasRecordPerm = members.Any(m => m.IsAM && (
+                                    (!string.IsNullOrEmpty(m.UserName) && m.UserName.Equals(User.UserName, StringComparison.OrdinalIgnoreCase)) ||
+                                    (currentUserId > 0 && m.UserID == currentUserId)
+                                ));
+                            }
+                        }
+
+                        item.CanEdit = canSystemEdit && hasRecordPerm;
+                        item.CanDelete = canSystemDelete && hasRecordPerm;
+                    }
                 }
             }
 
@@ -116,6 +176,153 @@ namespace Modules.Cate.Areas.Cate.Controllers
                 recordsFiltered = total,
                 data = data
             }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult Export(string keyword, byte? businessType, int? statusID,
+                                   int? departmentID, int? employeeID, string fromDate, string toDate, int? customerID)
+        {
+            var searchModel = new RM_DigitalSalesSearchModel
+            {
+                Keyword = keyword,
+                BusinessType = businessType.GetValueOrDefault(0),
+                StatusID = statusID.GetValueOrDefault(0),
+                DepartmentID = departmentID.GetValueOrDefault(0),
+                EmployeeID = employeeID.GetValueOrDefault(0),
+                FromDate = fromDate,
+                ToDate = toDate,
+                CustomerID = customerID.GetValueOrDefault(0),
+                PageNumber = 1,
+                PageSize = 999999,
+                UserName = User.UserName
+            };
+
+            var data = _salesCache.LoadList(out _, searchModel);
+            byte[] fileBytes = BuildExportWorkbook(data);
+            string fileName = $"Danh_sach_SPDV_So_{DateTime.Now:yyyyMMdd_HHmmss}.xlsx";
+
+            return File(fileBytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
+        }
+
+        private byte[] BuildExportWorkbook(List<RM_DigitalSalesModel> data)
+        {
+            byte[] result;
+            using (var workbook = new XLWorkbook())
+            {
+                var sheetTitle = GetAppMessage("DigitalSales_Export_SheetName", "DS Kinh doanh SPDV So");
+                var worksheet = workbook.Worksheets.Add(sheetTitle);
+
+                string[] headers = new[]
+                {
+                    GetAppMessage("DigitalSales_Export_STT", "STT"),
+                    GetAppMessage("DigitalSales_Export_BusinessType", "Loai hinh"),
+                    GetAppMessage("DigitalSales_Export_Status", "Trang thai"),
+                    GetAppMessage("DigitalSales_Export_Code", "Ma ho so"),
+                    GetAppMessage("DigitalSales_Export_Title", "Tieu de co hoi / Du an"),
+                    GetAppMessage("DigitalSales_Export_Customer", "Khach hang / Doanh nghiep"),
+                    GetAppMessage("DigitalSales_Export_ContactPerson", "Nguoi lien he"),
+                    GetAppMessage("DigitalSales_Export_ContactPhone", "SDT lien he"),
+                    GetAppMessage("DigitalSales_Export_AM", "Nhan su AM chu tri"),
+                    GetAppMessage("DigitalSales_Export_Department", "Don vi / Phong ban"),
+                    GetAppMessage("DigitalSales_Export_ExpectedRevenue", "Doanh thu du kien (VND)"),
+                    GetAppMessage("DigitalSales_Export_ActualRevenue", "Doanh thu thuc te (VND)"),
+                    GetAppMessage("DigitalSales_Export_Probability", "Xac suat chot (%)"),
+                    GetAppMessage("DigitalSales_Export_Products", "SPDV so quan tam"),
+                    GetAppMessage("DigitalSales_Export_StartDate", "Ngay bat dau"),
+                    GetAppMessage("DigitalSales_Export_ExpectedDate", "Ngay ket thuc du kien"),
+                    GetAppMessage("DigitalSales_Export_CreatedBy", "Nguoi tao"),
+                    GetAppMessage("DigitalSales_Export_CreatedDate", "Ngay tao")
+                };
+
+                for (int colIndex = 0; colIndex < headers.Length; colIndex++)
+                {
+                    var cell = worksheet.Cell(1, colIndex + 1);
+                    cell.Value = headers[colIndex];
+                    cell.Style.Font.Bold = true;
+                    cell.Style.Font.FontSize = 11;
+                    cell.Style.Font.FontColor = XLColor.White;
+                    cell.Style.Fill.BackgroundColor = XLColor.FromHtml("#1F4E79");
+                    cell.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                    cell.Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
+                    cell.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                }
+                worksheet.Row(1).Height = 26;
+
+                if (data != null && data.Count > 0)
+                {
+                    int stt = 1;
+                    for (int rowIndex = 0; rowIndex < data.Count; rowIndex++)
+                    {
+                        var item = data[rowIndex];
+                        int r = rowIndex + 2;
+
+                        worksheet.Cell(r, 1).Value = stt++;
+                        worksheet.Cell(r, 2).Value = item.BusinessType == 2 ? GetAppMessage("DigitalSales_BusinessType_Project", "Du an") : GetAppMessage("DigitalSales_BusinessType_Opportunity", "Co hoi");
+                        worksheet.Cell(r, 3).Value = item.StatusName ?? "";
+                        worksheet.Cell(r, 4).Value = item.Code ?? "";
+                        worksheet.Cell(r, 5).Value = item.Title ?? "";
+                        worksheet.Cell(r, 6).Value = item.CustomerName ?? "";
+                        worksheet.Cell(r, 7).Value = item.ContactPersonName ?? "";
+                        worksheet.Cell(r, 8).Value = item.ContactPersonPhone ?? "";
+                        worksheet.Cell(r, 9).Value = item.AssignedEmployeeName ?? "";
+                        worksheet.Cell(r, 10).Value = item.DepartmentName ?? "";
+
+                        if (item.TotalExpectedRevenue.HasValue)
+                        {
+                            worksheet.Cell(r, 11).Value = item.TotalExpectedRevenue.Value;
+                            worksheet.Cell(r, 11).Style.NumberFormat.Format = "#,##0";
+                        }
+                        else
+                        {
+                            worksheet.Cell(r, 11).Value = 0;
+                        }
+
+                        if (item.TotalActualRevenue.HasValue)
+                        {
+                            worksheet.Cell(r, 12).Value = item.TotalActualRevenue.Value;
+                            worksheet.Cell(r, 12).Style.NumberFormat.Format = "#,##0";
+                        }
+                        else
+                        {
+                            worksheet.Cell(r, 12).Value = 0;
+                        }
+
+                        worksheet.Cell(r, 13).Value = (item.ClosingProbability ?? 0) + "%";
+                        worksheet.Cell(r, 14).Value = item.ProductServiceNames ?? "";
+                        worksheet.Cell(r, 15).Value = item.StartDate.HasValue ? item.StartDate.Value.ToString("dd/MM/yyyy") : "";
+                        worksheet.Cell(r, 16).Value = item.ExpectedDate.HasValue ? item.ExpectedDate.Value.ToString("dd/MM/yyyy") : "";
+                        worksheet.Cell(r, 17).Value = item.CreatedByName ?? item.CreatedBy ?? "";
+                        worksheet.Cell(r, 18).Value = item.CreatedDate != DateTime.MinValue ? item.CreatedDate.ToString("dd/MM/yyyy HH:mm") : "";
+
+                        worksheet.Cell(r, 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                        worksheet.Cell(r, 2).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                        worksheet.Cell(r, 3).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                        worksheet.Cell(r, 4).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                        worksheet.Cell(r, 8).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                        worksheet.Cell(r, 11).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
+                        worksheet.Cell(r, 12).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
+                        worksheet.Cell(r, 13).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                        worksheet.Cell(r, 15).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                        worksheet.Cell(r, 16).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                        worksheet.Cell(r, 18).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+                        for (int c = 1; c <= headers.Length; c++)
+                        {
+                            worksheet.Cell(r, c).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                            worksheet.Cell(r, c).Style.Border.OutsideBorderColor = XLColor.FromHtml("#D9D9D9");
+                        }
+                    }
+                }
+
+                worksheet.Columns().AdjustToContents();
+
+                using (var stream = new MemoryStream())
+                {
+                    workbook.SaveAs(stream);
+                    result = stream.ToArray();
+                }
+            }
+            return result;
         }
         #endregion
 
@@ -201,6 +408,20 @@ namespace Modules.Cate.Areas.Cate.Controllers
                 model.DepartmentID = GetDepartmentIdByUserId(model.AssignedEmployeeID.Value);
             }
 
+            if (string.IsNullOrWhiteSpace(model.Note))
+            {
+                var rawNote = Request.Unvalidated.Form["Note"];
+                if (!string.IsNullOrWhiteSpace(rawNote))
+                {
+                    model.Note = rawNote;
+                }
+            }
+
+            if (!string.IsNullOrWhiteSpace(model.Note))
+            {
+                model.Note = FormatHtmlContent(model.Note);
+            }
+
             var id = _salesCache.Save(model, User.UserName);
             if (id > 0)
             {
@@ -243,6 +464,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
 
+            model.Note = FormatHtmlContent(model.Note);
             PrepareSalesDropdowns(model);
             return PartialView("_Edit", model);
         }
@@ -322,6 +544,20 @@ namespace Modules.Cate.Areas.Cate.Controllers
                 model.DepartmentID = GetDepartmentIdByUserId(model.AssignedEmployeeID.Value);
             }
 
+            if (string.IsNullOrWhiteSpace(model.Note))
+            {
+                var rawNote = Request.Unvalidated.Form["Note"];
+                if (!string.IsNullOrWhiteSpace(rawNote))
+                {
+                    model.Note = rawNote;
+                }
+            }
+
+            if (!string.IsNullOrWhiteSpace(model.Note))
+            {
+                model.Note = FormatHtmlContent(model.Note);
+            }
+
             var result = _salesCache.Save(model, User.UserName);
             if (result > 0)
             {
@@ -369,6 +605,166 @@ namespace Modules.Cate.Areas.Cate.Controllers
                 message = CreateMessage(_title, EnumProcessType.Delete, EnumMsgIcon.Error)
             });
         }
+
+        #region Attachment Operations
+        [HttpGet]
+        public ActionResult DownloadAttachment(string filePath)
+        {
+            if (string.IsNullOrWhiteSpace(filePath))
+            {
+                return HttpNotFound();
+            }
+
+            var cleanPath = filePath.Trim().Replace("~", "");
+            if (!cleanPath.StartsWith("/Contents/", StringComparison.OrdinalIgnoreCase))
+            {
+                return Json(new { status = false, message = GetAppMessage("DigitalSales_Msg_InvalidPath") }, JsonRequestBehavior.AllowGet);
+            }
+
+            var physicalPath = HostingEnvironment.MapPath(cleanPath);
+            if (string.IsNullOrEmpty(physicalPath) || !System.IO.File.Exists(physicalPath))
+            {
+                return Json(new { status = false, message = GetAppMessage("DigitalSales_Msg_FileNotFound") }, JsonRequestBehavior.AllowGet);
+            }
+
+            var fileName = Path.GetFileName(physicalPath);
+            var mimeType = MimeMapping.GetMimeMapping(physicalPath);
+            if (Path.GetExtension(physicalPath).Equals(".webp", StringComparison.OrdinalIgnoreCase))
+            {
+                mimeType = "image/webp";
+            }
+
+            return File(physicalPath, mimeType, fileName);
+        }
+
+        [AjaxOnly]
+        [HttpPost]
+        [ActionType(Type = EnumActionType.Edit)]
+        public ActionResult UploadAttachment(int id, IEnumerable<HttpPostedFileBase> fileUpload)
+        {
+            if (id <= 0)
+            {
+                return Json(new { status = false, message = CreateMessage(_title, EnumProcessType.DataNotExist, EnumMsgIcon.Error) });
+            }
+
+            if (!HasDetailPermission(id, User.UserName))
+            {
+                return Json(new { status = false, message = GetAppMessage("DigitalSales_Msg_NoPermission") });
+            }
+
+            var model = _salesCache.GetByID(id);
+            if (model == null)
+            {
+                return Json(new { status = false, message = CreateMessage(_title, EnumProcessType.DataNotExist, EnumMsgIcon.Error) });
+            }
+
+            var files = fileUpload?.Where(f => f != null && f.ContentLength > 0).ToList() ?? new List<HttpPostedFileBase>();
+            if (Request.Files.Count > 0 && files.Count == 0)
+            {
+                for (int i = 0; i < Request.Files.Count; i++)
+                {
+                    var f = Request.Files[i];
+                    if (f != null && f.ContentLength > 0)
+                    {
+                        files.Add(f);
+                    }
+                }
+            }
+
+            if (files.Count == 0)
+            {
+                return Json(new { status = false, message = GetAppMessage("DigitalSales_Msg_UploadEmpty") });
+            }
+
+            var uploadedPaths = new List<string>();
+            foreach (var f in files)
+            {
+                var p = SaveUploadedFile(f);
+                if (!string.IsNullOrEmpty(p))
+                {
+                    uploadedPaths.Add(p);
+                }
+            }
+
+            if (uploadedPaths.Count == 0)
+            {
+                return Json(new { status = false, message = GetAppMessage("DigitalSales_Msg_UploadEmpty") });
+            }
+
+            var currentFiles = string.IsNullOrEmpty(model.FileAttach)
+                ? new List<string>()
+                : model.FileAttach.Split(new[] { ';', ',' }, StringSplitOptions.RemoveEmptyEntries).Select(s => s.Trim()).ToList();
+
+            currentFiles.AddRange(uploadedPaths);
+            model.FileAttach = string.Join(";", currentFiles.Distinct());
+
+            var saveResult = _salesCache.Save(model, User.UserName);
+            if (saveResult > 0)
+            {
+                return Json(new
+                {
+                    status = true,
+                    message = GetAppMessage("DigitalSales_Msg_UploadSuccess")
+                });
+            }
+
+            return Json(new
+            {
+                status = false,
+                message = CreateMessage(_title, EnumProcessType.Edit, EnumMsgIcon.Error)
+            });
+        }
+
+        [AjaxOnly]
+        [HttpPost]
+        [ActionType(Type = EnumActionType.Edit)]
+        public ActionResult DeleteAttachment(int id, string filePath)
+        {
+            if (id <= 0)
+            {
+                return Json(new { status = false, message = CreateMessage(_title, EnumProcessType.DataNotExist, EnumMsgIcon.Error) });
+            }
+
+            if (!HasDetailPermission(id, User.UserName))
+            {
+                return Json(new { status = false, message = GetAppMessage("DigitalSales_Msg_NoPermission") });
+            }
+
+            var model = _salesCache.GetByID(id);
+            if (model == null)
+            {
+                return Json(new { status = false, message = CreateMessage(_title, EnumProcessType.DataNotExist, EnumMsgIcon.Error) });
+            }
+
+            if (string.IsNullOrEmpty(model.FileAttach))
+            {
+                return Json(new { status = true, message = GetAppMessage("DigitalSales_Msg_DeleteFileSuccess") });
+            }
+
+            var currentFiles = model.FileAttach.Split(new[] { ';', ',' }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(s => s.Trim())
+                .Where(s => !string.Equals(s, filePath.Trim(), StringComparison.OrdinalIgnoreCase))
+                .ToList();
+
+            model.FileAttach = currentFiles.Count > 0 ? string.Join(";", currentFiles) : null;
+
+            var saveResult = _salesCache.Save(model, User.UserName);
+            if (saveResult > 0)
+            {
+                return Json(new
+                {
+                    status = true,
+                    message = GetAppMessage("DigitalSales_Msg_DeleteFileSuccess")
+                });
+            }
+
+            return Json(new
+            {
+                status = false,
+                message = CreateMessage(_title, EnumProcessType.Edit, EnumMsgIcon.Error)
+            });
+        }
+        #endregion
         #endregion
 
         #region 3. Detail 360
@@ -382,6 +778,13 @@ namespace Modules.Cate.Areas.Cate.Controllers
                 return RedirectToAction("Index");
             }
 
+            model.Note = FormatHtmlContent(model.Note);
+
+            if (string.IsNullOrEmpty(model.CreatedByName) && !string.IsNullOrEmpty(model.CreatedBy))
+            {
+                model.CreatedByName = _userCache.GetByUserName(model.CreatedBy)?.FullName;
+            }
+
             ViewBag.Title = $"{AppProcessor.Messagor.GetMessage("DigitalSales_RecordPrefix")}: {model.Code} - {model.Title}";
             try
             {
@@ -391,17 +794,6 @@ namespace Modules.Cate.Areas.Cate.Controllers
             {
                 ViewBag.CanEdit = false;
             }
-            ViewBag.UsersList = _userCache.GetAll()?.Select(u => new SelectListItem
-            {
-                Value = u.UserId.ToString(),
-                Text = $"{u.FullName} ({u.UserName})"
-            }).ToList() ?? new List<SelectListItem>();
-
-            ViewBag.ProductList = _productServiceCache.GetAll()?.Select(p => new SelectListItem
-            {
-                Value = p.ProductServiceID.ToString(),
-                Text = string.IsNullOrEmpty(p.ShortNameProduct) ? p.NameProduct : $"{p.ShortNameProduct} - {p.NameProduct}"
-            }).ToList() ?? new List<SelectListItem>();
 
             return View(model);
         }
@@ -440,11 +832,13 @@ namespace Modules.Cate.Areas.Cate.Controllers
                 CurrentBusinessType = sales.BusinessType,
                 CurrentBusinessTypeName = sales.BusinessTypeName,
                 CurrentStatusName = sales.StatusName,
-                AvailableStatuses = allStatuses.Select(s => new SelectListItem
-                {
-                    Value = s.StatusID.ToString(),
-                    Text = $"[{(s.BusinessType == 1 ? AppProcessor.Messagor.GetMessage("DigitalSales_BusinessType_Opportunity") : AppProcessor.Messagor.GetMessage("DigitalSales_BusinessType_Project"))}] {s.StatusName}" + (s.StatusID == sales.StatusID ? $" ({AppProcessor.Messagor.GetMessage("DigitalSales_Status_Current")})" : "")
-                }).ToList()
+                AvailableStatuses = allStatuses
+                    .Where(s => s.StatusID != sales.StatusID)
+                    .Select(s => new SelectListItem
+                    {
+                        Value = s.StatusID.ToString(),
+                        Text = $"[{(s.BusinessType == 1 ? AppProcessor.Messagor.GetMessage("DigitalSales_BusinessType_Opportunity") : AppProcessor.Messagor.GetMessage("DigitalSales_BusinessType_Project"))}] {s.StatusName}"
+                    }).ToList()
             };
 
             return PartialView("_ChangeStatusModal", model);
@@ -470,6 +864,16 @@ namespace Modules.Cate.Areas.Cate.Controllers
                 {
                     status = false,
                     message = GetAppMessage("DigitalSales_Msg_InvalidData")
+                });
+            }
+
+            var currentSales = _salesCache.GetByID(digitalSalesId);
+            if (currentSales != null && currentSales.StatusID == newStatusId)
+            {
+                return Json(new
+                {
+                    status = false,
+                    message = GetAppMessage("DigitalSales_Msg_StatusInvalid")
                 });
             }
 
@@ -537,7 +941,102 @@ namespace Modules.Cate.Areas.Cate.Controllers
         #endregion
 
         #region 5. Products & Revenue
-        [AjaxOnly]
+        private List<SelectListItem> GetProductSelectList()
+        {
+            try
+            {
+                // Ưu tiên 1: Lấy danh sách sản phẩm qua GetAllChild() (chứa ProductServiceID, CodeProduct, ShortNameProduct, NameProduct)
+                var rawList = _productServiceCache.GetAllChild();
+                if (rawList != null && rawList.Count > 0)
+                {
+                    var productItems = rawList
+                        .Where(p => p.NodeType == "P" && p.ProductServiceID > 0 && p.IsActived)
+                        .Select(p =>
+                        {
+                            var shortName = (p.ShortNameProduct ?? "").Trim();
+                            var fullName = (p.NameProduct ?? "").Trim();
+
+                            string displayText;
+                            if (!string.IsNullOrEmpty(shortName) && !string.IsNullOrEmpty(fullName))
+                            {
+                                displayText = string.Equals(shortName, fullName, StringComparison.OrdinalIgnoreCase)
+                                    ? fullName
+                                    : $"{shortName} - {fullName}";
+                            }
+                            else if (!string.IsNullOrEmpty(fullName))
+                            {
+                                displayText = fullName;
+                            }
+                            else
+                            {
+                                displayText = shortName;
+                            }
+
+                            return new SelectListItem
+                            {
+                                Value = p.ProductServiceID.ToString(),
+                                Text = displayText
+                            };
+                        })
+                        .Where(item => item.Value != "0" && !string.IsNullOrWhiteSpace(item.Text))
+                        .OrderBy(item => item.Text)
+                        .ToList();
+
+                    if (productItems.Count > 0)
+                    {
+                        return productItems;
+                    }
+                }
+
+                // Fallback 2: Nếu GetAllChild chưa có, lấy qua GetAll() và ánh xạ an toàn cả pID và ProductServiceID
+                var fallbackList = _productServiceCache.GetAll();
+                if (fallbackList != null && fallbackList.Count > 0)
+                {
+                    return fallbackList
+                        .Where(p => p.NodeType == "P" || p.pID > 0 || p.ProductServiceID > 0)
+                        .Select(p =>
+                        {
+                            var id = p.ProductServiceID > 0 ? p.ProductServiceID : p.pID;
+                            var shortName = (p.ShortNameProduct ?? "").Trim();
+                            var fullName = (!string.IsNullOrWhiteSpace(p.NameProduct)
+                                ? p.NameProduct
+                                : (p.DisplayName ?? "").Replace("&nbsp;", "")).Trim();
+
+                            string displayText;
+                            if (!string.IsNullOrEmpty(shortName) && !string.IsNullOrEmpty(fullName))
+                            {
+                                displayText = string.Equals(shortName, fullName, StringComparison.OrdinalIgnoreCase)
+                                    ? fullName
+                                    : $"{shortName} - {fullName}";
+                            }
+                            else if (!string.IsNullOrEmpty(fullName))
+                            {
+                                displayText = fullName;
+                            }
+                            else
+                            {
+                                displayText = shortName;
+                            }
+
+                            return new SelectListItem
+                            {
+                                Value = id.ToString(),
+                                Text = displayText
+                            };
+                        })
+                        .Where(item => item.Value != "0" && !string.IsNullOrWhiteSpace(item.Text))
+                        .OrderBy(item => item.Text)
+                        .ToList();
+                }
+
+                return new List<SelectListItem>();
+            }
+            catch
+            {
+                return new List<SelectListItem>();
+            }
+        }
+
         [HttpGet]
         [ActionType(Type = EnumActionType.Create)]
         public ActionResult AddProductModal(int digitalSalesId)
@@ -559,16 +1058,11 @@ namespace Modules.Cate.Areas.Cate.Controllers
                 EndDate = DateTime.Today.AddYears(1)
             };
 
-            ViewBag.ProductList = _productServiceCache.GetAll()?.Select(p => new SelectListItem
-            {
-                Value = p.ProductServiceID.ToString(),
-                Text = string.IsNullOrEmpty(p.ShortNameProduct) ? p.NameProduct : $"{p.ShortNameProduct} - {p.NameProduct}"
-            }).ToList() ?? new List<SelectListItem>();
+            ViewBag.ProductList = GetProductSelectList();
 
             return PartialView("_ProductModal", model);
         }
 
-        [AjaxOnly]
         [HttpGet]
         [ActionType(Type = EnumActionType.Edit)]
         public ActionResult EditProductModal(int id, int digitalSalesId)
@@ -593,21 +1087,53 @@ namespace Modules.Cate.Areas.Cate.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
 
-            ViewBag.ProductList = _productServiceCache.GetAll()?.Select(p => new SelectListItem
-            {
-                Value = p.ProductServiceID.ToString(),
-                Text = string.IsNullOrEmpty(p.ShortNameProduct) ? p.NameProduct : $"{p.ShortNameProduct} - {p.NameProduct}"
-            }).ToList() ?? new List<SelectListItem>();
+            ViewBag.ProductList = GetProductSelectList();
 
             return PartialView("_ProductModal", model);
         }
 
-        [AjaxOnly]
         [HttpPost]
         [ActionType(Type = EnumActionType.Create)]
-        public ActionResult SaveProduct(RM_DigitalSalesProductModel model)
+        public ActionResult SaveProduct(RM_DigitalSalesProductModel model, int? ProductServiceID, int? DigitalSalesID)
         {
-            if (model.DigitalSalesID <= 0 || model.ProductServiceID <= 0)
+            if (model == null) model = new RM_DigitalSalesProductModel();
+
+            // Fallback ProductServiceID từ tham số hoặc Request.Form
+            if (model.ProductServiceID <= 0)
+            {
+                if (ProductServiceID.HasValue && ProductServiceID.Value > 0)
+                {
+                    model.ProductServiceID = ProductServiceID.Value;
+                }
+                else if (int.TryParse(Request["ProductServiceID"], out int psId) && psId > 0)
+                {
+                    model.ProductServiceID = psId;
+                }
+            }
+
+            // Fallback DigitalSalesID từ tham số hoặc Request.Form
+            if (model.DigitalSalesID <= 0)
+            {
+                if (DigitalSalesID.HasValue && DigitalSalesID.Value > 0)
+                {
+                    model.DigitalSalesID = DigitalSalesID.Value;
+                }
+                else if (int.TryParse(Request["DigitalSalesID"], out int dsId) && dsId > 0)
+                {
+                    model.DigitalSalesID = dsId;
+                }
+            }
+
+            if (model.DigitalSalesID <= 0)
+            {
+                return Json(new
+                {
+                    status = false,
+                    message = GetAppMessage("DigitalSales_Msg_InvalidSalesRecord")
+                });
+            }
+
+            if (model.ProductServiceID <= 0)
             {
                 return Json(new
                 {
@@ -676,204 +1202,362 @@ namespace Modules.Cate.Areas.Cate.Controllers
         #endregion
 
         #region 6. Project Members
-        [AjaxOnly]
         [HttpGet]
         [ActionType(Type = EnumActionType.Create)]
         public ActionResult AddMemberModal(int digitalSalesId)
         {
-            if (!HasDetailPermission(digitalSalesId, User.UserName))
+            try
             {
-                return Json(new
+                if (!HasDetailPermission(digitalSalesId, User.UserName))
                 {
-                    status = false,
-                    message = GetAppMessage("DigitalSales_Msg_NoPermission")
-                }, JsonRequestBehavior.AllowGet);
-            }
-
-            var model = new RM_DigitalSalesMemberModel
-            {
-                DigitalSalesID = digitalSalesId,
-                IsActive = true
-            };
-
-            var accessibleDepts = GetAccessibleDepartments() ?? new List<MN_BoPhanModel>();
-            var accessibleDeptIds = accessibleDepts.Select(d => d.BoPhan_ID).ToHashSet();
-
-            // Bao gồm cả các đơn vị con thuộc các đơn vị đang quản lý
-            var allDepts = _departmentCache.GetAll() ?? new List<MN_BoPhanModel>();
-            foreach (var d in allDepts)
-            {
-                if (d.BoPhanCha_ID.HasValue && accessibleDeptIds.Contains(d.BoPhanCha_ID.Value))
-                {
-                    accessibleDeptIds.Add(d.BoPhan_ID);
-                }
-            }
-
-            // Lọc danh sách nhân sự CHỈ thuộc các đơn vị người dùng đang quản lý
-            var allEmployees = _employeeCache.GetAll() ?? new List<MN_EmployeeModel>();
-            var employees = allEmployees.Where(e => accessibleDeptIds.Contains(e.BoPhan_ID)).ToList();
-
-            // Fallback: nếu danh sách nhân sự rỗng, load theo _userCache dựa trên các đơn vị quản lý
-            if (employees.Count == 0)
-            {
-                var userList = new List<SysUserModel>();
-                foreach (var dId in accessibleDeptIds)
-                {
-                    var uList = _userCache.GetByBoPhanAndChucVu(dId, null);
-                    if (uList != null) userList.AddRange(uList);
-                }
-                employees = userList.GroupBy(u => u.UserId).Select(g =>
-                {
-                    var u = g.First();
-                    return new MN_EmployeeModel
+                    return Json(new
                     {
-                        Employee_ID = u.UserId ?? 0,
-                        FullName = u.FullName,
-                        BoPhan_ID = accessibleDeptIds.FirstOrDefault(),
-                        TenBoPhan = u.OfficeName
-                    };
-                }).Where(e => e.Employee_ID > 0).ToList();
-            }
+                        status = false,
+                        message = GetAppMessage("DigitalSales_Msg_NoPermission")
+                    }, JsonRequestBehavior.AllowGet);
+                }
 
-            var existingMembers = _salesCache.GetMembersBySalesID(digitalSalesId) ?? new List<RM_DigitalSalesMemberModel>();
-            var existingUserIds = existingMembers.Select(m => m.UserID).ToHashSet();
-
-            employees.ForEach(employee => employee.IsSaleMember = existingUserIds.Contains(employee.Employee_ID));
-
-            ViewBag.Employees = employees;
-            ViewBag.Departments = accessibleDepts;
-
-            var roles = _rolesCache.GetAll() ?? new List<RM_RolesModel>();
-            if (roles.Count == 0)
-            {
-                roles = new List<RM_RolesModel>
+                var model = new RM_DigitalSalesMemberModel
                 {
-                    new RM_RolesModel { RoleID = 1, RoleName = AppProcessor.Messagor.GetMessage("DigitalSales_Role_AM") },
-                    new RM_RolesModel { RoleID = 2, RoleName = AppProcessor.Messagor.GetMessage("DigitalSales_Role_TechSolution") },
-                    new RM_RolesModel { RoleID = 3, RoleName = AppProcessor.Messagor.GetMessage("DigitalSales_Role_DeploymentExpert") },
-                    new RM_RolesModel { RoleID = 4, RoleName = AppProcessor.Messagor.GetMessage("DigitalSales_Role_PocSupport") },
-                    new RM_RolesModel { RoleID = 5, RoleName = AppProcessor.Messagor.GetMessage("DigitalSales_Role_ProjectAdmin") },
-                    new RM_RolesModel { RoleID = 6, RoleName = AppProcessor.Messagor.GetMessage("DigitalSales_Role_CustomerCare") }
+                    DigitalSalesID = digitalSalesId,
+                    IsActive = true
                 };
+
+                var accessibleDepts = GetAccessibleDepartments() ?? new List<MN_BoPhanModel>();
+                var accessibleDeptIds = new HashSet<int>(accessibleDepts.Select(d => d.BoPhan_ID));
+
+                // Bao gồm cả các đơn vị con thuộc các đơn vị đang quản lý
+                var allDepts = _departmentCache.GetAll() ?? new List<MN_BoPhanModel>();
+                foreach (var d in allDepts)
+                {
+                    if (d.BoPhanCha_ID.HasValue && accessibleDeptIds.Contains(d.BoPhanCha_ID.Value))
+                    {
+                        accessibleDeptIds.Add(d.BoPhan_ID);
+                    }
+                }
+
+                // Lọc danh sách nhân sự CHỈ thuộc các đơn vị người dùng đang quản lý
+                var allEmployees = _employeeCache.GetAll() ?? new List<MN_EmployeeModel>();
+                var employees = allEmployees.Where(e => accessibleDeptIds.Contains(e.BoPhan_ID)).ToList();
+
+                // Fallback: nếu danh sách nhân sự rỗng, load theo _userCache dựa trên các đơn vị quản lý hoặc lấy danh sách nhân sự
+                if (employees.Count == 0)
+                {
+                    var userList = new List<SysUserModel>();
+                    foreach (var dId in accessibleDeptIds)
+                    {
+                        try
+                        {
+                            var uList = _userCache.GetByBoPhanAndChucVu(dId, null);
+                            if (uList != null) userList.AddRange(uList);
+                        }
+                        catch { }
+                    }
+
+                    if (userList.Count > 0)
+                    {
+                        employees = userList.GroupBy(u => u.UserId).Select(g =>
+                        {
+                            var u = g.First();
+                            return new MN_EmployeeModel
+                            {
+                                Employee_ID = u.UserId ?? 0,
+                                FullName = u.FullName,
+                                BoPhan_ID = accessibleDeptIds.FirstOrDefault(),
+                                TenBoPhan = u.OfficeName
+                            };
+                        }).Where(e => e.Employee_ID > 0).ToList();
+                    }
+                    else
+                    {
+                        employees = allEmployees.Take(100).ToList();
+                    }
+                }
+
+                List<RM_DigitalSalesMemberModel> existingMembers;
+                try
+                {
+                    existingMembers = _salesCache.GetMembersBySalesID(digitalSalesId) ?? new List<RM_DigitalSalesMemberModel>();
+                }
+                catch
+                {
+                    existingMembers = new List<RM_DigitalSalesMemberModel>();
+                }
+
+                var existingUserIds = new HashSet<int>(existingMembers.Select(m => m.UserID));
+                employees.ForEach(employee => employee.IsSaleMember = existingUserIds.Contains(employee.Employee_ID));
+
+                var existingRolesByUserId = new Dictionary<int, string>();
+                if (existingMembers.Count > 0)
+                {
+                    foreach (var grp in existingMembers.GroupBy(m => m.UserID))
+                    {
+                        if (grp.Key > 0)
+                        {
+                            var roleTitles = grp.Select(m => m.RoleTitle).Where(r => !string.IsNullOrWhiteSpace(r)).Distinct();
+                            existingRolesByUserId[grp.Key] = string.Join(", ", roleTitles);
+                        }
+                    }
+                }
+                ViewBag.ExistingRoles = existingRolesByUserId;
+                ViewBag.Employees = employees;
+                ViewBag.Departments = accessibleDepts;
+
+                List<RM_RolesModel> roles = null;
+                try
+                {
+                    roles = _rolesCache.GetAll();
+                }
+                catch { }
+
+                if (roles == null || roles.Count == 0)
+                {
+                    roles = new List<RM_RolesModel>
+                    {
+                        new RM_RolesModel { RoleID = 1, RoleName = AppProcessor.Messagor.GetMessage("DigitalSales_Role_AM") },
+                        new RM_RolesModel { RoleID = 2, RoleName = AppProcessor.Messagor.GetMessage("DigitalSales_Role_TechSolution") },
+                        new RM_RolesModel { RoleID = 3, RoleName = AppProcessor.Messagor.GetMessage("DigitalSales_Role_DeploymentExpert") },
+                        new RM_RolesModel { RoleID = 4, RoleName = AppProcessor.Messagor.GetMessage("DigitalSales_Role_PocSupport") },
+                        new RM_RolesModel { RoleID = 5, RoleName = AppProcessor.Messagor.GetMessage("DigitalSales_Role_ProjectAdmin") },
+                        new RM_RolesModel { RoleID = 6, RoleName = AppProcessor.Messagor.GetMessage("DigitalSales_Role_CustomerCare") }
+                    };
+                }
+                ViewBag.Roles = roles;
+
+                return PartialView("_MemberModal", model);
             }
-            ViewBag.Roles = roles;
-
-            ViewBag.UserList = _userCache.GetAll()?.Select(u => new SelectListItem
+            catch (Exception ex)
             {
-                Value = u.UserId.ToString(),
-                Text = $"{u.FullName} ({u.UserName})"
-            }).ToList() ?? new List<SelectListItem>();
-
-            return PartialView("_MemberModal", model);
+                return Content(string.Format("<div class='alert alert-danger p-3'>{0}: {1}</div>", GetAppMessage("DigitalSales_Msg_SaveMemberFail"), HttpUtility.HtmlEncode(ex.Message)));
+            }
         }
 
-        [AjaxOnly]
+        [HttpGet]
+        [ActionType(Type = EnumActionType.Edit)]
+        public ActionResult EditMemberModal(int id, int digitalSalesId)
+        {
+            try
+            {
+                if (!HasDetailPermission(digitalSalesId, User.UserName))
+                {
+                    return Json(new
+                    {
+                        status = false,
+                        message = GetAppMessage("DigitalSales_Msg_NoPermission")
+                    }, JsonRequestBehavior.AllowGet);
+                }
+
+                var members = _salesCache.GetMembersBySalesID(digitalSalesId) ?? new List<RM_DigitalSalesMemberModel>();
+                var member = members.FirstOrDefault(m => m.MemberID == id);
+                if (member == null)
+                {
+                    return Json(new
+                    {
+                        status = false,
+                        message = GetAppMessage("DigitalSales_Msg_NotFound")
+                    }, JsonRequestBehavior.AllowGet);
+                }
+
+                List<RM_RolesModel> roles = null;
+                try
+                {
+                    roles = _rolesCache.GetAll();
+                }
+                catch { }
+
+                if (roles == null || roles.Count == 0)
+                {
+                    roles = new List<RM_RolesModel>
+                    {
+                        new RM_RolesModel { RoleID = 1, RoleName = AppProcessor.Messagor.GetMessage("DigitalSales_Role_AM") },
+                        new RM_RolesModel { RoleID = 2, RoleName = AppProcessor.Messagor.GetMessage("DigitalSales_Role_TechSolution") },
+                        new RM_RolesModel { RoleID = 3, RoleName = AppProcessor.Messagor.GetMessage("DigitalSales_Role_DeploymentExpert") },
+                        new RM_RolesModel { RoleID = 4, RoleName = AppProcessor.Messagor.GetMessage("DigitalSales_Role_PocSupport") },
+                        new RM_RolesModel { RoleID = 5, RoleName = AppProcessor.Messagor.GetMessage("DigitalSales_Role_ProjectAdmin") },
+                        new RM_RolesModel { RoleID = 6, RoleName = AppProcessor.Messagor.GetMessage("DigitalSales_Role_CustomerCare") }
+                    };
+                }
+                ViewBag.Roles = roles;
+
+                return PartialView("_EditMemberModal", member);
+            }
+            catch (Exception ex)
+            {
+                return Content(string.Format("<div class='alert alert-danger p-3'>{0}: {1}</div>", GetAppMessage("DigitalSales_Msg_SaveMemberFail"), HttpUtility.HtmlEncode(ex.Message)));
+            }
+        }
+
         [HttpPost]
         [ActionType(Type = EnumActionType.Create)]
         public ActionResult SaveMember(RM_DigitalSalesMemberModel model, string EmployeeIDs, string RoleIDs, string CustomRole)
         {
-            if (model.DigitalSalesID <= 0)
+            try
             {
-                return Json(new
+                if (model.DigitalSalesID <= 0)
                 {
-                    status = false,
-                    message = GetAppMessage("DigitalSales_Msg_InvalidSalesRecord")
-                });
-            }
-
-            if (!HasDetailPermission(model.DigitalSalesID, User.UserName))
-            {
-                return Json(new
-                {
-                    status = false,
-                    message = GetAppMessage("DigitalSales_Msg_NoPermission")
-                });
-            }
-
-            var empIdList = new List<int>();
-            if (!string.IsNullOrWhiteSpace(EmployeeIDs))
-            {
-                foreach (var part in EmployeeIDs.Split(new[] { ';', ',' }, StringSplitOptions.RemoveEmptyEntries))
-                {
-                    if (int.TryParse(part.Trim(), out int eid) && eid > 0 && !empIdList.Contains(eid))
+                    return Json(new
                     {
-                        empIdList.Add(eid);
+                        status = false,
+                        message = GetAppMessage("DigitalSales_Msg_InvalidSalesRecord")
+                    });
+                }
+
+                if (!HasDetailPermission(model.DigitalSalesID, User.UserName))
+                {
+                    return Json(new
+                    {
+                        status = false,
+                        message = GetAppMessage("DigitalSales_Msg_NoPermission")
+                    });
+                }
+
+                var roleNamesList = new List<string>();
+                if (!string.IsNullOrWhiteSpace(RoleIDs))
+                {
+                    List<RM_RolesModel> allRoles = null;
+                    try
+                    {
+                        allRoles = _rolesCache.GetAll();
+                    }
+                    catch { }
+
+                    allRoles = allRoles ?? new List<RM_RolesModel>();
+                    var roleIdSet = new HashSet<string>(RoleIDs.Split(new[] { ';', ',' }, StringSplitOptions.RemoveEmptyEntries).Select(s => s.Trim()));
+
+                    foreach (var r in allRoles)
+                    {
+                        if (roleIdSet.Contains(r.RoleID.ToString()))
+                        {
+                            roleNamesList.Add(r.RoleName);
+                        }
                     }
                 }
-            }
-            else if (model.UserID > 0)
-            {
-                empIdList.Add(model.UserID);
-            }
 
-            if (empIdList.Count == 0)
+                if (!string.IsNullOrWhiteSpace(CustomRole))
+                {
+                    roleNamesList.Add(CustomRole.Trim());
+                }
+                else if (!string.IsNullOrWhiteSpace(model.RoleTitle))
+                {
+                    roleNamesList.Add(model.RoleTitle.Trim());
+                }
+
+                var finalRoleTitle = roleNamesList.Count > 0 ? string.Join(", ", roleNamesList.Distinct()) : AppProcessor.Messagor.GetMessage("DigitalSales_Role_Member");
+
+                if (model.MemberID > 0)
+                {
+                    var existingMembers = _salesCache.GetMembersBySalesID(model.DigitalSalesID) ?? new List<RM_DigitalSalesMemberModel>();
+                    bool isDuplicate = existingMembers.Any(m => m.MemberID != model.MemberID && m.UserID == model.UserID && string.Equals(m.RoleTitle?.Trim(), finalRoleTitle.Trim(), StringComparison.OrdinalIgnoreCase));
+                    if (isDuplicate)
+                    {
+                        return Json(new
+                        {
+                            status = false,
+                            message = GetAppMessage("DigitalSales_Msg_MemberRoleDuplicate")
+                        });
+                    }
+
+                    model.RoleTitle = finalRoleTitle;
+                    model.IsActive = true;
+                    var saveResult = _salesCache.SaveMember(model, User.UserName);
+                    if (saveResult > 0)
+                    {
+                        return Json(new
+                        {
+                            status = true,
+                            message = GetAppMessage("DigitalSales_Msg_UpdateMemberSuccess")
+                        });
+                    }
+                    return Json(new
+                    {
+                        status = false,
+                        message = GetAppMessage("DigitalSales_Msg_SaveMemberFail")
+                    });
+                }
+
+                var empIdList = new List<int>();
+                if (!string.IsNullOrWhiteSpace(EmployeeIDs))
+                {
+                    foreach (var part in EmployeeIDs.Split(new[] { ';', ',' }, StringSplitOptions.RemoveEmptyEntries))
+                    {
+                        if (int.TryParse(part.Trim(), out int eid) && eid > 0 && !empIdList.Contains(eid))
+                        {
+                            empIdList.Add(eid);
+                        }
+                    }
+                }
+                else if (model.UserID > 0)
+                {
+                    empIdList.Add(model.UserID);
+                }
+
+                if (empIdList.Count == 0)
+                {
+                    return Json(new
+                    {
+                        status = false,
+                        message = GetAppMessage("DigitalSales_Msg_MemberRequired")
+                    });
+                }
+
+                var existingMembersList = _salesCache.GetMembersBySalesID(model.DigitalSalesID) ?? new List<RM_DigitalSalesMemberModel>();
+                int savedCount = 0;
+                bool hadDuplicate = false;
+                foreach (var empId in empIdList)
+                {
+                    bool isDuplicate = existingMembersList.Any(existing => existing.UserID == empId && string.Equals(existing.RoleTitle?.Trim(), finalRoleTitle.Trim(), StringComparison.OrdinalIgnoreCase));
+                    if (isDuplicate)
+                    {
+                        hadDuplicate = true;
+                        continue;
+                    }
+
+                    var m = new RM_DigitalSalesMemberModel
+                    {
+                        MemberID = 0,
+                        DigitalSalesID = model.DigitalSalesID,
+                        UserID = empId,
+                        RoleTitle = finalRoleTitle,
+                        IsAM = model.IsAM,
+                        Note = model.Note,
+                        IsActive = true
+                    };
+                    var id = _salesCache.SaveMember(m, User.UserName);
+                    if (id > 0) savedCount++;
+                }
+
+                if (savedCount > 0)
+                {
+                    return Json(new
+                    {
+                        status = true,
+                        message = savedCount == 1 ? AppProcessor.Messagor.GetMessage("DigitalSales_Msg_SaveMemberSuccess") : string.Format(AppProcessor.Messagor.GetMessage("DigitalSales_Msg_SaveMembersMultiSuccess"), savedCount)
+                    });
+                }
+
+                if (hadDuplicate)
+                {
+                    return Json(new
+                    {
+                        status = false,
+                        message = GetAppMessage("DigitalSales_Msg_MemberRoleDuplicate")
+                    });
+                }
+
+                return Json(new
+                {
+                    status = false,
+                    message = GetAppMessage("DigitalSales_Msg_SaveMemberFail")
+                });
+            }
+            catch (Exception ex)
             {
                 return Json(new
                 {
                     status = false,
-                    message = GetAppMessage("DigitalSales_Msg_MemberRequired")
+                    message = GetAppMessage("DigitalSales_Msg_SaveMemberFail") + " (" + ex.Message + ")"
                 });
             }
-
-            var roleNamesList = new List<string>();
-            if (!string.IsNullOrWhiteSpace(RoleIDs))
-            {
-                var allRoles = _rolesCache.GetAll() ?? new List<RM_RolesModel>();
-                var roleIdSet = RoleIDs.Split(new[] { ';', ',' }, StringSplitOptions.RemoveEmptyEntries)
-                    .Select(s => s.Trim())
-                    .ToHashSet();
-
-                foreach (var r in allRoles)
-                {
-                    if (roleIdSet.Contains(r.RoleID.ToString()))
-                    {
-                        roleNamesList.Add(r.RoleName);
-                    }
-                }
-            }
-
-            if (!string.IsNullOrWhiteSpace(CustomRole))
-            {
-                roleNamesList.Add(CustomRole.Trim());
-            }
-            else if (!string.IsNullOrWhiteSpace(model.RoleTitle))
-            {
-                roleNamesList.Add(model.RoleTitle.Trim());
-            }
-
-            var finalRoleTitle = roleNamesList.Count > 0 ? string.Join(", ", roleNamesList.Distinct()) : AppProcessor.Messagor.GetMessage("DigitalSales_Role_Member");
-
-            int savedCount = 0;
-            foreach (var empId in empIdList)
-            {
-                var m = new RM_DigitalSalesMemberModel
-                {
-                    MemberID = 0,
-                    DigitalSalesID = model.DigitalSalesID,
-                    UserID = empId,
-                    RoleTitle = finalRoleTitle,
-                    IsAM = model.IsAM, // Grant status permission if checked
-                    Note = model.Note,
-                    IsActive = true
-                };
-                var id = _salesCache.SaveMember(m, User.UserName);
-                if (id > 0) savedCount++;
-            }
-
-            if (savedCount > 0)
-            {
-                return Json(new
-                {
-                    status = true,
-                    message = savedCount == 1 ? AppProcessor.Messagor.GetMessage("DigitalSales_Msg_SaveMemberSuccess") : string.Format(AppProcessor.Messagor.GetMessage("DigitalSales_Msg_SaveMembersMultiSuccess"), savedCount)
-                });
-            }
-
-            return Json(new
-            {
-                status = false,
-                message = GetAppMessage("DigitalSales_Msg_SaveMemberFail")
-            });
         }
 
         [AjaxOnly]
@@ -1094,10 +1778,37 @@ namespace Modules.Cate.Areas.Cate.Controllers
         #region 8. Ajax Helpers
         [AjaxOnly]
         [HttpGet]
-        public ActionResult SearchCustomers(string q, int page = 1, int pageSize = 20)
+        public ActionResult SearchCustomers(string q, int page = 1, int pageSize = 20, int? customerId = null)
         {
             try
             {
+                if (customerId.HasValue && customerId.Value > 0)
+                {
+                    var cus = _customerCache.GetById(customerId.Value);
+                    if (cus != null)
+                    {
+                        var cusItem = new
+                        {
+                            id = cus.CustomerID,
+                            text = cus.CustomerName,
+                            shortName = cus.ShortName,
+                            taxCode = cus.TaxCode,
+                            phone = cus.Phone,
+                            address = cus.AddressCus
+                        };
+                        return Json(new
+                        {
+                            total = 1,
+                            page = 1,
+                            pageSize = 1,
+                            totalPages = 1,
+                            data = new List<object> { cusItem },
+                            results = new List<object> { cusItem },
+                            pagination = new { more = false }
+                        }, JsonRequestBehavior.AllowGet);
+                    }
+                }
+
                 var searchModel = new RM_CustomerSearchModel
                 {
                     Keyword = q
@@ -1333,14 +2044,8 @@ namespace Modules.Cate.Areas.Cate.Controllers
             }
             else
             {
-                var accessibleDepts = GetAccessibleDepartments();
-                var allUsers = new List<SysUserModel>();
-                foreach (var dept in accessibleDepts)
-                {
-                    var uList = _userCache.GetByBoPhanAndChucVu(dept.BoPhan_ID, null);
-                    if (uList != null) allUsers.AddRange(uList);
-                }
-                users = allUsers.GroupBy(u => u.UserId).Select(g => g.First()).OrderBy(u => u.FullName).ToList();
+                var allActive = _userCache.GetAll();
+                users = allActive != null ? allActive.Where(u => u.IsActive).OrderBy(u => u.FullName).ToList() : new List<SysUserModel>();
             }
 
             var result = users.Select(x => new
@@ -1413,21 +2118,24 @@ namespace Modules.Cate.Areas.Cate.Controllers
             {
                 if (string.IsNullOrWhiteSpace(userName)) return false;
 
-                // 1. Quản trị hệ thống (QTHT) có toàn quyền
-                if (IsUserQTHT(userName)) return true;
-
                 if (sales != null)
                 {
-                    // 2. Người tạo hồ sơ
+                    // 1. Người tạo hồ sơ có toàn quyền ngay lập tức (0ms, không tốn query)
                     if (!string.IsNullOrEmpty(sales.CreatedBy) && sales.CreatedBy.Equals(userName, StringComparison.OrdinalIgnoreCase))
                     {
                         return true;
                     }
 
+                    // 2. Tài khoản quản trị mặc định
+                    if (userName.Equals("admin", StringComparison.OrdinalIgnoreCase) || userName.Equals("quantri", StringComparison.OrdinalIgnoreCase))
+                    {
+                        return true;
+                    }
+
+                    // 3. Nhân sự phụ trách / AM chủ trì
                     var currentUser = _userCache.GetByUserName(userName);
                     var currentUserId = currentUser?.UserId;
 
-                    // 3. Nhân sự phụ trách / AM chủ trì
                     if (currentUserId.HasValue && currentUserId.Value > 0 && sales.AssignedEmployeeID == currentUserId.Value)
                     {
                         return true;
@@ -1451,6 +2159,9 @@ namespace Modules.Cate.Areas.Cate.Controllers
                         if (hasStatusPermission) return true;
                     }
                 }
+
+                // 5. Kiểm tra QTHT qua vai trò (roles) nếu các điều kiện trên chưa khớp
+                if (IsUserQTHT(userName)) return true;
             }
             catch
             {
@@ -1498,13 +2209,8 @@ namespace Modules.Cate.Areas.Cate.Controllers
             }
             else
             {
-                var allUsers = new List<SysUserModel>();
-                foreach (var dept in accessibleDepts)
-                {
-                    var uList = _userCache.GetByBoPhanAndChucVu(dept.BoPhan_ID, null);
-                    if (uList != null) allUsers.AddRange(uList);
-                }
-                users = allUsers.GroupBy(u => u.UserId).Select(g => g.First()).OrderBy(u => u.FullName).ToList();
+                var allActive = _userCache.GetAll();
+                users = allActive != null ? allActive.Where(u => u.IsActive).OrderBy(u => u.FullName).ToList() : new List<SysUserModel>();
             }
 
             model.ListEmployee = users.Select(e => new SelectListItem
@@ -1561,7 +2267,8 @@ namespace Modules.Cate.Areas.Cate.Controllers
             model.ListStatus = _salesCache.GetStatusList(model.BusinessType)?.Select(s => new SelectListItem
             {
                 Value = s.StatusID.ToString(),
-                Text = s.StatusName
+                Text = s.StatusName,
+                Selected = (s.StatusID == model.StatusID)
             }).ToList() ?? new List<SelectListItem>();
 
             var accessibleUsers = GetAccessibleEmployees();
@@ -1588,7 +2295,8 @@ namespace Modules.Cate.Areas.Cate.Controllers
                 .Select(u => new SelectListItem
                 {
                     Value = u.UserId.ToString(),
-                    Text = $"{u.FullName} ({u.UserName})"
+                    Text = $"{u.FullName} ({u.UserName})",
+                    Selected = (model.AssignedEmployeeID.HasValue && u.UserId == model.AssignedEmployeeID.Value)
                 }).ToList();
 
             if ((!model.DepartmentID.HasValue || model.DepartmentID.Value <= 0) && model.AssignedEmployeeID.HasValue)
@@ -1599,13 +2307,15 @@ namespace Modules.Cate.Areas.Cate.Controllers
             model.ListDepartment = _departmentCache.GetAll()?.Select(d => new SelectListItem
             {
                 Value = d.BoPhan_ID.ToString(),
-                Text = d.TenBoPhan
+                Text = d.TenBoPhan,
+                Selected = (model.DepartmentID.HasValue && d.BoPhan_ID == model.DepartmentID.Value)
             }).ToList() ?? new List<SelectListItem>();
 
             model.ListContract = _contractCache.GetAll()?.Select(ct => new SelectListItem
             {
                 Value = ct.ContractID.ToString(),
-                Text = $"{ct.ContractCode} - {ct.ContractName}"
+                Text = $"{ct.ContractCode} - {ct.ContractName}",
+                Selected = (model.ContractID.HasValue && ct.ContractID == model.ContractID.Value)
             }).ToList() ?? new List<SelectListItem>();
         }
 

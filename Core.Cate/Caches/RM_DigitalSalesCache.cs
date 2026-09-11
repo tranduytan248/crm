@@ -14,10 +14,16 @@ namespace Core.Cate.Caches
         protected override string[] MasterCacheKeyArray => new[] { "RM_DigitalSalesCache", "CENIT.APP.Cache" };
         private RM_DigitalSalesBiz Api => _api ?? (_api = new RM_DigitalSalesBiz());
 
+        private string BuildSearchCacheKey(RM_DigitalSalesSearchModel model)
+        {
+            if (model == null) return "RM_DigitalSales_GetList_Default";
+            return string.Concat("RM_DigitalSales_GetList_", model.Keyword, "_", model.BusinessType, "_", model.StatusID, "_", model.CustomerID, "_", model.ProductServiceID, "_", model.DepartmentID, "_", model.EmployeeID, "_", model.FromDate, "_", model.ToDate, "_", model.PageNumber, "_", model.PageSize, "_", model.UserName);
+        }
+
         [DataObjectMethod(DataObjectMethodType.Select, true)]
         public List<RM_DigitalSalesModel> LoadList(out int total, RM_DigitalSalesSearchModel model)
         {
-            var rawKey = string.Concat("RM_DigitalSales_GetList_", UtilEncrypt.FromObject(model));
+            var rawKey = BuildSearchCacheKey(model);
             var rawKeyTotal = string.Concat(rawKey, "_Total");
             total = 0;
             var cacheTotal = (int?)GetCacheItem(rawKeyTotal);

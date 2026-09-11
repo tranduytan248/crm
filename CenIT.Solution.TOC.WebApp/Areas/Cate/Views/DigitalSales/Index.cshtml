@@ -14,9 +14,12 @@
 }
 
 @section PageAction {
-    <a href="@Url.Action("Index", "DigitalSalesWorkflow", new { area = "Cate" })" class="btn btn-sm btn-outline-purple mr-2">
-        <i class="fa fa-sitemap mr-1"></i> Cấu hình Quy trình & Tiến trình
-    </a>
+    @if (ViewBag.IsQTHT == true)
+    {
+        <a href="@Url.Action("Index", "DigitalSalesWorkflow", new { area = "Cate" })" class="btn btn-sm btn-outline-purple mr-2">
+            <i class="fa fa-sitemap mr-1"></i> Cấu hình Quy trình & Tiến trình
+        </a>
+    }
     <button type="button" class="btn btn-sm btn-primary" onclick="openAddSalesModal();">
         <i class="fa fa-plus-circle mr-1"></i> Khởi tạo Cơ hội mới
     </button>

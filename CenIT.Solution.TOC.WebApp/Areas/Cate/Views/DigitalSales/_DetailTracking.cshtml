@@ -1,0 +1,125 @@
+﻿@model Core.Cate.Models.RM_DigitalSalesModel
+@{
+    bool canEdit = ViewBag.CanEdit == true;
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h6 class="text-orange font-weight-bold mb-0">
+        <i class="fa fa-tasks mr-1"></i> Checklist Tiến trình thực hiện dự án theo chuẩn SLA
+    </h6>
+    @if (canEdit)
+    {
+        <button type="button" class="btn btn-sm btn-orange px-3" onclick="openAddTrackingModal(@Model.DigitalSalesID);">
+            <i class="fa fa-plus mr-1"></i> Thêm công việc tùy biến
+        </button>
+    }
+</div>
+
+<div class="table-responsive">
+    <table class="table table-bordered table-hover text-90" id="tblTracking">
+        <thead class="bgc-secondary-l1 text-secondary-d2">
+            <tr>
+                <th style="width: 40px;" class="text-center">STT</th>
+                <th>Tên công việc / Đầu mục tiến trình</th>
+                <th>Quy trình liên quan</th>
+                <th>Người thực hiện</th>
+                <th>Bắt đầu</th>
+                <th>Hạn chót (Deadline)</th>
+                <th style="width: 130px;" class="text-center">Trạng thái</th>
+                <th>Kết quả / File</th>
+                @if (canEdit)
+                {
+                    <th style="width: 110px;" class="text-center">Thao tác</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.TrackingTasks != null && Model.TrackingTasks.Count > 0)
+            {
+                int idx = 1;
+                foreach (var t in Model.TrackingTasks)
+                {
+                    <tr class="@(t.Status == 3 ? "bgc-success-l5" : (t.IsOverdue == 1 ? "bgc-danger-l5" : ""))">
+                        <td class="text-center">@idx</td>
+                        <td class="font-weight-bold text-dark">
+                            @t.TaskName
+                            @if (t.IsCustomTask)
+                            {
+                                <span class="badge badge-light-secondary text-75 ml-1">Tùy biến</span>
+                            }
+                        </td>
+                        <td class="text-secondary">@(string.IsNullOrEmpty(t.ProcessName) ? "Checklist chung" : t.ProcessName)</td>
+                        <td>@(string.IsNullOrEmpty(t.AssignedUserName) ? "Chưa giao" : t.AssignedUserName)</td>
+                        <td>@(t.StartDate != DateTime.MinValue ? t.StartDate.ToString("dd/MM/yyyy") : "—")</td>
+                        <td>
+                            @if (t.Deadline.HasValue)
+                            {
+                                <span class="@(t.IsOverdue == 1 ? "text-danger font-weight-bold" : "")">
+                                    @t.Deadline.Value.ToString("dd/MM/yyyy")
+                                    @if (t.IsOverdue == 1)
+                                    {
+                                        <i class="fa fa-exclamation-circle text-danger ml-1" title="Đã quá hạn!"></i>
+                                    }
+                                </span>
+                            }
+                            else
+                            {
+                                <span>—</span>
+                            }
+                        </td>
+                        <td class="text-center">
+                            @switch (t.Status)
+                            {
+                                case 1:
+                                    <span class="badge badge-secondary px-2">Chưa làm</span>
+                                    break;
+                                case 2:
+                                    <span class="badge badge-warning px-2">Đang làm</span>
+                                    break;
+                                case 3:
+                                    <span class="badge badge-success px-2"><i class="fa fa-check mr-1"></i> Hoàn thành</span>
+                                    break;
+                                case 4:
+                                    <span class="badge badge-danger px-2">Quá hạn</span>
+                                    break;
+                                default:
+                                    <span class="badge badge-light">Khác</span>
+                                    break;
+                            }
+                        </td>
+                        <td>
+                            @if (!string.IsNullOrEmpty(t.AttachmentFile))
+                            {
+                                <a href="@t.AttachmentFile" target="_blank" class="badge badge-light-primary mr-1" title="Tải file đính kèm">
+                                    <i class="fa fa-paperclip"></i> File
+                                </a>
+                            }
+                            @(string.IsNullOrEmpty(t.ResultNote) ? "" : t.ResultNote)
+                        </td>
+                        @if (canEdit)
+                        {
+                            <td class="text-center">
+                                <a href="javascript:void(0);" class="text-primary mr-2" title="Cập nhật tiến trình" onclick="openEditTrackingModal(@t.TrackingID, @Model.DigitalSalesID);">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                                <a href="javascript:void(0);" class="text-danger" title="Xóa tiến trình" onclick="deleteTrackingItem(@t.TrackingID, @Model.DigitalSalesID);">
+                                    <i class="fa fa-trash-alt"></i>
+                                </a>
+                            </td>
+                        }
+                    </tr>
+                    idx++;
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="@(canEdit ? 9 : 8)" class="text-center py-4 text-muted">
+                        <i class="fa fa-clipboard-list fa-2x mb-2 d-block text-secondary-l1"></i>
+                        Chưa có tiến trình công việc nào.@(canEdit ? " Bấm \"Thêm công việc tùy biến\" hoặc chuyển trạng thái để tự sinh tiến trình theo danh mục." : "")
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

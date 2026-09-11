@@ -1,0 +1,140 @@
+﻿@using Core.Cate.Models
+@model Core.Cate.Models.RM_DigitalSalesMemberModel
+
+@{
+    var roles = ViewBag.Roles as List<RM_RolesModel> ?? new List<RM_RolesModel>();
+}
+
+<div class="modal fade" id="modalEditMember" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content border-0 radius-2 shadow-lg">
+            <div class="modal-header bgc-primary text-white py-25 px-3">
+                <h5 class="modal-title font-weight-bold text-white text-105">
+                    <i class="fa fa-user-edit mr-1"></i> Chỉnh sửa vai trò thành viên
+                </h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form id="frmEditMemberModal" method="post" action="/Cate/DigitalSales/SaveMember">
+                <div class="modal-body p-3 text-95">
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(m => m.MemberID)
+                    @Html.HiddenFor(m => m.DigitalSalesID)
+                    @Html.HiddenFor(m => m.UserID)
+
+                    <!-- THÔNG TIN NHÂN SỰ -->
+                    <div class="form-group mb-3">
+                        <label class="font-weight-bold text-secondary text-90 mb-1">Nhân sự:</label>
+                        <div class="d-flex align-items-center p-2 bgc-grey-l4 radius-1 border-1 brc-grey-l2">
+                            <div class="w-4 h-4 radius-round bgc-primary text-white d-flex align-items-center justify-content-center mr-2 font-bold" style="width: 32px; height: 32px; border-radius: 50%;">
+                                <i class="fa fa-user"></i>
+                            </div>
+                            <div>
+                                <div class="font-weight-bold text-dark">@Model.FullName</div>
+                                <div class="text-secondary text-85 font-mono">@Model.UserName</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- VAI TRÒ / NHIỆM VỤ -->
+                    <div class="form-group mb-3">
+                        <label class="font-weight-bold text-secondary text-90 mb-1">Vai trò / Nhiệm vụ: <span class="text-danger">*</span></label>
+                        <select id="RoleTitle_Select" class="form-control select2" onchange="$('#RoleTitle').val($(this).val());">
+                            <option value="">-- Chọn vai trò --</option>
+                            @foreach (var r in roles)
+                            {
+                                <option value="@r.RoleName" @(string.Equals(Model.RoleTitle, r.RoleName, StringComparison.OrdinalIgnoreCase) ? "selected" : "")>@r.RoleName</option>
+                            }
+                        </select>
+                        <input type="text" id="RoleTitle" name="RoleTitle" value="@Model.RoleTitle" class="form-control mt-2" placeholder="Hoặc nhập vai trò tùy biến..." />
+                    </div>
+
+                    <!-- QUYỀN CẬP NHẬT TRẠNG THÁI -->
+                    <div class="form-group mb-3">
+                        <div class="custom-control custom-checkbox p-2 border-1 brc-blue-l2 bgc-blue-l4 radius-1">
+                            <input type="checkbox" class="custom-control-input" id="IsAM_Edit" name="IsAM" value="true" @(Model.IsAM ? "checked" : "") />
+                            <input type="hidden" name="IsAM" value="false" />
+                            <label class="custom-control-label font-weight-bold text-dark text-90" for="IsAM_Edit">
+                                <i class="fa fa-check-circle text-success mr-1"></i> Cho phép cập nhật trạng thái hồ sơ (Quyền AM / Quản lý)
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- GHI CHÚ -->
+                    <div class="form-group mb-0">
+                        <label class="font-weight-bold text-secondary text-90 mb-1">Ghi chú phân công:</label>
+                        <textarea name="Note" id="Note_Edit" class="form-control" rows="3" placeholder="Nhập ghi chú nhiệm vụ...">@Model.Note</textarea>
+                    </div>
+                </div>
+
+                <div class="modal-footer bgc-grey-l5 py-2 px-3">
+                    <button type="button" class="btn btn-sm btn-outline-secondary px-3 radius-1" data-dismiss="modal">
+                        <i class="fa fa-times mr-1"></i> Đóng
+                    </button>
+                    <button type="submit" class="btn btn-sm btn-primary px-4 radius-1 font-weight-bold">
+                        <i class="fa fa-save mr-1"></i> Lưu thay đổi
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function () {
+        $("#frmEditMemberModal").on("submit", function (e) {
+            e.preventDefault();
+            var $form = $(this);
+            var roleTitle = $("#RoleTitle").val();
+            if (!roleTitle || !roleTitle.trim()) {
+                if (typeof toastr !== "undefined") {
+                    toastr.warning("Vui lòng chọn hoặc nhập vai trò cho thành viên!");
+                } else {
+                    alert("Vui lòng chọn hoặc nhập vai trò cho thành viên!");
+                }
+                return false;
+            }
+
+            var $btn = $form.find("button[type='submit']");
+            var origHtml = $btn.html();
+            $btn.prop("disabled", true).html("<i class='fa fa-spinner fa-spin mr-1'></i> Đang lưu...");
+
+            $.ajax({
+                url: $form.attr("action") || "/Cate/DigitalSales/SaveMember",
+                type: "POST",
+                data: $form.serialize(),
+                success: function (res) {
+                    $btn.prop("disabled", false).html(origHtml);
+                    if (res && res.status) {
+                        $("#modalEditMember").modal("hide");
+                        $(".modal-backdrop").remove();
+                        $("body").removeClass("modal-open").css("padding-right", "");
+                        if (typeof toastr !== "undefined") {
+                            toastr.success(res.message || "Cập nhật thành viên thành công!");
+                        }
+                        setTimeout(function () { location.reload(); }, 600);
+                    } else {
+                        var errMsg = (res && res.message) ? res.message : "Không thể cập nhật thành viên!";
+                        if (typeof toastr !== "undefined") {
+                            toastr.error(errMsg);
+                        } else {
+                            alert(errMsg);
+                        }
+                    }
+                },
+                error: function () {
+                    $btn.prop("disabled", false).html(origHtml);
+                    if (typeof toastr !== "undefined") {
+                        toastr.error("Có lỗi xảy ra khi kết nối máy chủ!");
+                    } else {
+                        alert("Có lỗi xảy ra khi kết nối máy chủ!");
+                    }
+                }
+            });
+
+            return false;
+        });
+    })();
+</script>
