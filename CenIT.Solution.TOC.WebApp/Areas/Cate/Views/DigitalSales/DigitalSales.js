@@ -485,3 +485,9 @@ function loadContactPersonsByCustomer(customerId, targetSelector) {
         }
     });
 }
+
+// Dọn dẹp modal con tra cứu khách hàng khi modal cha đóng
+$(document).on('hidden.bs.modal', '#modal_AddDigitalSales, #modal_EditDigitalSales', function () {
+    $('#modalCustomerLookup_Form').modal('hide');
+    $('body > #modalCustomerLookup_Form').remove();
+});

@@ -154,7 +154,7 @@
                 <h6 class="modal-title font-bold text-white mb-0">
                     <i class="fa fa-search mr-1"></i> Tra cứu và Chọn Khách hàng / Doanh nghiệp
                 </h6>
-                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close text-white" onclick="closeCustomerLookupModal_Form(event); return false;" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -208,7 +208,7 @@
                 </div>
             </div>
             <div class="modal-footer bgc-grey-l5 py-2 px-3">
-                <button type="button" class="btn btn-sm btn-secondary radius-1 px-3" data-dismiss="modal">
+                <button type="button" class="btn btn-sm btn-secondary radius-1 px-3" onclick="closeCustomerLookupModal_Form(event); return false;">
                     <i class="fa fa-times mr-1"></i> Đóng
                 </button>
             </div>
@@ -221,9 +221,46 @@
     var _lookupPageSize_Form = 10;
 
     function openCustomerLookupModal_Form() {
-        $('#modalCustomerLookup_Form').modal('show');
+        var $lookupModal = $('#modalCustomerLookup_Form');
+        // Di chuyển modal con ra trực tiếp dưới body để không bao giờ bị lồng DOM với modal cha
+        if (!$lookupModal.parent().is('body')) {
+            $('body > #modalCustomerLookup_Form').not($lookupModal).remove();
+            $('body').append($lookupModal);
+        }
+
+        $lookupModal.off('show.bs.modal').on('show.bs.modal', function (e) {
+            e.stopPropagation();
+            $(this).css('z-index', 1060);
+            setTimeout(function () {
+                $('.modal-backdrop').not('.modal-stack').css('z-index', 1055).addClass('modal-stack');
+            }, 0);
+        });
+
+        $lookupModal.off('hide.bs.modal hidden.bs.modal')
+            .on('hide.bs.modal', function (e) {
+                e.stopPropagation();
+            })
+            .on('hidden.bs.modal', function (e) {
+                e.stopPropagation();
+                // Duy trì modal cha mở và cuộn bình thường
+                if ($('.modal.show').length > 0 || $('.modal:visible').length > 0) {
+                    $('body').addClass('modal-open');
+                }
+            });
+
+        $lookupModal.modal('show');
         $('#txtSearchCustomerKeyword_Form').val('');
         performCustomerLookup_Form(1);
+    }
+
+    function closeCustomerLookupModal_Form(e) {
+        if (e) {
+            if (typeof e.preventDefault === 'function') e.preventDefault();
+            if (typeof e.stopPropagation === 'function') e.stopPropagation();
+            if (typeof e.stopImmediatePropagation === 'function') e.stopImmediatePropagation();
+        }
+        $('#modalCustomerLookup_Form').modal('hide');
+        return false;
     }
 
     function clearSelectedCustomer_Form() {
@@ -315,7 +352,7 @@
                 '</div>'
             ).slideDown(200);
 
-            $('#modalCustomerLookup_Form').modal('hide');
+            closeCustomerLookupModal_Form();
         } catch (e) {
             console.error("Apply customer error:", e);
         }
@@ -376,11 +413,16 @@
         });
 
         // 5. Nested modal hidden
-        $('#modalCustomerLookup_Form').off('hidden.bs.modal').on('hidden.bs.modal', function () {
-            if ($('.modal.show').length > 0) {
-                $('body').addClass('modal-open');
-            }
-        });
+        $('#modalCustomerLookup_Form').off('hide.bs.modal hidden.bs.modal')
+            .on('hide.bs.modal', function (e) {
+                e.stopPropagation();
+            })
+            .on('hidden.bs.modal', function (e) {
+                e.stopPropagation();
+                if ($('.modal.show').length > 0 || $('.modal:visible').length > 0) {
+                    $('body').addClass('modal-open');
+                }
+            });
 
         // 6. Hiển thị thẻ tóm tắt khách hàng ban đầu nếu có
         var initCusId = $('#CustomerID_Form').val();
