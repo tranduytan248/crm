@@ -6,10 +6,16 @@ param(
     [string]$User = $(if ($env:FTP_USERNAME_DEMO) { $env:FTP_USERNAME_DEMO } else { "quanlydoanhthucenit" }),
     [string]$Password = $env:FTP_PASSWORD_DEMO,
     [string]$SourceDir = "publish_source",
-    [string]$CredentialPath = ".secrets/ftp-demo.credential.xml"
+    [string]$CredentialPath = ".secrets/ftp-demo.credential.xml",
+    [switch]$Force,
+    [switch]$InitializeManifest
 )
 
 $ErrorActionPreference = "Stop"
+
+if ($Force -and $InitializeManifest) {
+    throw "Force and InitializeManifest cannot be used together."
+}
 
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 $rootDir = Split-Path -Parent $scriptDir
@@ -68,8 +74,56 @@ function Upload-FtpFile {
     $req.GetResponse().Close()
 }
 
+function Upload-FtpBytes {
+    param([byte[]]$content, [string]$remoteUri, [System.Net.NetworkCredential]$cred)
+    $req = [System.Net.FtpWebRequest]::Create($remoteUri)
+    $req.Method = [System.Net.WebRequestMethods+Ftp]::UploadFile
+    $req.Credentials = $cred
+    $req.UseBinary = $true
+    $req.UsePassive = $true
+    $req.ContentLength = $content.Length
+    $stream = $req.GetRequestStream()
+    try {
+        $stream.Write($content, 0, $content.Length)
+    } finally {
+        $stream.Close()
+    }
+    $req.GetResponse().Close()
+}
+
+function Get-FtpText {
+    param([string]$remoteUri, [System.Net.NetworkCredential]$cred)
+    try {
+        $req = [System.Net.FtpWebRequest]::Create($remoteUri)
+        $req.Method = [System.Net.WebRequestMethods+Ftp]::DownloadFile
+        $req.Credentials = $cred
+        $req.UseBinary = $true
+        $req.UsePassive = $true
+        $response = $req.GetResponse()
+        try {
+            $reader = New-Object System.IO.StreamReader($response.GetResponseStream(), [System.Text.Encoding]::UTF8)
+            try {
+                return $reader.ReadToEnd()
+            } finally {
+                $reader.Close()
+            }
+        } finally {
+            $response.Close()
+        }
+    } catch [System.Net.WebException] {
+        $ftpResponse = $_.Exception.Response -as [System.Net.FtpWebResponse]
+        if ($ftpResponse -and $ftpResponse.StatusCode -eq [System.Net.FtpStatusCode]::ActionNotTakenFileUnavailable) {
+            $ftpResponse.Close()
+            return $null
+        }
+        throw
+    }
+}
+
 $cred = New-Object System.Net.NetworkCredential($User, $Password)
 $baseUri = "ftp://$Server`:$Port/"
+$manifestRelativePath = ".deploy-manifest.sha256.json"
+$manifestUri = "$baseUri$manifestRelativePath"
 
 function Get-RelativeFtpPath {
     param([string]$FullName)
@@ -89,30 +143,100 @@ $files = @($allFiles | Where-Object {
 $skippedFiles = @($allFiles | Where-Object {
     $excludedRelativePaths.Contains((Get-RelativeFtpPath -FullName $_.FullName))
 })
-$total = $files.Count
-$current = 0
-$uploaded = 0
-$failed = [System.Collections.Generic.List[string]]::new()
+$localEntries = @($files | ForEach-Object {
+    [PSCustomObject]@{
+        path = Get-RelativeFtpPath -FullName $_.FullName
+        sha256 = (Get-FileHash -LiteralPath $_.FullName -Algorithm SHA256).Hash.ToLowerInvariant()
+        length = $_.Length
+        file = $_
+    }
+})
 
-Write-Host "Starting upload of $total files; skipping $($skippedFiles.Count) environment config file(s)..." -ForegroundColor Yellow
+function New-ManifestBytes {
+    param([object[]]$entries)
+    $manifest = [ordered]@{
+        schemaVersion = 1
+        generatedAtUtc = [DateTime]::UtcNow.ToString("o")
+        files = @($entries | ForEach-Object {
+            [ordered]@{
+                path = $_.path
+                sha256 = $_.sha256
+                length = $_.length
+            }
+        })
+    }
+    $json = $manifest | ConvertTo-Json -Depth 5
+    return (New-Object System.Text.UTF8Encoding($false)).GetBytes($json)
+}
+
+Write-Host "Managed files: $($localEntries.Count); skipping $($skippedFiles.Count) environment config file(s)." -ForegroundColor Yellow
 foreach ($skippedFile in $skippedFiles) {
     Write-Host "[SKIP] $(Get-RelativeFtpPath -FullName $skippedFile.FullName)" -ForegroundColor DarkYellow
 }
 
-# Ensure directories first
-$dirs = Get-ChildItem -Path $localPublishDir -Recurse -Directory | Sort-Object FullName
-foreach ($d in $dirs) {
-    $rel = Get-RelativeFtpPath -FullName $d.FullName
+if ($InitializeManifest) {
+    Upload-FtpBytes -content (New-ManifestBytes -entries $localEntries) -remoteUri $manifestUri -cred $cred
+    Write-Host "`n[SUCCESS] Initialized SHA-256 manifest for $($localEntries.Count) file(s); uploaded 0 application file(s); unchanged $($localEntries.Count); skipped $($skippedFiles.Count); failed 0." -ForegroundColor Green
+    exit 0
+}
+
+$remoteHashes = @{}
+if (-not $Force) {
+    $manifestJson = Get-FtpText -remoteUri $manifestUri -cred $cred
+    if ([string]::IsNullOrWhiteSpace($manifestJson)) {
+        throw "Remote manifest is missing. Run once with -InitializeManifest after confirming FTP matches publish_source, or use -Force to upload all files."
+    }
+
+    try {
+        $remoteManifest = $manifestJson | ConvertFrom-Json
+        if ($remoteManifest.schemaVersion -ne 1) {
+            throw "Unsupported schema version: $($remoteManifest.schemaVersion)"
+        }
+        foreach ($entry in @($remoteManifest.files)) {
+            if (-not [string]::IsNullOrWhiteSpace($entry.path) -and -not [string]::IsNullOrWhiteSpace($entry.sha256)) {
+                $remoteHashes[[string]$entry.path] = ([string]$entry.sha256).ToLowerInvariant()
+            }
+        }
+    } catch {
+        throw "Remote manifest is invalid: $($_.Exception.Message)"
+    }
+}
+
+$filesToUpload = if ($Force) {
+    @($localEntries)
+} else {
+    @($localEntries | Where-Object {
+        -not $remoteHashes.ContainsKey($_.path) -or $remoteHashes[$_.path] -ne $_.sha256
+    })
+}
+
+$total = $filesToUpload.Count
+$current = 0
+$uploaded = 0
+$failed = [System.Collections.Generic.List[string]]::new()
+$unchanged = $localEntries.Count - $total
+
+Write-Host "Files selected for upload: $total; unchanged: $unchanged; mode: $(if ($Force) { 'force' } else { 'incremental' })." -ForegroundColor Yellow
+
+# Ensure only directories needed by new or changed files, including parent directories.
+$neededDirectories = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
+foreach ($entry in $filesToUpload) {
+    $segments = $entry.path.Split('/')
+    for ($i = 1; $i -lt $segments.Length; $i++) {
+        [void]$neededDirectories.Add(($segments[0..($i - 1)] -join '/'))
+    }
+}
+foreach ($rel in @($neededDirectories) | Sort-Object { ($_ -split '/').Count }) {
     Ensure-FtpDirectory -remoteUri "$baseUri$rel/" -cred $cred
 }
 
-foreach ($f in $files) {
+foreach ($entry in $filesToUpload) {
     $current++
-    $rel = Get-RelativeFtpPath -FullName $f.FullName
+    $rel = $entry.path
     $targetUri = "$baseUri$rel"
     Write-Progress -Activity "Uploading to FTP Demo" -Status "$current/${total}: $rel" -PercentComplete (($current / $total) * 100)
     try {
-        Upload-FtpFile -localFile $f.FullName -remoteUri $targetUri -cred $cred
+        Upload-FtpFile -localFile $entry.file.FullName -remoteUri $targetUri -cred $cred
         $uploaded++
     } catch {
         Write-Warning "Failed to upload $rel : $($_.Exception.Message)"
@@ -122,9 +246,16 @@ foreach ($f in $files) {
 
 Write-Progress -Activity "Uploading to FTP Demo" -Completed
 if ($failed.Count -gt 0) {
-    Write-Error "FTP upload failed: $($failed.Count)/$total file(s) failed; $uploaded uploaded successfully."
+    Write-Error "FTP upload failed: uploaded $uploaded/$total selected file(s); unchanged $unchanged; skipped $($skippedFiles.Count); failed $($failed.Count). Manifest was not updated."
     exit 1
 }
 
-Write-Host "`n[SUCCESS] Uploaded $uploaded/$total files to FTP Demo; skipped $($skippedFiles.Count) environment config file(s)." -ForegroundColor Green
+try {
+    Upload-FtpBytes -content (New-ManifestBytes -entries $localEntries) -remoteUri $manifestUri -cred $cred
+} catch {
+    Write-Error "Application files uploaded, but manifest update failed: $($_.Exception.Message)"
+    exit 1
+}
+
+Write-Host "`n[SUCCESS] Uploaded $uploaded/$total selected file(s); unchanged $unchanged; skipped $($skippedFiles.Count); failed 0. SHA-256 manifest updated." -ForegroundColor Green
 exit 0
