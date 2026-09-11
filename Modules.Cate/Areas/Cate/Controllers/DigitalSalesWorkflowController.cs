@@ -73,12 +73,13 @@ namespace Modules.Cate.Areas.Cate.Controllers
 
         [AjaxOnly]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [ActionType(Type = EnumActionType.Create | EnumActionType.Edit)]
         public ActionResult SaveStatus(RM_DigitalSalesStatusModel model)
         {
             if (!ModelState.IsValid)
             {
-                return Json(new { status = false, success = false, message = "Vui lòng nhập đầy đủ thông tin bắt buộc." });
+                return PartialView("_StatusForm", model);
             }
 
             var result = _workflowCache.SaveStatus(model, User.UserName);
@@ -132,7 +133,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
             var status = _workflowCache.GetStatusByID(id);
             if (status == null)
             {
-                return Json(new { status = false, success = false, message = "Trạng thái không tồn tại." });
+                return Json(new { status = false, success = false, message = CreateMessage(_titleStatus, EnumProcessType.DataNotExist, EnumMsgIcon.Error) });
             }
 
             var result = _workflowCache.DeleteStatus(id, User.UserName);
@@ -195,12 +196,19 @@ namespace Modules.Cate.Areas.Cate.Controllers
 
         [AjaxOnly]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [ActionType(Type = EnumActionType.Create | EnumActionType.Edit)]
         public ActionResult SaveProcess(RM_DigitalSalesProcessModel model)
         {
             if (!ModelState.IsValid)
             {
-                return Json(new { status = false, success = false, message = "Vui lòng nhập đầy đủ thông tin bắt buộc." });
+                var status = _workflowCache.GetStatusByID(model.StatusID);
+                if (status != null)
+                {
+                    model.StatusName = status.StatusName;
+                    model.BusinessType = status.BusinessType;
+                }
+                return PartialView("_ProcessForm", model);
             }
 
             var result = _workflowCache.SaveProcess(model, User.UserName);
@@ -255,7 +263,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
             var process = _workflowCache.GetProcessByID(id);
             if (process == null)
             {
-                return Json(new { status = false, success = false, message = "Quy trình không tồn tại." });
+                return Json(new { status = false, success = false, message = CreateMessage(_titleProcess, EnumProcessType.DataNotExist, EnumMsgIcon.Error) });
             }
 
             var result = _workflowCache.DeleteProcess(id, User.UserName);
@@ -318,12 +326,18 @@ namespace Modules.Cate.Areas.Cate.Controllers
 
         [AjaxOnly]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [ActionType(Type = EnumActionType.Create | EnumActionType.Edit)]
         public ActionResult SaveProgress(RM_DigitalSalesProgressModel model)
         {
             if (!ModelState.IsValid)
             {
-                return Json(new { status = false, success = false, message = "Vui lòng nhập đầy đủ thông tin bắt buộc." });
+                var process = _workflowCache.GetProcessByID(model.ProcessID);
+                if (process != null)
+                {
+                    model.ProcessName = process.ProcessName;
+                }
+                return PartialView("_ProgressForm", model);
             }
 
             var result = _workflowCache.SaveProgress(model, User.UserName);
@@ -378,7 +392,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
             var progress = _workflowCache.GetProgressByID(id);
             if (progress == null)
             {
-                return Json(new { status = false, success = false, message = "Tiến trình không tồn tại." });
+                return Json(new { status = false, success = false, message = CreateMessage(_titleProgress, EnumProcessType.DataNotExist, EnumMsgIcon.Error) });
             }
 
             var result = _workflowCache.DeleteProgress(id, User.UserName);

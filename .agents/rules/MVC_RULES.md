@@ -306,6 +306,34 @@ function BusinessOpportunity_OnProcessSuccess(response, formId) {
 }
 ```
 
+### 8.2.1. Bắt buộc khởi tạo lại validation sau khi thay PartialView ruột
+
+Khi controller trả HTML do `ModelState` không hợp lệ, callback phải thay đúng nội dung `#bodyForm`, giữ modal mở và khởi tạo lại các control động cùng unobtrusive validation:
+
+```javascript
+function renderValidationResponse(response) {
+    if (typeof response !== "string") return false; // JSON nghiệp vụ
+
+    var $modal = $(".modal.show").last();
+    var $bodyForm = $modal.find("#bodyForm");
+    if (!$bodyForm.length) return false;
+
+    $bodyForm.html(response);
+    if (typeof _initElement === "function") _initElement();
+
+    var $form = $bodyForm.closest("form");
+    if ($.validator && $.validator.unobtrusive && $form.length) {
+        $form.removeData("validator").removeData("unobtrusiveValidation");
+        $.validator.unobtrusive.parse($form);
+    }
+    return true;
+}
+```
+
+- Callback **BẮT BUỘC** kiểm tra và xử lý response HTML trước khi đọc `response.status`.
+- Response HTML validation **KHÔNG ĐƯỢC** đóng modal, reload bảng hoặc gọi `eval`.
+- Response JSON có `status` chỉ dùng cho kết quả xử lý nghiệp vụ sau khi `ModelState` đã hợp lệ.
+
 ### 8.3. Cấm tuyệt đối hàm `alert()` của JavaScript
 - Thay vì gọi `alert("...")`, bắt buộc dùng thư viện Toastr: `toastr.warning("...")`, `toastr.error("...")` hoặc `toastr.success("...")`.
 
@@ -325,6 +353,7 @@ function BusinessOpportunity_OnProcessSuccess(response, formId) {
 ```csharp
 [AjaxOnly]
 [HttpPost]
+[ValidateAntiForgeryToken]
 [ActionType(Type = EnumActionType.Create)]
 public ActionResult Add(RM_BusinessOpportunityModel model)
 {
@@ -348,6 +377,18 @@ public ActionResult Add(RM_BusinessOpportunityModel model)
     return Json(new { status = true, message = response }, JsonRequestBehavior.AllowGet);
 }
 ```
+
+### 9.3. Quy tắc bắt buộc khi `ModelState` không hợp lệ
+
+1. Modal Add/Edit/Save **BẮT BUỘC** tách thành hai lớp:
+   - Partial wrapper: chứa `Layout = "~/Views/Shared/_Form.cshtml"`, `Ajax.BeginForm` và `<div id="bodyForm">@Html.Partial("_EntityForm", Model)</div>`.
+   - Partial ruột `_EntityForm`: chứa anti-forgery token, hidden field, control nhập liệu và `ValidationMessageFor`.
+2. Partial ruột **BẮT BUỘC** dùng chung cho cả thêm mới và cập nhật; không nhân đôi markup field giữa hai modal.
+3. POST action **BẮT BUỘC** kiểm tra `ModelState.IsValid` trước khi gọi Cache/Biz/Stored Procedure.
+4. Khi `ModelState` không hợp lệ, controller phải phục hồi toàn bộ dữ liệu phụ cần render (dropdown, tên bản ghi cha, danh sách lựa chọn...) và trả `PartialView("_EntityForm", model)`.
+5. **CẤM** trả JSON “lưu thất bại” cho lỗi validation field, vì người dùng sẽ không biết trường nào sai và dữ liệu nhập có thể bị mất.
+6. POST action dùng anti-forgery token phải có cả `@Html.AntiForgeryToken()` trong partial ruột và `[ValidateAntiForgeryToken]` tại controller.
+7. Client validation chỉ hỗ trợ trải nghiệm; validation tại controller qua `ModelState` luôn là lớp xác thực cuối cùng và không được bỏ qua.
 
 ---
 
