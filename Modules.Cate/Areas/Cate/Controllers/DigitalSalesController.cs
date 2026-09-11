@@ -32,12 +32,12 @@ namespace Modules.Cate.Areas.Cate.Controllers
         private readonly SysUserCache _userCache;
         private readonly SysUserBoPhanCache _userBoPhanCache;
 
-        private readonly string _title = "Cơ hội kinh doanh SPDV Số";
-        private readonly string _folderUpload = ConfigurationManager.AppSettings["AppImageRoot_Path"] ?? "/Contents/File";
-        private string GetAppMessage(string labelKey, string defaultMessage)
+        private string _title => AppProcessor.Messagor.GetMessage("DigitalSales_Title");
+        private readonly string _folderUpload = "/Contents/Uploads/DigitalSales";
+        private string GetAppMessage(string labelKey, string defaultMessage = null)
         {
             var msg = AppProcessor.Messagor.GetMessage(labelKey);
-            return !string.IsNullOrEmpty(msg) ? msg : defaultMessage;
+            return !string.IsNullOrEmpty(msg) ? msg : (defaultMessage ?? labelKey);
         }
 
 
@@ -55,7 +55,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
             _userBoPhanCache = new SysUserBoPhanCache();
         }
 
-        #region 1. Danh sách & Tìm kiếm (List & DataTables)
+        #region 1. List & Search
         [ActionType(Type = EnumActionType.View)]
         [HttpGet]
         public ActionResult Index(int? customerId, byte? businessType, int? statusId)
@@ -119,7 +119,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
         }
         #endregion
 
-        #region 2. Thêm mới / Cập nhật (Add & Edit)
+        #region 2. Add & Edit
         [AjaxOnly]
         [HttpGet]
         [ActionType(Type = EnumActionType.Create)]
@@ -129,7 +129,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
             {
                 Code = _salesCache.GenerateNextCode(),
                 BusinessType = businessType ?? 1,
-                StatusID = 1, // Default: Chưa nắm bắt
+                StatusID = 1, // Default: Business status 1
                 CustomerID = customerId.GetValueOrDefault(0),
                 StartDate = DateTime.Today,
                 ExpectedDate = DateTime.Today.AddMonths(1),
@@ -155,17 +155,17 @@ namespace Modules.Cate.Areas.Cate.Controllers
         {
             if (model.CustomerID <= 0)
             {
-                ModelState.AddModelError("CustomerID", GetAppMessage("DigitalSales_Msg_CustomerRequired", "Vui lòng chọn khách hàng!"));
+                ModelState.AddModelError("CustomerID", GetAppMessage("DigitalSales_Msg_CustomerRequired"));
             }
 
             if (string.IsNullOrWhiteSpace(model.Title))
             {
-                ModelState.AddModelError("Title", GetAppMessage("DigitalSales_Msg_TitleRequired", "Vui lòng nhập tên cơ hội / dự án!"));
+                ModelState.AddModelError("Title", GetAppMessage("DigitalSales_Msg_TitleRequired"));
             }
 
             if (!model.AssignedEmployeeID.HasValue || model.AssignedEmployeeID.Value <= 0)
             {
-                ModelState.AddModelError("AssignedEmployeeID", GetAppMessage("DigitalSales_Msg_AMRequired", "Vui lòng chọn nhân sự phụ trách / AM chủ trì!"));
+                ModelState.AddModelError("AssignedEmployeeID", GetAppMessage("DigitalSales_Msg_AMRequired"));
             }
 
             if (!ModelState.IsValid)
@@ -229,7 +229,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
                 return Json(new
                 {
                     status = false,
-                    message = GetAppMessage("DigitalSales_Msg_NoPermission", "Bạn không có quyền chỉnh sửa hồ sơ này! Chỉ tài khoản QTHT hoặc nhân sự được cấp quyền cập nhật trạng thái mới được thực hiện.")
+                    message = GetAppMessage("DigitalSales_Msg_NoPermission")
                 }, JsonRequestBehavior.AllowGet);
             }
 
@@ -267,23 +267,23 @@ namespace Modules.Cate.Areas.Cate.Controllers
                 return Json(new
                 {
                     status = false,
-                    message = GetAppMessage("DigitalSales_Msg_NoPermission", "Bạn không có quyền chỉnh sửa hồ sơ này! Chỉ tài khoản QTHT hoặc nhân sự được cấp quyền cập nhật trạng thái mới được thực hiện.")
+                    message = GetAppMessage("DigitalSales_Msg_NoPermission")
                 });
             }
 
             if (model.CustomerID <= 0)
             {
-                ModelState.AddModelError("CustomerID", GetAppMessage("DigitalSales_Msg_CustomerRequired", "Vui lòng chọn khách hàng!"));
+                ModelState.AddModelError("CustomerID", GetAppMessage("DigitalSales_Msg_CustomerRequired"));
             }
 
             if (string.IsNullOrWhiteSpace(model.Title))
             {
-                ModelState.AddModelError("Title", GetAppMessage("DigitalSales_Msg_TitleRequired", "Vui lòng nhập tên cơ hội / dự án!"));
+                ModelState.AddModelError("Title", GetAppMessage("DigitalSales_Msg_TitleRequired"));
             }
 
             if (!model.AssignedEmployeeID.HasValue || model.AssignedEmployeeID.Value <= 0)
             {
-                ModelState.AddModelError("AssignedEmployeeID", GetAppMessage("DigitalSales_Msg_AMRequired", "Vui lòng chọn nhân sự phụ trách / AM chủ trì!"));
+                ModelState.AddModelError("AssignedEmployeeID", GetAppMessage("DigitalSales_Msg_AMRequired"));
             }
 
             if (!ModelState.IsValid)
@@ -349,7 +349,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
                 return Json(new
                 {
                     status = false,
-                    message = GetAppMessage("DigitalSales_Msg_NoPermission", "Bạn không có quyền xóa hồ sơ này! Chỉ tài khoản QTHT, người tạo hoặc nhân sự được cấp quyền cập nhật trạng thái mới được thực hiện.")
+                    message = GetAppMessage("DigitalSales_Msg_NoPermission")
                 });
             }
 
@@ -371,7 +371,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
         }
         #endregion
 
-        #region 3. Chi tiết 360 độ (Detail View)
+        #region 3. Detail 360
         [ActionType(Type = EnumActionType.View)]
         [HttpGet]
         public ActionResult Detail(int id)
@@ -382,7 +382,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Title = $"Hồ sơ: {model.Code} - {model.Title}";
+            ViewBag.Title = $"{AppProcessor.Messagor.GetMessage("DigitalSales_RecordPrefix")}: {model.Code} - {model.Title}";
             try
             {
                 ViewBag.CanEdit = HasDetailPermission(model, User.UserName);
@@ -407,7 +407,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
         }
         #endregion
 
-        #region 4. Chuyển đổi trạng thái (Change Status with Gatekeeper)
+        #region 4. Change Status Gatekeeper
         [AjaxOnly]
         [HttpGet]
         [ActionType(Type = EnumActionType.Edit)]
@@ -418,7 +418,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
                 return Json(new
                 {
                     status = false,
-                    message = GetAppMessage("DigitalSales_Msg_NoPermission", "Bạn không có quyền chuyển trạng thái hồ sơ này! Chỉ tài khoản QTHT hoặc nhân sự được cấp quyền cập nhật trạng thái mới được thực hiện.")
+                    message = GetAppMessage("DigitalSales_Msg_NoPermission")
                 }, JsonRequestBehavior.AllowGet);
             }
 
@@ -443,7 +443,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
                 AvailableStatuses = allStatuses.Select(s => new SelectListItem
                 {
                     Value = s.StatusID.ToString(),
-                    Text = $"[{(s.BusinessType == 1 ? "Cơ hội" : "Dự án")}] {s.StatusName}" + (s.StatusID == sales.StatusID ? " (Hiện tại)" : "")
+                    Text = $"[{(s.BusinessType == 1 ? AppProcessor.Messagor.GetMessage("DigitalSales_BusinessType_Opportunity") : AppProcessor.Messagor.GetMessage("DigitalSales_BusinessType_Project"))}] {s.StatusName}" + (s.StatusID == sales.StatusID ? $" ({AppProcessor.Messagor.GetMessage("DigitalSales_Status_Current")})" : "")
                 }).ToList()
             };
 
@@ -460,7 +460,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
                 return Json(new
                 {
                     status = false,
-                    message = GetAppMessage("DigitalSales_Msg_NoPermission", "Bạn không có quyền chuyển trạng thái hồ sơ này! Chỉ tài khoản QTHT hoặc nhân sự được cấp quyền cập nhật trạng thái mới được thực hiện.")
+                    message = GetAppMessage("DigitalSales_Msg_NoPermission")
                 });
             }
 
@@ -469,7 +469,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
                 return Json(new
                 {
                     status = false,
-                    message = GetAppMessage("DigitalSales_Msg_InvalidData", "Dữ liệu không hợp lệ!")
+                    message = GetAppMessage("DigitalSales_Msg_InvalidData")
                 });
             }
 
@@ -487,7 +487,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
                 {
                     status = true,
                     code = 1,
-                    message = GetAppMessage("DigitalSales_Msg_ChangeStatusSuccess", "Chuyển trạng thái thành công!")
+                    message = GetAppMessage("DigitalSales_Msg_ChangeStatusSuccess")
                 });
             }
             else if (code == -3)
@@ -496,7 +496,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
                 {
                     status = false,
                     code = -3,
-                    message = GetAppMessage("DigitalSales_Msg_ReqProductBeforeProject", "RÀNG BUỘC CHUYỂN DỰ ÁN: Chưa có Sản phẩm / Dịch vụ số đính kèm! Vui lòng vào Tab 'Sản phẩm & Doanh thu' để thêm sản phẩm dịch vụ trước khi chuyển sang Dự án.")
+                    message = GetAppMessage("DigitalSales_Msg_ReqProductBeforeProject")
                 });
             }
             else if (code == -4)
@@ -505,7 +505,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
                 {
                     status = false,
                     code = -4,
-                    message = GetAppMessage("DigitalSales_Msg_ReqMemberBeforeProject", "RÀNG BUỘC CHUYỂN DỰ ÁN: Chưa có Thành viên tham gia dự án! Vui lòng vào Tab 'Thành viên tham gia' để chỉ định nhân sự trước khi chuyển sang Dự án.")
+                    message = GetAppMessage("DigitalSales_Msg_ReqMemberBeforeProject")
                 });
             }
             else if (code == -1)
@@ -514,7 +514,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
                 {
                     status = false,
                     code = -1,
-                    message = GetAppMessage("DigitalSales_Msg_NotFound", "Không tìm thấy hồ sơ kinh doanh số!")
+                    message = GetAppMessage("DigitalSales_Msg_NotFound")
                 });
             }
             else if (code == -2)
@@ -523,7 +523,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
                 {
                     status = false,
                     code = -2,
-                    message = GetAppMessage("DigitalSales_Msg_StatusInvalid", "Trạng thái mới không tồn tại hoặc đã bị khóa!")
+                    message = GetAppMessage("DigitalSales_Msg_StatusInvalid")
                 });
             }
 
@@ -531,12 +531,12 @@ namespace Modules.Cate.Areas.Cate.Controllers
             {
                 status = false,
                 code = 0,
-                message = GetAppMessage("DigitalSales_Msg_ChangeStatusFail", "Không thể cập nhật trạng thái. Vui lòng thử lại!")
+                message = GetAppMessage("DigitalSales_Msg_ChangeStatusFail")
             });
         }
         #endregion
 
-        #region 5. Quản lý Sản phẩm / Dịch vụ số (Tab 2 - Products)
+        #region 5. Products & Revenue
         [AjaxOnly]
         [HttpGet]
         [ActionType(Type = EnumActionType.Create)]
@@ -547,7 +547,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
                 return Json(new
                 {
                     status = false,
-                    message = GetAppMessage("DigitalSales_Msg_NoPermission", "Bạn không có quyền thêm sản phẩm trên hồ sơ này! Chỉ tài khoản QTHT hoặc nhân sự được cấp quyền cập nhật trạng thái mới được thực hiện.")
+                    message = GetAppMessage("DigitalSales_Msg_NoPermission")
                 }, JsonRequestBehavior.AllowGet);
             }
 
@@ -578,7 +578,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
                 return Json(new
                 {
                     status = false,
-                    message = GetAppMessage("DigitalSales_Msg_NoPermission", "Bạn không có quyền chỉnh sửa sản phẩm trên hồ sơ này! Chỉ tài khoản QTHT hoặc nhân sự được cấp quyền cập nhật trạng thái mới được thực hiện.")
+                    message = GetAppMessage("DigitalSales_Msg_NoPermission")
                 }, JsonRequestBehavior.AllowGet);
             }
 
@@ -589,7 +589,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
                 return Json(new
                 {
                     status = false,
-                    message = CreateMessage("Sản phẩm", EnumProcessType.DataNotExist, EnumMsgIcon.Error)
+                    message = CreateMessage(AppProcessor.Messagor.GetMessage("DigitalSales_Product"), EnumProcessType.DataNotExist, EnumMsgIcon.Error)
                 }, JsonRequestBehavior.AllowGet);
             }
 
@@ -612,7 +612,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
                 return Json(new
                 {
                     status = false,
-                    message = GetAppMessage("DigitalSales_Msg_ProductRequired", "Vui lòng chọn sản phẩm / dịch vụ số!")
+                    message = GetAppMessage("DigitalSales_Msg_ProductRequired")
                 });
             }
 
@@ -621,7 +621,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
                 return Json(new
                 {
                     status = false,
-                    message = GetAppMessage("DigitalSales_Msg_NoPermission", "Bạn không có quyền lưu sản phẩm trên hồ sơ này! Chỉ tài khoản QTHT hoặc nhân sự được cấp quyền cập nhật trạng thái mới được thực hiện.")
+                    message = GetAppMessage("DigitalSales_Msg_NoPermission")
                 });
             }
 
@@ -632,14 +632,14 @@ namespace Modules.Cate.Areas.Cate.Controllers
                 {
                     status = true,
                     id = id,
-                    message = GetAppMessage("DigitalSales_Msg_SaveProductSuccess", "Lưu sản phẩm / dịch vụ thành công!")
+                    message = GetAppMessage("DigitalSales_Msg_SaveProductSuccess")
                 });
             }
 
             return Json(new
             {
                 status = false,
-                message = GetAppMessage("DigitalSales_Msg_SaveProductFail", "Không thể lưu sản phẩm / dịch vụ!")
+                message = GetAppMessage("DigitalSales_Msg_SaveProductFail")
             });
         }
 
@@ -653,7 +653,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
                 return Json(new
                 {
                     status = false,
-                    message = GetAppMessage("DigitalSales_Msg_NoPermission", "Bạn không có quyền xóa sản phẩm trên hồ sơ này! Chỉ tài khoản QTHT hoặc nhân sự được cấp quyền cập nhật trạng thái mới được thực hiện.")
+                    message = GetAppMessage("DigitalSales_Msg_NoPermission")
                 });
             }
 
@@ -663,19 +663,19 @@ namespace Modules.Cate.Areas.Cate.Controllers
                 return Json(new
                 {
                     status = true,
-                    message = GetAppMessage("DigitalSales_Msg_DeleteProductSuccess", "Xóa sản phẩm thành công!")
+                    message = GetAppMessage("DigitalSales_Msg_DeleteProductSuccess")
                 });
             }
 
             return Json(new
             {
                 status = false,
-                message = GetAppMessage("DigitalSales_Msg_DeleteProductFail", "Không thể xóa sản phẩm!")
+                message = GetAppMessage("DigitalSales_Msg_DeleteProductFail")
             });
         }
         #endregion
 
-        #region 6. Quản lý Thành viên tham gia (Tab 3 - Members)
+        #region 6. Project Members
         [AjaxOnly]
         [HttpGet]
         [ActionType(Type = EnumActionType.Create)]
@@ -686,7 +686,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
                 return Json(new
                 {
                     status = false,
-                    message = GetAppMessage("DigitalSales_Msg_NoPermission", "Bạn không có quyền thêm thành viên trên hồ sơ này! Chỉ tài khoản QTHT hoặc nhân sự được cấp quyền cập nhật trạng thái mới được thực hiện.")
+                    message = GetAppMessage("DigitalSales_Msg_NoPermission")
                 }, JsonRequestBehavior.AllowGet);
             }
 
@@ -748,12 +748,12 @@ namespace Modules.Cate.Areas.Cate.Controllers
             {
                 roles = new List<RM_RolesModel>
                 {
-                    new RM_RolesModel { RoleID = 1, RoleName = "AM Kinh doanh" },
-                    new RM_RolesModel { RoleID = 2, RoleName = "Kỹ thuật giải pháp" },
-                    new RM_RolesModel { RoleID = 3, RoleName = "Chuyên gia triển khai" },
-                    new RM_RolesModel { RoleID = 4, RoleName = "Hỗ trợ PoC" },
-                    new RM_RolesModel { RoleID = 5, RoleName = "Quản trị dự án" },
-                    new RM_RolesModel { RoleID = 6, RoleName = "Chăm sóc khách hàng" }
+                    new RM_RolesModel { RoleID = 1, RoleName = AppProcessor.Messagor.GetMessage("DigitalSales_Role_AM") },
+                    new RM_RolesModel { RoleID = 2, RoleName = AppProcessor.Messagor.GetMessage("DigitalSales_Role_TechSolution") },
+                    new RM_RolesModel { RoleID = 3, RoleName = AppProcessor.Messagor.GetMessage("DigitalSales_Role_DeploymentExpert") },
+                    new RM_RolesModel { RoleID = 4, RoleName = AppProcessor.Messagor.GetMessage("DigitalSales_Role_PocSupport") },
+                    new RM_RolesModel { RoleID = 5, RoleName = AppProcessor.Messagor.GetMessage("DigitalSales_Role_ProjectAdmin") },
+                    new RM_RolesModel { RoleID = 6, RoleName = AppProcessor.Messagor.GetMessage("DigitalSales_Role_CustomerCare") }
                 };
             }
             ViewBag.Roles = roles;
@@ -777,7 +777,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
                 return Json(new
                 {
                     status = false,
-                    message = GetAppMessage("DigitalSales_Msg_InvalidSalesRecord", "Hồ sơ không hợp lệ!")
+                    message = GetAppMessage("DigitalSales_Msg_InvalidSalesRecord")
                 });
             }
 
@@ -786,7 +786,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
                 return Json(new
                 {
                     status = false,
-                    message = GetAppMessage("DigitalSales_Msg_NoPermission", "Bạn không có quyền quản lý thành viên trên hồ sơ này! Chỉ tài khoản QTHT hoặc nhân sự được cấp quyền cập nhật trạng thái mới được thực hiện.")
+                    message = GetAppMessage("DigitalSales_Msg_NoPermission")
                 });
             }
 
@@ -811,7 +811,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
                 return Json(new
                 {
                     status = false,
-                    message = GetAppMessage("DigitalSales_Msg_MemberRequired", "Vui lòng chọn ít nhất một nhân sự tham gia!")
+                    message = GetAppMessage("DigitalSales_Msg_MemberRequired")
                 });
             }
 
@@ -841,7 +841,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
                 roleNamesList.Add(model.RoleTitle.Trim());
             }
 
-            var finalRoleTitle = roleNamesList.Count > 0 ? string.Join(", ", roleNamesList.Distinct()) : "Thành viên";
+            var finalRoleTitle = roleNamesList.Count > 0 ? string.Join(", ", roleNamesList.Distinct()) : AppProcessor.Messagor.GetMessage("DigitalSales_Role_Member");
 
             int savedCount = 0;
             foreach (var empId in empIdList)
@@ -852,7 +852,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
                     DigitalSalesID = model.DigitalSalesID,
                     UserID = empId,
                     RoleTitle = finalRoleTitle,
-                    IsAM = model.IsAM, // Tất cả nhân sự được chọn đều nhận quyền cập nhật trạng thái nếu được tích
+                    IsAM = model.IsAM, // Grant status permission if checked
                     Note = model.Note,
                     IsActive = true
                 };
@@ -865,14 +865,14 @@ namespace Modules.Cate.Areas.Cate.Controllers
                 return Json(new
                 {
                     status = true,
-                    message = savedCount == 1 ? "Lưu thành viên thành công!" : $"Đã lưu thành công {savedCount} nhân sự tham gia!"
+                    message = savedCount == 1 ? AppProcessor.Messagor.GetMessage("DigitalSales_Msg_SaveMemberSuccess") : string.Format(AppProcessor.Messagor.GetMessage("DigitalSales_Msg_SaveMembersMultiSuccess"), savedCount)
                 });
             }
 
             return Json(new
             {
                 status = false,
-                message = GetAppMessage("DigitalSales_Msg_SaveMemberFail", "Không thể lưu thành viên!")
+                message = GetAppMessage("DigitalSales_Msg_SaveMemberFail")
             });
         }
 
@@ -886,7 +886,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
                 return Json(new
                 {
                     status = false,
-                    message = GetAppMessage("DigitalSales_Msg_NoPermission", "Bạn không có quyền xóa thành viên trên hồ sơ này! Chỉ tài khoản QTHT hoặc nhân sự được cấp quyền cập nhật trạng thái mới được thực hiện.")
+                    message = GetAppMessage("DigitalSales_Msg_NoPermission")
                 });
             }
 
@@ -896,19 +896,19 @@ namespace Modules.Cate.Areas.Cate.Controllers
                 return Json(new
                 {
                     status = true,
-                    message = GetAppMessage("DigitalSales_Msg_DeleteMemberSuccess", "Xóa thành viên thành công!")
+                    message = GetAppMessage("DigitalSales_Msg_DeleteMemberSuccess")
                 });
             }
 
             return Json(new
             {
                 status = false,
-                message = GetAppMessage("DigitalSales_Msg_DeleteMemberFail", "Không thể xóa thành viên!")
+                message = GetAppMessage("DigitalSales_Msg_DeleteMemberFail")
             });
         }
         #endregion
 
-        #region 7. Quản lý Tiến trình & Checklist (Tab 4 - Tracking)
+        #region 7. Tracking & Checklist
         [AjaxOnly]
         [HttpGet]
         [ActionType(Type = EnumActionType.Create)]
@@ -916,7 +916,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
         {
             if (!HasDetailPermission(digitalSalesId, User.UserName))
             {
-                return Content("<div class='alert alert-warning m-3'><i class='fa fa-lock'></i> Bạn không có quyền thêm tiến trình trên hồ sơ này! Chỉ tài khoản QTHT hoặc nhân sự được cấp quyền cập nhật trạng thái mới được thực hiện.</div>");
+                return Content($"<div class='alert alert-warning m-3'><i class='fa fa-lock'></i> {AppProcessor.Messagor.GetMessage("DigitalSales_Msg_NoPermission")}</div>");
             }
 
             var model = new RM_DigitalSalesTrackingModel
@@ -944,7 +944,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
         {
             if (!HasDetailPermission(digitalSalesId, User.UserName))
             {
-                return Content("<div class='alert alert-warning m-3'><i class='fa fa-lock'></i> Bạn không có quyền chỉnh sửa tiến trình trên hồ sơ này! Chỉ tài khoản QTHT hoặc nhân sự được cấp quyền cập nhật trạng thái mới được thực hiện.</div>");
+                return Content($"<div class='alert alert-warning m-3'><i class='fa fa-lock'></i> {AppProcessor.Messagor.GetMessage("DigitalSales_Msg_NoPermission")}</div>");
             }
 
             var tasks = _salesCache.GetTrackingTasks(digitalSalesId);
@@ -954,7 +954,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
                 return Json(new
                 {
                     status = false,
-                    message = CreateMessage("Tiến trình", EnumProcessType.DataNotExist, EnumMsgIcon.Error)
+                    message = CreateMessage(AppProcessor.Messagor.GetMessage("DigitalSales_Task"), EnumProcessType.DataNotExist, EnumMsgIcon.Error)
                 }, JsonRequestBehavior.AllowGet);
             }
 
@@ -977,7 +977,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
                 return Json(new
                 {
                     status = false,
-                    message = GetAppMessage("DigitalSales_Msg_TaskNameRequired", "Vui lòng nhập tên công việc / tiến trình!")
+                    message = GetAppMessage("DigitalSales_Msg_TaskNameRequired")
                 });
             }
 
@@ -986,7 +986,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
                 return Json(new
                 {
                     status = false,
-                    message = GetAppMessage("DigitalSales_Msg_NoPermission", "Bạn không có quyền thực hiện trên hồ sơ này! Chỉ tài khoản QTHT hoặc nhân sự được cấp quyền cập nhật trạng thái mới có quyền thao tác.")
+                    message = GetAppMessage("DigitalSales_Msg_NoPermission")
                 });
             }
 
@@ -1002,14 +1002,14 @@ namespace Modules.Cate.Areas.Cate.Controllers
                 {
                     status = true,
                     id = id,
-                    message = GetAppMessage("DigitalSales_Msg_SaveTaskSuccess", "Lưu tiến trình thành công!")
+                    message = GetAppMessage("DigitalSales_Msg_SaveTaskSuccess")
                 });
             }
 
             return Json(new
             {
                 status = false,
-                message = GetAppMessage("DigitalSales_Msg_SaveTaskFail", "Không thể lưu tiến trình!")
+                message = GetAppMessage("DigitalSales_Msg_SaveTaskFail")
             });
         }
 
@@ -1023,7 +1023,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
                 return Json(new
                 {
                     status = false,
-                    message = GetAppMessage("DigitalSales_Msg_InvalidTaskCode", "Mã tiến trình không hợp lệ!")
+                    message = GetAppMessage("DigitalSales_Msg_InvalidTaskCode")
                 });
             }
 
@@ -1032,7 +1032,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
                 return Json(new
                 {
                     status = false,
-                    message = GetAppMessage("DigitalSales_Msg_NoPermission", "Bạn không có quyền cập nhật tiến trình trên hồ sơ này! Chỉ tài khoản QTHT hoặc nhân sự được cấp quyền cập nhật trạng thái mới được thực hiện.")
+                    message = GetAppMessage("DigitalSales_Msg_NoPermission")
                 });
             }
 
@@ -1048,14 +1048,14 @@ namespace Modules.Cate.Areas.Cate.Controllers
                 return Json(new
                 {
                     status = true,
-                    message = GetAppMessage("DigitalSales_Msg_UpdateTaskSuccess", "Cập nhật tiến trình thành công!")
+                    message = GetAppMessage("DigitalSales_Msg_UpdateTaskSuccess")
                 });
             }
 
             return Json(new
             {
                 status = false,
-                message = GetAppMessage("DigitalSales_Msg_UpdateTaskFail", "Không thể cập nhật tiến trình!")
+                message = GetAppMessage("DigitalSales_Msg_UpdateTaskFail")
             });
         }
 
@@ -1069,7 +1069,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
                 return Json(new
                 {
                     status = false,
-                    message = GetAppMessage("DigitalSales_Msg_NoPermission", "Bạn không có quyền xóa tiến trình trên hồ sơ này! Chỉ tài khoản QTHT hoặc nhân sự được cấp quyền cập nhật trạng thái mới được thực hiện.")
+                    message = GetAppMessage("DigitalSales_Msg_NoPermission")
                 });
             }
 
@@ -1079,14 +1079,14 @@ namespace Modules.Cate.Areas.Cate.Controllers
                 return Json(new
                 {
                     status = true,
-                    message = GetAppMessage("DigitalSales_Msg_DeleteTaskSuccess", "Xóa tiến trình thành công!")
+                    message = GetAppMessage("DigitalSales_Msg_DeleteTaskSuccess")
                 });
             }
 
             return Json(new
             {
                 status = false,
-                message = GetAppMessage("DigitalSales_Msg_DeleteTaskFail", "Không thể xóa tiến trình!")
+                message = GetAppMessage("DigitalSales_Msg_DeleteTaskFail")
             });
         }
         #endregion
@@ -1235,7 +1235,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
             var list = _salesCache.GetStatusList(bType)?.Select(s => new
             {
                 id = s.StatusID,
-                name = bType.HasValue ? s.StatusName : $"[{(s.BusinessType == 1 ? "Cơ hội" : "Dự án")}] {s.StatusName}"
+                name = bType.HasValue ? s.StatusName : $"[{(s.BusinessType == 1 ? AppProcessor.Messagor.GetMessage("DigitalSales_BusinessType_Opportunity") : AppProcessor.Messagor.GetMessage("DigitalSales_BusinessType_Project"))}] {s.StatusName}"
             }).ToList();
 
             return Json(list, JsonRequestBehavior.AllowGet);
@@ -1376,7 +1376,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
             return list;
         }
 
-        #region Authorization Helper (QTHT & Quyền cập nhật trạng thái)
+        #region Authorization Helpers
         private bool IsUserQTHT(string userName, int? userId = null)
         {
             try
@@ -1393,7 +1393,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
                 if (userId.HasValue && userId.Value > 0)
                 {
                     var roles = _userCache.GetRoles(userId.Value);
-                    if (roles != null && roles.Any(r => r.RoleId == 1 || (r.Name != null && (r.Name.Equals("QTHT", StringComparison.OrdinalIgnoreCase) || r.Name.IndexOf("quản trị", StringComparison.OrdinalIgnoreCase) >= 0))))
+                    if (roles != null && roles.Any(r => r.RoleId == 1 || (r.Name != null && (r.Name.Equals("QTHT", StringComparison.OrdinalIgnoreCase) || UtilString.ConvertToUnSign(r.Name).IndexOf("quan tri", StringComparison.OrdinalIgnoreCase) >= 0))))
                     {
                         return true;
                     }
@@ -1517,7 +1517,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
             model.ListStatus = _salesCache.GetStatusList(bType)?.Select(s => new SelectListItem
             {
                 Value = s.StatusID.ToString(),
-                Text = bType.HasValue ? s.StatusName : $"[{(s.BusinessType == 1 ? "Cơ hội" : "Dự án")}] {s.StatusName}",
+                Text = bType.HasValue ? s.StatusName : $"[{(s.BusinessType == 1 ? AppProcessor.Messagor.GetMessage("DigitalSales_BusinessType_Opportunity") : AppProcessor.Messagor.GetMessage("DigitalSales_BusinessType_Project"))}] {s.StatusName}",
                 Selected = s.StatusID == model.StatusID
             }).ToList() ?? new List<SelectListItem>();
         }
@@ -1613,10 +1613,20 @@ namespace Modules.Cate.Areas.Cate.Controllers
         {
             try
             {
+                if (file == null || file.ContentLength <= 0) return null;
+
+                var ext = Path.GetExtension(file.FileName)?.ToLowerInvariant();
+                var forbiddenExts = new[] { ".exe", ".dll", ".bat", ".cmd", ".vbs", ".ps1", ".sh", ".com", ".msi", ".vbe", ".jse", ".wsf", ".wsh", ".scr", ".pif" };
+                if (!string.IsNullOrEmpty(ext) && forbiddenExts.Contains(ext))
+                {
+                    return null;
+                }
+
+                var subFolder = DateTime.Now.ToString("yyyyMM");
+                var folderPath = $"{_folderUpload}/{subFolder}";
                 var originalName = Path.GetFileNameWithoutExtension(file.FileName);
-                var ext = Path.GetExtension(file.FileName);
                 var safeName = UtilString.ConvertToUnSign(originalName) + "_" + DateTime.Now.ToString("yyyyMMddHHmmssfff") + ext;
-                var relativePath = _folderUpload + "/" + safeName;
+                var relativePath = folderPath + "/" + safeName;
                 var physicalPath = HostingEnvironment.MapPath(relativePath);
 
                 var dir = Path.GetDirectoryName(physicalPath);

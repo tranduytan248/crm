@@ -62,3 +62,31 @@ Bạn phải tuân thủ nghiêm ngặt quy trình kiểm thử và xác minh sa
   - Tất cả các test đều PASS 100%.
   - Không còn bất kỳ lỗi runtime, JavaScript console error hay lỗi 500 nào.
   - Không còn bất kỳ cảnh báo Linting hay Type Error nào.
+
+---
+
+## 5. Bộ Kiểm thử Tự động 5 Tầng Bắt buộc (5-Layer Verification Suite)
+Mỗi module trước khi bàn giao PHẢI vượt qua bộ kiểm thử 5 tầng được tự động hóa bằng script kiểm thử (PowerShell / Node.js):
+1. **Tầng 1 (Compile & Build):** Biên dịch toàn bộ các project liên quan (`Core.*`, `Modules.*`) bằng MSBuild đạt `0 Error(s)`.
+2. **Tầng 2 (Triple Mirroring & UTF-8 BOM):**
+   - Mọi tệp View (`.cshtml`), Script (`.js`), Style (`.css`) phải tồn tại đồng nhất về nội dung (Hash MD5 khớp nhau) ở cả 3 cây thư mục: `Modules.*`, `publish_source`, và `WebApp`.
+   - 100% tệp Razor `.cshtml` phải có tiền tố `UTF-8 with BOM` (`0xEF, 0xBB, 0xBF`) để máy chủ IIS không lỗi font tiếng Việt.
+3. **Tầng 3 (DOM ID Collision Scanner):** Quét phân tích HTML của view cha (`Index`, `_Search`) và các partial view modal (`_Add`, `_Edit`, `_ChangeStatusModal`...) để khẳng định không trùng bất kỳ ID input/select/textarea nào.
+4. **Tầng 4 (Sys_Messages DB Coverage):** Quét toàn bộ các chuỗi `LabelKey` được gọi trong Controller/Model, đối chiếu trực tiếp với CSDL SQL Server bảng `Sys_Messages` để khẳng định 100% key đều tồn tại và trả về message tiếng Việt hợp lệ.
+5. **Tầng 5 (Clean Code & No Hardcoded UI Text):** Quét mã nguồn `.cs` đảm bảo không có chuỗi tiếng Việt hardcoded trực tiếp cho thông báo, tiêu đề, hoặc lỗi validation.
+
+---
+
+## 6. Quy chuẩn Báo Cáo Đánh Giá Tự Thân (Self-Evaluation Report)
+Sau khi hoàn thành MỖI yêu cầu từ người dùng, tác nhân AI BẮT BUỘC phải thực hiện bước Đánh giá Tự thân và xuất bảng đánh giá chi tiết theo cấu trúc:
+```markdown
+### 📋 BÁO CÁO TỰ ĐÁNH GIÁ THỰC HIỆN YÊU CẦU (Self-Evaluation Report)
+| Tiêu chí | Mục tiêu | Kết quả thực tế | Đánh giá |
+| :--- | :--- | :--- | :--- |
+| **1. Tính chính xác nghiệp vụ** | Đáp ứng 100% yêu cầu người dùng đặt ra | [Mô tả chi tiết] | ĐẠT / CHƯA ĐẠT |
+| **2. Chất lượng giao diện UI/UX** | Font chữ chuẩn (+1px), không vỡ layout, micro-interactions | [Mô tả chi tiết] | ĐẠT / CHƯA ĐẠT |
+| **3. Tuân thủ Rules & Standards** | 100% text qua Sys_Messages, file lưu đúng /Contents/Uploads/ | [Mô tả chi tiết] | ĐẠT / CHƯA ĐẠT |
+| **4. Kết quả Test Suite 5 Tầng** | Pass 100% tất cả 5 tầng kiểm thử | [Mô tả chi tiết] | ĐẠT / CHƯA ĐẠT |
+| **5. An toàn hồi quy (Regression)** | Không làm hỏng các tính năng khác trong hệ thống | [Mô tả chi tiết] | ĐẠT / CHƯA ĐẠT |
+```
+Nếu có bất kỳ tiêu chí nào CHƯA ĐẠT, tác nhân AI PHẢI tự động sửa chữa ngay lập tức trước khi thông báo tới người dùng.

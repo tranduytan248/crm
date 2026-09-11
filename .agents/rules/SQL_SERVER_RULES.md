@@ -1,4 +1,4 @@
-# SQL Server Rules
+﻿# SQL Server Rules
 
 ## Naming
 
