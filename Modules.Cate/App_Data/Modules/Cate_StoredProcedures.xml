@@ -181,6 +181,19 @@
 		<Procedure Name="RM_TaskGroup_GetByID" Value="RM_TaskGroup_GetByID" />
 		<Procedure Name="RM_TaskGroup_Save" Value="RM_TaskGroup_Save" />
 		<Procedure Name="RM_TaskGroup_Delete" Value="RM_TaskGroup_Delete" />
+		<Procedure Name="RM_DigitalSalesStatus_Get" Value="RM_DigitalSalesStatus_Get" />
+		<Procedure Name="RM_DigitalSalesStatus_GetByID" Value="RM_DigitalSalesStatus_GetByID" />
+		<Procedure Name="RM_DigitalSalesStatus_GetAll" Value="RM_DigitalSalesStatus_GetAll" />
+		<Procedure Name="RM_DigitalSalesStatus_Save" Value="RM_DigitalSalesStatus_Save" />
+		<Procedure Name="RM_DigitalSalesStatus_Delete" Value="RM_DigitalSalesStatus_Delete" />
+		<Procedure Name="RM_DigitalSalesProcess_Get" Value="RM_DigitalSalesProcess_Get" />
+		<Procedure Name="RM_DigitalSalesProcess_GetByID" Value="RM_DigitalSalesProcess_GetByID" />
+		<Procedure Name="RM_DigitalSalesProcess_Save" Value="RM_DigitalSalesProcess_Save" />
+		<Procedure Name="RM_DigitalSalesProcess_Delete" Value="RM_DigitalSalesProcess_Delete" />
+		<Procedure Name="RM_DigitalSalesProgress_GetByProcess" Value="RM_DigitalSalesProgress_GetByProcess" />
+		<Procedure Name="RM_DigitalSalesProgress_GetByID" Value="RM_DigitalSalesProgress_GetByID" />
+		<Procedure Name="RM_DigitalSalesProgress_Save" Value="RM_DigitalSalesProgress_Save" />
+		<Procedure Name="RM_DigitalSalesProgress_Delete" Value="RM_DigitalSalesProgress_Delete" />
 
 		<Procedure Name="RM_Task_Get"     Value="RM_Task_Get" />
 		<Procedure Name="RM_Task_GetByID" Value="RM_Task_GetByID" />

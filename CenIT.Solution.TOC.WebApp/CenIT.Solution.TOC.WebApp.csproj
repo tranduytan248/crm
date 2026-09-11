@@ -399,6 +399,9 @@
     <Content Include="Areas\Cate\Views\SalesTeamMembers\_List.cshtml" />
     <Content Include="Areas\Cate\Views\SalesTeamMembers\_SalesTeamMembers.cshtml" />
     <Content Include="Areas\Cate\Views\TaskGroup\TaskGroup.js" />
+    <Content Include="Areas\Cate\Views\DigitalSalesStatus\DigitalSalesStatus.js" />
+    <Content Include="Areas\Cate\Views\DigitalSalesProcess\DigitalSalesProcess.js" />
+    <Content Include="Contents\Modules\Cate\DigitalSalesCatalog.css" />
     <Content Include="Areas\Cate\Views\Task\Task.js" />
     <Content Include="Areas\Cate\Views\web.config" />
     <Content Include="Areas\Cate\Views\_ViewStart.cshtml" />
@@ -2070,6 +2073,17 @@
     <Content Include="Areas\Cate\Views\TaskGroup\_Delete.cshtml" />
     <Content Include="Areas\Cate\Views\TaskGroup\_Edit.cshtml" />
     <Content Include="Areas\Cate\Views\TaskGroup\_TaskGroup.cshtml" />
+    <Content Include="Areas\Cate\Views\DigitalSalesStatus\Index.cshtml" />
+    <Content Include="Areas\Cate\Views\DigitalSalesStatus\_Add.cshtml" />
+    <Content Include="Areas\Cate\Views\DigitalSalesStatus\_Edit.cshtml" />
+    <Content Include="Areas\Cate\Views\DigitalSalesStatus\_Delete.cshtml" />
+    <Content Include="Areas\Cate\Views\DigitalSalesStatus\_Status.cshtml" />
+    <Content Include="Areas\Cate\Views\DigitalSalesProcess\Index.cshtml" />
+    <Content Include="Areas\Cate\Views\DigitalSalesProcess\_Add.cshtml" />
+    <Content Include="Areas\Cate\Views\DigitalSalesProcess\_Edit.cshtml" />
+    <Content Include="Areas\Cate\Views\DigitalSalesProcess\_Delete.cshtml" />
+    <Content Include="Areas\Cate\Views\DigitalSalesProcess\_Process.cshtml" />
+    <Content Include="Areas\Cate\Views\DigitalSalesProcess\_Progress.cshtml" />
     <Content Include="Areas\Cate\Views\Task\Index.cshtml" />
     <Content Include="Areas\Cate\Views\Task\_Add.cshtml" />
     <Content Include="Areas\Cate\Views\Task\_Delete.cshtml" />

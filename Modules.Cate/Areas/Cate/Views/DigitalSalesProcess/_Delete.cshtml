@@ -1,0 +1,5 @@
+@model Core.Cate.Models.RM_DigitalSalesProcessModel
+@{ ViewBag.Title = "Xóa quy trình kinh doanh SPDV số"; Layout = "~/Views/Shared/_Form.cshtml"; }
+@section FormType { danger }
+@section FormIcon { <i class="far fa-trash-alt"></i> }
+@section FormBody { @using (Ajax.BeginForm("Delete", "DigitalSalesProcess", new { area = "Cate" }, new AjaxOptions { HttpMethod = "POST", OnSuccess = "DigitalSalesProcess_OnProcessSuccess(data, 'DeleteDigitalSalesProcess')" }, new { id = "DeleteDigitalSalesProcess" })) { @Html.AntiForgeryToken() @Html.HiddenFor(m => m.ProcessID) @Html.HiddenFor(m => m.ProcessName)<div class="alert alert-warning mb-0"><i class="fa fa-exclamation-triangle mr-1"></i>@ViewBag.ConfirmMessage<br /><small>Các tiến trình mẫu trực thuộc cũng sẽ bị xóa.</small></div> } }

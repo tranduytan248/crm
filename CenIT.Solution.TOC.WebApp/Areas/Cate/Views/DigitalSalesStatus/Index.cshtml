@@ -1,0 +1,39 @@
+@using TSFramework.Libs.Processors
+@{ 
+    ViewBag.Title = AppProcessor.Messagor.GetMessage("DigitalSalesStatus_Title");
+}
+<link rel="stylesheet" href="@Url.Content("~/Contents/Modules/Cate/DigitalSalesCatalog.css")" />
+@section PageTitle { @ViewBag.Title }
+@section PageAction {
+    @Html.Button(true, "AddDigitalSalesStatus", Url.Action("Add", new { area = "Cate" }), "<i class='fa fa-plus'></i>", AppProcessor.Messagor.GetMessage("Button_Add"), new { @class = "btn btn-light-blue btn-h-blue btn-a-blue border-0 radius-3 py-2 text-600 text-90 pull-right", data_width = "760px" })
+}
+
+<div class="card dcard mt-3">
+    <div class="card-body px-3 py-3 border-bottom brc-secondary-l2">
+        <div class="row align-items-end">
+            <div class="col-md-4">
+                <label class="font-bold" for="digitalStatusBusinessType">Loại hình</label>
+                <select id="digitalStatusBusinessType" class="form-control">
+                    <option value="">Tất cả loại hình</option>
+                    <option value="1">Cơ hội</option>
+                    <option value="2">Dự án</option>
+                </select>
+            </div>
+            <div class="col-md-3 mt-3 mt-md-0">
+                <button id="btnFilterDigitalStatus" type="button" class="btn btn-outline-primary px-4 digital-sales-control"><i class="fa fa-search mr-1"></i>Lọc dữ liệu</button>
+            </div>
+        </div>
+    </div>
+    <div id="digitalStatusLoadError" class="alert alert-danger m-3 d-none" role="alert"><i class="fa fa-exclamation-circle mr-1"></i><span>Không thể tải danh sách trạng thái.</span><button type="button" class="btn btn-sm btn-outline-danger ml-3 digital-sales-control">Thử lại</button></div>
+    <div class="col-sm-12 table-responsive-md">
+        <table id="DSDigitalSalesStatus" class="d-style w-100 table text-dark-m1 text-95 border-y-1 brc-black-tp11 collapsed dtr-table" width="100%">
+            <thead class="sticky-nav text-secondary-m1 text-uppercase text-85 bgc-secondary-l1">
+                <tr>
+                    <th>STT</th><th>Loại hình</th><th>Mã trạng thái</th><th>Tên trạng thái</th><th>Mô tả</th>
+                    <th>Thứ tự</th><th>Mặc định</th><th>Kích hoạt</th><th>Thao tác</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+@section BottomScript { <script src="@Url.Content("~/Areas/Cate/Views/DigitalSalesStatus/DigitalSalesStatus.js")"></script> }

@@ -1,0 +1,23 @@
+@using Core.Cate.Models
+@using TSFramework.Libs.Processors
+@{ ViewBag.Title = AppProcessor.Messagor.GetMessage("DigitalSalesProcess_Title"); var statuses = ViewBag.Statuses as List<RM_DigitalSalesStatusModel> ?? new List<RM_DigitalSalesStatusModel>(); }
+<link rel="stylesheet" href="@Url.Content("~/Contents/Modules/Cate/DigitalSalesCatalog.css")" />
+@section PageTitle { @ViewBag.Title }
+@section PageAction { @Html.Button(true, "AddDigitalSalesProcess", Url.Action("Add", new { area = "Cate" }), "<i class='fa fa-plus'></i>", AppProcessor.Messagor.GetMessage("Button_Add"), new { @class = "btn btn-light-blue btn-h-blue btn-a-blue border-0 radius-3 py-2 text-600 text-90 pull-right", data_width = "760px" }) }
+
+<div class="card dcard mt-3">
+    <div class="card-body px-3 py-3 border-bottom brc-secondary-l2">
+        <div class="row align-items-end">
+            <div class="col-md-3"><label class="font-bold" for="digitalProcessBusinessType">Loại hình</label><select id="digitalProcessBusinessType" class="form-control"><option value="">Tất cả loại hình</option><option value="1">Cơ hội</option><option value="2">Dự án</option></select></div>
+            <div class="col-md-4 mt-3 mt-md-0"><label class="font-bold" for="digitalProcessStatus">Trạng thái</label><select id="digitalProcessStatus" class="form-control"><option value="">Tất cả trạng thái</option>@foreach (var item in statuses) { <option value="@item.StatusID" data-business-type="@item.BusinessType">@item.BusinessTypeName — @item.StatusName</option> }</select></div>
+            <div class="col-md-3 mt-3 mt-md-0"><button id="btnFilterDigitalProcess" type="button" class="btn btn-outline-primary px-4 digital-sales-control"><i class="fa fa-search mr-1"></i>Lọc dữ liệu</button></div>
+        </div>
+    </div>
+    <div id="digitalProcessLoadError" class="alert alert-danger m-3 d-none" role="alert"><i class="fa fa-exclamation-circle mr-1"></i><span>Không thể tải danh sách quy trình.</span><button type="button" class="btn btn-sm btn-outline-danger ml-3 digital-sales-control">Thử lại</button></div>
+    <div class="col-sm-12 table-responsive-md">
+        <table id="DSDigitalSalesProcess" class="d-style w-100 table text-dark-m1 text-95 border-y-1 brc-black-tp11 collapsed dtr-table" width="100%">
+            <thead class="sticky-nav text-secondary-m1 text-uppercase text-85 bgc-secondary-l1"><tr><th>STT</th><th>Loại hình</th><th>Trạng thái</th><th>Mã quy trình</th><th>Tên quy trình</th><th>Mô tả</th><th>Thứ tự</th><th>Kích hoạt</th><th>Thao tác</th></tr></thead>
+        </table>
+    </div>
+</div>
+@section BottomScript { <script src="@Url.Content("~/Areas/Cate/Views/DigitalSalesProcess/DigitalSalesProcess.js")"></script> }

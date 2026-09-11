@@ -1,0 +1,33 @@
+.digital-sales-control {
+    min-height: 48px;
+}
+
+.digital-sales-action {
+    align-items: center;
+    display: inline-flex !important;
+    justify-content: center;
+    min-height: 48px;
+    min-width: 48px;
+}
+
+.digital-sales-description {
+    max-width: 320px;
+    overflow-wrap: anywhere;
+    white-space: normal;
+}
+
+#digitalProgressForm .form-control {
+    min-height: 40px;
+}
+
+#digitalProgressForm textarea.form-control {
+    min-height: 72px;
+}
+
+@media (max-width: 767.98px) {
+    #digitalProgressForm .form-control,
+    #digitalProgressForm button,
+    #digitalProgressForm label {
+        min-height: 48px;
+    }
+}
