@@ -84,25 +84,33 @@ function ModuleName_OnProcessSuccess(response, formId) {
         $modal = $("#modal_" + formId);
     }
 
+    // 0. Luôn phục hồi trạng thái nút Lưu
+    var $btnSave = $modal.find("#btnSave, .modal-footer #btnSave, button[type='submit']");
+    $btnSave.prop("disabled", false).html('<i class="fa fa-save"></i> Lưu');
+
     // TRƯỜNG HỢP 1: Response là JSON (Thành công hoặc Lỗi hệ thống)
     if (response.status !== undefined) {
-        // 1. Thực thi script Toastr từ server trả về (hoặc hàm notification)
-        if (typeof response.message === "string") {
-            eval(response.message);
-        }
+        // 1. Thực thi script Toastr từ server trả về hoặc hàm executeResponseMessage
+        executeResponseMessage(response.message, response.status ? "Thao tác thành công!" : "Thao tác thất bại!", response.status);
 
-        // 2. Nếu thành công: đóng modal và reload dữ liệu
+        // 2. Nếu thành công: đóng modal và reload / điều hướng
         if (response.status === true) {
             var isKeepOpen = $modal.find("#chkNotDismissModal").is(":checked");
             if (isKeepOpen) {
-                // Nếu người dùng chọn "Tiếp tục thêm mới"
                 var urlAction = $modal.find("form").attr("action");
                 $modal.find("#bodyForm").load(urlAction);
             } else {
                 $modal.modal("hide");
+                $(".modal-backdrop").remove();
+                $("body").removeClass("modal-open").css("padding-right", "");
             }
-            // Reload lại bảng DataTable
-            if (typeof refreshDataTable === "function") {
+
+            // Chuyển trang hoặc reload bảng độc lập, KHÔNG lệ thuộc duy nhất vào hidden.bs.modal
+            if (response.id) {
+                setTimeout(function () {
+                    window.location.href = _detailUrl + "/" + response.id;
+                }, 300);
+            } else if (typeof refreshDataTable === "function") {
                 refreshDataTable();
             }
         }
@@ -114,26 +122,40 @@ function ModuleName_OnProcessSuccess(response, formId) {
         
         // Tái khởi tạo các plugin giao diện sau khi HTML bị thay thế
         _initModalPlugins($modal);
+
+        // BẮT BUỘC BẬT TOASTR CẢNH BÁO: Không bao giờ để form im lặng khi có lỗi
+        var $firstError = $modal.find(".text-danger:visible").first();
+        var warnMsg = ($firstError.length && $firstError.text().trim())
+            ? $firstError.text().trim()
+            : "Vui lòng kiểm tra và nhập đầy đủ các trường bắt buộc (*)!";
+        executeResponseMessage(warnMsg, warnMsg, false);
+
+        // Re-bind lại nút Submit để người dùng tiếp tục thao tác
+        $modal.find("#btnSave, .modal-footer #btnSave").off("click").on("click", function (e) {
+            e.preventDefault();
+            $("form#" + formId).submit();
+        });
     }
 }
 ```
 
 ---
 
-## 4. QUY CHUẨN THÔNG BÁO TOASTR & CHỐNG KẸT MODAL BACKDROP
+## 4. QUY CHUẨN THÔNG BÁO TOASTR, SUBMIT BUTTON & CHỐNG KẸT MODAL BACKDROP
 
-### 4.1. Thông báo Toastr khép kín qua sự kiện `hidden.bs.modal`
-Khi submit form thành công và cần đóng modal để hiển thị Toastr:
-- **CẤM:** Bắn Toastr ngay khi modal chưa kịp đóng (gây che khuất hoặc mất hiệu ứng backdrop mượt mà).
-- **CHUẨN:** Lắng nghe sự kiện `hidden.bs.modal` để hiển thị Toastr sau khi modal đã đóng hoàn toàn:
-  ```javascript
-  $modal.one("hidden.bs.modal", function () {
-      executeResponseMessage(res.message, "Cập nhật thành công!", true);
-      refreshDataTable();
-  }).modal("hide");
-  ```
+### 4.1. Nguyên tắc An toàn khi đóng Modal và hiển thị Thông báo (Safe Modal Lifecycle)
+- **CẤM:** Khóa chết logic hiển thị Toastr (`executeResponseMessage`) hoặc lệnh điều hướng (`window.location.href`) **duy nhất bên trong sự kiện `hidden.bs.modal`**. Nếu sự kiện này không kích hoạt (do modal nạp động hoặc animation bị kẹt), người dùng sẽ không nhận được thông báo và trang bị "đóng băng".
+- **CHUẨN:** 
+  1. Hiển thị thông báo Toastr NGAY LẬP TỨC khi nhận được phản hồi thành công từ server.
+  2. Gọi đóng modal và dọn dẹp backdrop: `$modal.modal('hide'); $('.modal-backdrop').remove(); $('body').removeClass('modal-open');`.
+  3. Điều hướng hoặc reload bảng với độ trễ ngắn (`setTimeout(..., 300)`).
 
-### 4.2. Chống kẹt Backdrop khi mở Modal lồng nhau (Nested Modals)
+### 4.2. Trạng thái Nút Submit Form (`#btnSave`)
+- Mọi thao tác submit form từ Modal PHẢI có phản hồi xúc giác trực quan:
+  - Khi bắt đầu submit (`beforeSubmit`): Chuyển nút `#btnSave` sang trạng thái `disabled` và icon quay: `<i class="fa fa-spinner fa-spin mr-1"></i> Đang lưu...`.
+  - Khi hoàn tất hoặc lỗi: Phục hồi lại trạng thái nút.
+
+### 4.3. Chống kẹt Backdrop khi mở Modal lồng nhau (Nested Modals)
 Khi mở modal con (như Modal Tra cứu Khách hàng) từ trong modal cha (Thêm mới Cơ hội):
 ```javascript
 $('#modalChildLookup').on('hidden.bs.modal', function () {

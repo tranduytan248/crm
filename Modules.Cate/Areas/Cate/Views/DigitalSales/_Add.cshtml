@@ -19,23 +19,63 @@
     }
 
     <script type="text/javascript">
-        $('form#AddDigitalSales').ajaxForm({
-            beforeSubmit: function () {
-                if (typeof CKEDITOR !== 'undefined' && CKEDITOR.instances['DigitalSales_Form_Note']) {
-                    try { CKEDITOR.instances['DigitalSales_Form_Note'].updateElement(); } catch (e) { }
+        (function () {
+            var $form = $('form#AddDigitalSales');
+            var $modal = $form.closest('.modal');
+
+            // Gắn sự kiện click rõ ràng cho nút Lưu ở footer modal
+            $modal.find('#btnSave, .modal-footer #btnSave').off('click.digitalsales').on('click.digitalsales', function (e) {
+                e.preventDefault();
+                $form.submit();
+            });
+
+            $form.ajaxForm({
+                beforeSubmit: function () {
+                    if (typeof CKEDITOR !== 'undefined' && CKEDITOR.instances['DigitalSales_Form_Note']) {
+                        try { CKEDITOR.instances['DigitalSales_Form_Note'].updateElement(); } catch (e) { }
+                    }
+
+                    // 1. Kiểm tra validation nhanh ở Client-side
+                    var cusId = parseInt($('#CustomerID_Form').val()) || parseInt($form.find('input[name="CustomerID"]').val()) || 0;
+                    var title = ($form.find('#Title').val() || '').trim();
+
+                    var hasError = false;
+                    var errorMsg = "";
+
+                    if (!title) {
+                        $form.find('[data-valmsg-for="Title"]').text('Vui lòng nhập tên cơ hội / dự án!').show();
+                        hasError = true;
+                        errorMsg = "Vui lòng nhập tên cơ hội / dự án!";
+                    }
+
+                    if (cusId <= 0) {
+                        $form.find('[data-valmsg-for="CustomerID"]').text('Vui lòng chọn khách hàng!').show();
+                        if (!hasError) {
+                            hasError = true;
+                            errorMsg = "Vui lòng chọn khách hàng!";
+                        }
+                    }
+
+                    if (hasError) {
+                        // Bắn ngay Toastr cảnh báo rõ ràng
+                        executeResponseMessage(errorMsg, "Vui lòng kiểm tra và điền đầy đủ các trường bắt buộc (*)", false);
+                        return false; // Ngăn chặn submit để người dùng chỉnh sửa ngay
+                    }
+
+                    // 2. Hiển thị trạng thái loading spinner trên nút Lưu
+                    var $btn = $modal.find('#btnSave, .modal-footer #btnSave');
+                    $btn.prop('disabled', true).html('<i class="fa fa-spinner fa-spin mr-1"></i> Đang lưu...');
+                    return true;
+                },
+                success: function (response) {
+                    DigitalSales_OnProcessSuccess(response, "AddDigitalSales");
+                },
+                error: function () {
+                    var $btn = $modal.find('#btnSave, .modal-footer #btnSave');
+                    $btn.prop('disabled', false).html('<i class="fa fa-save"></i> Lưu');
+                    executeResponseMessage("Lỗi kết nối máy chủ!", "Lỗi kết nối máy chủ!", false);
                 }
-                var cusId = parseInt($('#CustomerID_Form').val()) || parseInt($('form#AddDigitalSales input[name="CustomerID"]').val()) || 0;
-                if (cusId <= 0) {
-                    $('#bodyForm').find('[data-valmsg-for="CustomerID"]').text('Vui lòng chọn khách hàng!').show();
-                }
-                return true;
-            },
-            success: function (response) {
-                DigitalSales_OnProcessSuccess(response, "AddDigitalSales");
-            },
-            error: function () {
-                executeResponseMessage("Lỗi kết nối máy chủ!", "Lỗi kết nối máy chủ!", false);
-            }
-        });
+            });
+        })();
     </script>
 }

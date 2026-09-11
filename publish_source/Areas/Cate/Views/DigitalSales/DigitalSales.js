@@ -298,19 +298,31 @@ function DigitalSales_OnProcessSuccess(response, formId) {
         $modal = $(".modal.show");
     }
 
+    // 1. Phục hồi trạng thái nút Lưu
+    var $btnSave = $modal.find("#btnSave, .modal-footer #btnSave, button[type='submit']");
+    $btnSave.prop("disabled", false).html('<i class="fa fa-save"></i> Lưu');
+
     if (response && response.status !== undefined) {
         // TRƯỜNG HỢP 1: JSON response
         if (response.status === true) {
+            // Hiển thị Toastr thành công NGAY LẬP TỨC
+            executeResponseMessage(response.message, "Thao tác thành công!", true);
+
+            // Đóng modal và dọn dẹp backdrop
             $modal.modal("hide");
-            $modal.one("hidden.bs.modal", function () {
-                executeResponseMessage(response.message, "Thao tác thành công!", true);
-                if (response.id) {
+            $(".modal-backdrop").remove();
+            $("body").removeClass("modal-open").css("padding-right", "");
+
+            // Điều hướng sang trang chi tiết 360 độ hoặc tải lại bảng
+            if (response.id) {
+                setTimeout(function () {
                     window.location.href = _digitalSalesUrls.detail + "/" + response.id;
-                } else {
-                    reloadSalesTable();
-                }
-            });
+                }, 300);
+            } else {
+                reloadSalesTable();
+            }
         } else {
+            // Báo lỗi nghiệp vụ
             executeResponseMessage(response.message, "Thao tác thất bại!", false);
         }
     } else {
@@ -321,10 +333,34 @@ function DigitalSales_OnProcessSuccess(response, formId) {
         }
         $body.html(response);
 
-        // Tự động các thẻ @Html.ValidationMessageFor hiển thị dòng chữ đỏ!
+        // Khởi tạo lại plugins (select2, datepicker, ckeditor...)
         if (typeof initDigitalSalesFormPlugins === "function") {
             initDigitalSalesFormPlugins();
         }
+
+        // BẮT BUỘC BẬT TOASTR CẢNH BÁO CHO NGƯỜI DÙNG BIẾT
+        var $firstError = $body.find(".text-danger:visible").first();
+        var warnMsg = ($firstError.length && $firstError.text().trim())
+            ? $firstError.text().trim()
+            : "Vui lòng kiểm tra và nhập đầy đủ các trường bắt buộc (*)!";
+        executeResponseMessage(warnMsg, warnMsg, false);
+
+        // Cuộn hoặc focus vào ô lỗi đầu tiên
+        if ($firstError.length > 0) {
+            var $targetInput = $firstError.prev().find("input, select, textarea");
+            if ($targetInput.length === 0) {
+                $targetInput = $firstError.closest(".mb-3").find("input, select, textarea, button");
+            }
+            if ($targetInput.length > 0) {
+                $targetInput.first().focus();
+            }
+        }
+
+        // Re-bind lại sự kiện click cho nút Lưu
+        $modal.find("#btnSave, .modal-footer #btnSave").off("click.digitalsales").on("click.digitalsales", function (e) {
+            e.preventDefault();
+            $("form#" + formId).submit();
+        });
     }
 }
 
@@ -384,11 +420,11 @@ function openChangeStatusModal(id) {
                 processData: false,
                 success: function (res) {
                     if (res.status) {
+                        executeResponseMessage(res.message, "Chuyển trạng thái thành công!", true);
                         $modal.modal("hide");
-                        $modal.on("hidden.bs.modal", function () {
-                            executeResponseMessage(res.message, "Chuyển trạng thái thành công!", true);
-                            reloadSalesTable();
-                        });
+                        $(".modal-backdrop").remove();
+                        $("body").removeClass("modal-open").css("padding-right", "");
+                        reloadSalesTable();
                     } else {
                         executeResponseMessage(res.message, "Không thể chuyển trạng thái!", false);
                     }
