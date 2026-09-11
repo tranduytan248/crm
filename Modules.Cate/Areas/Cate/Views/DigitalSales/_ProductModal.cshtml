@@ -1,5 +1,7 @@
 ﻿@model Core.Cate.Models.RM_DigitalSalesProductModel
 
+@using TSFramework.Libs.Processors
+
 <div class="modal fade" id="modalProduct" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
     <div class="modal-dialog modal-md" role="document">
         <div class="modal-content">
@@ -19,45 +21,45 @@
                     @Html.HiddenFor(m => m.DigitalSalesID)
 
                     <div class="form-group mb-3">
-                        <label class="text-85 text-600 mb-1">Sản phẩm / Dịch vụ số <span class="text-danger">*</span></label>
-                        @Html.DropDownListFor(m => m.ProductServiceID, (List<SelectListItem>)ViewBag.ProductList, "-- Chọn sản phẩm dịch vụ số --", new { @class = "form-control form-control-sm select2", required = "required" })
+                        @Html.TitleFor(m => m.ProductServiceID, new { @class = "text-85 text-600 mb-1" })
+                        @Html.DropDownListFor(m => m.ProductServiceID, (List<SelectListItem>)ViewBag.ProductList, AppProcessor.Messagor.GetMessage("DigitalSalesProduct_ProductService_Option"), new { @class = "form-control form-control-sm select2", required = "required" })
                     </div>
 
                     <div class="row">
                         <div class="col-md-7 mb-3">
-                            <label class="text-85 text-600 mb-1">Gói cước / Quy mô</label>
-                            @Html.TextBoxFor(m => m.PackageName, new { @class = "form-control form-control-sm", placeholder = "Ví dụ: Gói Doanh nghiệp 500 người dùng, Gói 12 tháng..." })
+                            @Html.TitleFor(m => m.PackageName, new { @class = "text-85 text-600 mb-1" })
+                            @Html.TextBoxFor(m => m.PackageName, new { @class = "form-control form-control-sm", placeholder = AppProcessor.Messagor.GetMessage("DigitalSalesProduct_PackageName_Placeholder") })
                         </div>
                         <div class="col-md-5 mb-3">
-                            <label class="text-85 text-600 mb-1">Số lượng <span class="text-danger">*</span></label>
+                            @Html.TitleFor(m => m.Quantity, new { @class = "text-85 text-600 mb-1" })
                             @Html.TextBoxFor(m => m.Quantity, new { @class = "form-control form-control-sm", type = "number", min = "1", required = "required" })
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label class="text-85 text-600 mb-1">Doanh thu dự kiến (VNĐ)</label>
-                            @Html.TextBoxFor(m => m.ExpectedRevenue, new { @class = "form-control form-control-sm text-right", placeholder = "0", type = "number", step = "1000" })
+                            @Html.TitleFor(m => m.ExpectedRevenue, new { @class = "text-85 text-600 mb-1" })
+                            @Html.TextBoxFor(m => m.ExpectedRevenue, new { @class = "form-control form-control-sm text-right", placeholder = AppProcessor.Messagor.GetMessage("DigitalSales_Amount_Placeholder"), type = "number", step = "1000" })
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label class="text-85 text-600 mb-1">Doanh thu thực tế (sau ký HĐ)</label>
-                            @Html.TextBoxFor(m => m.ActualRevenue, new { @class = "form-control form-control-sm text-right", placeholder = "0", type = "number", step = "1000" })
+                            @Html.TitleFor(m => m.ActualRevenue, new { @class = "text-85 text-600 mb-1" })
+                            @Html.TextBoxFor(m => m.ActualRevenue, new { @class = "form-control form-control-sm text-right", placeholder = AppProcessor.Messagor.GetMessage("DigitalSales_Amount_Placeholder"), type = "number", step = "1000" })
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label class="text-85 text-600 mb-1">Thời hạn bắt đầu</label>
-                            <input type="text" id="ProdStartDate" name="StartDate" class="form-control form-control-sm date-picker" value="@(Model.StartDate.HasValue ? Model.StartDate.Value.ToString("dd/MM/yyyy") : "")" autocomplete="off" />
+                            @Html.TitleFor(m => m.StartDate, new { @class = "text-85 text-600 mb-1" })
+                            @Html.TextBoxFor(m => m.StartDate, "{0:dd/MM/yyyy}", new { id = "ProdStartDate", @class = "form-control form-control-sm date-picker", placeholder = AppProcessor.Messagor.GetMessage("DigitalSales_Date_Placeholder"), autocomplete = "off" })
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label class="text-85 text-600 mb-1">Thời hạn kết thúc</label>
-                            <input type="text" id="ProdEndDate" name="EndDate" class="form-control form-control-sm date-picker" value="@(Model.EndDate.HasValue ? Model.EndDate.Value.ToString("dd/MM/yyyy") : "")" autocomplete="off" />
+                            @Html.TitleFor(m => m.EndDate, new { @class = "text-85 text-600 mb-1" })
+                            @Html.TextBoxFor(m => m.EndDate, "{0:dd/MM/yyyy}", new { id = "ProdEndDate", @class = "form-control form-control-sm date-picker", placeholder = AppProcessor.Messagor.GetMessage("DigitalSales_Date_Placeholder"), autocomplete = "off" })
                         </div>
                     </div>
 
                     <div class="form-group mb-2">
-                        <label class="text-85 text-600 mb-1">Ghi chú</label>
+                        @Html.TitleFor(m => m.Note, new { @class = "text-85 text-600 mb-1" })
                         @Html.TextAreaFor(m => m.Note, 2, 50, new { @class = "form-control form-control-sm" })
                     </div>
                 </div>

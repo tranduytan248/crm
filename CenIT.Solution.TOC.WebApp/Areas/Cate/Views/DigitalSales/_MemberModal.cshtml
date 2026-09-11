@@ -374,14 +374,14 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text bg-white border-right-0 text-muted"><i class="fa fa-search"></i></span>
                                         </div>
-                                        <input type="text" id="searchEmployeeName" class="form-control toolbar-search-input border-left-0" placeholder="Tìm theo tên nhân sự...">
+                                        <input type="text" id="searchEmployeeName" class="form-control toolbar-search-input border-left-0" placeholder="@AppProcessor.Messagor.GetMessage("DigitalSalesMember_SearchEmployee_Placeholder")">
                                     </div>
                                 </div>
 
                                 <div class="col-md-5 mb-2 mb-md-0">
                                     <div class="d-flex align-items-center">
                                         <span class="text-secondary font-bold mr-2 text-nowrap text-85">Đơn vị:</span>
-                                        <select id="searchEmployeeUnit" class="form-control select2" data-placeholder="-- Tất cả đơn vị quản lý --">
+                                        <select id="searchEmployeeUnit" class="form-control select2" data-placeholder="@AppProcessor.Messagor.GetMessage("DigitalSalesMember_Unit_AllOption")">
                                             <option value="">-- Tất cả đơn vị quản lý --</option>
                                             @if (departments != null)
                                             {
@@ -491,7 +491,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text bg-white text-muted"><i class="fa fa-pen"></i></span>
                                     </div>
-                                    <input type="text" name="CustomRole" id="CustomRole" class="form-control form-control-sm" placeholder="Nhập vai trò khác hoặc ghi chú nhiệm vụ cụ thể nếu có (tùy chọn)...">
+                                    <input type="text" name="CustomRole" id="CustomRole" class="form-control form-control-sm" placeholder="@AppProcessor.Messagor.GetMessage("DigitalSalesMember_CustomRole_Placeholder")">
                                 </div>
                             </div>
                         </div>
@@ -522,10 +522,8 @@
                             </div>
 
                             <div>
-                                <label class="text-85 text-600 mb-1 text-secondary font-weight-bold">
-                                    <i class="fa fa-sticky-note text-secondary mr-1"></i> Ghi chú nội bộ
-                                </label>
-                                <textarea name="Note" id="Note" rows="2" class="form-control form-control-sm radius-1" placeholder="Nhập ghi chú thêm cho phân công nhân sự này nếu có..."></textarea>
+                                @Html.TitleFor(m => m.Note, new { @class = "text-85 text-600 mb-1 text-secondary font-weight-bold" })
+                                @Html.TextAreaFor(m => m.Note, new { id = "Note", rows = "2", @class = "form-control form-control-sm radius-1", placeholder = AppProcessor.Messagor.GetMessage("DigitalSalesMember_Note_Placeholder") })
                             </div>
                         </div>
                     </div>

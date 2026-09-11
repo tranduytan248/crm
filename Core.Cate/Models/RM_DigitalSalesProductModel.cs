@@ -10,30 +10,30 @@ namespace Core.Cate.Models
         public int DigitalSalesID { get; set; }
 
         [CustomRequired]
-        [CustomDisplayName("Sản phẩm / Dịch vụ số")]
+        [CustomDisplayName("DigitalSalesProduct_ProductService_Label")]
         public int ProductServiceID { get; set; }
         public string ProductServiceName { get; set; }
         public string ProductServiceCode { get; set; }
 
-        [CustomDisplayName("Doanh thu dự kiến (VNĐ)")]
+        [CustomDisplayName("DigitalSalesProduct_ExpectedRevenue_Label")]
         public decimal? ExpectedRevenue { get; set; }
 
-        [CustomDisplayName("Doanh thu thực tế (sau ký HĐ) (VNĐ)")]
+        [CustomDisplayName("DigitalSalesProduct_ActualRevenue_Label")]
         public decimal? ActualRevenue { get; set; }
 
-        [CustomDisplayName("Gói cước / Quy mô")]
+        [CustomDisplayName("DigitalSalesProduct_PackageName_Label")]
         public string PackageName { get; set; }
 
-        [CustomDisplayName("Số lượng")]
+        [CustomDisplayName("DigitalSalesProduct_Quantity_Label")]
         public int Quantity { get; set; } = 1;
 
-        [CustomDisplayName("Thời hạn bắt đầu")]
+        [CustomDisplayName("DigitalSalesProduct_StartDate_Label")]
         public DateTime? StartDate { get; set; }
 
-        [CustomDisplayName("Thời hạn kết thúc")]
+        [CustomDisplayName("DigitalSalesProduct_EndDate_Label")]
         public DateTime? EndDate { get; set; }
 
-        [CustomDisplayName("Ghi chú")]
+        [CustomDisplayName("DigitalSalesProduct_Note_Label")]
         public string Note { get; set; }
 
         public DateTime CreatedDate { get; set; }

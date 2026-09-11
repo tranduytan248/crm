@@ -10,77 +10,77 @@ namespace Core.Cate.Models
     {
         public int DigitalSalesID { get; set; }
 
-        [CustomDisplayName("Mã số")]
+        [CustomDisplayName("DigitalSales_Code_Label")]
         public string Code { get; set; }
 
         [CustomRequired]
-        [CustomDisplayName("Tên Cơ hội / Dự án")]
+        [CustomDisplayName("DigitalSales_Title_Label")]
         public string Title { get; set; }
 
         [CustomRequired]
-        [CustomDisplayName("Loại hình")]
+        [CustomDisplayName("DigitalSales_BusinessType_Label")]
         public byte BusinessType { get; set; } // 1: Cơ hội, 2: Dự án
         public string BusinessTypeName { get; set; }
 
         [CustomRequired]
-        [CustomDisplayName("Trạng thái")]
+        [CustomDisplayName("DigitalSales_Status_Label")]
         public int StatusID { get; set; }
         public string StatusCode { get; set; }
         public string StatusName { get; set; }
 
         [CustomRequired]
-        [CustomDisplayName("Khách hàng")]
+        [CustomDisplayName("DigitalSales_Customer_Label")]
         public int CustomerID { get; set; }
         public string CustomerName { get; set; }
 
-        [CustomDisplayName("Người liên hệ")]
+        [CustomDisplayName("DigitalSales_ContactPerson_Label")]
         public int? ContactPerson_ID { get; set; }
         public string ContactPersonName { get; set; }
         public string ContactPersonPhone { get; set; }
         public string ContactPersonEmail { get; set; }
 
-        [CustomDisplayName("Tổng doanh thu dự kiến (VNĐ)")]
+        [CustomDisplayName("DigitalSales_TotalExpectedRevenue_Label")]
         public decimal? TotalExpectedRevenue { get; set; }
 
-        [CustomDisplayName("Tổng doanh thu thực tế (sau ký HĐ) (VNĐ)")]
+        [CustomDisplayName("DigitalSales_TotalActualRevenue_Label")]
         public decimal? TotalActualRevenue { get; set; }
 
-        [CustomDisplayName("Xác suất thành công (%)")]
+        [CustomDisplayName("DigitalSales_ClosingProbability_Label")]
         public decimal? ClosingProbability { get; set; }
 
-        [CustomDisplayName("Ngày dự kiến hoàn thành")]
+        [CustomDisplayName("DigitalSales_ExpectedDate_Label")]
         public DateTime? ExpectedDate { get; set; }
 
-        [CustomDisplayName("Ngày bắt đầu")]
+        [CustomDisplayName("DigitalSales_StartDate_Label")]
         public DateTime? StartDate { get; set; }
 
-        [CustomDisplayName("Ngày hoàn thành")]
+        [CustomDisplayName("DigitalSales_EndDate_Label")]
         public DateTime? EndDate { get; set; }
 
-        [CustomDisplayName("Hợp đồng liên quan")]
+        [CustomDisplayName("DigitalSales_Contract_Label")]
         public int? ContractID { get; set; }
 
-        [CustomDisplayName("Số hợp đồng")]
+        [CustomDisplayName("DigitalSales_ContractNo_Label")]
         public string ContractNo { get; set; }
 
-        [CustomDisplayName("Giá trị hợp đồng")]
+        [CustomDisplayName("DigitalSales_ContractValue_Label")]
         public decimal? ContractValue { get; set; }
 
-        [CustomDisplayName("Ngày ký hợp đồng")]
+        [CustomDisplayName("DigitalSales_ContractSignDate_Label")]
         public DateTime? ContractSignDate { get; set; }
 
-        [CustomDisplayName("Nhân sự phụ trách")]
+        [CustomDisplayName("DigitalSales_AssignedEmployee_Label")]
         public int? AssignedEmployeeID { get; set; }
         public string AssignedEmployeeName { get; set; }
 
-        [CustomDisplayName("Bộ phận phụ trách")]
+        [CustomDisplayName("DigitalSales_Department_Label")]
         public int? DepartmentID { get; set; }
         public string DepartmentName { get; set; }
 
-        [CustomDisplayName("Ghi chú")]
+        [CustomDisplayName("DigitalSales_Note_Label")]
         public string Note { get; set; }
 
-        [CustomDisplayName("File đính kèm")]
+        [CustomDisplayName("DigitalSales_FileAttach_Label")]
         public string FileAttach { get; set; }
 
         public DateTime CreatedDate { get; set; }
@@ -126,13 +126,13 @@ namespace Core.Cate.Models
         public string CurrentBusinessTypeName { get; set; }
 
         [CustomRequired]
-        [CustomDisplayName("Trạng thái mới")]
+        [CustomDisplayName("DigitalSales_NewStatus_Label")]
         public int NewStatusID { get; set; }
 
-        [CustomDisplayName("Ghi chú / Lý do chuyển")]
+        [CustomDisplayName("DigitalSales_ChangeStatusNote_Label")]
         public string Note { get; set; }
 
-        [CustomDisplayName("File biên bản / Hợp đồng đính kèm")]
+        [CustomDisplayName("DigitalSales_ChangeStatusAttachment_Label")]
         public string AttachmentPath { get; set; }
 
         public List<SelectListItem> AvailableStatuses { get; set; } = new List<SelectListItem>();

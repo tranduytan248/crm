@@ -9,29 +9,29 @@ namespace Core.Cate.Models
         public int ProgressID { get; set; }
 
         [CustomRequired]
-        [CustomDisplayName("Quy trình")]
+        [CustomDisplayName("DigitalSalesWorkflow_Process_Label")]
         public int ProcessID { get; set; }
 
         public string ProcessName { get; set; }
 
         [CustomRequired]
-        [CustomDisplayName("Mã tiến trình")]
+        [CustomDisplayName("DigitalSalesWorkflow_ProgressCode_Label")]
         public string ProgressCode { get; set; }
 
         [CustomRequired]
-        [CustomDisplayName("Tên tiến trình")]
+        [CustomDisplayName("DigitalSalesWorkflow_ProgressName_Label")]
         public string ProgressName { get; set; }
 
-        [CustomDisplayName("Mô tả")]
+        [CustomDisplayName("DigitalSalesWorkflow_ProgressDescription_Label")]
         public string Description { get; set; }
 
-        [CustomDisplayName("Thời hạn (ngày)")]
+        [CustomDisplayName("DigitalSalesWorkflow_DefaultDurationDays_Label")]
         public int DefaultDurationDays { get; set; } = 3;
 
-        [CustomDisplayName("Thứ tự")]
+        [CustomDisplayName("DigitalSalesWorkflow_ProgressSortOrder_Label")]
         public int SortOrder { get; set; }
 
-        [CustomDisplayName("Kích hoạt")]
+        [CustomDisplayName("DigitalSalesWorkflow_ProgressIsActive_Label")]
         public bool IsActive { get; set; } = true;
     }
 }

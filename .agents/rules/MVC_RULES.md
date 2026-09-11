@@ -379,6 +379,34 @@ public ActionResult Add(RM_BusinessOpportunityModel model)
 4. **Chú thích, Placeholder, Cột bảng dữ liệu DataTable:**
    - Tiêu đề cột `<th>`: `@AppProcessor.Messagor.GetMessage("[Module]_[Field]_Header")` hoặc khai báo danh mục nhãn tương ứng.
 
+### 10.2.1. Metadata Model là nguồn duy nhất cho tiêu đề trường Form
+1. Mọi property được hiển thị trên Form **BẮT BUỘC** khai báo `CustomDisplayName` bằng `LabelKey` tồn tại trong bảng `Sys_Messages`; **NGHIÊM CẤM** truyền trực tiếp chuỗi tiếng Việt hoặc chuỗi hiển thị vào attribute:
+   ```csharp
+   // Đúng
+   [CustomRequired]
+   [CustomDisplayName("CustomerType_Label_Code")]
+   public string CustomerTypeCode { get; set; }
+
+   // Sai: hard-code nội dung hiển thị trong Model
+   [CustomDisplayName("Mã loại khách hàng")]
+   public string CustomerTypeCode { get; set; }
+   ```
+2. Label của control có model binding **BẮT BUỘC** dùng `@Html.TitleFor`; không viết lại cùng nội dung bằng `<label>` hoặc `GetMessage` trực tiếp trên View:
+   ```razor
+   @Html.TitleFor(model => model.CustomerTypeCode,
+       new { @class = "col-sm-3 col-form-label text-sm-right pr-0 font-bold" })
+   ```
+3. `TitleFor` lấy nội dung từ `[CustomDisplayName("LabelKey")]` và tự hiển thị dấu bắt buộc theo `[CustomRequired]`. Không tự nối `(*)` hoặc `<span class="text-danger">*</span>` trong label.
+4. Placeholder, `data-placeholder` và option hướng dẫn không phải label nên **BẮT BUỘC** lấy trực tiếp từ `AppProcessor.Messagor.GetMessage("LabelKey")`:
+   ```razor
+   @Html.TextBoxFor(model => model.CustomerTypeCode, new
+   {
+       @class = "form-control",
+       placeholder = AppProcessor.Messagor.GetMessage("CustomerType_Code_Placeholder")
+   })
+   ```
+5. Khi thêm hoặc đổi `LabelKey`, **BẮT BUỘC** kèm script SQL idempotent cập nhật `Sys_Messages` cho `LangCode = 'vi-VN'`; không được hoàn thành thay đổi nếu code tham chiếu key chưa tồn tại trong DB mục tiêu.
+
 ### 10.3. Quy tắc khai báo và sử dụng trong Controller (.cs)
 1. **Định nghĩa tiêu đề phân hệ (`_title`):**
    ```csharp

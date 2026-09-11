@@ -1,19 +1,34 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
+using TSFramework.Libs.Attributes;
 using TSFramework.Libs.Models.Base;
 
 namespace Core.Cate.Models
 {
     public class RM_DigitalSalesSearchModel : BaseModel
     {
+        [CustomDisplayName("DigitalSalesSearch_Keyword_Label")]
         public string Keyword { get; set; }
+
+        [CustomDisplayName("DigitalSalesSearch_BusinessType_Label")]
         public byte BusinessType { get; set; } // 0: Tất cả, 1: Cơ hội, 2: Dự án
+
+        [CustomDisplayName("DigitalSalesSearch_Status_Label")]
         public int StatusID { get; set; }
         public int CustomerID { get; set; }
+        [CustomDisplayName("DigitalSalesSearch_ProductService_Label")]
         public int ProductServiceID { get; set; }
+
+        [CustomDisplayName("DigitalSalesSearch_Department_Label")]
         public int DepartmentID { get; set; }
+
+        [CustomDisplayName("DigitalSalesSearch_Employee_Label")]
         public int EmployeeID { get; set; }
+
+        [CustomDisplayName("DigitalSalesSearch_FromDate_Label")]
         public string FromDate { get; set; }
+
+        [CustomDisplayName("DigitalSalesSearch_ToDate_Label")]
         public string ToDate { get; set; }
         public int PageNumber { get; set; } = 1;
         public int PageSize { get; set; } = 20;
