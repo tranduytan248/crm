@@ -143,6 +143,7 @@
     <Compile Include="Biz\RM_TaskAssigneeBiz.cs" />
     <Compile Include="Biz\RM_TaskBiz.cs" />
     <Compile Include="Biz\RM_TaskGroupBiz.cs" />
+    <Compile Include="Biz\RM_DigitalSalesCatalogBiz.cs" />
     <Compile Include="Biz\RM_TaskManagementBiz.cs" />
     <Compile Include="Biz\RM_TaskStatusBiz.cs" />
     <Compile Include="Biz\RM_TaskTypeBiz.cs" />
@@ -206,6 +207,7 @@
     <Compile Include="Caches\RM_TaskAssigneeCache.cs" />
     <Compile Include="Caches\RM_TaskCache.cs" />
     <Compile Include="Caches\RM_TaskGroupCache.cs" />
+    <Compile Include="Caches\RM_DigitalSalesCatalogCache.cs" />
     <Compile Include="Caches\RM_TaskManagementCache.cs" />
     <Compile Include="Caches\RM_TaskStatusCache.cs" />
     <Compile Include="Caches\RM_TaskTypeCache.cs" />
@@ -289,6 +291,7 @@
     <Compile Include="Models\RM_SalesTeamMembersModel.cs" />
     <Compile Include="Models\RM_StatusModel.cs" />
     <Compile Include="Models\RM_TaskGroupModel.cs" />
+    <Compile Include="Models\RM_DigitalSalesCatalogModel.cs" />
     <Compile Include="Models\RM_TaskModel.cs" />
     <Compile Include="Models\RM_TaskSearchModel.cs" />
     <Compile Include="Models\RM_TaskStatusModel.cs" />

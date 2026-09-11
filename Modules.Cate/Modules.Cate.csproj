@@ -197,6 +197,9 @@
     <Content Include="Areas\Cate\Views\RM_ExchangeHistory\ExchangeHistory.js" />
     <Content Include="Areas\Cate\Views\SalesTeamMembers\SalesTeamMembers.js" />
     <Content Include="Areas\Cate\Views\TaskGroup\TaskGroup.js" />
+    <Content Include="Areas\Cate\Views\DigitalSalesStatus\DigitalSalesStatus.js" />
+    <Content Include="Areas\Cate\Views\DigitalSalesProcess\DigitalSalesProcess.js" />
+    <Content Include="Contents\Modules\Cate\DigitalSalesCatalog.css" />
     <Content Include="Areas\Cate\Views\Task\Task.js" />
     <Content Include="Areas\Cate\Views\web.config" />
     <Content Include="Areas\Cate\Views\_ViewStart.cshtml" />
@@ -254,6 +257,8 @@
     <Compile Include="Areas\Cate\Controllers\SalesTeamMembersController.cs" />
     <Compile Include="Areas\Cate\Controllers\TaskController.cs" />
     <Compile Include="Areas\Cate\Controllers\TaskGroupController.cs" />
+    <Compile Include="Areas\Cate\Controllers\DigitalSalesStatusController.cs" />
+    <Compile Include="Areas\Cate\Controllers\DigitalSalesProcessController.cs" />
     <Compile Include="Areas\Cate\Controllers\TaskManagementController.cs" />
     <Compile Include="Areas\Cate\Data\ResultPageModel.cs" />
     <Compile Include="Areas\Cate\Enums\EnumRequestStatus.cs" />
@@ -350,6 +355,17 @@
     <Content Include="Areas\Cate\Views\TaskGroup\_Delete.cshtml" />
     <Content Include="Areas\Cate\Views\TaskGroup\_Edit.cshtml" />
     <Content Include="Areas\Cate\Views\TaskGroup\_TaskGroup.cshtml" />
+    <Content Include="Areas\Cate\Views\DigitalSalesStatus\Index.cshtml" />
+    <Content Include="Areas\Cate\Views\DigitalSalesStatus\_Add.cshtml" />
+    <Content Include="Areas\Cate\Views\DigitalSalesStatus\_Edit.cshtml" />
+    <Content Include="Areas\Cate\Views\DigitalSalesStatus\_Delete.cshtml" />
+    <Content Include="Areas\Cate\Views\DigitalSalesStatus\_Status.cshtml" />
+    <Content Include="Areas\Cate\Views\DigitalSalesProcess\Index.cshtml" />
+    <Content Include="Areas\Cate\Views\DigitalSalesProcess\_Add.cshtml" />
+    <Content Include="Areas\Cate\Views\DigitalSalesProcess\_Edit.cshtml" />
+    <Content Include="Areas\Cate\Views\DigitalSalesProcess\_Delete.cshtml" />
+    <Content Include="Areas\Cate\Views\DigitalSalesProcess\_Process.cshtml" />
+    <Content Include="Areas\Cate\Views\DigitalSalesProcess\_Progress.cshtml" />
     <Content Include="Areas\Cate\Views\Task\Index.cshtml" />
     <Content Include="Areas\Cate\Views\Task\_Add.cshtml" />
     <Content Include="Areas\Cate\Views\Task\_Delete.cshtml" />

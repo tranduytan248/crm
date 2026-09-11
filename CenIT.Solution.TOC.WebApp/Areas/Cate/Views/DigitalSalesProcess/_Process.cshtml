@@ -1,0 +1,22 @@
+@using System.Linq
+@using System.Collections.Generic
+@using TSFramework.Libs.Processors
+@model Core.Cate.Models.RM_DigitalSalesProcessModel
+@Html.AntiForgeryToken()
+@Html.HiddenFor(m => m.ProcessID)
+<div class="form-group row">
+    @Html.TitleFor(m => m.StatusID, new { @class = "col-sm-4 col-form-label text-sm-right pr-0 font-bold" })
+    <div class="col-sm-8">
+        <select class="form-control" id="StatusID" name="StatusID">
+            <option value="">-- Chọn trạng thái --</option>
+            @foreach (var group in (Model.Statuses ?? new List<Core.Cate.Models.RM_DigitalSalesStatusModel>()).GroupBy(x => new { x.BusinessType, x.BusinessTypeName })) {
+                <optgroup label="@group.Key.BusinessTypeName">@foreach (var item in group) { <option value="@item.StatusID" @(item.StatusID == Model.StatusID ? "selected=selected" : "")>@item.StatusName</option> }</optgroup>
+            }
+        </select>
+        @Html.ValidationMessageFor(m => m.StatusID, "", new { @class = "text-danger" })
+    </div>
+</div>
+<div class="form-group row">@Html.TitleFor(m => m.ProcessCode, new { @class = "col-sm-4 col-form-label text-sm-right pr-0 font-bold" })<div class="col-sm-8">@Html.TextBoxFor(m => m.ProcessCode, new { @class = "form-control text-uppercase", maxlength = "50", placeholder = "Ví dụ: CUSTOMER_APPROACH" })@Html.ValidationMessageFor(m => m.ProcessCode, "", new { @class = "text-danger" })</div></div>
+<div class="form-group row">@Html.TitleFor(m => m.ProcessName, new { @class = "col-sm-4 col-form-label text-sm-right pr-0 font-bold" })<div class="col-sm-8">@Html.TextBoxFor(m => m.ProcessName, new { @class = "form-control", maxlength = "250", placeholder = "Nhập tên quy trình mẫu" })@Html.ValidationMessageFor(m => m.ProcessName, "", new { @class = "text-danger" })</div></div>
+<div class="form-group row">@Html.TitleFor(m => m.Description, new { @class = "col-sm-4 col-form-label text-sm-right pr-0 font-bold" })<div class="col-sm-8">@Html.TextAreaFor(m => m.Description, 3, 1, new { @class = "form-control", maxlength = "1000", placeholder = "Mô tả quy trình mẫu" })@Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })</div></div>
+<div class="form-group row">@Html.TitleFor(m => m.SortOrder, new { @class = "col-sm-4 col-form-label text-sm-right pr-0 font-bold" })<div class="col-sm-3">@Html.TextBoxFor(m => m.SortOrder, new { @class = "form-control", type = "number", min = "0", step = "1" })@Html.ValidationMessageFor(m => m.SortOrder, "", new { @class = "text-danger" })</div><div class="col-sm-5 pt-2"><label>@Html.CheckBoxFor(m => m.IsActive) @Html.LabelFor(m => m.IsActive, new { @class = "font-bold mb-0" })</label></div></div>
