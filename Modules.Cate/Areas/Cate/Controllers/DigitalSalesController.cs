@@ -95,6 +95,20 @@ namespace Modules.Cate.Areas.Cate.Controllers
 
             var data = _salesCache.LoadList(out int total, model);
 
+            // Kiểm tra phân quyền sửa / xóa cho người dùng hiện tại
+            bool canSystemEdit = IsUserQTHT(User.UserName) || AppProcessor.Author.IsAllow(HttpContext, User.UserName, "Cate", "DigitalSales", "Edit");
+            bool canSystemDelete = IsUserQTHT(User.UserName) || AppProcessor.Author.IsAllow(HttpContext, User.UserName, "Cate", "DigitalSales", "Delete");
+
+            if (data != null && data.Count > 0)
+            {
+                foreach (var item in data)
+                {
+                    bool hasRecordPerm = HasDetailPermission(item, User.UserName);
+                    item.CanEdit = canSystemEdit && hasRecordPerm;
+                    item.CanDelete = canSystemDelete && hasRecordPerm;
+                }
+            }
+
             return Json(new
             {
                 draw = Convert.ToInt32(draw ?? "1"),
@@ -330,6 +344,15 @@ namespace Modules.Cate.Areas.Cate.Controllers
         [ActionType(Type = EnumActionType.Delete)]
         public ActionResult Delete(int id)
         {
+            if (!HasDetailPermission(id, User.UserName))
+            {
+                return Json(new
+                {
+                    status = false,
+                    message = GetAppMessage("DigitalSales_Msg_NoPermission", "Bạn không có quyền xóa hồ sơ này! Chỉ tài khoản QTHT, người tạo hoặc nhân sự được cấp quyền cập nhật trạng thái mới được thực hiện.")
+                });
+            }
+
             var result = _salesCache.Delete(id, User.UserName);
             if (result > 0)
             {
@@ -1390,29 +1413,42 @@ namespace Modules.Cate.Areas.Cate.Controllers
             {
                 if (string.IsNullOrWhiteSpace(userName)) return false;
 
-                // 1. Đối với những tài khoản được phân quyền QTHT thì sẽ có quyền thao tác toàn bộ các chức năng
+                // 1. Quản trị hệ thống (QTHT) có toàn quyền
                 if (IsUserQTHT(userName)) return true;
 
-                // 2. Đối với những người được check quyền cập nhật trạng thái
                 if (sales != null)
                 {
+                    // 2. Người tạo hồ sơ
+                    if (!string.IsNullOrEmpty(sales.CreatedBy) && sales.CreatedBy.Equals(userName, StringComparison.OrdinalIgnoreCase))
+                    {
+                        return true;
+                    }
+
                     var currentUser = _userCache.GetByUserName(userName);
                     var currentUserId = currentUser?.UserId;
 
-                    if (sales.Members != null && sales.Members.Count > 0)
+                    // 3. Nhân sự phụ trách / AM chủ trì
+                    if (currentUserId.HasValue && currentUserId.Value > 0 && sales.AssignedEmployeeID == currentUserId.Value)
                     {
-                        var hasStatusPermission = sales.Members.Any(m =>
+                        return true;
+                    }
+
+                    // 4. Những người được check quyền cập nhật trạng thái (IsAM = true)
+                    var members = sales.Members;
+                    if ((members == null || members.Count == 0) && sales.DigitalSalesID > 0)
+                    {
+                        members = _salesCache.GetMembersBySalesID(sales.DigitalSalesID);
+                    }
+
+                    if (members != null && members.Count > 0)
+                    {
+                        var hasStatusPermission = members.Any(m =>
                             m.IsAM && (
                                 (!string.IsNullOrEmpty(m.UserName) && m.UserName.Equals(userName, StringComparison.OrdinalIgnoreCase)) ||
                                 (currentUserId.HasValue && currentUserId.Value > 0 && m.UserID == currentUserId.Value)
                             )
                         );
                         if (hasStatusPermission) return true;
-                    }
-
-                    if (currentUserId.HasValue && currentUserId.Value > 0 && sales.AssignedEmployeeID == currentUserId.Value)
-                    {
-                        return true;
                     }
                 }
             }

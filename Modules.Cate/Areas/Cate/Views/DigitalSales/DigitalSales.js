@@ -60,41 +60,20 @@ function initTableDigitalSales() {
         columns: [
             {
                 data: null,
-                className: "text-center",
+                className: "text-center align-middle",
+                orderable: false,
                 render: function (data, type, row, meta) {
                     return meta.row + meta.settings._iDisplayStart + 1;
                 }
             },
             {
-                data: "Code",
+                data: null,
+                className: "align-middle",
                 render: function (data, type, row) {
-                    return '<a href="' + _digitalSalesUrls.detail + '/' + row.DigitalSalesID + '" class="font-weight-bold text-primary">' + (data || '—') + '</a>';
-                }
-            },
-            {
-                data: "Title",
-                render: function (data, type, row) {
-                    var html = '<a href="' + _digitalSalesUrls.detail + '/' + row.DigitalSalesID + '" class="font-weight-bold text-dark text-95 d-block">' + data + '</a>';
-                    if (row.ProductServiceNames) {
-                        html += '<small class="text-secondary"><i class="fa fa-tag mr-1"></i>' + row.ProductServiceNames + '</small>';
-                    }
-                    return html;
-                }
-            },
-            {
-                data: "BusinessType",
-                className: "text-center",
-                render: function (data, type, row) {
-                    if (data === 2) {
-                        return '<span class="badge badge-success px-2 py-1">Dự án</span>';
-                    }
-                    return '<span class="badge badge-primary px-2 py-1">Cơ hội</span>';
-                }
-            },
-            {
-                data: "StatusName",
-                className: "text-center",
-                render: function (data, type, row) {
+                    var badgeType = row.BusinessType === 2
+                        ? '<span class="badge badge-success px-2 py-1 mr-1"><i class="fa fa-project-diagram mr-1"></i>Dự án</span>'
+                        : '<span class="badge badge-primary px-2 py-1 mr-1"><i class="fa fa-lightbulb mr-1"></i>Cơ hội</span>';
+
                     var badgeClass = "badge-secondary";
                     if (row.StatusID === 1) badgeClass = "badge-secondary";
                     else if (row.StatusID === 2) badgeClass = "badge-info";
@@ -103,63 +82,101 @@ function initTableDigitalSales() {
                     else if (row.StatusID === 8) badgeClass = "badge-success";
                     else badgeClass = "badge-warning text-dark";
 
-                    return '<span class="badge ' + badgeClass + ' px-2 py-1">' + (data || '—') + '</span>';
-                }
-            },
-            {
-                data: "CustomerName",
-                render: function (data, type, row) {
-                    var html = '<span class="font-weight-bold">' + (data || '—') + '</span>';
-                    if (row.ContactPersonName) {
-                        html += '<br/><small class="text-secondary">' + row.ContactPersonName + '</small>';
+                    var badgeStatus = '<span class="badge ' + badgeClass + ' px-2 py-1">' + (row.StatusName || '—') + '</span>';
+
+                    var html = '<div class="mb-1 d-flex align-items-center flex-wrap">' +
+                        badgeType + ' ' + badgeStatus +
+                        '<span class="badge bgc-grey-l3 text-secondary-d3 ml-1 font-mono">' + (row.Code || '—') + '</span>' +
+                        '</div>';
+
+                    html += '<a href="' + _digitalSalesUrls.detail + '/' + row.DigitalSalesID + '" class="font-weight-bold text-primary text-95 d-block" title="Xem chi tiết 360 độ">' +
+                        row.Title + '</a>';
+
+                    if (row.ProductServiceNames) {
+                        html += '<div class="text-85 text-secondary mt-1"><i class="fa fa-tags text-purple mr-1"></i>' + row.ProductServiceNames + '</div>';
                     }
                     return html;
                 }
             },
             {
-                data: "AssignedEmployeeName",
+                data: null,
+                className: "align-middle",
                 render: function (data, type, row) {
-                    return '<span class="text-dark">' + (data || '—') + '</span>';
-                }
-            },
-            {
-                data: "TotalExpectedRevenue",
-                className: "text-right font-weight-bold text-primary",
-                render: function (data) {
-                    return data ? Number(data).toLocaleString('vi-VN') : '0';
-                }
-            },
-            {
-                data: "TotalActualRevenue",
-                className: "text-right font-weight-bold text-success",
-                render: function (data) {
-                    return data ? Number(data).toLocaleString('vi-VN') : '0';
-                }
-            },
-            {
-                data: "ProgressPercentage",
-                className: "text-center",
-                render: function (data, type, row) {
-                    var percent = data || 0;
-                    var colorClass = percent >= 100 ? "bgc-success" : (percent >= 50 ? "bgc-primary" : "bgc-warning");
-                    return '<div class="d-flex align-items-center justify-content-center">' +
-                        '<div class="progress flex-grow-1 mr-2" style="height: 8px;">' +
-                        '<div class="progress-bar ' + colorClass + '" style="width:' + percent + '%"></div>' +
-                        '</div>' +
-                        '<span class="text-80 font-weight-bold">' + percent + '%</span>' +
-                        '</div>';
+                    var html = '';
+                    if (row.CustomerName) {
+                        html += '<div class="font-weight-bold text-dark-m1"><i class="fa fa-building text-primary-m1 mr-1"></i>' + row.CustomerName + '</div>';
+                    } else {
+                        html += '<div class="text-muted">—</div>';
+                    }
+                    if (row.ContactPersonName) {
+                        html += '<div class="text-85 text-secondary mt-1"><i class="fa fa-user-circle text-secondary mr-1"></i>' + row.ContactPersonName;
+                        if (row.ContactPersonPhone) {
+                            html += ' <span class="text-muted">(' + row.ContactPersonPhone + ')</span>';
+                        }
+                        html += '</div>';
+                    }
+                    return html;
                 }
             },
             {
                 data: null,
-                className: "text-center",
+                className: "align-middle",
                 render: function (data, type, row) {
-                    return '<div class="action-buttons">' +
-                        '<a href="' + _digitalSalesUrls.detail + '/' + row.DigitalSalesID + '" class="text-primary mr-2" title="Xem chi tiết 360 độ"><i class="fa fa-eye"></i></a>' +
-                        '<a href="javascript:void(0);" onclick="openChangeStatusModal(' + row.DigitalSalesID + ');" class="text-warning-d2 mr-2" title="Chuyển trạng thái"><i class="fa fa-exchange-alt"></i></a>' +
-                        '<a href="javascript:void(0);" onclick="openEditSalesModal(' + row.DigitalSalesID + ');" class="text-info mr-2" title="Chỉnh sửa"><i class="fa fa-edit"></i></a>' +
-                        '<a href="javascript:void(0);" onclick="deleteSales(' + row.DigitalSalesID + ');" class="text-danger" title="Xóa"><i class="fa fa-trash-alt"></i></a>' +
+                    var html = '';
+                    if (row.AssignedEmployeeName) {
+                        html += '<div class="font-weight-bold text-dark"><i class="fa fa-user-tie text-success mr-1"></i>' + row.AssignedEmployeeName + '</div>';
+                    } else {
+                        html += '<div class="text-muted">—</div>';
+                    }
+                    if (row.DepartmentName) {
+                        html += '<div class="text-85 text-muted mt-1"><i class="fa fa-sitemap mr-1"></i>' + row.DepartmentName + '</div>';
+                    }
+                    return html;
+                }
+            },
+            {
+                data: null,
+                className: "text-right align-middle",
+                render: function (data, type, row) {
+                    var expRev = row.TotalExpectedRevenue != null ? Number(row.TotalExpectedRevenue).toLocaleString('vi-VN') : '0';
+                    var actRev = row.TotalActualRevenue != null ? Number(row.TotalActualRevenue).toLocaleString('vi-VN') : '0';
+                    var prob = row.ClosingProbability != null ? row.ClosingProbability : 0;
+
+                    var html = '<div class="text-90">' +
+                        '<span class="text-secondary">Dự kiến:</span> <span class="font-weight-bold text-primary">' + expRev + ' đ</span>' +
                         '</div>';
+                    html += '<div class="text-90 mt-1">' +
+                        '<span class="text-secondary">Thực tế:</span> <span class="font-weight-bold text-success">' + actRev + ' đ</span>' +
+                        '</div>';
+                    if (prob > 0) {
+                        var probColor = prob >= 70 ? 'badge-success' : (prob >= 40 ? 'badge-warning text-dark' : 'badge-danger');
+                        html += '<div class="mt-1"><span class="badge ' + probColor + ' px-1 text-80">Xác suất: ' + prob + '%</span></div>';
+                    }
+                    return html;
+                }
+            },
+            {
+                data: null,
+                className: "text-center align-middle text-nowrap",
+                orderable: false,
+                render: function (data, type, row) {
+                    var html = '<div class="action-buttons">';
+                    var hasAction = false;
+                    if (row.CanEdit) {
+                        hasAction = true;
+                        html += '<a href="javascript:void(0);" onclick="openEditSalesModal(' + row.DigitalSalesID + ');" class="btn btn-xs btn-outline-info btn-h-outline-info btn-a-outline-info radius-1 px-2 py-1 mr-1" title="Chỉnh sửa">' +
+                            '<i class="fa fa-edit mr-1"></i>Sửa</a>';
+                    }
+                    if (row.CanDelete) {
+                        hasAction = true;
+                        html += '<a href="javascript:void(0);" onclick="deleteSales(' + row.DigitalSalesID + ');" class="btn btn-xs btn-outline-danger btn-h-outline-danger btn-a-outline-danger radius-1 px-2 py-1" title="Xóa">' +
+                            '<i class="fa fa-trash-alt mr-1"></i>Xóa</a>';
+                    }
+                    if (!hasAction) {
+                        html += '<span class="text-muted text-85 font-italic"><i class="fa fa-lock mr-1"></i>Chỉ xem</span>';
+                    }
+                    html += '</div>';
+                    return html;
                 }
             }
         ],
