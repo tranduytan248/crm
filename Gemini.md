@@ -452,6 +452,10 @@ Mỗi khi tạo mới hoặc chỉnh sửa file:
    Sau đó sao chép file `.dll` sang `publish_source\bin` và `CenIT.Solution.TOC.WebApp\bin`.
 3. Chạy script kiểm tra và bảo đảm 100% file có **UTF-8 with BOM**.
 4. Chạy toàn bộ test suites (`Run-Tests.ps1`, `Run-ManagementTests.ps1`) và chỉ hoàn thành khi đạt **100% PASS**.
+5. **Quy định về Git Branch & Upcode Demo:**
+   - **CẤM TUYỆT ĐỐI** tự động merge hoặc push code sang nhánh `upcode-demo` trong quá trình phát triển hoặc sửa lỗi thông thường.
+   - Mọi commit và push hàng ngày **CHỈ ĐƯỢC PHÉP** thực hiện trên nhánh làm việc hiện tại (`crm_v2`).
+   - **CHỈ ĐƯỢC PHÉP** merge hoặc push sang `upcode-demo` KHI VÀ CHỈ KHI người dùng có chỉ định rõ ràng bằng văn bản (ví dụ: *"upcode demo"*, *"đẩy code demo"*, *"deploy demo"*).
 
 ---
 
@@ -461,6 +465,7 @@ Mỗi khi tạo mới hoặc chỉnh sửa file:
 
 | AI / Lập trình viên bao biện | Thực tế & Hậu quả thực tế | Quy tắc bắt buộc thi hành |
 | :--- | :--- | :--- |
+| *"Tiện tay merge và push luôn sang nhánh `upcode-demo` cho server demo cập nhật."* | Vi phạm quy trình kiểm soát release, đẩy mã nguồn đang trong giai đoạn dev/sửa lỗi lên môi trường demo mà chưa được người dùng kiểm duyệt. | **CẤM TỰ Ý PUSH SANG UPCODE-DEMO**. Mọi push thông thường chỉ thực hiện trên `crm_v2`. Chỉ tương tác với `upcode-demo` khi người dùng yêu cầu rõ ràng. |
 | *"Gõ thẳng chuỗi tiếng Việt vào View hoặc Controller cho tiện, khai báo Sys_Messages mất công."* | Làm mất khả năng đa ngôn ngữ, khó tùy biến nội dung theo từng khách hàng/triển khai, không đồng bộ thông điệp toàn hệ thống, dễ lỗi font mojibake. | **BẮT BUỘC 100% dùng App_Message**. Mọi chuỗi text trên View và thông báo trong Controller phải được khai báo trong `Sys_Messages` và gọi qua `AppProcessor.Messagor.GetMessage`. |
 | *"Dùng thẻ `<input>` hoặc `<label>` thuần cho nhanh, viết `@Html.*` rườm rà."* | Làm mất cơ chế Model Binding 2 chiều, mất thông báo validation đỏ khi nhập sai, mất dấu sao đỏ `(*)` bắt buộc. | **BẮT BUỘC 100% dùng `@Html.*`**. Chỉ dùng thẻ HTML thuần khi cả source code không có helper tương ứng. |
 | *"Lồng thẻ `<h1>` và `<div class="page-header">` vào `@section PageTitle` cho đẹp và rõ ràng."* | Phá vỡ flexbox layout của `_PageContent.cshtml`. Khi `BE-ConfigBreadcrumb.js` chạy, nó sẽ xóa sạch nội dung, làm giật màn hình (FOUC). | **`@section PageTitle` CHỈ ĐƯỢC CHỨA `@ViewBag.Title`**. Mọi badge, nút thao tác phải đưa vào `@section PageAction`. |
