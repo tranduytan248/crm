@@ -32,7 +32,7 @@
 
         <div class="Search_Box">
             <label class="font-bold text-sm-right">
-                Trạng thái
+                @AppProcessor.Messagor.GetMessage("DigitalSales_Status")
             </label>
             <div>
                 @Html.DropDownListFor(model => model.StatusID, Model.ListStatus, "-- Chọn trạng thái --", new { @class = "form-control", id = "StatusID" })
@@ -115,8 +115,14 @@
             }
         });
 
-        $('#SearchDigitalSales').on('change', 'select:not(#DepartmentID)', function () {
+        $('#SearchDigitalSales').on('change', 'select:not(#DepartmentID):not(#BusinessType)', function () {
             reloadSalesTable();
+        });
+
+        // Load danh sách trạng thái theo Loại hình (Cơ hội kinh doanh / Dự án)
+        $('#BusinessType').change(function () {
+            var businessType = $(this).val();
+            loadStatusesByBusinessType(businessType);
         });
 
         // Load danh sách nhân sự phụ trách (AM) theo phòng ban thuộc TTKDGP
@@ -135,6 +141,10 @@
                             $('<option>').val(item.Value).text(item.Text)
                         );
                     });
+                }
+                $employee.trigger("chosen:updated");
+                if ($.fn.select2) {
+                    $employee.trigger("change.select2");
                 }
                 reloadSalesTable();
             });
