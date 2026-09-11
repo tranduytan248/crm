@@ -56,6 +56,15 @@
                         }
                     }
 
+                    var amId = parseInt($form.find('select[name="AssignedEmployeeID"]').val()) || 0;
+                    if (amId <= 0) {
+                        $form.find('[data-valmsg-for="AssignedEmployeeID"]').text('Vui lòng chọn nhân sự phụ trách / AM chủ trì!').show();
+                        if (!hasError) {
+                            hasError = true;
+                            errorMsg = "Vui lòng chọn nhân sự phụ trách / AM chủ trì!";
+                        }
+                    }
+
                     if (hasError) {
                         // Bắn ngay Toastr cảnh báo rõ ràng
                         executeResponseMessage(errorMsg, "Vui lòng kiểm tra và điền đầy đủ các trường bắt buộc (*)", false);

@@ -69,6 +69,7 @@ namespace Core.Cate.Models
         [CustomDisplayName("DigitalSales_ContractSignDate_Label")]
         public DateTime? ContractSignDate { get; set; }
 
+        [CustomRequired]
         [CustomDisplayName("DigitalSales_AssignedEmployee_Label")]
         public int? AssignedEmployeeID { get; set; }
         public string AssignedEmployeeName { get; set; }

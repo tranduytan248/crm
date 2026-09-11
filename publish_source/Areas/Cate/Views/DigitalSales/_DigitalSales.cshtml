@@ -58,6 +58,7 @@
     <div class="col-md-6 mb-3">
         @Html.TitleFor(m => m.AssignedEmployeeID, new { @class = "font-bold text-secondary-d2 mb-1 d-block text-90" })
         @Html.DropDownListFor(m => m.AssignedEmployeeID, Model.ListEmployee, AppProcessor.Messagor.GetMessage("DigitalSales_AssignedEmployee_Option"), new { @class = "form-control form-control-sm select2" })
+        @Html.ValidationMessageFor(m => m.AssignedEmployeeID, "", new { @class = "text-danger text-85 font-weight-bold" })
         <input type="hidden" id="DepartmentID_Form" name="DepartmentID" value="@Model.DepartmentID" />
     </div>
 

@@ -32,7 +32,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
         private readonly SysUserCache _userCache;
         private readonly SysUserBoPhanCache _userBoPhanCache;
 
-        private readonly string _title = "Danh sách kinh doanh sản phẩm dịch vụ số";
+        private readonly string _title = "Cơ hội kinh doanh SPDV Số";
         private readonly string _folderUpload = ConfigurationManager.AppSettings["AppImageRoot_Path"] ?? "/Contents/File";
         private string GetAppMessage(string labelKey, string defaultMessage)
         {
@@ -149,6 +149,11 @@ namespace Modules.Cate.Areas.Cate.Controllers
                 ModelState.AddModelError("Title", GetAppMessage("DigitalSales_Msg_TitleRequired", "Vui lòng nhập tên cơ hội / dự án!"));
             }
 
+            if (!model.AssignedEmployeeID.HasValue || model.AssignedEmployeeID.Value <= 0)
+            {
+                ModelState.AddModelError("AssignedEmployeeID", GetAppMessage("DigitalSales_Msg_AMRequired", "Vui lòng chọn nhân sự phụ trách / AM chủ trì!"));
+            }
+
             if (!ModelState.IsValid)
             {
                 PrepareSalesDropdowns(model);
@@ -260,6 +265,11 @@ namespace Modules.Cate.Areas.Cate.Controllers
             if (string.IsNullOrWhiteSpace(model.Title))
             {
                 ModelState.AddModelError("Title", GetAppMessage("DigitalSales_Msg_TitleRequired", "Vui lòng nhập tên cơ hội / dự án!"));
+            }
+
+            if (!model.AssignedEmployeeID.HasValue || model.AssignedEmployeeID.Value <= 0)
+            {
+                ModelState.AddModelError("AssignedEmployeeID", GetAppMessage("DigitalSales_Msg_AMRequired", "Vui lòng chọn nhân sự phụ trách / AM chủ trì!"));
             }
 
             if (!ModelState.IsValid)

@@ -181,35 +181,53 @@ function initTableDigitalSales() {
 }
 
 function executeResponseMessage(message, defaultText, isSuccess) {
-    if (!message && defaultText) {
-        message = defaultText;
-    }
-    if (message && typeof message === "string") {
-        if (message.indexOf("$.aceToaster") !== -1 || message.indexOf("toastr") !== -1 || message.indexOf("eval") !== -1) {
+    var msg = message || defaultText;
+    if (!msg) return;
+
+    if (typeof msg === "string") {
+        var trimmed = msg.trim();
+        // Nếu là đoạn mã JavaScript trả về từ server (showNotify, $.aceToaster, toastr, alert, v.v.)
+        if (trimmed.indexOf("showNotify") !== -1 ||
+            trimmed.indexOf("$.aceToaster") !== -1 ||
+            trimmed.indexOf("toastr") !== -1 ||
+            trimmed.indexOf("alert(") !== -1 ||
+            trimmed.indexOf("eval(") !== -1) {
             try {
-                eval(message);
+                eval(trimmed);
                 return;
             } catch (e) {
                 console.error("Execute message script error:", e);
             }
         }
     }
-    if (typeof $.aceToaster !== "undefined") {
+
+    // Nếu là chuỗi text thông báo thông thường:
+    if (typeof showNotify === "function") {
+        showNotify(
+            isSuccess ? "Thành công" : "Cảnh báo",
+            isSuccess ? "fa fa-check-circle" : "fa fa-exclamation-triangle",
+            msg,
+            "",
+            "",
+            isSuccess ? "success" : "danger",
+            "tr"
+        );
+    } else if (typeof toastr !== "undefined") {
+        if (isSuccess) {
+            toastr.success(msg);
+        } else {
+            toastr.error(msg);
+        }
+    } else if (typeof $.aceToaster !== "undefined") {
         $.aceToaster.add({
             placement: 'tr',
-            body: "<div class='p-3'>" + (message || defaultText) + "</div>",
+            body: "<div class='p-3'>" + msg + "</div>",
             width: '420px',
             delay: 4000,
             className: isSuccess ? 'bgc-success-d2 text-white' : 'bgc-danger-d2 text-white'
         });
-    } else if (typeof toastr !== "undefined") {
-        if (isSuccess) {
-            toastr.success(message || defaultText);
-        } else {
-            toastr.error(message || defaultText);
-        }
     } else {
-        alert(message || defaultText);
+        alert(msg);
     }
 }
 
