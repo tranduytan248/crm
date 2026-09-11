@@ -44,7 +44,7 @@
                         </div>
 
                         <!-- 2. KHÁCH HÀNG / DOANH NGHIỆP -->
-                        <div class="col-md-12 mb-3">
+                        <div class="col-md-6 mb-3">
                             <label class="font-bold text-secondary-d2 mb-1 d-block text-90" for="CustomerID">
                                 <i class="fa fa-building text-primary mr-1"></i> Khách hàng / Doanh nghiệp <span class="text-danger">(*)</span>
                             </label>
@@ -65,18 +65,20 @@
                                 </div>
                             </div>
                             @Html.ValidationMessageFor(m => m.CustomerID, "", new { @class = "text-danger text-85" })
-
-                            <!-- Thẻ tóm tắt thông tin khách hàng được chọn -->
-                            <div id="customerInfoCard" class="card border-1 brc-primary-m3 bgc-primary-l4 radius-1 p-2 mt-2 shadow-sm" style="display: none;"></div>
                         </div>
 
                         <!-- 3. PHÂN CÔNG AM CHỦ TRÌ -->
-                        <div class="col-md-12 mb-3">
+                        <div class="col-md-6 mb-3">
                             <label class="font-bold text-secondary-d2 mb-1 d-block text-90" for="AssignedEmployeeID">
                                 <i class="fa fa-user-shield text-success mr-1"></i> Nhân sự AM chủ trì
                             </label>
                             @Html.DropDownListFor(m => m.AssignedEmployeeID, Model.ListEmployee, "-- Chọn AM chủ trì --", new { @class = "form-control form-control-sm select2" })
                             @Html.HiddenFor(m => m.DepartmentID, new { id = "DepartmentID" })
+                        </div>
+
+                        <!-- Thẻ tóm tắt thông tin khách hàng được chọn -->
+                        <div class="col-md-12">
+                            <div id="customerInfoCard" class="card border-1 brc-primary-m3 bgc-primary-l4 radius-1 p-2 mb-3 shadow-sm" style="display: none;"></div>
                         </div>
 
                         <input type="hidden" name="ClosingProbability" value="50" />
