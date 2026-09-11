@@ -17,7 +17,36 @@
             Hồ sơ mới mặc định thuộc loại hình <strong>Cơ hội kinh doanh</strong> với trạng thái <strong>Chưa nắm bắt</strong>. Sau khi tiếp cận khách hàng và có thông tin SPDV số, bạn có thể chuyển đổi thành <strong>Dự án</strong>.
         </div>
     </div>
-}
+<style>
+    /* Đồng bộ chiều cao chuẩn 38px cho ô Khách hàng và Dropdown Select2 AM chủ trì */
+    #bodyForm .input-group > .form-control {
+        height: 38px !important;
+        font-size: 0.9rem;
+    }
+    #bodyForm .input-group > .input-group-append > .btn {
+        height: 38px !important;
+        font-size: 0.9rem;
+        display: inline-flex;
+        align-items: center;
+    }
+    #bodyForm .select2-container .select2-selection--single {
+        height: 38px !important;
+        border: 1px solid #ced4da;
+        border-radius: 0.25rem;
+    }
+    #bodyForm .select2-container--default .select2-selection--single .select2-selection__rendered {
+        line-height: 36px !important;
+        font-size: 0.9rem;
+        padding-left: 0.75rem;
+    }
+    #bodyForm .select2-container--default .select2-selection--single .select2-selection__arrow {
+        height: 36px !important;
+    }
+    #bodyForm .select2-container--default .select2-selection--single .select2-selection__clear {
+        height: 36px !important;
+        line-height: 36px !important;
+    }
+</style>
 
 <div class="row">
     <!-- 1. TIÊU ĐỀ VÀ MÃ HỒ SƠ -->
@@ -39,14 +68,14 @@
         <input type="hidden" name="ContactPerson_ID" id="ContactPerson_ID_Form" value="@Model.ContactPerson_ID" />
 
         <div class="input-group">
-            <input type="text" id="CustomerNameDisplay_Form" class="form-control form-control-sm font-bold text-primary-d2 bgc-grey-l5" 
+            <input type="text" id="CustomerNameDisplay_Form" class="form-control font-bold text-primary-d2 bgc-grey-l5" 
                    placeholder="@AppProcessor.Messagor.GetMessage("DigitalSales_Customer_Placeholder")" readonly="readonly"
                    value="@(Model.CustomerID > 0 ? Model.CustomerName : "")" />
             <div class="input-group-append">
-                <button type="button" class="btn btn-sm btn-primary font-bold px-3" onclick="openCustomerLookupModal_Form();">
+                <button type="button" class="btn btn-primary font-bold px-3" onclick="openCustomerLookupModal_Form();">
                     <i class="fa fa-search mr-1"></i> Chọn khách hàng
                 </button>
-                <button type="button" class="btn btn-sm btn-outline-danger" id="btnClearCustomer_Form" onclick="clearSelectedCustomer_Form();" title="Bỏ chọn" style="@(Model.CustomerID > 0 ? "" : "display:none;")">
+                <button type="button" class="btn btn-outline-danger" id="btnClearCustomer_Form" onclick="clearSelectedCustomer_Form();" title="Bỏ chọn" style="@(Model.CustomerID > 0 ? "" : "display:none;")">
                     <i class="fa fa-times"></i>
                 </button>
             </div>
@@ -57,7 +86,7 @@
     <!-- 3. PHÂN CÔNG AM CHỦ TRÌ -->
     <div class="col-md-6 mb-3">
         @Html.TitleFor(m => m.AssignedEmployeeID, new { @class = "font-bold text-secondary-d2 mb-1 d-block text-90" })
-        @Html.DropDownListFor(m => m.AssignedEmployeeID, Model.ListEmployee, AppProcessor.Messagor.GetMessage("DigitalSales_AssignedEmployee_Option"), new { @class = "form-control form-control-sm select2" })
+        @Html.DropDownListFor(m => m.AssignedEmployeeID, Model.ListEmployee, AppProcessor.Messagor.GetMessage("DigitalSales_AssignedEmployee_Option"), new { @class = "form-control select2" })
         @Html.ValidationMessageFor(m => m.AssignedEmployeeID, "", new { @class = "text-danger text-85 font-weight-bold" })
         <input type="hidden" id="DepartmentID_Form" name="DepartmentID" value="@Model.DepartmentID" />
     </div>
