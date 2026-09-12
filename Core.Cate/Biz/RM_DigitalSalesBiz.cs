@@ -98,27 +98,83 @@ namespace Core.Cate.Biz
         public bool ToggleKeyProject(int id, bool isKeyProject, string userName)
         {
             if (id <= 0) return false;
-            var res = AppProcessor.ProcedureProvider.Execute(
-                _spToggleKeyProject,
-                DATA_PROVIDER_NAME,
-                id,
-                isKeyProject,
-                userName
-            );
-            return res.GetValueOrDefault(0) > 0;
+            try
+            {
+                var res = AppProcessor.ProcedureProvider.Execute(
+                    _spToggleKeyProject,
+                    DATA_PROVIDER_NAME,
+                    id,
+                    isKeyProject,
+                    userName
+                );
+                if (res.GetValueOrDefault(0) > 0) return true;
+
+                var scalar = AppProcessor.ProcedureProvider.ExecuteScalar(
+                    _spToggleKeyProject,
+                    DATA_PROVIDER_NAME,
+                    id,
+                    isKeyProject,
+                    userName
+                );
+                if (scalar != null && Convert.ToInt32(scalar) > 0) return true;
+            }
+            catch
+            {
+                try
+                {
+                    var scalar = AppProcessor.ProcedureProvider.ExecuteScalar(
+                        _spToggleKeyProject,
+                        DATA_PROVIDER_NAME,
+                        id,
+                        isKeyProject,
+                        userName
+                    );
+                    if (scalar != null && Convert.ToInt32(scalar) > 0) return true;
+                }
+                catch { }
+            }
+            return false;
         }
 
         public bool ToggleFollow(int id, bool isFollowed, string userName)
         {
             if (id <= 0 || string.IsNullOrEmpty(userName)) return false;
-            var res = AppProcessor.ProcedureProvider.Execute(
-                _spToggleFollow,
-                DATA_PROVIDER_NAME,
-                id,
-                userName,
-                isFollowed
-            );
-            return res.GetValueOrDefault(0) > 0;
+            try
+            {
+                var res = AppProcessor.ProcedureProvider.Execute(
+                    _spToggleFollow,
+                    DATA_PROVIDER_NAME,
+                    id,
+                    userName,
+                    isFollowed
+                );
+                if (res.GetValueOrDefault(0) > 0) return true;
+
+                var scalar = AppProcessor.ProcedureProvider.ExecuteScalar(
+                    _spToggleFollow,
+                    DATA_PROVIDER_NAME,
+                    id,
+                    userName,
+                    isFollowed
+                );
+                if (scalar != null && Convert.ToInt32(scalar) > 0) return true;
+            }
+            catch
+            {
+                try
+                {
+                    var scalar = AppProcessor.ProcedureProvider.ExecuteScalar(
+                        _spToggleFollow,
+                        DATA_PROVIDER_NAME,
+                        id,
+                        userName,
+                        isFollowed
+                    );
+                    if (scalar != null && Convert.ToInt32(scalar) > 0) return true;
+                }
+                catch { }
+            }
+            return false;
         }
 
         public int Save(RM_DigitalSalesModel model, string username)
