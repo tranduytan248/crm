@@ -1,4 +1,4 @@
-var _detailUrls = {
+﻿var _detailUrls = {
     editSales: "/Cate/DigitalSales/Edit",
     changeStatusModal: "/Cate/DigitalSales/ChangeStatusModal",
     changeStatus: "/Cate/DigitalSales/ChangeStatus",
@@ -1068,8 +1068,8 @@ function showMentionDropdown(query) {
         if (filtered.length === 0) {
             $list.html('<div class="p-2 text-muted text-80 text-center">Không tìm thấy nhân sự phù hợp</div>');
         } else {
-            filtered.forEach(function (m) {
-                var $item = $('<div class="ds-mention-item">' +
+            filtered.forEach(function (m, idx) {
+                var $item = $('<div class="ds-mention-item' + (idx === 0 ? ' active' : '') + '">' +
                     '<div class="w-3 h-3 radius-round bgc-primary-l3 text-primary d-flex align-items-center justify-content-center mr-2 font-bold text-80" style="width: 26px; height: 26px; border-radius: 50%;">' +
                     (m.fullName ? m.fullName.charAt(0).toUpperCase() : 'U') +
                     '</div>' +
@@ -1079,7 +1079,12 @@ function showMentionDropdown(query) {
                     '</div>' +
                     '</div>');
 
-                $item.on('click', function () {
+                $item.data('user', m);
+                $item.on('mousedown', function (e) {
+                    e.preventDefault();
+                    selectMentionUser(m);
+                }).on('click', function (e) {
+                    e.preventDefault();
                     selectMentionUser(m);
                 });
                 $list.append($item);
@@ -1143,6 +1148,44 @@ function initDiscussionEvents() {
             hideMentionDropdown();
         }
     }).on("keydown.ds", function (e) {
+        var $dropdown = $("#dsMentionDropdown");
+        if ($dropdown.is(":visible")) {
+            var $items = $("#dsMentionList .ds-mention-item");
+            if ($items.length > 0) {
+                var $current = $items.filter(".active");
+                var currentIndex = $items.index($current);
+
+                if (e.key === "ArrowDown") {
+                    e.preventDefault();
+                    var nextIndex = currentIndex < $items.length - 1 ? currentIndex + 1 : 0;
+                    $items.removeClass("active");
+                    var $next = $items.eq(nextIndex).addClass("active");
+                    if ($next.length && $next[0].scrollIntoView) {
+                        $next[0].scrollIntoView({ block: "nearest" });
+                    }
+                    return;
+                } else if (e.key === "ArrowUp") {
+                    e.preventDefault();
+                    var prevIndex = currentIndex > 0 ? currentIndex - 1 : $items.length - 1;
+                    $items.removeClass("active");
+                    var $prev = $items.eq(prevIndex).addClass("active");
+                    if ($prev.length && $prev[0].scrollIntoView) {
+                        $prev[0].scrollIntoView({ block: "nearest" });
+                    }
+                    return;
+                } else if (e.key === "Enter" || e.key === "Tab") {
+                    if ($current.length > 0) {
+                        e.preventDefault();
+                        var user = $current.data("user");
+                        if (user) {
+                            selectMentionUser(user);
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+
         if (e.key === "Escape") {
             hideMentionDropdown();
         } else if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {

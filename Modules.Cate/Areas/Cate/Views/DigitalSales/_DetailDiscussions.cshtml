@@ -11,7 +11,7 @@
 <span id="partialDiscussionsCount" class="d-none" data-count="@activities.Count"></span>
 
 <!-- 1. FORM SOẠN THẢO TRAO ĐỔI (DISCUSSION COMPOSER) -->
-<div class="card border-1 brc-primary-m3 shadow-sm mb-4 bgc-white radius-2 overflow-hidden ds-composer-card">
+<div class="card border-1 brc-primary-m3 shadow-sm mb-4 bgc-white radius-2 ds-composer-card">
     <div class="card-header bgc-primary-l4 border-b-1 brc-primary-l2 py-25 px-3 d-flex align-items-center justify-content-between">
         <span class="font-weight-bold text-primary-d2 text-95">
             <i class="fa fa-comments text-primary mr-1"></i> Trao đổi & Thảo luận cơ hội / dự án
@@ -78,7 +78,7 @@
 
 <!-- 2. THANH BỘ LỌC DÒNG HOẠT ĐỘNG (ACTIVITY FILTER PILLS) -->
 <div class="d-flex align-items-center justify-content-between mb-3 flex-wrap" style="gap: 8px;">
-    <div class="btn-group btn-group-toggle ds-filter-group" data-toggle="buttons">
+    <div class="btn-group ds-filter-group" role="group" aria-label="Bộ lọc hoạt động">
         <button type="button" class="btn btn-xs btn-white btn-h-light-primary font-bold @(currentFilter == null ? "active text-primary border-primary" : "text-secondary border-grey-l1") px-3 py-1 radius-1" onclick="filterDiscussions(@Model.DigitalSalesID, null);">
             <i class="fa fa-stream mr-1"></i> Tất cả
         </button>
@@ -310,15 +310,25 @@ else
         border-color: #3b82f6;
         box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
     }
+    .ds-composer-card {
+        overflow: visible !important;
+        position: relative;
+    }
+    .ds-composer-card .card-body {
+        overflow: visible !important;
+    }
     .ds-mention-dropdown {
         position: absolute;
         top: 100%;
         left: 0;
-        z-index: 1050;
+        z-index: 1060;
         width: 320px;
         max-width: 95vw;
         border-radius: 6px;
         margin-top: 4px;
+        background-color: #fff;
+        box-shadow: 0 8px 28px rgba(0, 0, 0, 0.22);
+        border: 1px solid #bfdbfe;
     }
     .ds-mention-list-scroll {
         max-height: 220px;

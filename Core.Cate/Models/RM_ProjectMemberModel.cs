@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TSFramework.Libs.Attributes;
@@ -26,6 +26,7 @@ namespace Core.Cate.Models
     public class RM_ProjectMemberSearchModel : BaseSearchModel
     {
         public int ProductProjectID { get; set; }
+        public int BusinessOpportunityID { get; set; }
     }
 
     public class RM_ProjectMemberFormModel
