@@ -1,4 +1,4 @@
-﻿var _tableDigitalSales;
+var _tableDigitalSales;
 var _digitalSalesUrls = {
     get: "/Cate/DigitalSales/Get",
     add: "/Cate/DigitalSales/Add",
@@ -14,6 +14,24 @@ var _digitalSalesUrls = {
 $(document).ready(function () {
     initSearchDatepicker();
     initTableDigitalSales();
+
+    $("#chkFilterKeyProject").on("change", function () {
+        if (this.checked) {
+            $("#lblFilterKeyProject").removeClass("text-secondary-d1").addClass("text-orange-d2");
+        } else {
+            $("#lblFilterKeyProject").removeClass("text-orange-d2").addClass("text-secondary-d1");
+        }
+        reloadSalesTable();
+    });
+
+    $("#chkFilterFollowed").on("change", function () {
+        if (this.checked) {
+            $("#lblFilterFollowed").removeClass("text-secondary-d1").addClass("text-danger-d1");
+        } else {
+            $("#lblFilterFollowed").removeClass("text-danger-d1").addClass("text-secondary-d1");
+        }
+        reloadSalesTable();
+    });
 });
 
 function initSearchDatepicker() {
@@ -56,6 +74,8 @@ function initTableDigitalSales() {
                 d.DepartmentID = $("#DepartmentID").val() || $("#SearchDepartmentID").val() || "";
                 d.FromDate = $("#FromDate").val() || $("#SearchFromDate").val() || "";
                 d.ToDate = $("#ToDate").val() || $("#SearchToDate").val() || "";
+                d.IsKeyProject = $("#chkFilterKeyProject").is(":checked");
+                d.IsFollowed = $("#chkFilterFollowed").is(":checked");
             }
         },
         columns: [
@@ -72,8 +92,8 @@ function initTableDigitalSales() {
                 className: "align-middle",
                 render: function (data, type, row) {
                     var badgeType = row.BusinessType === 2
-                        ? '<span class="badge badge-success px-2 py-1 mr-1"><i class="fa fa-project-diagram mr-1"></i>Dự án</span>'
-                        : '<span class="badge badge-primary px-2 py-1 mr-1"><i class="fa fa-lightbulb mr-1"></i>Cơ hội</span>';
+                        ? '<span class="badge badge-success px-2 py-1 mr-1 sale-badge"><i class="fa fa-project-diagram mr-1"></i>Dự án</span>'
+                        : '<span class="badge badge-primary px-2 py-1 mr-1 sale-badge"><i class="fa fa-lightbulb mr-1"></i>Cơ hội</span>';
 
                     var badgeClass = "badge-secondary";
                     if (row.StatusID === 1) badgeClass = "badge-secondary";
@@ -83,18 +103,27 @@ function initTableDigitalSales() {
                     else if (row.StatusID === 8) badgeClass = "badge-success";
                     else badgeClass = "badge-warning text-dark";
 
-                    var badgeStatus = '<span class="badge ' + badgeClass + ' px-2 py-1">' + (row.StatusName || '—') + '</span>';
+                    var badgeStatus = '<span class="badge ' + badgeClass + ' px-2 py-1 sale-badge">' + (row.StatusName || '—') + '</span>';
+
+                    var badgeSpecial = '';
+                    if (row.IsKeyProject) {
+                        badgeSpecial += '<span class="badge bgc-orange-l3 text-orange-d3 border-1 brc-orange-m2 ml-1 font-bold px-2 py-1 radius-1 shadow-sm sale-badge" title="Dự án trọng điểm"><i class="fa fa-star text-warning mr-1"></i>Trọng điểm</span>';
+                    }
+                    if (row.IsFollowed) {
+                        badgeSpecial += '<span class="badge bgc-pink-l3 text-pink-d2 border-1 brc-pink-m3 ml-1 font-bold px-2 py-1 radius-1 shadow-sm sale-badge" title="Cơ hội/dự án bạn đang quan tâm"><i class="fa fa-bookmark text-danger mr-1"></i>Quan tâm</span>';
+                    }
 
                     var html = '<div class="mb-1 d-flex align-items-center flex-wrap">' +
                         badgeType + ' ' + badgeStatus +
-                        '<span class="badge bgc-warning-l3 text-warning-d3 border-1 brc-warning-m2 ml-1 font-mono font-bold px-2 py-1 radius-1 shadow-sm"><i class="fa fa-hashtag mr-1 opacity-75"></i>' + (row.Code || '—') + '</span>' +
+                        '<span class="badge bgc-warning-l3 text-warning-d3 border-1 brc-warning-m2 ml-1 font-mono font-bold px-2 py-1 radius-1 shadow-sm sale-badge"><i class="fa fa-hashtag mr-1 opacity-75"></i>' + (row.Code || '—') + '</span>' +
+                        badgeSpecial +
                         '</div>';
 
-                    html += '<a href="' + _digitalSalesUrls.detail + '/' + row.DigitalSalesID + '" class="font-weight-bold text-primary text-100 d-block" style="font-size: 14px;" title="Xem chi tiết 360 độ">' +
+                    html += '<a href="' + _digitalSalesUrls.detail + '/' + row.DigitalSalesID + '" class="font-weight-bold text-primary d-block sale-title" style="font-size: 16px;" title="Xem chi tiết 360 độ">' +
                         row.Title + '</a>';
 
                     if (row.ProductServiceNames) {
-                        html += '<div class="text-90 text-secondary mt-1"><i class="fa fa-tags text-purple mr-1"></i>' + row.ProductServiceNames + '</div>';
+                        html += '<div class="sale-subtext text-secondary mt-1"><i class="fa fa-tags text-purple mr-1"></i>' + row.ProductServiceNames + '</div>';
                     }
                     return html;
                 }
@@ -105,12 +134,12 @@ function initTableDigitalSales() {
                 render: function (data, type, row) {
                     var html = '';
                     if (row.CustomerName) {
-                        html += '<div class="font-weight-bold text-dark-m1 text-95"><i class="fa fa-building text-primary-m1 mr-1"></i>' + row.CustomerName + '</div>';
+                        html += '<div class="font-weight-bold text-dark-m1 sale-customer"><i class="fa fa-building text-primary-m1 mr-1"></i>' + row.CustomerName + '</div>';
                     } else {
                         html += '<div class="text-muted">—</div>';
                     }
                     if (row.ContactPersonName) {
-                        html += '<div class="text-90 text-secondary mt-1"><i class="fa fa-user-circle text-secondary mr-1"></i>' + row.ContactPersonName;
+                        html += '<div class="sale-subtext text-secondary mt-1"><i class="fa fa-user-circle text-secondary mr-1"></i>' + row.ContactPersonName;
                         if (row.ContactPersonPhone) {
                             html += ' <span class="text-muted">(' + row.ContactPersonPhone + ')</span>';
                         }
@@ -125,12 +154,12 @@ function initTableDigitalSales() {
                 render: function (data, type, row) {
                     var html = '';
                     if (row.AssignedEmployeeName) {
-                        html += '<div class="font-weight-bold text-dark text-95"><i class="fa fa-user-tie text-success mr-1"></i>' + row.AssignedEmployeeName + '</div>';
+                        html += '<div class="font-weight-bold text-dark sale-am"><i class="fa fa-user-tie text-success mr-1"></i>' + row.AssignedEmployeeName + '</div>';
                     } else {
                         html += '<div class="text-muted">—</div>';
                     }
                     if (row.DepartmentName) {
-                        html += '<div class="text-90 text-muted mt-1"><i class="fa fa-sitemap mr-1"></i>' + row.DepartmentName + '</div>';
+                        html += '<div class="sale-subtext text-muted mt-1"><i class="fa fa-sitemap mr-1"></i>' + row.DepartmentName + '</div>';
                     }
                     return html;
                 }
@@ -142,10 +171,10 @@ function initTableDigitalSales() {
                     var expRev = row.TotalExpectedRevenue != null ? Number(row.TotalExpectedRevenue).toLocaleString('vi-VN') : '0';
                     var actRev = row.TotalActualRevenue != null ? Number(row.TotalActualRevenue).toLocaleString('vi-VN') : '0';
 
-                    var html = '<div class="text-95">' +
+                    var html = '<div class="sale-revenue">' +
                         '<span class="text-secondary">Dự kiến:</span> <span class="font-weight-bold text-primary">' + expRev + ' đ</span>' +
                         '</div>';
-                    html += '<div class="text-95 mt-1">' +
+                    html += '<div class="sale-revenue mt-1">' +
                         '<span class="text-secondary">Thực tế:</span> <span class="font-weight-bold text-success">' + actRev + ' đ</span>' +
                         '</div>';
                     return html;
@@ -160,18 +189,18 @@ function initTableDigitalSales() {
                     var hasAction = false;
                     if (row.CanEdit) {
                         hasAction = true;
-                        html += '<a href="javascript:void(0);" onclick="openEditSalesModal(' + row.DigitalSalesID + ');" class="btn btn-xs btn-outline-info btn-h-outline-info btn-a-outline-info radius-1 px-2 py-1 mr-1" title="Chỉnh sửa">' +
+                        html += '<a href="javascript:void(0);" onclick="openEditSalesModal(' + row.DigitalSalesID + ');" class="btn btn-xs btn-outline-info btn-h-outline-info btn-a-outline-info radius-1 px-2 py-1 mr-1 btn-action" title="Chỉnh sửa">' +
                             '<i class="fa fa-edit mr-1"></i>Sửa</a>';
                     }
                     if (row.CanDelete) {
                         hasAction = true;
                         var safeCode = (row.Code || '').replace(/'/g, "\\'");
                         var safeTitle = (row.Title || '').replace(/'/g, "\\'");
-                        html += '<a href="javascript:void(0);" onclick="confirmDeleteSales(' + row.DigitalSalesID + ', \'' + safeCode + '\', \'' + safeTitle + '\');" class="btn btn-xs btn-outline-danger btn-h-outline-danger btn-a-outline-danger radius-1 px-2 py-1" title="Xóa">' +
+                        html += '<a href="javascript:void(0);" onclick="confirmDeleteSales(' + row.DigitalSalesID + ', \'' + safeCode + '\', \'' + safeTitle + '\');" class="btn btn-xs btn-outline-danger btn-h-outline-danger btn-a-outline-danger radius-1 px-2 py-1 btn-action" title="Xóa">' +
                             '<i class="fa fa-trash-alt mr-1"></i>Xóa</a>';
                     }
                     if (!hasAction) {
-                        html += '<span class="text-muted text-90 font-italic"><i class="fa fa-lock mr-1"></i>Chỉ xem</span>';
+                        html += '<span class="text-muted sale-subtext font-italic"><i class="fa fa-lock mr-1"></i>Chỉ xem</span>';
                     }
                     html += '</div>';
                     return html;
@@ -304,6 +333,11 @@ function resetSalesSearch() {
         $('#dpFromDate').datepicker('update', '');
         $('#dpToDate').datepicker('update', '');
     }
+
+    $("#chkFilterKeyProject").prop("checked", false);
+    $("#lblFilterKeyProject").removeClass("text-orange-d2").addClass("text-secondary-d1");
+    $("#chkFilterFollowed").prop("checked", false);
+    $("#lblFilterFollowed").removeClass("text-danger-d1").addClass("text-secondary-d1");
 
     var $employee = $("#EmployeeID, #SearchEmployeeID");
     $employee.empty().append('<option value="">-- Chọn nhân viên --</option>');
@@ -591,6 +625,8 @@ function exportDigitalSales() {
     if (fromDate) qs.push("fromDate=" + encodeURIComponent(fromDate));
     if (toDate) qs.push("toDate=" + encodeURIComponent(toDate));
     if (customerID) qs.push("customerID=" + encodeURIComponent(customerID));
+    if ($("#chkFilterKeyProject").is(":checked")) qs.push("isKeyProject=true");
+    if ($("#chkFilterFollowed").is(":checked")) qs.push("isFollowed=true");
 
     var url = baseUrl + (qs.length ? "?" + qs.join("&") : "");
     window.location.href = url;

@@ -29,8 +29,14 @@
                 <span class="badge badge-lg @(Model.BusinessType == 1 ? "bgc-blue-l2 text-blue-d2 border-1 brc-blue-m3" : "bgc-purple-l2 text-purple-d2 border-1 brc-purple-m3") text-85 font-bold px-25 py-1 mr-2 radius-1">
                     <i class="fa @(Model.BusinessType == 1 ? "fa-lightbulb" : "fa-project-diagram") mr-1"></i>@(Model.BusinessType == 1 ? "Cơ hội kinh doanh" : "Dự án")
                 </span>
-                <span class="badge badge-lg bgc-green-l2 text-green-d3 border-1 brc-green-m3 text-85 font-bold px-25 py-1 radius-1">
+                <span class="badge badge-lg bgc-green-l2 text-green-d3 border-1 brc-green-m3 text-85 font-bold px-25 py-1 mr-2 radius-1">
                     <i class="fa fa-check-circle mr-1"></i>@Model.StatusName
+                </span>
+                <span id="badgeKeyProject" class="badge badge-lg bgc-orange-l3 text-orange-d3 border-1 brc-orange-m2 text-85 font-bold px-25 py-1 mr-2 radius-1 @(Model.IsKeyProject ? "" : "d-none")" title="Dự án trọng điểm">
+                    <i class="fa fa-star text-warning mr-1"></i>Trọng điểm
+                </span>
+                <span id="badgeFollowed" class="badge badge-lg bgc-pink-l3 text-pink-d2 border-1 brc-pink-m3 text-85 font-bold px-25 py-1 radius-1 @(Model.IsFollowed ? "" : "d-none")" title="Bạn đang quan tâm cơ hội/dự án này">
+                    <i class="fa fa-bookmark text-danger mr-1"></i>Đang quan tâm
                 </span>
             </div>
         </div>
@@ -38,7 +44,27 @@
 }
 
 @section PageAction {
-    <div class="d-inline-flex align-items-center">
+    <div class="d-inline-flex align-items-center flex-wrap">
+        <!-- BỘ 2 NÚT TOGGLE: DỰ ÁN TRỌNG ĐIỂM & QUAN TÂM DỰ ÁN -->
+        <div class="d-inline-flex align-items-center bgc-white px-25 py-1 radius-2 border-1 brc-grey-l2 shadow-sm mr-2 mb-1 mb-md-0">
+            <!-- 1. Toggle: Dự án trọng điểm (Lưu theo hồ sơ Cơ hội KD) -->
+            <div class="custom-control custom-switch mr-3" title="Đánh dấu dự án trọng điểm (Lưu theo Cơ hội kinh doanh)">
+                <input type="checkbox" class="custom-control-input cursor-pointer" id="chkIsKeyProject" @(Model.IsKeyProject ? "checked" : "") @(canEdit ? "" : "disabled") onchange="toggleKeyProject(@Model.DigitalSalesID, this.checked);">
+                <label class="custom-control-label font-bold text-85 cursor-pointer @(Model.IsKeyProject ? "text-orange-d2" : "text-secondary-d1") select-none mb-0" for="chkIsKeyProject" id="lblKeyProject">
+                    <i class="fa fa-star text-warning-d2 mr-1"></i>Dự án trọng điểm
+                </label>
+            </div>
+            <!-- Vạch phân tách tinh tế -->
+            <div class="border-l-1 brc-grey-l2 mx-1" style="height: 18px;"></div>
+            <!-- 2. Toggle: Quan tâm dự án (Lưu theo từng người dùng đăng nhập) -->
+            <div class="custom-control custom-switch ml-2" title="Quan tâm dự án (Lưu theo người dùng đang đăng nhập)">
+                <input type="checkbox" class="custom-control-input cursor-pointer" id="chkIsFollowed" @(Model.IsFollowed ? "checked" : "") onchange="toggleFollowSales(@Model.DigitalSalesID, this.checked);">
+                <label class="custom-control-label font-bold text-85 cursor-pointer @(Model.IsFollowed ? "text-danger-d1" : "text-secondary-d1") select-none mb-0" for="chkIsFollowed" id="lblFollowSales">
+                    <i class="fa fa-bookmark text-danger-m1 mr-1"></i>Quan tâm dự án
+                </label>
+            </div>
+        </div>
+
         @if (canEdit)
         {
             <button type="button" class="btn btn-sm btn-warning btn-h-light-warning text-dark-tp1 font-bolder px-3 py-15 mr-2 radius-1 shadow-sm" onclick="openChangeStatusModal(@Model.DigitalSalesID);" title="Chuyển đổi trạng thái quy trình">
@@ -61,6 +87,23 @@
 }
 
 <style>
+    #chkIsKeyProject:checked ~ .custom-control-label::before {
+        background-color: #f59f00 !important;
+        border-color: #f59f00 !important;
+    }
+    #chkIsFollowed:checked ~ .custom-control-label::before {
+        background-color: #e03131 !important;
+        border-color: #e03131 !important;
+    }
+    .custom-switch .custom-control-label {
+        font-size: 13px;
+        line-height: 20px;
+        user-select: none;
+    }
+    .custom-switch .custom-control-input:disabled ~ .custom-control-label {
+        opacity: 0.65;
+        cursor: not-allowed;
+    }
     #PageTitle.page-header {
         padding-top: 0.5rem;
         padding-bottom: 0.75rem !important;
@@ -199,5 +242,6 @@
 <div id="modalContainer"></div>
 
 @section BottomScript {
+    <script type="text/javascript" src="@Url.Content("~/Contents/Modules/Major/ckeditor4/ckeditor.js")"></script>
     <script src="~/Areas/Cate/Views/DigitalSales/DigitalSalesDetail.js?v=@DateTime.Now.Ticks"></script>
 }

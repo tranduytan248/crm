@@ -3,6 +3,13 @@
 
 @{
     var roles = ViewBag.Roles as List<RM_RolesModel> ?? new List<RM_RolesModel>();
+    var currentRoleList = (Model.RoleTitle ?? "").Split(new[] { ',', ';' }, StringSplitOptions.RemoveEmptyEntries)
+        .Select(r => r.Trim())
+        .Where(r => !string.IsNullOrEmpty(r))
+        .ToList();
+    var knownRoleNames = roles.Select(r => r.RoleName).ToList();
+    var customRoles = currentRoleList.Where(cr => !knownRoleNames.Any(kr => string.Equals(kr, cr, StringComparison.OrdinalIgnoreCase))).ToList();
+    var customRoleStr = string.Join(", ", customRoles);
 }
 
 <div class="modal fade" id="modalEditMember" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
@@ -38,27 +45,90 @@
                         </div>
                     </div>
 
-                    <!-- VAI TRÒ / NHIỆM VỤ -->
+                    <!-- VAI TRÒ / NHIỆM VỤ (CHO PHÉP CHỌN NHIỀU VAI TRÒ) -->
                     <div class="form-group mb-3">
                         <label class="font-weight-bold text-secondary text-90 mb-1">Vai trò / Nhiệm vụ: <span class="text-danger">*</span></label>
-                        <select id="RoleTitle_Select" class="form-control select2" onchange="$('#RoleTitle').val($(this).val());">
-                            <option value="">-- Chọn vai trò --</option>
+                        <select id="RoleTitle_Select" multiple="multiple" class="form-control select2" data-placeholder="-- Chọn các vai trò / nhiệm vụ --">
                             @foreach (var r in roles)
                             {
-                                <option value="@r.RoleName" @(string.Equals(Model.RoleTitle, r.RoleName, StringComparison.OrdinalIgnoreCase) ? "selected" : "")>@r.RoleName</option>
+                                bool isSelected = currentRoleList.Any(cr => string.Equals(cr, r.RoleName, StringComparison.OrdinalIgnoreCase));
+                                <option value="@r.RoleName" @(isSelected ? "selected" : "")>@r.RoleName</option>
                             }
                         </select>
-                        <input type="text" id="RoleTitle" name="RoleTitle" value="@Model.RoleTitle" class="form-control mt-2" placeholder="Hoặc nhập vai trò tùy biến..." />
+                        <input type="text" id="RoleTitle_Custom" value="@customRoleStr" class="form-control mt-2" placeholder="Hoặc nhập thêm vai trò tùy biến..." />
+                        <input type="hidden" id="RoleTitle" name="RoleTitle" value="@Model.RoleTitle" />
                     </div>
 
-                    <!-- QUYỀN CẬP NHẬT TRẠNG THÁI -->
+<style>
+    .edit-perm-card {
+        border: 1.5px solid #bfdbfe;
+        background: linear-gradient(135deg, #ffffff 0%, #f0f7ff 100%);
+        border-radius: 8px;
+        padding: 11px 14px;
+        cursor: pointer;
+        user-select: none;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+    .edit-perm-card:hover {
+        border-color: #3b82f6;
+        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.12);
+    }
+    .edit-perm-card.is-checked {
+        border-color: #2563eb;
+        background: #eff6ff;
+        box-shadow: 0 0 0 1px #2563eb;
+    }
+    .edit-perm-check-box {
+        width: 22px;
+        height: 22px;
+        border: 2px solid #3b82f6;
+        border-radius: 5px;
+        background: #ffffff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        transition: all 0.2s ease;
+    }
+    .edit-perm-card.is-checked .edit-perm-check-box {
+        background: #2563eb;
+        border-color: #2563eb;
+    }
+    .edit-perm-check-box i {
+        color: #ffffff;
+        font-size: 12px;
+        display: none;
+    }
+    .edit-perm-card.is-checked .edit-perm-check-box i {
+        display: block;
+    }
+</style>
+
+                    <!-- QUYỀN CẬP NHẬT THÔNG TIN & TRẠNG THÁI -->
                     <div class="form-group mb-3">
-                        <div class="custom-control custom-checkbox p-2 border-1 brc-blue-l2 bgc-blue-l4 radius-1">
-                            <input type="checkbox" class="custom-control-input" id="IsAM_Edit" name="IsAM" value="true" @(Model.IsAM ? "checked" : "") />
+                        <label class="font-weight-bold text-secondary text-90 mb-1">Phân quyền thao tác:</label>
+                        <div class="edit-perm-card @(Model.IsAM ? "is-checked" : "")" id="editPermCard">
+                            <div class="edit-perm-check-box">
+                                <i class="fa fa-check"></i>
+                            </div>
+                            <input type="checkbox" class="d-none" id="IsAM_Edit" name="IsAM" value="true" @(Model.IsAM ? "checked" : "") />
                             <input type="hidden" name="IsAM" value="false" />
-                            <label class="custom-control-label font-weight-bold text-dark text-90" for="IsAM_Edit">
-                                <i class="fa fa-check-circle text-success mr-1"></i> Cho phép cập nhật trạng thái hồ sơ (Quyền AM / Quản lý)
-                            </label>
+                            <div class="flex-1">
+                                <div class="d-flex align-items-center justify-content-between flex-wrap">
+                                    <span class="font-weight-bold text-dark text-95">
+                                        <i class="fa fa-shield-alt text-primary mr-1"></i> Cho phép cập nhật thông tin & trạng thái
+                                    </span>
+                                    <span class="badge bgc-green-l3 text-green-d3 border-1 brc-green-m3 px-2 py-05 text-75 font-bold">
+                                        <i class="fa fa-check-circle mr-1"></i>Cập nhật TT
+                                    </span>
+                                </div>
+                                <small class="text-muted d-block mt-1 text-85">
+                                    Nhân sự có quyền này sẽ được chỉnh sửa thông tin hồ sơ, cập nhật tiến trình và chuyển trạng thái kinh doanh số.
+                                </small>
+                            </div>
                         </div>
                     </div>
 
@@ -84,18 +154,54 @@
 
 <script>
     (function () {
+        // Toggle card quyền cập nhật TT
+        $("#editPermCard").on("click", function () {
+            var $chk = $("#IsAM_Edit");
+            var isChecked = !$chk.prop("checked");
+            $chk.prop("checked", isChecked).trigger("change");
+        });
+
+        $("#IsAM_Edit").on("change", function () {
+            var isChecked = $(this).is(":checked");
+            $("#editPermCard").toggleClass("is-checked", isChecked);
+        });
+
+        if ($.fn.select2) {
+            $("#RoleTitle_Select").select2({
+                dropdownParent: $("#modalEditMember"),
+                width: "100%",
+                placeholder: "-- Chọn các vai trò / nhiệm vụ --"
+            });
+        }
+
         $("#frmEditMemberModal").on("submit", function (e) {
             e.preventDefault();
             var $form = $(this);
-            var roleTitle = $("#RoleTitle").val();
-            if (!roleTitle || !roleTitle.trim()) {
+            var selectedRoles = $("#RoleTitle_Select").val() || [];
+            if (typeof selectedRoles === "string") {
+                selectedRoles = [selectedRoles];
+            }
+            var customRole = $("#RoleTitle_Custom").val();
+            if (customRole && customRole.trim()) {
+                var parts = customRole.split(/[,;]+/);
+                for (var i = 0; i < parts.length; i++) {
+                    var p = parts[i].trim();
+                    if (p && selectedRoles.indexOf(p) === -1) {
+                        selectedRoles.push(p);
+                    }
+                }
+            }
+
+            if (selectedRoles.length === 0) {
                 if (typeof toastr !== "undefined") {
-                    toastr.warning("Vui lòng chọn hoặc nhập vai trò cho thành viên!");
+                    toastr.warning("Vui lòng chọn hoặc nhập ít nhất một vai trò cho thành viên!");
                 } else {
-                    alert("Vui lòng chọn hoặc nhập vai trò cho thành viên!");
+                    alert("Vui lòng chọn hoặc nhập ít nhất một vai trò cho thành viên!");
                 }
                 return false;
             }
+
+            $("#RoleTitle").val(selectedRoles.join(", "));
 
             var $btn = $form.find("button[type='submit']");
             var origHtml = $btn.html();

@@ -1,4 +1,4 @@
-﻿var _detailUrls = {
+var _detailUrls = {
     editSales: "/Cate/DigitalSales/Edit",
     changeStatusModal: "/Cate/DigitalSales/ChangeStatusModal",
     changeStatus: "/Cate/DigitalSales/ChangeStatus",
@@ -21,7 +21,9 @@
     deleteTracking: "/Cate/DigitalSales/DeleteTracking",
 
     uploadAttachment: "/Cate/DigitalSales/UploadAttachment",
-    deleteAttachment: "/Cate/DigitalSales/DeleteAttachment"
+    deleteAttachment: "/Cate/DigitalSales/DeleteAttachment",
+    toggleKeyProject: "/Cate/DigitalSales/ToggleKeyProject",
+    toggleFollow: "/Cate/DigitalSales/ToggleFollow"
 };
 
 function executeResponseMessage(message, defaultText, isSuccess) {
@@ -70,6 +72,7 @@ $(document).ready(function () {
 
 /* ================= 1. Chỉnh sửa thông tin chung ================= */
 function openEditSalesModal(id) {
+    window.CKEDITOR_BASEPATH = "/Contents/Modules/Major/ckeditor4/";
     var idModal = "modal_EditDigitalSales";
     var htmlModal = '<div class="modal fade" id="' + idModal + '" data-backdrop="static" tabindex="-1" role="dialog" aria-hidden="true">' +
         '<div class="modal-dialog modal-xl" style="max-width: 1024px;" role="document">' +
@@ -645,4 +648,72 @@ function confirmDeleteAttachment(salesId, filePath, fileName) {
     });
 
     $modal.modal('show');
+}
+
+function toggleKeyProject(salesId, isChecked) {
+    var $chk = $('#chkIsKeyProject');
+    var $lbl = $('#lblKeyProject');
+    $chk.prop('disabled', true);
+
+    $.ajax({
+        url: _detailUrls.toggleKeyProject,
+        type: "POST",
+        data: { id: salesId, isKeyProject: isChecked },
+        dataType: "JSON",
+        success: function (res) {
+            $chk.prop('disabled', false);
+            if (res && res.status) {
+                if (isChecked) {
+                    $lbl.removeClass('text-secondary-d1').addClass('text-orange-d2');
+                    $('#badgeKeyProject').removeClass('d-none');
+                } else {
+                    $lbl.removeClass('text-orange-d2').addClass('text-secondary-d1');
+                    $('#badgeKeyProject').addClass('d-none');
+                }
+                executeResponseMessage(res.message, isChecked ? "Đã đánh dấu là Dự án trọng điểm!" : "Đã bỏ đánh dấu Dự án trọng điểm.", true);
+            } else {
+                $chk.prop('checked', !isChecked);
+                executeResponseMessage(res ? res.message : "Thao tác không thành công!", null, false);
+            }
+        },
+        error: function () {
+            $chk.prop('disabled', false);
+            $chk.prop('checked', !isChecked);
+            executeResponseMessage("Lỗi kết nối máy chủ, vui lòng thử lại!", null, false);
+        }
+    });
+}
+
+function toggleFollowSales(salesId, isChecked) {
+    var $chk = $('#chkIsFollowed');
+    var $lbl = $('#lblFollowSales');
+    $chk.prop('disabled', true);
+
+    $.ajax({
+        url: _detailUrls.toggleFollow,
+        type: "POST",
+        data: { id: salesId, isFollowed: isChecked },
+        dataType: "JSON",
+        success: function (res) {
+            $chk.prop('disabled', false);
+            if (res && res.status) {
+                if (isChecked) {
+                    $lbl.removeClass('text-secondary-d1').addClass('text-danger-d1');
+                    $('#badgeFollowed').removeClass('d-none');
+                } else {
+                    $lbl.removeClass('text-danger-d1').addClass('text-secondary-d1');
+                    $('#badgeFollowed').addClass('d-none');
+                }
+                executeResponseMessage(res.message, isChecked ? "Đã lưu vào danh sách quan tâm!" : "Đã bỏ quan tâm dự án.", true);
+            } else {
+                $chk.prop('checked', !isChecked);
+                executeResponseMessage(res ? res.message : "Thao tác không thành công!", null, false);
+            }
+        },
+        error: function () {
+            $chk.prop('disabled', false);
+            $chk.prop('checked', !isChecked);
+            executeResponseMessage("Lỗi kết nối máy chủ, vui lòng thử lại!", null, false);
+        }
+    });
 }

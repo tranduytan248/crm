@@ -10,12 +10,12 @@
     <div class="card-body p-2 d-flex align-items-end flex-wrap">
         @Html.HiddenFor(model => model.CustomerID, new { id = "CustomerID" })
 
-        <div class="Search_Box keyWord w-50">
+        <div class="Search_Box keyWord" style="flex: 1 1 280px; max-width: 420px;">
             @Html.TitleFor(model => model.Keyword, new { @class = "font-bold text-sm-right" })
             @Html.TextBoxFor(model => model.Keyword, new { @class = "form-control", id = "Keyword", placeholder = AppProcessor.Messagor.GetMessage("DigitalSalesSearch_Keyword_Placeholder") })
         </div>
 
-        <div class="Search_Box">
+        <div class="Search_Box" style="min-width: 140px;">
             @Html.TitleFor(model => model.BusinessType, new { @class = "font-bold text-sm-right" })
             <div>
                 <select id="BusinessType" name="BusinessType" class="form-control">
@@ -26,10 +26,32 @@
             </div>
         </div>
 
-        <div class="Search_Box">
+        <div class="Search_Box" style="min-width: 150px;">
             @Html.TitleFor(model => model.StatusID, new { @class = "font-bold text-sm-right" })
             <div>
                 @Html.DropDownListFor(model => model.StatusID, Model.ListStatus, AppProcessor.Messagor.GetMessage("DigitalSalesSearch_Status_Option"), new { @class = "form-control", id = "StatusID" })
+            </div>
+        </div>
+
+        <!-- 2 TOGGLES LỌC: TRỌNG ĐIỂM (TRƯỚC) & ĐANG QUAN TÂM (SAU) - ĐỒNG BỘ THỨ TỰ VỚI DETAIL -->
+        <div class="Search_Box ml-md-auto d-flex align-items-center" style="padding-bottom: 2px;">
+            <div class="d-inline-flex align-items-center bgc-white px-25 py-1 radius-2 border-1 brc-grey-l2 shadow-sm">
+                <!-- 1. Toggle: Dự án trọng điểm (Đứng trước) -->
+                <div class="custom-control custom-switch mr-3" title="Lọc các dự án trọng điểm">
+                    <input type="checkbox" class="custom-control-input cursor-pointer" id="chkFilterKeyProject">
+                    <label class="custom-control-label font-bold text-85 cursor-pointer text-secondary-d1 select-none mb-0" for="chkFilterKeyProject" id="lblFilterKeyProject">
+                        <i class="fa fa-star text-warning-d2 mr-1"></i>Trọng điểm
+                    </label>
+                </div>
+                <!-- Vạch phân tách -->
+                <div class="border-l-1 brc-grey-l2 mx-1" style="height: 18px;"></div>
+                <!-- 2. Toggle: Quan tâm dự án (Đứng sau) -->
+                <div class="custom-control custom-switch ml-2" title="Lọc các cơ hội/dự án bạn đang quan tâm">
+                    <input type="checkbox" class="custom-control-input cursor-pointer" id="chkFilterFollowed">
+                    <label class="custom-control-label font-bold text-85 cursor-pointer text-secondary-d1 select-none mb-0" for="chkFilterFollowed" id="lblFilterFollowed">
+                        <i class="fa fa-bookmark text-danger-m1 mr-1"></i>Đang quan tâm
+                    </label>
+                </div>
             </div>
         </div>
 
@@ -196,5 +218,13 @@
     .datepicker.datepicker-dropdown.dropdown-menu.datepicker-orient-right.datepicker-orient-top,
     .datepicker.datepicker-dropdown {
         z-index: 1060 !important;
+    }
+    #chkFilterKeyProject:checked ~ .custom-control-label::before {
+        background-color: #f59f00 !important;
+        border-color: #f59f00 !important;
+    }
+    #chkFilterFollowed:checked ~ .custom-control-label::before {
+        background-color: #e03131 !important;
+        border-color: #e03131 !important;
     }
 </style>

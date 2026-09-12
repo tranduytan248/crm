@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using TSFramework.Libs.Attributes;
 using TSFramework.Libs.Models.Base;
@@ -30,10 +30,17 @@ namespace Core.Cate.Models
 
         [CustomDisplayName("DigitalSalesSearch_ToDate_Label")]
         public string ToDate { get; set; }
+
+        [CustomDisplayName("DigitalSalesSearch_FilterSpecial_Label")]
+        public int FilterSpecial { get; set; } // 0: Tất cả, 1: Dự án trọng điểm, 2: Quan tâm
+        public bool? IsKeyProject { get; set; }
+        public bool? IsFollowed { get; set; }
+
         public int PageNumber { get; set; } = 1;
         public int PageSize { get; set; } = 20;
         public string UserName { get; set; }
 
+        public List<SelectListItem> FilterSpecialList { get; set; } = new List<SelectListItem>();
         public List<SelectListItem> Customers { get; set; } = new List<SelectListItem>();
         public List<SelectListItem> StatusList { get; set; } = new List<SelectListItem>();
         public List<SelectListItem> ProductServices { get; set; } = new List<SelectListItem>();

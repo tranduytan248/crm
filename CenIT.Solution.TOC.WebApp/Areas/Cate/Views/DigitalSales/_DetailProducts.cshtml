@@ -41,7 +41,13 @@
                 {
                     <tr>
                         <td class="text-center">@idx</td>
-                        <td class="font-weight-bold text-dark">@p.ProductServiceName</td>
+                        <td class="font-weight-bold text-dark">
+                            @p.ProductServiceName
+                            @if (!string.IsNullOrWhiteSpace(p.ProductServiceCode))
+                            {
+                                <span class="text-secondary text-85 font-mono ml-1">(@p.ProductServiceCode.Trim())</span>
+                            }
+                        </td>
                         <td>@(string.IsNullOrEmpty(p.PackageName) ? "—" : p.PackageName)</td>
                         <td class="text-center">@p.Quantity</td>
                         <td class="text-right font-weight-bold text-primary">@((p.ExpectedRevenue ?? 0).ToString("N0"))</td>

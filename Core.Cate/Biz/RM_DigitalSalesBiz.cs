@@ -61,7 +61,9 @@ namespace Core.Cate.Biz
                 toDate,
                 model.PageNumber <= 0 ? 1 : model.PageNumber,
                 model.PageSize <= 0 ? 20 : model.PageSize,
-                model.UserName
+                model.UserName,
+                model.IsKeyProject.HasValue && model.IsKeyProject.Value ? 1 : 0,
+                model.IsFollowed.HasValue && model.IsFollowed.Value ? 1 : 0
             );
 
             if (data != null && data.Count > 0)
@@ -74,8 +76,13 @@ namespace Core.Cate.Biz
 
         public RM_DigitalSalesModel GetByID(int id)
         {
+            return GetByID(id, null);
+        }
+
+        public RM_DigitalSalesModel GetByID(int id, string userName)
+        {
             if (id <= 0) return null;
-            var model = AppProcessor.ProcedureProvider.ExecuteScalarObject<RM_DigitalSalesModel>(_spGetByID, DATA_PROVIDER_NAME, id);
+            var model = AppProcessor.ProcedureProvider.ExecuteScalarObject<RM_DigitalSalesModel>(_spGetByID, DATA_PROVIDER_NAME, id, userName);
             if (model != null)
             {
                 model.Products = GetProductsBySalesID(id);
@@ -84,6 +91,32 @@ namespace Core.Cate.Biz
                 model.Timelines = GetTimeline(id);
             }
             return model;
+        }
+
+        public bool ToggleKeyProject(int id, bool isKeyProject, string userName)
+        {
+            if (id <= 0) return false;
+            var res = AppProcessor.ProcedureProvider.Execute(
+                "dbo.RM_DigitalSales_ToggleKeyProject",
+                DATA_PROVIDER_NAME,
+                id,
+                isKeyProject,
+                userName
+            );
+            return res.GetValueOrDefault(0) > 0;
+        }
+
+        public bool ToggleFollow(int id, bool isFollowed, string userName)
+        {
+            if (id <= 0 || string.IsNullOrEmpty(userName)) return false;
+            var res = AppProcessor.ProcedureProvider.Execute(
+                "dbo.RM_DigitalSales_ToggleFollow",
+                DATA_PROVIDER_NAME,
+                id,
+                userName,
+                isFollowed
+            );
+            return res.GetValueOrDefault(0) > 0;
         }
 
         public int Save(RM_DigitalSalesModel model, string username)

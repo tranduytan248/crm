@@ -17,7 +17,7 @@ namespace Core.Cate.Caches
         private string BuildSearchCacheKey(RM_DigitalSalesSearchModel model)
         {
             if (model == null) return "RM_DigitalSales_GetList_Default";
-            return string.Concat("RM_DigitalSales_GetList_", model.Keyword, "_", model.BusinessType, "_", model.StatusID, "_", model.CustomerID, "_", model.ProductServiceID, "_", model.DepartmentID, "_", model.EmployeeID, "_", model.FromDate, "_", model.ToDate, "_", model.PageNumber, "_", model.PageSize, "_", model.UserName);
+            return string.Concat("RM_DigitalSales_GetList_", model.Keyword, "_", model.BusinessType, "_", model.StatusID, "_", model.CustomerID, "_", model.ProductServiceID, "_", model.DepartmentID, "_", model.EmployeeID, "_", model.FromDate, "_", model.ToDate, "_", model.PageNumber, "_", model.PageSize, "_", model.UserName, "_", model.IsKeyProject, "_", model.IsFollowed);
         }
 
         [DataObjectMethod(DataObjectMethodType.Select, true)]
@@ -40,14 +40,35 @@ namespace Core.Cate.Caches
         [DataObjectMethod(DataObjectMethodType.Select, true)]
         public RM_DigitalSalesModel GetByID(int id)
         {
+            return GetByID(id, null);
+        }
+
+        public RM_DigitalSalesModel GetByID(int id, string userName)
+        {
             if (id <= 0) return null;
-            var rawKey = string.Concat("RM_DigitalSales_GetByID_", id);
+            var rawKey = string.IsNullOrEmpty(userName)
+                ? string.Concat("RM_DigitalSales_GetByID_", id)
+                : string.Concat("RM_DigitalSales_GetByID_", id, "_", userName);
             var data = GetCacheItem(rawKey) as RM_DigitalSalesModel;
             if (data != null) return data;
 
-            data = Api.GetByID(id);
+            data = Api.GetByID(id, userName);
             AddCacheItem(rawKey, data);
             return data;
+        }
+
+        public bool ToggleKeyProject(int id, bool isKeyProject, string username)
+        {
+            var result = Api.ToggleKeyProject(id, isKeyProject, username);
+            if (result) InvalidateCache();
+            return result;
+        }
+
+        public bool ToggleFollow(int id, bool isFollowed, string username)
+        {
+            var result = Api.ToggleFollow(id, isFollowed, username);
+            if (result) InvalidateCache();
+            return result;
         }
 
         [DataObjectMethod(DataObjectMethodType.Insert, true)]

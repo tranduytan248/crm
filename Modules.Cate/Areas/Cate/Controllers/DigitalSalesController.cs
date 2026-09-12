@@ -180,7 +180,8 @@ namespace Modules.Cate.Areas.Cate.Controllers
 
         [HttpGet]
         public ActionResult Export(string keyword, byte? businessType, int? statusID,
-                                   int? departmentID, int? employeeID, string fromDate, string toDate, int? customerID)
+                                   int? departmentID, int? employeeID, string fromDate, string toDate, int? customerID,
+                                   bool? isKeyProject, bool? isFollowed)
         {
             var searchModel = new RM_DigitalSalesSearchModel
             {
@@ -192,6 +193,8 @@ namespace Modules.Cate.Areas.Cate.Controllers
                 FromDate = fromDate,
                 ToDate = toDate,
                 CustomerID = customerID.GetValueOrDefault(0),
+                IsKeyProject = isKeyProject,
+                IsFollowed = isFollowed,
                 PageNumber = 1,
                 PageSize = 999999,
                 UserName = User.UserName
@@ -772,7 +775,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
         [HttpGet]
         public ActionResult Detail(int id)
         {
-            var model = _salesCache.GetByID(id);
+            var model = _salesCache.GetByID(id, User.UserName);
             if (model == null)
             {
                 return RedirectToAction("Index");
@@ -796,6 +799,57 @@ namespace Modules.Cate.Areas.Cate.Controllers
             }
 
             return View(model);
+        }
+
+        [HttpPost]
+        [AjaxOnly]
+        [ActionType(Type = EnumActionType.Edit)]
+        public ActionResult ToggleKeyProject(int id, bool isKeyProject)
+        {
+            if (!HasDetailPermission(id, User.UserName))
+            {
+                return Json(new
+                {
+                    status = false,
+                    message = GetAppMessage("DigitalSales_Toggle_NoPermission")
+                });
+            }
+
+            var success = _salesCache.ToggleKeyProject(id, isKeyProject, User.UserName);
+            if (success)
+            {
+                string msg = isKeyProject
+                    ? GetAppMessage("DigitalSales_ToggleKeyProject_Success_On")
+                    : GetAppMessage("DigitalSales_ToggleKeyProject_Success_Off");
+                return Json(new { status = true, message = msg });
+            }
+
+            return Json(new
+            {
+                status = false,
+                message = GetAppMessage("DigitalSales_Toggle_Error")
+            });
+        }
+
+        [HttpPost]
+        [AjaxOnly]
+        [ActionType(Type = EnumActionType.View)]
+        public ActionResult ToggleFollow(int id, bool isFollowed)
+        {
+            var success = _salesCache.ToggleFollow(id, isFollowed, User.UserName);
+            if (success)
+            {
+                string msg = isFollowed
+                    ? GetAppMessage("DigitalSales_ToggleFollow_Success_On")
+                    : GetAppMessage("DigitalSales_ToggleFollow_Success_Off");
+                return Json(new { status = true, message = msg });
+            }
+
+            return Json(new
+            {
+                status = false,
+                message = GetAppMessage("DigitalSales_Toggle_Error")
+            });
         }
         #endregion
 
@@ -955,6 +1009,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
                         {
                             var shortName = (p.ShortNameProduct ?? "").Trim();
                             var fullName = (p.NameProduct ?? "").Trim();
+                            var code = (p.CodeProduct ?? "").Trim();
 
                             string displayText;
                             if (!string.IsNullOrEmpty(shortName) && !string.IsNullOrEmpty(fullName))
@@ -970,6 +1025,11 @@ namespace Modules.Cate.Areas.Cate.Controllers
                             else
                             {
                                 displayText = shortName;
+                            }
+
+                            if (!string.IsNullOrEmpty(code) && !displayText.Contains($"({code})"))
+                            {
+                                displayText = $"{displayText} ({code})";
                             }
 
                             return new SelectListItem
@@ -1001,6 +1061,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
                             var fullName = (!string.IsNullOrWhiteSpace(p.NameProduct)
                                 ? p.NameProduct
                                 : (p.DisplayName ?? "").Replace("&nbsp;", "")).Trim();
+                            var code = (p.CodeProduct ?? "").Trim();
 
                             string displayText;
                             if (!string.IsNullOrEmpty(shortName) && !string.IsNullOrEmpty(fullName))
@@ -1016,6 +1077,11 @@ namespace Modules.Cate.Areas.Cate.Controllers
                             else
                             {
                                 displayText = shortName;
+                            }
+
+                            if (!string.IsNullOrEmpty(code) && !displayText.Contains($"({code})"))
+                            {
+                                displayText = $"{displayText} ({code})";
                             }
 
                             return new SelectListItem
@@ -1446,22 +1512,18 @@ namespace Modules.Cate.Areas.Cate.Controllers
 
                 if (model.MemberID > 0)
                 {
-                    var existingMembers = _salesCache.GetMembersBySalesID(model.DigitalSalesID) ?? new List<RM_DigitalSalesMemberModel>();
-                    bool isDuplicate = existingMembers.Any(m => m.MemberID != model.MemberID && m.UserID == model.UserID && string.Equals(m.RoleTitle?.Trim(), finalRoleTitle.Trim(), StringComparison.OrdinalIgnoreCase));
-                    if (isDuplicate)
-                    {
-                        return Json(new
-                        {
-                            status = false,
-                            message = GetAppMessage("DigitalSales_Msg_MemberRoleDuplicate")
-                        });
-                    }
-
                     model.RoleTitle = finalRoleTitle;
                     model.IsActive = true;
                     var saveResult = _salesCache.SaveMember(model, User.UserName);
                     if (saveResult > 0)
                     {
+                        var existingMembers = _salesCache.GetMembersBySalesID(model.DigitalSalesID) ?? new List<RM_DigitalSalesMemberModel>();
+                        var otherDups = existingMembers.Where(m => m.MemberID != model.MemberID && m.UserID == model.UserID).ToList();
+                        foreach (var dup in otherDups)
+                        {
+                            _salesCache.DeleteMember(dup.MemberID, User.UserName);
+                        }
+
                         return Json(new
                         {
                             status = true,
@@ -1502,13 +1564,27 @@ namespace Modules.Cate.Areas.Cate.Controllers
 
                 var existingMembersList = _salesCache.GetMembersBySalesID(model.DigitalSalesID) ?? new List<RM_DigitalSalesMemberModel>();
                 int savedCount = 0;
-                bool hadDuplicate = false;
                 foreach (var empId in empIdList)
                 {
-                    bool isDuplicate = existingMembersList.Any(existing => existing.UserID == empId && string.Equals(existing.RoleTitle?.Trim(), finalRoleTitle.Trim(), StringComparison.OrdinalIgnoreCase));
-                    if (isDuplicate)
+                    var existing = existingMembersList.FirstOrDefault(e => e.UserID == empId);
+                    if (existing != null)
                     {
-                        hadDuplicate = true;
+                        // Đã có trong danh sách -> gom vai trò vào cùng 1 card của người này
+                        var existingRoles = (existing.RoleTitle ?? "").Split(new[] { ',', ';' }, StringSplitOptions.RemoveEmptyEntries).Select(s => s.Trim()).ToList();
+                        var newRoles = roleNamesList.Select(s => s.Trim()).ToList();
+                        var mergedRoles = existingRoles.Concat(newRoles).Distinct(StringComparer.OrdinalIgnoreCase).ToList();
+                        existing.RoleTitle = mergedRoles.Count > 0 ? string.Join(", ", mergedRoles) : existing.RoleTitle;
+                        if (model.IsAM)
+                        {
+                            existing.IsAM = true;
+                        }
+                        if (!string.IsNullOrWhiteSpace(model.Note))
+                        {
+                            existing.Note = model.Note;
+                        }
+                        existing.IsActive = true;
+                        var saveId = _salesCache.SaveMember(existing, User.UserName);
+                        if (saveId > 0) savedCount++;
                         continue;
                     }
 
@@ -1532,15 +1608,6 @@ namespace Modules.Cate.Areas.Cate.Controllers
                     {
                         status = true,
                         message = savedCount == 1 ? AppProcessor.Messagor.GetMessage("DigitalSales_Msg_SaveMemberSuccess") : string.Format(AppProcessor.Messagor.GetMessage("DigitalSales_Msg_SaveMembersMultiSuccess"), savedCount)
-                    });
-                }
-
-                if (hadDuplicate)
-                {
-                    return Json(new
-                    {
-                        status = false,
-                        message = GetAppMessage("DigitalSales_Msg_MemberRoleDuplicate")
                     });
                 }
 
@@ -1572,6 +1639,25 @@ namespace Modules.Cate.Areas.Cate.Controllers
                     status = false,
                     message = GetAppMessage("DigitalSales_Msg_NoPermission")
                 });
+            }
+
+            if (salesId.HasValue && salesId.Value > 0)
+            {
+                var members = _salesCache.GetMembersBySalesID(salesId.Value) ?? new List<RM_DigitalSalesMemberModel>();
+                var target = members.FirstOrDefault(m => m.MemberID == id);
+                if (target != null && target.UserID > 0)
+                {
+                    var userDups = members.Where(m => m.UserID == target.UserID).ToList();
+                    foreach (var m in userDups)
+                    {
+                        _salesCache.DeleteMember(m.MemberID, User.UserName);
+                    }
+                    return Json(new
+                    {
+                        status = true,
+                        message = GetAppMessage("DigitalSales_Msg_DeleteMemberSuccess")
+                    });
+                }
             }
 
             var result = _salesCache.DeleteMember(id, User.UserName);
@@ -2226,6 +2312,13 @@ namespace Modules.Cate.Areas.Cate.Controllers
                 Text = bType.HasValue ? s.StatusName : $"[{(s.BusinessType == 1 ? AppProcessor.Messagor.GetMessage("DigitalSales_BusinessType_Opportunity") : AppProcessor.Messagor.GetMessage("DigitalSales_BusinessType_Project"))}] {s.StatusName}",
                 Selected = s.StatusID == model.StatusID
             }).ToList() ?? new List<SelectListItem>();
+
+            model.FilterSpecialList = new List<SelectListItem>
+            {
+                new SelectListItem { Value = "0", Text = GetAppMessage("DigitalSalesSearch_FilterSpecial_All") },
+                new SelectListItem { Value = "1", Text = GetAppMessage("DigitalSalesSearch_FilterSpecial_KeyProject") },
+                new SelectListItem { Value = "2", Text = GetAppMessage("DigitalSalesSearch_FilterSpecial_Followed") }
+            };
         }
 
         private void PrepareSalesDropdowns(RM_DigitalSalesModel model)

@@ -88,6 +88,12 @@ namespace Core.Cate.Models
         [CustomDisplayName("DigitalSales_FileAttach_Label")]
         public string FileAttach { get; set; }
 
+        [CustomDisplayName("DigitalSales_IsKeyProject_Label")]
+        public bool IsKeyProject { get; set; }
+
+        [CustomDisplayName("DigitalSales_IsFollowed_Label")]
+        public bool IsFollowed { get; set; }
+
         public DateTime CreatedDate { get; set; }
         public string CreatedBy { get; set; }
         public string CreatedByName { get; set; }

@@ -465,7 +465,10 @@
 
                 var newEditor = CKEDITOR.replace('DigitalSales_Form_Note', {
                     customConfig: '',
-                    height: 160,
+                    height: 180,
+                    autoParagraph: true,
+                    enterMode: 1, // CKEDITOR.ENTER_P
+                    shiftEnterMode: 2, // CKEDITOR.ENTER_BR
                     entities: false,
                     basicEntities: false,
                     entities_latin: false,
@@ -480,6 +483,22 @@
                         { name: 'tools', items: ['Maximize'] }
                     ]
                 });
+
+                newEditor.on('paste', function (evt) {
+                    var data = evt.data;
+                    if (data && data.dataValue) {
+                        var val = data.dataValue;
+                        if (val.indexOf('<p') === -1 && val.indexOf('<br') === -1 && (val.indexOf('\n') !== -1 || val.indexOf('\r') !== -1)) {
+                            var blocks = val.split(/\r?\n\r?\n/);
+                            var formattedHtml = blocks.map(function (blk) {
+                                return '<p>' + blk.replace(/\r?\n/g, '<br />') + '</p>';
+                            }).join('');
+                            data.dataValue = formattedHtml;
+                            data.type = 'html';
+                        }
+                    }
+                });
+
                 newEditor.on('instanceReady', function () {
                     if (initContent) {
                         try {
