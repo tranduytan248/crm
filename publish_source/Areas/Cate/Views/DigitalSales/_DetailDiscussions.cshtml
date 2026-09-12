@@ -27,13 +27,17 @@
                 <textarea id="txtDiscussionContent" 
                           name="content" 
                           class="form-control text-95 ds-discussion-textarea" 
-                          rows="3" 
+                          rows="4" 
                           placeholder="Nhập nội dung trao đổi, tiến độ, báo giá, yêu cầu khách hàng... (Gõ &#64; để nhắc tên thành viên)"></textarea>
 
                 <!-- DROPDOWN AUTOCOMPLETE @@MENTION -->
                 <div id="dsMentionDropdown" class="dropdown-menu shadow-lg border-1 brc-primary-m2 py-1 ds-mention-dropdown" style="display: none;">
-                    <div class="dropdown-header text-80 font-weight-bold text-uppercase text-secondary bgc-grey-l4 py-1 px-2 border-b-1 brc-grey-l2">
-                        <i class="fa fa-users text-primary mr-1"></i> Nhân sự trong dự án
+                    <div class="dropdown-header text-80 font-weight-bold text-uppercase text-secondary bgc-grey-l4 py-1 px-2 border-b-1 brc-grey-l2 d-flex align-items-center justify-content-between">
+                        <span><i class="fa fa-users text-primary mr-1"></i> Nhân sự trong dự án</span>
+                        <button type="button" class="btn btn-xs btn-link text-secondary p-0 border-0" onclick="hideMentionDropdown();"><i class="fa fa-times"></i></button>
+                    </div>
+                    <div class="p-1 border-b-1 brc-grey-l3 bgc-white">
+                        <input type="text" id="txtMentionSearch" class="form-control form-control-sm text-85" placeholder="Tìm kiếm nhân sự..." oninput="handleMentionSearchInput(this.value);" onkeydown="handleMentionSearchKeydown(event);" autocomplete="off" />
                     </div>
                     <div id="dsMentionList" class="ds-mention-list-scroll">
                         <!-- Danh sách nạp động qua JavaScript -->
@@ -172,18 +176,46 @@
                     <div class="ds-activity-content text-90 text-dark-m2 mb-2">
                         @if (isDiscussion)
                         {
-                            <!-- TỰ ĐỘNG NỔI BẬT CÁC THẺ @@MENTION -->
+                            <!-- TỰ ĐỘNG NỔI BẬT CÁC THẺ @@MENTION & HIỂN THỊ NỘI DUNG GIÀU VĂN BẢN (CKEDITOR) -->
                             var formattedContent = Core.Cate.Biz.RM_DigitalSalesBiz.FixVietnameseMojibake(act.Content);
                             if (!string.IsNullOrEmpty(formattedContent))
                             {
-                                // Chuyển đổi xuống dòng
-                                formattedContent = System.Web.HttpUtility.HtmlEncode(formattedContent).Replace("\n", "<br />");
-                                // Highlight các thẻ @Tên
-                                formattedContent = System.Text.RegularExpressions.Regex.Replace(
-                                    formattedContent, 
-                                    @"(@[\p{L}\p{M}\w\s.-]+?)(?=\s|$|<br)", 
-                                    "<span class=\"ds-mention-badge\"><i class=\"fa fa-at mr-1\"></i>$1</span>"
-                                );
+                                bool isHtml = formattedContent.Contains("<p") || formattedContent.Contains("<div") || 
+                                              formattedContent.Contains("<br") || formattedContent.Contains("<table") || 
+                                              formattedContent.Contains("<ul") || formattedContent.Contains("<ol") || 
+                                              formattedContent.Contains("<b") || formattedContent.Contains("<strong") || 
+                                              formattedContent.Contains("<span");
+
+                                if (!isHtml)
+                                {
+                                    // Chuyển đổi an toàn ký tự đặc biệt HTML mà vẫn giữ nguyên font tiếng Việt UTF-8
+                                    formattedContent = formattedContent.Replace("&", "&amp;").Replace("<", "&lt;").Replace(">", "&gt;").Replace("\"", "&quot;").Replace("\n", "<br />");
+                                }
+
+                                // Định dạng nổi bật @Nhắc tên thành viên
+                                if (members != null && members.Count > 0)
+                                {
+                                    var sortedMembers = members.Where(m => !string.IsNullOrWhiteSpace(m.FullName))
+                                                               .OrderByDescending(m => m.FullName.Length);
+                                    foreach (var m in sortedMembers)
+                                    {
+                                        var pat = "(?<![\\w@/\"'=])(@" + System.Text.RegularExpressions.Regex.Escape(m.FullName) + ")(?=\\s|<|$|[.,;!?])";
+                                        formattedContent = System.Text.RegularExpressions.Regex.Replace(
+                                            formattedContent,
+                                            pat,
+                                            "<span class=\"ds-mention-badge\"><i class=\"fa fa-at mr-1\"></i>$1</span>"
+                                        );
+                                    }
+                                }
+                                else
+                                {
+                                    formattedContent = System.Text.RegularExpressions.Regex.Replace(
+                                        formattedContent,
+                                        @"(?<![\w@/""'=])(@[\p{L}\p{M}\w.-]+)(?=\s|<|$|[.,;!?])",
+                                        "<span class=\"ds-mention-badge\"><i class=\"fa fa-at mr-1\"></i>$1</span>"
+                                    );
+                                }
+
                                 @Html.Raw(formattedContent)
                             }
                         }
@@ -318,18 +350,49 @@ else
     .ds-composer-card .card-body {
         overflow: visible !important;
     }
+    .ds-activity-content p {
+        margin-bottom: 0.35rem;
+    }
+    .ds-activity-content p:last-child {
+        margin-bottom: 0;
+    }
+    .ds-activity-content ul, .ds-activity-content ol {
+        padding-left: 22px;
+        margin-bottom: 0.35rem;
+    }
+    .ds-activity-content table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-bottom: 0.5rem;
+        background-color: #fff;
+    }
+    .ds-activity-content table, .ds-activity-content th, .ds-activity-content td {
+        border: 1px solid #cbd5e1;
+        padding: 5px 8px;
+    }
+    .ds-activity-content th {
+        background-color: #f1f5f9;
+        font-weight: 600;
+    }
+    .ds-activity-content blockquote {
+        border-left: 3px solid #3b82f6;
+        padding-left: 10px;
+        margin: 6px 0;
+        color: #475569;
+        font-style: italic;
+        background-color: #f8fafc;
+    }
     .ds-mention-dropdown {
         position: absolute;
-        top: 100%;
-        left: 0;
-        z-index: 1060;
+        top: 42px;
+        left: 15px;
+        z-index: 10000;
         width: 320px;
         max-width: 95vw;
         border-radius: 6px;
-        margin-top: 4px;
         background-color: #fff;
-        box-shadow: 0 8px 28px rgba(0, 0, 0, 0.22);
-        border: 1px solid #bfdbfe;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.22);
+        border: 1px solid #93c5fd;
     }
     .ds-mention-list-scroll {
         max-height: 220px;
@@ -407,3 +470,9 @@ else
         color: #b91c1c;
     }
 </style>
+
+<script type="text/javascript">
+    if (typeof initDiscussionCKEditor === "function") {
+        initDiscussionCKEditor();
+    }
+</script>

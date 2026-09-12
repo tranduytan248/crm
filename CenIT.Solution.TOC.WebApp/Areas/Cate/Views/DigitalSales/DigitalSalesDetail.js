@@ -1,4 +1,5 @@
-﻿var _detailUrls = {
+window.CKEDITOR_BASEPATH = "/Contents/Modules/Major/ckeditor4/";
+var _detailUrls = {
     editSales: "/Cate/DigitalSales/Edit",
     changeStatusModal: "/Cate/DigitalSales/ChangeStatusModal",
     changeStatus: "/Cate/DigitalSales/ChangeStatus",
@@ -313,8 +314,12 @@ $(document).ready(function () {
     }
     $('.nav-tabs a').on('shown.bs.tab', function (e) {
         window.location.hash = e.target.hash;
+        if (e.target.hash === '#tab-discussions') {
+            initDiscussionCKEditor();
+        }
     });
 
+    initDiscussionCKEditor();
     initDiscussionEvents();
 });
 
@@ -997,6 +1002,13 @@ function reloadDiscussionsSection(salesId, filterType) {
         params.activityType = filterType;
     }
 
+    // Cleanly destroy CKEditor before re-rendering HTML
+    if (typeof CKEDITOR !== "undefined" && CKEDITOR.instances['txtDiscussionContent']) {
+        try {
+            CKEDITOR.instances['txtDiscussionContent'].destroy(true);
+        } catch (e) { }
+    }
+
     $.get(_detailUrls.getDiscussionsPartial, params, function (html) {
         $discussions.html(html);
         hideSectionLoading($discussions);
@@ -1004,6 +1016,7 @@ function reloadDiscussionsSection(salesId, filterType) {
         if (newCount !== undefined) {
             $("#badgeTabDiscussions").text(newCount);
         }
+        initDiscussionCKEditor();
         initDiscussionEvents();
     }).fail(function () {
         hideSectionLoading($discussions);
@@ -1077,14 +1090,62 @@ function loadProjectMembersForMention(salesId, callback) {
     });
 }
 
-function triggerMentionDropdown() {
-    var $textarea = $("#txtDiscussionContent");
-    if ($textarea.length === 0) return;
-    var currentVal = $textarea.val();
-    if (!currentVal.endsWith("@")) {
-        $textarea.val(currentVal + (currentVal.length > 0 && !currentVal.endsWith(" ") ? " @" : "@"));
+function initDiscussionCKEditor() {
+    if (typeof CKEDITOR === "undefined") return;
+    if ($("#txtDiscussionContent").length === 0) return;
+
+    if (CKEDITOR.instances['txtDiscussionContent']) {
+        try {
+            CKEDITOR.instances['txtDiscussionContent'].destroy(true);
+        } catch (e) { }
     }
-    $textarea.focus();
+
+    window.CKEDITOR_BASEPATH = "/Contents/Modules/Major/ckeditor4/";
+
+    var editor = CKEDITOR.replace('txtDiscussionContent', {
+        customConfig: '',
+        height: 120,
+        allowedContent: true,
+        extraAllowedContent: 'span(*)[*]; img[*]; table[*]; tr[*]; td[*]; th[*]; p[*]; a[*]; b[*]; strong[*]; i[*]; u[*]; s[*]',
+        autoParagraph: true,
+        enterMode: 1, // CKEDITOR.ENTER_P
+        shiftEnterMode: 2, // CKEDITOR.ENTER_BR
+        entities: false,
+        basicEntities: false,
+        entities_latin: false,
+        entities_greek: false,
+        entities_processNumerical: false,
+        fillEmptyBlocks: false,
+        toolbar: [
+            { name: 'basicstyles', items: ['Bold', 'Italic', 'Underline', 'Strike'] },
+            { name: 'paragraph', items: ['NumberedList', 'BulletedList', '-', 'Blockquote'] },
+            { name: 'insert', items: ['Table', 'Link', 'Unlink'] },
+            { name: 'styles', items: ['Format'] },
+            { name: 'tools', items: ['Maximize', 'RemoveFormat'] }
+        ]
+    });
+
+    editor.on('instanceReady', function () {
+        editor.on('key', function (evt) {
+            // Ctrl + Enter to submit form
+            if (evt.data.domEvent.$.ctrlKey && (evt.data.domEvent.$.keyCode === 13 || evt.data.domEvent.$.which === 13)) {
+                evt.cancel();
+                $("#frmPostDiscussion").submit();
+                return;
+            }
+
+            // '@' key to trigger mention
+            var key = evt.data.domEvent.$.key;
+            if (key === '@' || (evt.data.domEvent.$.shiftKey && (evt.data.domEvent.$.keyCode === 50 || evt.data.domEvent.$.which === 50))) {
+                setTimeout(function () {
+                    showMentionDropdown("");
+                }, 100);
+            }
+        });
+    });
+}
+
+function triggerMentionDropdown() {
     showMentionDropdown("");
 }
 
@@ -1131,33 +1192,82 @@ function showMentionDropdown(query) {
         }
 
         $dropdown.show();
+        setTimeout(function () {
+            $("#txtMentionSearch").focus();
+        }, 50);
     });
 }
 
 function hideMentionDropdown() {
     $("#dsMentionDropdown").hide();
+    $("#txtMentionSearch").val('');
+}
+
+function handleMentionSearchInput(val) {
+    showMentionDropdown(val);
+}
+
+function handleMentionSearchKeydown(e) {
+    var $dropdown = $("#dsMentionDropdown");
+    if (!$dropdown.is(":visible")) return;
+
+    var $items = $("#dsMentionList .ds-mention-item");
+    if ($items.length > 0) {
+        var $current = $items.filter(".active");
+        var currentIndex = $items.index($current);
+
+        if (e.key === "ArrowDown") {
+            e.preventDefault();
+            var nextIndex = currentIndex < $items.length - 1 ? currentIndex + 1 : 0;
+            $items.removeClass("active");
+            var $next = $items.eq(nextIndex).addClass("active");
+            if ($next.length && $next[0].scrollIntoView) {
+                $next[0].scrollIntoView({ block: "nearest" });
+            }
+            return;
+        } else if (e.key === "ArrowUp") {
+            e.preventDefault();
+            var prevIndex = currentIndex > 0 ? currentIndex - 1 : $items.length - 1;
+            $items.removeClass("active");
+            var $prev = $items.eq(prevIndex).addClass("active");
+            if ($prev.length && $prev[0].scrollIntoView) {
+                $prev[0].scrollIntoView({ block: "nearest" });
+            }
+            return;
+        } else if (e.key === "Enter") {
+            e.preventDefault();
+            if ($current.length > 0) {
+                var user = $current.data("user");
+                if (user) {
+                    selectMentionUser(user);
+                    return;
+                }
+            }
+        }
+    }
+
+    if (e.key === "Escape") {
+        e.preventDefault();
+        hideMentionDropdown();
+        if (typeof CKEDITOR !== "undefined" && CKEDITOR.instances['txtDiscussionContent']) {
+            CKEDITOR.instances['txtDiscussionContent'].focus();
+        }
+    }
 }
 
 function selectMentionUser(user) {
-    var $textarea = $("#txtDiscussionContent");
-    if ($textarea.length === 0) return;
-    var el = $textarea[0];
-    var val = $textarea.val();
-    var cursorPos = el.selectionStart || val.length;
-    var textBeforeCursor = val.substring(0, cursorPos);
-    var textAfterCursor = val.substring(cursorPos);
+    if (!user) return;
 
-    var lastAtIndex = textBeforeCursor.lastIndexOf("@");
-    if (lastAtIndex !== -1) {
-        var beforeAt = textBeforeCursor.substring(0, lastAtIndex);
-        var insertText = "@" + user.fullName + " ";
-        $textarea.val(beforeAt + insertText + textAfterCursor);
-        var newCursorPos = beforeAt.length + insertText.length;
-        if (el.setSelectionRange) {
-            el.setSelectionRange(newCursorPos, newCursorPos);
-        }
+    if (typeof CKEDITOR !== "undefined" && CKEDITOR.instances['txtDiscussionContent']) {
+        var editor = CKEDITOR.instances['txtDiscussionContent'];
+        editor.focus();
+        var mentionHtml = '&nbsp;<span class="ds-mention-badge" data-user-id="' + user.userId + '"><i class="fa fa-at mr-1"></i>' + user.fullName + '</span>&nbsp;';
+        editor.insertHtml(mentionHtml);
     } else {
-        $textarea.val(val + "@" + user.fullName + " ");
+        var $textarea = $("#txtDiscussionContent");
+        if ($textarea.length > 0) {
+            $textarea.val($textarea.val() + " @" + user.fullName + " ");
+        }
     }
 
     // Track mentioned user IDs
@@ -1174,78 +1284,11 @@ function selectMentionUser(user) {
     $names.val(currentNames.join(","));
 
     hideMentionDropdown();
-    $textarea.focus();
 }
 
 function initDiscussionEvents() {
-    var $textarea = $("#txtDiscussionContent");
-    if ($textarea.length === 0) return;
-
-    $textarea.off("input.ds keydown.ds").on("input.ds", function (e) {
-        var val = $(this).val();
-        var cursorPos = this.selectionStart;
-        var textBeforeCursor = val.substring(0, cursorPos);
-        var match = textBeforeCursor.match(/(?:^|\s)@([a-zA-Z0-9À-ỹ_.-]*)$/);
-
-        if (match) {
-            var query = match[1];
-            if (query.length <= 30) {
-                showMentionDropdown(query);
-            } else {
-                hideMentionDropdown();
-            }
-        } else {
-            hideMentionDropdown();
-        }
-    }).on("keydown.ds", function (e) {
-        var $dropdown = $("#dsMentionDropdown");
-        if ($dropdown.is(":visible")) {
-            var $items = $("#dsMentionList .ds-mention-item");
-            if ($items.length > 0) {
-                var $current = $items.filter(".active");
-                var currentIndex = $items.index($current);
-
-                if (e.key === "ArrowDown") {
-                    e.preventDefault();
-                    var nextIndex = currentIndex < $items.length - 1 ? currentIndex + 1 : 0;
-                    $items.removeClass("active");
-                    var $next = $items.eq(nextIndex).addClass("active");
-                    if ($next.length && $next[0].scrollIntoView) {
-                        $next[0].scrollIntoView({ block: "nearest" });
-                    }
-                    return;
-                } else if (e.key === "ArrowUp") {
-                    e.preventDefault();
-                    var prevIndex = currentIndex > 0 ? currentIndex - 1 : $items.length - 1;
-                    $items.removeClass("active");
-                    var $prev = $items.eq(prevIndex).addClass("active");
-                    if ($prev.length && $prev[0].scrollIntoView) {
-                        $prev[0].scrollIntoView({ block: "nearest" });
-                    }
-                    return;
-                } else if (e.key === "Enter" || e.key === "Tab") {
-                    if ($current.length > 0) {
-                        e.preventDefault();
-                        var user = $current.data("user");
-                        if (user) {
-                            selectMentionUser(user);
-                            return;
-                        }
-                    }
-                }
-            }
-        }
-
-        if (e.key === "Escape") {
-            hideMentionDropdown();
-        } else if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
-            e.preventDefault();
-            $("#frmPostDiscussion").submit();
-        }
-    });
-
     $(document).off("click.dsMention").on("click.dsMention", function (e) {
-        if (!$(e.target).closest("#dsMentionDropdown, #txtDiscussionContent").length) {
+        if (!$(e.target).closest("#dsMentionDropdown, #txtDiscussionContent, .ds-mention-item, button[onclick*='triggerMentionDropdown']").length) {
             hideMentionDropdown();
         }
     });
@@ -1256,12 +1299,23 @@ function submitDiscussionForm(e, salesId) {
     if (e && e.preventDefault) e.preventDefault();
     if (_isSubmittingDiscussion) return;
 
-    var content = $("#txtDiscussionContent").val();
-    if (!content || !content.trim()) {
+    var content = "";
+    if (typeof CKEDITOR !== "undefined" && CKEDITOR.instances['txtDiscussionContent']) {
+        content = CKEDITOR.instances['txtDiscussionContent'].getData();
+    } else {
+        content = $("#txtDiscussionContent").val();
+    }
+
+    var plainText = $("<div>").html(content).text().trim();
+    if (!content || !plainText) {
         if (typeof toastr !== "undefined") {
             toastr.warning("Vui lòng nhập nội dung trao đổi!");
         }
-        $("#txtDiscussionContent").focus();
+        if (typeof CKEDITOR !== "undefined" && CKEDITOR.instances['txtDiscussionContent']) {
+            CKEDITOR.instances['txtDiscussionContent'].focus();
+        } else {
+            $("#txtDiscussionContent").focus();
+        }
         return;
     }
 
@@ -1295,7 +1349,14 @@ function submitDiscussionForm(e, salesId) {
 
             if (res && res.status) {
                 executeResponseMessage(res.message, "Đã gửi trao đổi thành công!", true);
+                if (typeof CKEDITOR !== "undefined" && CKEDITOR.instances['txtDiscussionContent']) {
+                    CKEDITOR.instances['txtDiscussionContent'].setData('');
+                }
+                $("#txtDiscussionContent").val('');
+                $("#hdnMentionedUserIds").val('');
+                $("#hdnMentionedNames").val('');
                 _discussionSelectedFiles = [];
+                renderDiscussionSelectedFiles();
                 reloadDiscussionsSection(salesId);
             } else {
                 executeResponseMessage(res ? res.message : "Gửi trao đổi không thành công!", null, false);
