@@ -34,7 +34,7 @@
         </div>
 
         <!-- 1. Toggle: Trọng điểm (Tách riêng biệt, switch to hơn, text đen, không icon) -->
-        <div class="Search_Box" style="min-width: 125px;">
+        <div class="Search_Box" style="min-width: 140px;">
             <label class="font-bold d-block text-sm-right" style="visibility: hidden; font-size: 13px; margin: 0; height: 18px;">&nbsp;</label>
             <div class="d-flex align-items-center" style="height: 32px;">
                 <div class="custom-control custom-switch custom-switch-lg" title="Lọc các dự án trọng điểm">
@@ -47,7 +47,7 @@
         </div>
 
         <!-- 2. Toggle: Đang quan tâm (Tách riêng biệt, switch to hơn, text đen, không icon) -->
-        <div class="Search_Box" style="min-width: 140px;">
+        <div class="Search_Box" style="min-width: 160px;">
             <label class="font-bold d-block text-sm-right" style="visibility: hidden; font-size: 13px; margin: 0; height: 18px;">&nbsp;</label>
             <div class="d-flex align-items-center" style="height: 32px;">
                 <div class="custom-control custom-switch custom-switch-lg" title="Lọc các cơ hội/dự án bạn đang quan tâm">
@@ -226,38 +226,56 @@
     .datepicker.datepicker-dropdown {
         z-index: 1060 !important;
     }
-    /* Switch cỡ lớn hơn, chữ đen rõ nét theo yêu cầu người dùng */
+    /* Switch cỡ lớn hơn, chữ đen rõ nét, canh giữa hoàn hảo theo yêu cầu người dùng */
     .custom-switch.custom-switch-lg {
-        padding-left: 2.85rem;
+        padding-left: 56px !important;
+        min-height: 26px;
+        display: inline-flex;
+        align-items: center;
+        margin-bottom: 0;
+        cursor: pointer;
     }
     .custom-switch.custom-switch-lg .custom-control-label {
         font-size: 14px !important;
         color: #1a1a1a !important;
         font-weight: 600 !important;
-        line-height: 22px;
+        line-height: 26px !important;
         cursor: pointer;
         user-select: none;
+        white-space: nowrap;
+        display: inline-flex;
+        align-items: center;
+        min-height: 26px;
+        margin-bottom: 0;
     }
     .custom-switch.custom-switch-lg .custom-control-label::before {
-        left: -2.85rem;
-        width: 2.3rem;
-        height: 1.25rem;
-        border-radius: 1rem;
+        position: absolute;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+        left: -56px !important;
+        width: 46px !important;
+        height: 24px !important;
+        border-radius: 12px !important;
         background-color: #ced4da;
         border: 1px solid #adb5bd;
+        pointer-events: all;
+        cursor: pointer;
     }
     .custom-switch.custom-switch-lg .custom-control-label::after {
-        top: calc(0.25rem + 1px);
-        left: calc(-2.85rem + 2px);
-        width: calc(1.25rem - 4px);
-        height: calc(1.25rem - 4px);
-        border-radius: 50%;
-        background-color: #fff;
+        position: absolute;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+        left: -54px !important;
+        width: 20px !important;
+        height: 20px !important;
+        border-radius: 50% !important;
+        background-color: #fff !important;
         box-shadow: 0 1px 3px rgba(0,0,0,0.25);
         transition: transform .15s ease-in-out, background-color .15s ease-in-out;
+        cursor: pointer;
     }
     .custom-switch.custom-switch-lg .custom-control-input:checked ~ .custom-control-label::after {
-        transform: translateX(1.05rem);
+        transform: translateY(-50%) translateX(22px) !important;
     }
     #chkFilterKeyProject:checked ~ .custom-control-label::before {
         background-color: #f59f00 !important;
