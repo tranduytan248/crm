@@ -1,4 +1,4 @@
-﻿var _tableDigitalSales;
+var _tableDigitalSales;
 var _digitalSalesUrls = {
     get: "/Cate/DigitalSales/Get",
     add: "/Cate/DigitalSales/Add",
@@ -109,7 +109,7 @@ function initTableDigitalSales() {
                         '</div>';
 
                     // Hàng 2: Tên cơ hội / Dự án
-                    html += '<a href="' + _digitalSalesUrls.detail + '/' + row.DigitalSalesID + '" class="font-weight-bold text-primary d-block sale-title" style="font-size: 16px;" title="Xem chi tiết 360 độ">' +
+                    html += '<a href="' + _digitalSalesUrls.detail + '/' + row.DigitalSalesID + '" class="font-weight-bold text-primary d-block sale-title" style="font-size: 15px;" title="Xem chi tiết 360 độ">' +
                         row.Title + '</a>';
 
                     // Hàng 3: Mã hồ sơ & Các huy hiệu đặc biệt (Trọng điểm, Quan tâm)
