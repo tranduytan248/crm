@@ -90,11 +90,11 @@ namespace Core.Cate.Biz
             var model = AppProcessor.ProcedureProvider.ExecuteScalarObject<RM_DigitalSalesModel>(_spGetByID, DATA_PROVIDER_NAME, id, userName);
             if (model != null)
             {
-                model.Products = GetProductsBySalesID(id);
-                model.Members = GetMembersBySalesID(id);
-                model.TrackingTasks = GetTrackingTasks(id);
-                model.Timelines = GetTimeline(id);
-                model.Activities = GetActivitiesBySalesID(id);
+                try { model.Products = GetProductsBySalesID(id); } catch (Exception ex) { AppProcessor.Logger.Error(ex); model.Products = new List<RM_DigitalSalesProductModel>(); }
+                try { model.Members = GetMembersBySalesID(id); } catch (Exception ex) { AppProcessor.Logger.Error(ex); model.Members = new List<RM_DigitalSalesMemberModel>(); }
+                try { model.TrackingTasks = GetTrackingTasks(id); } catch (Exception ex) { AppProcessor.Logger.Error(ex); model.TrackingTasks = new List<RM_DigitalSalesTrackingModel>(); }
+                try { model.Timelines = GetTimeline(id); } catch (Exception ex) { AppProcessor.Logger.Error(ex); model.Timelines = new List<RM_DigitalSalesTimelineModel>(); }
+                try { model.Activities = GetActivitiesBySalesID(id); } catch (Exception ex) { AppProcessor.Logger.Error(ex); model.Activities = new List<RM_DigitalSalesActivityModel>(); }
             }
             return model;
         }
@@ -423,12 +423,21 @@ namespace Core.Cate.Biz
         public List<RM_DigitalSalesActivityModel> GetActivitiesBySalesID(int digitalSalesId, byte? activityType = null)
         {
             if (digitalSalesId <= 0) return new List<RM_DigitalSalesActivityModel>();
-            var list = AppProcessor.ProcedureProvider.ExecuteTypedList<RM_DigitalSalesActivityModel>(
-                _spActivityGetList,
-                DATA_PROVIDER_NAME,
-                digitalSalesId,
-                activityType.HasValue ? (object)activityType.Value : DBNull.Value
-            );
+            List<RM_DigitalSalesActivityModel> list = null;
+            try
+            {
+                list = AppProcessor.ProcedureProvider.ExecuteTypedList<RM_DigitalSalesActivityModel>(
+                    _spActivityGetList,
+                    DATA_PROVIDER_NAME,
+                    digitalSalesId,
+                    activityType.HasValue ? (object)activityType.Value : DBNull.Value
+                );
+            }
+            catch (Exception ex)
+            {
+                AppProcessor.Logger.Error(ex);
+                return new List<RM_DigitalSalesActivityModel>();
+            }
 
             if (list != null && list.Count > 0)
             {
