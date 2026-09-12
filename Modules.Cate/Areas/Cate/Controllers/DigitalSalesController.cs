@@ -1,4 +1,5 @@
 using ClosedXML.Excel;
+using Core.Cate.Biz;
 using Core.Cate.Caches;
 using Core.Cate.Models;
 using Core.Sys.BaseApp;
@@ -46,20 +47,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
         private string FormatHtmlContent(string content)
         {
             if (string.IsNullOrWhiteSpace(content)) return string.Empty;
-            var text = content.Trim();
-            if (text.Contains("\u00C3") || text.Contains("\u00C4") || text.Contains("\u00E1\u00BA") || text.Contains("\u00E1\u00BB") || text.Contains("\u00C2"))
-            {
-                try
-                {
-                    byte[] bytes = System.Text.Encoding.GetEncoding(1252).GetBytes(text);
-                    string fixedText = System.Text.Encoding.UTF8.GetString(bytes);
-                    if (!string.IsNullOrEmpty(fixedText))
-                    {
-                        text = fixedText;
-                    }
-                }
-                catch { }
-            }
+            var text = RM_DigitalSalesBiz.FixVietnameseMojibake(content.Trim());
             if (text.Contains("&lt;") && text.Contains("&gt;"))
             {
                 text = HttpUtility.HtmlDecode(text);

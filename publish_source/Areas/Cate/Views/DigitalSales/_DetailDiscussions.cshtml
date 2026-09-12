@@ -142,7 +142,7 @@
                     <div class="d-flex align-items-center justify-content-between mb-2 flex-wrap" style="gap: 4px;">
                         <div class="d-flex align-items-center min-width-0 flex-wrap" style="gap: 6px;">
                             <span class="font-weight-bold text-dark-m1 text-95">
-                                @(string.IsNullOrEmpty(act.ActionByName) ? act.ActionBy : act.ActionByName)
+                                @(Core.Cate.Biz.RM_DigitalSalesBiz.FixVietnameseMojibake(string.IsNullOrEmpty(act.ActionByName) ? act.ActionBy : act.ActionByName))
                             </span>
                             @if (!string.IsNullOrEmpty(act.ActionByDepartment))
                             {
@@ -173,7 +173,7 @@
                         @if (isDiscussion)
                         {
                             <!-- TỰ ĐỘNG NỔI BẬT CÁC THẺ @@MENTION -->
-                            var formattedContent = act.Content;
+                            var formattedContent = Core.Cate.Biz.RM_DigitalSalesBiz.FixVietnameseMojibake(act.Content);
                             if (!string.IsNullOrEmpty(formattedContent))
                             {
                                 // Chuyển đổi xuống dòng
@@ -189,8 +189,9 @@
                         }
                         else
                         {
+                            var cleanNonDiscussion = Core.Cate.Biz.RM_DigitalSalesBiz.FixVietnameseMojibake(act.Content);
                             <div class="bgc-grey-l5 p-2 radius-1 border-1 brc-grey-l3 text-dark-m2">
-                                @Html.Raw(System.Web.HttpUtility.HtmlEncode(act.Content).Replace("\n", "<br />"))
+                                @Html.Raw(System.Web.HttpUtility.HtmlEncode(cleanNonDiscussion).Replace("\n", "<br />"))
                             </div>
                         }
                     </div>
