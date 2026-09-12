@@ -206,5 +206,25 @@ namespace Core.Cate.Caches
         {
             return Api.GenerateNextCode();
         }
+
+        public List<RM_DigitalSalesActivityModel> GetActivitiesBySalesID(int digitalSalesId, byte? activityType = null)
+        {
+            if (digitalSalesId <= 0) return new List<RM_DigitalSalesActivityModel>();
+            return Api.GetActivitiesBySalesID(digitalSalesId, activityType);
+        }
+
+        public int AddActivity(RM_DigitalSalesActivityModel model, string username)
+        {
+            var result = Api.AddActivity(model, username);
+            if (result > 0) InvalidateCache();
+            return result;
+        }
+
+        public int DeleteActivity(int activityId, string username)
+        {
+            var result = Api.DeleteActivity(activityId, username);
+            if (result > 0) InvalidateCache();
+            return result;
+        }
     }
 }

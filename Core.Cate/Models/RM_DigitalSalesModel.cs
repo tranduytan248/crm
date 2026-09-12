@@ -119,6 +119,9 @@ namespace Core.Cate.Models
         // Lịch sử chuyển đổi trạng thái (Timeline)
         public List<RM_DigitalSalesTimelineModel> Timelines { get; set; } = new List<RM_DigitalSalesTimelineModel>();
 
+        // Dòng trao đổi & hoạt động (Activity & Discussion Stream)
+        public List<RM_DigitalSalesActivityModel> Activities { get; set; } = new List<RM_DigitalSalesActivityModel>();
+
         // Dropdown sources for UI
         public List<SelectListItem> ListCustomer { get; set; } = new List<SelectListItem>();
         public List<SelectListItem> ListProductService { get; set; } = new List<SelectListItem>();

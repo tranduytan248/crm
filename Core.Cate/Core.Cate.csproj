@@ -261,6 +261,7 @@
     <Compile Include="Models\RM_DigitalSalesSearchModel.cs" />
     <Compile Include="Models\RM_DigitalSalesStatusModel.cs" />
     <Compile Include="Models\RM_DigitalSalesTimelineModel.cs" />
+    <Compile Include="Models\RM_DigitalSalesActivityModel.cs" />
     <Compile Include="Models\RM_DigitalSalesTrackingModel.cs" />
     <Compile Include="Models\RM_DigitalSalesProcessModel.cs" />
     <Compile Include="Models\RM_DigitalSalesProgressModel.cs" />

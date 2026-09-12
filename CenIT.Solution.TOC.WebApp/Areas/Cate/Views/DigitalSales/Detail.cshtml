@@ -417,9 +417,9 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link px-3 px-xl-4 py-3 font-weight-bold" id="tab-timeline-link" data-toggle="tab" href="#tab-timeline" role="tab" aria-selected="false">
-                    <i class="fa fa-history mr-1 text-green"></i> 4. Dòng thời gian (Timeline)
-                    <span class="badge badge-pill badge-success ml-1" id="badgeTabTimeline">@(Model.Timelines?.Count ?? 0)</span>
+                <a class="nav-link px-3 px-xl-4 py-3 font-weight-bold" id="tab-discussions-link" data-toggle="tab" href="#tab-discussions" role="tab" aria-selected="false">
+                    <i class="fa fa-comments mr-1 text-primary"></i> 4. Trao đổi chung & Hoạt động
+                    <span class="badge badge-pill badge-primary ml-1" id="badgeTabDiscussions">@(Model.Activities?.Count ?? 0)</span>
                 </a>
             </li>
         </ul>
@@ -442,9 +442,9 @@
                 @Html.Partial("_DetailTracking", Model)
             </div>
 
-            <!-- TAB 4: DÒNG THỜI GIAN (TIMELINE) -->
-            <div class="tab-pane fade ds-section-overlay-container" id="tab-timeline" role="tabpanel">
-                @Html.Partial("_DetailTimeline", Model)
+            <!-- TAB 4: TRAO ĐỔI CHUNG & HOẠT ĐỘNG -->
+            <div class="tab-pane fade ds-section-overlay-container" id="tab-discussions" role="tabpanel">
+                @Html.Partial("_DetailDiscussions", Model)
             </div>
         </div>
     </div>

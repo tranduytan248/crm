@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Hosting;
 using System.Web.Mvc;
@@ -931,6 +932,156 @@ namespace Modules.Cate.Areas.Cate.Controllers
             var model = _salesCache.GetByID(id, User.UserName);
             if (model == null) return HttpNotFound();
             return PartialView("_DetailTimeline", model);
+        }
+
+        [AjaxOnly]
+        [HttpGet]
+        [ActionType(Type = EnumActionType.View)]
+        public ActionResult GetDiscussionsPartial(int id, byte? activityType = null)
+        {
+            var model = _salesCache.GetByID(id, User.UserName);
+            if (model == null) return HttpNotFound();
+
+            if (activityType.HasValue)
+            {
+                model.Activities = _salesCache.GetActivitiesBySalesID(id, activityType.Value);
+            }
+
+            ViewBag.CurrentFilter = activityType;
+            ViewBag.CanEdit = HasDetailPermission(model, User.UserName);
+            return PartialView("_DetailDiscussions", model);
+        }
+
+        [AjaxOnly]
+        [HttpGet]
+        [ActionType(Type = EnumActionType.View)]
+        public ActionResult GetMembersForMention(int id)
+        {
+            var members = _salesCache.GetMembersBySalesID(id);
+            var result = members.Select(m => new
+            {
+                userId = m.UserID,
+                userName = m.UserName,
+                fullName = m.FullName,
+                roleTitle = m.RoleTitle
+            }).ToList();
+
+            return Json(new { status = true, data = result }, JsonRequestBehavior.AllowGet);
+        }
+
+        [AjaxOnly]
+        [HttpPost]
+        [ActionType(Type = EnumActionType.Edit)]
+        [ValidateInput(false)]
+        public ActionResult PostDiscussion(int digitalSalesId, string content, string mentionedUserIds, string mentionedNames)
+        {
+            if (digitalSalesId <= 0)
+            {
+                return Json(new { status = false, message = CreateMessage(_title, EnumProcessType.DataNotExist, EnumMsgIcon.Error) });
+            }
+
+            if (string.IsNullOrWhiteSpace(content))
+            {
+                return Json(new { status = false, message = GetAppMessage("DigitalSales_Discussion_ContentRequired") });
+            }
+
+            var uploadedFiles = new List<ActivityAttachmentItem>();
+            if (Request.Files.Count > 0)
+            {
+                var folderRel = $"/Contents/Uploads/DigitalSales/Discussions/{digitalSalesId}/";
+                var folderPhys = HostingEnvironment.MapPath(folderRel);
+                if (!Directory.Exists(folderPhys))
+                {
+                    Directory.CreateDirectory(folderPhys);
+                }
+
+                var blackList = new[] { ".exe", ".bat", ".cmd", ".sh", ".php", ".asp", ".aspx", ".dll", ".vbs", ".js" };
+
+                for (int i = 0; i < Request.Files.Count; i++)
+                {
+                    var file = Request.Files[i];
+                    if (file != null && file.ContentLength > 0)
+                    {
+                        var ext = Path.GetExtension(file.FileName).ToLowerInvariant();
+                        if (blackList.Contains(ext))
+                        {
+                            return Json(new { status = false, message = GetAppMessage("DigitalSales_Msg_InvalidFileFormat") });
+                        }
+
+                        var rawName = Path.GetFileNameWithoutExtension(file.FileName);
+                        var safeName = Regex.Replace(rawName, @"[^\w\s-]", "");
+                        var newFileName = $"{safeName}_{DateTime.Now.Ticks}_{i}{ext}";
+                        var fullPhysPath = Path.Combine(folderPhys, newFileName);
+                        file.SaveAs(fullPhysPath);
+
+                        var relPath = folderRel + newFileName;
+                        uploadedFiles.Add(new ActivityAttachmentItem
+                        {
+                            FileName = Path.GetFileName(file.FileName),
+                            FilePath = relPath,
+                            FileSize = file.ContentLength,
+                            FileSizeFormatted = file.ContentLength > 1048576 
+                                ? $"{(file.ContentLength / 1048576.0):0.0} MB" 
+                                : $"{(file.ContentLength / 1024.0):0.0} KB",
+                            Extension = ext,
+                            IsImage = new[] { ".jpg", ".jpeg", ".png", ".gif", ".webp", ".bmp", ".svg" }.Contains(ext)
+                        });
+                    }
+                }
+            }
+
+            var activity = new RM_DigitalSalesActivityModel
+            {
+                DigitalSalesID = digitalSalesId,
+                ActivityType = 1,
+                Content = content.Trim(),
+                Attachments = uploadedFiles.Count > 0 ? Newtonsoft.Json.JsonConvert.SerializeObject(uploadedFiles) : null,
+                MentionedUserIDs = string.IsNullOrWhiteSpace(mentionedUserIds) ? null : mentionedUserIds.Trim(),
+                MentionedNames = string.IsNullOrWhiteSpace(mentionedNames) ? null : mentionedNames.Trim()
+            };
+
+            var saveRes = _salesCache.AddActivity(activity, User.UserName);
+            if (saveRes > 0)
+            {
+                return Json(new
+                {
+                    status = true,
+                    message = GetAppMessage("DigitalSales_Discussion_PostSuccess")
+                });
+            }
+
+            return Json(new
+            {
+                status = false,
+                message = CreateMessage(_title, EnumProcessType.Create, EnumMsgIcon.Error)
+            });
+        }
+
+        [AjaxOnly]
+        [HttpPost]
+        [ActionType(Type = EnumActionType.Edit)]
+        public ActionResult DeleteDiscussion(int activityId)
+        {
+            if (activityId <= 0)
+            {
+                return Json(new { status = false, message = CreateMessage(_title, EnumProcessType.DataNotExist, EnumMsgIcon.Error) });
+            }
+
+            var res = _salesCache.DeleteActivity(activityId, User.UserName);
+            if (res > 0)
+            {
+                return Json(new
+                {
+                    status = true,
+                    message = GetAppMessage("DigitalSales_Discussion_DeleteSuccess")
+                });
+            }
+
+            return Json(new
+            {
+                status = false,
+                message = GetAppMessage("DigitalSales_Msg_NoPermission")
+            });
         }
         #endregion
         #endregion

@@ -31,7 +31,11 @@ var _detailUrls = {
     getAttachmentsPartial: "/Cate/DigitalSales/GetAttachmentsPartial",
     getProductsPartial: "/Cate/DigitalSales/GetProductsPartial",
     getTrackingPartial: "/Cate/DigitalSales/GetTrackingPartial",
-    getTimelinePartial: "/Cate/DigitalSales/GetTimelinePartial"
+    getTimelinePartial: "/Cate/DigitalSales/GetTimelinePartial",
+    getDiscussionsPartial: "/Cate/DigitalSales/GetDiscussionsPartial",
+    postDiscussion: "/Cate/DigitalSales/PostDiscussion",
+    deleteDiscussion: "/Cate/DigitalSales/DeleteDiscussion",
+    getMembersForMention: "/Cate/DigitalSales/GetMembersForMention"
 };
 
 function executeResponseMessage(message, defaultText, isSuccess) {
@@ -186,6 +190,7 @@ function reloadTrackingSection(salesId) {
         if ($prog.length) {
             $("#badgeTabTracking").text($prog.data("completed") + "/" + $prog.data("total"));
         }
+        reloadDiscussionsSection(salesId);
     }).fail(function () {
         hideSectionLoading($tracking);
     });
@@ -199,6 +204,7 @@ function reloadStatusAndTimelineSection(salesId) {
     showSectionLoading($timeline);
     showSectionLoading($overview);
     reloadMetricsSection(salesId);
+    reloadDiscussionsSection(salesId);
 
     $.get(_detailUrls.getTimelinePartial, { id: salesId }, function (html) {
         $timeline.html(html);
@@ -262,6 +268,7 @@ function refreshAllSections(salesId) {
     reloadAttachmentsSection(salesId);
     reloadTrackingSection(salesId);
     reloadStatusAndTimelineSection(salesId);
+    reloadDiscussionsSection(salesId);
 }
 
 $(document).ready(function () {
@@ -273,6 +280,8 @@ $(document).ready(function () {
     $('.nav-tabs a').on('shown.bs.tab', function (e) {
         window.location.hash = e.target.hash;
     });
+
+    initDiscussionEvents();
 });
 
 /* ================= 1. Chỉnh sửa thông tin chung ================= */
@@ -935,4 +944,327 @@ function toggleFollowSales(salesId, isChecked) {
             executeResponseMessage("Lỗi kết nối máy chủ, vui lòng thử lại!", null, false);
         }
     });
+}
+
+/* ================= 5. Trao đổi chung & Hoạt động (Discussion & Collaboration Feed) ================= */
+function reloadDiscussionsSection(salesId, filterType) {
+    salesId = getEffectiveSalesId(salesId);
+    if (!salesId) return;
+    var $discussions = $("#tab-discussions");
+    showSectionLoading($discussions);
+
+    var params = { id: salesId };
+    if (filterType !== undefined && filterType !== null && filterType !== "") {
+        params.activityType = filterType;
+    }
+
+    $.get(_detailUrls.getDiscussionsPartial, params, function (html) {
+        $discussions.html(html);
+        hideSectionLoading($discussions);
+        var newCount = $discussions.find("#partialDiscussionsCount").data("count");
+        if (newCount !== undefined) {
+            $("#badgeTabDiscussions").text(newCount);
+        }
+        initDiscussionEvents();
+    }).fail(function () {
+        hideSectionLoading($discussions);
+    });
+}
+
+function filterDiscussions(salesId, filterType) {
+    reloadDiscussionsSection(salesId, filterType);
+}
+
+var _discussionSelectedFiles = [];
+
+function handleDiscussionFileSelect(input) {
+    if (!input || !input.files || input.files.length === 0) return;
+    for (var i = 0; i < input.files.length; i++) {
+        _discussionSelectedFiles.push(input.files[i]);
+    }
+    renderDiscussionSelectedFiles();
+    input.value = "";
+}
+
+function renderDiscussionSelectedFiles() {
+    var $container = $("#discussionSelectedFilesContainer");
+    var $list = $("#discussionSelectedFilesList");
+    var $count = $("#discussionSelectedFilesCount");
+
+    if (!_discussionSelectedFiles || _discussionSelectedFiles.length === 0) {
+        $container.addClass("d-none");
+        $list.empty();
+        $count.text("0");
+        return;
+    }
+
+    $container.removeClass("d-none");
+    $count.text(_discussionSelectedFiles.length);
+    $list.empty();
+
+    _discussionSelectedFiles.forEach(function (file, index) {
+        var sizeText = file.size > 1048576 
+            ? (file.size / 1048576).toFixed(1) + " MB" 
+            : (file.size / 1024).toFixed(0) + " KB";
+
+        var $chip = $('<div class="ds-file-tag">' +
+            '<i class="fa fa-file text-primary"></i>' +
+            '<span class="text-truncate" style="max-width: 180px;" title="' + file.name + '">' + file.name + ' (' + sizeText + ')</span>' +
+            '<i class="fa fa-times text-danger ml-1" title="Bỏ tệp này" onclick="removeDiscussionSelectedFile(' + index + ');"></i>' +
+            '</div>');
+        $list.append($chip);
+    });
+}
+
+function removeDiscussionSelectedFile(index) {
+    if (index >= 0 && index < _discussionSelectedFiles.length) {
+        _discussionSelectedFiles.splice(index, 1);
+        renderDiscussionSelectedFiles();
+    }
+}
+
+var _projectMembersCache = null;
+
+function loadProjectMembersForMention(salesId, callback) {
+    if (_projectMembersCache && _projectMembersCache.salesId === salesId) {
+        if (callback) callback(_projectMembersCache.data);
+        return;
+    }
+    $.get(_detailUrls.getMembersForMention, { id: salesId }, function (res) {
+        if (res && res.status && res.data) {
+            _projectMembersCache = { salesId: salesId, data: res.data };
+            if (callback) callback(res.data);
+        }
+    });
+}
+
+function triggerMentionDropdown() {
+    var $textarea = $("#txtDiscussionContent");
+    if ($textarea.length === 0) return;
+    var currentVal = $textarea.val();
+    if (!currentVal.endsWith("@")) {
+        $textarea.val(currentVal + (currentVal.length > 0 && !currentVal.endsWith(" ") ? " @" : "@"));
+    }
+    $textarea.focus();
+    showMentionDropdown("");
+}
+
+function showMentionDropdown(query) {
+    var salesId = getEffectiveSalesId();
+    loadProjectMembersForMention(salesId, function (members) {
+        var $dropdown = $("#dsMentionDropdown");
+        var $list = $("#dsMentionList");
+        $list.empty();
+
+        var filtered = members;
+        if (query) {
+            var q = query.toLowerCase();
+            filtered = members.filter(function (m) {
+                return (m.fullName && m.fullName.toLowerCase().indexOf(q) !== -1) ||
+                       (m.userName && m.userName.toLowerCase().indexOf(q) !== -1);
+            });
+        }
+
+        if (filtered.length === 0) {
+            $list.html('<div class="p-2 text-muted text-80 text-center">Không tìm thấy nhân sự phù hợp</div>');
+        } else {
+            filtered.forEach(function (m) {
+                var $item = $('<div class="ds-mention-item">' +
+                    '<div class="w-3 h-3 radius-round bgc-primary-l3 text-primary d-flex align-items-center justify-content-center mr-2 font-bold text-80" style="width: 26px; height: 26px; border-radius: 50%;">' +
+                    (m.fullName ? m.fullName.charAt(0).toUpperCase() : 'U') +
+                    '</div>' +
+                    '<div class="min-width-0 flex-grow-1">' +
+                    '<div class="font-weight-bold text-85 text-dark text-truncate">' + m.fullName + '</div>' +
+                    '<div class="text-75 text-secondary text-truncate">' + (m.roleTitle || m.userName) + '</div>' +
+                    '</div>' +
+                    '</div>');
+
+                $item.on('click', function () {
+                    selectMentionUser(m);
+                });
+                $list.append($item);
+            });
+        }
+
+        $dropdown.show();
+    });
+}
+
+function hideMentionDropdown() {
+    $("#dsMentionDropdown").hide();
+}
+
+function selectMentionUser(user) {
+    var $textarea = $("#txtDiscussionContent");
+    var text = $textarea.val();
+    var lastAtIndex = text.lastIndexOf("@");
+    if (lastAtIndex !== -1) {
+        text = text.substring(0, lastAtIndex) + "@" + user.fullName + " ";
+    } else {
+        text = text + " @" + user.fullName + " ";
+    }
+    $textarea.val(text);
+
+    // Track mentioned user IDs
+    var $ids = $("#hdnMentionedUserIds");
+    var $names = $("#hdnMentionedNames");
+    var currentIds = $ids.val() ? $ids.val().split(",") : [];
+    var currentNames = $names.val() ? $names.val().split(",") : [];
+
+    if (currentIds.indexOf(user.userId.toString()) === -1) {
+        currentIds.push(user.userId);
+        currentNames.push(user.fullName);
+    }
+    $ids.val(currentIds.join(","));
+    $names.val(currentNames.join(","));
+
+    hideMentionDropdown();
+    $textarea.focus();
+}
+
+function initDiscussionEvents() {
+    var $textarea = $("#txtDiscussionContent");
+    if ($textarea.length === 0) return;
+
+    $textarea.off("input.ds keydown.ds").on("input.ds", function (e) {
+        var val = $(this).val();
+        var cursorPos = this.selectionStart;
+        var textBeforeCursor = val.substring(0, cursorPos);
+        var match = textBeforeCursor.match(/@([a-zA-Z0-9À-ỹ\s.-]*)$/);
+
+        if (match) {
+            var query = match[1];
+            if (query.length <= 30) {
+                showMentionDropdown(query);
+            } else {
+                hideMentionDropdown();
+            }
+        } else {
+            hideMentionDropdown();
+        }
+    }).on("keydown.ds", function (e) {
+        if (e.key === "Escape") {
+            hideMentionDropdown();
+        } else if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
+            e.preventDefault();
+            $("#frmPostDiscussion").submit();
+        }
+    });
+
+    $(document).off("click.dsMention").on("click.dsMention", function (e) {
+        if (!$(e.target).closest("#dsMentionDropdown, #txtDiscussionContent").length) {
+            hideMentionDropdown();
+        }
+    });
+}
+
+var _isSubmittingDiscussion = false;
+function submitDiscussionForm(e, salesId) {
+    if (e && e.preventDefault) e.preventDefault();
+    if (_isSubmittingDiscussion) return;
+
+    var content = $("#txtDiscussionContent").val();
+    if (!content || !content.trim()) {
+        if (typeof toastr !== "undefined") {
+            toastr.warning("Vui lòng nhập nội dung trao đổi!");
+        }
+        $("#txtDiscussionContent").focus();
+        return;
+    }
+
+    _isSubmittingDiscussion = true;
+    var $btn = $("#btnSubmitDiscussion");
+    var origHtml = $btn.html();
+    $btn.prop("disabled", true).html('<i class="fa fa-spinner fa-spin mr-1"></i> Đang gửi...');
+
+    var formData = new FormData();
+    formData.append("digitalSalesId", salesId);
+    formData.append("content", content.trim());
+    formData.append("mentionedUserIds", $("#hdnMentionedUserIds").val());
+    formData.append("mentionedNames", $("#hdnMentionedNames").val());
+
+    if (_discussionSelectedFiles && _discussionSelectedFiles.length > 0) {
+        for (var i = 0; i < _discussionSelectedFiles.length; i++) {
+            formData.append("files", _discussionSelectedFiles[i]);
+        }
+    }
+
+    $.ajax({
+        url: _detailUrls.postDiscussion,
+        type: "POST",
+        data: formData,
+        processData: false,
+        contentType: false,
+        dataType: "JSON",
+        success: function (res) {
+            _isSubmittingDiscussion = false;
+            $btn.prop("disabled", false).html(origHtml);
+
+            if (res && res.status) {
+                executeResponseMessage(res.message, "Đã gửi trao đổi thành công!", true);
+                _discussionSelectedFiles = [];
+                reloadDiscussionsSection(salesId);
+            } else {
+                executeResponseMessage(res ? res.message : "Gửi trao đổi không thành công!", null, false);
+            }
+        },
+        error: function () {
+            _isSubmittingDiscussion = false;
+            $btn.prop("disabled", false).html(origHtml);
+            executeResponseMessage("Lỗi kết nối máy chủ, vui lòng thử lại!", null, false);
+        }
+    });
+}
+
+function deleteDiscussionItem(activityId, salesId) {
+    if (!activityId) return;
+
+    var $modal = $('<div class="modal fade" tabindex="-1" role="dialog">' +
+        '<div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 420px;">' +
+        '<div class="modal-content border-0 shadow-lg radius-2">' +
+        '<div class="modal-body text-center p-4">' +
+        '<div class="w-5 h-5 radius-round bgc-danger-l3 text-danger d-inline-flex align-items-center justify-content-center mb-3" style="width: 48px; height: 48px; border-radius: 50%;">' +
+        '<i class="fa fa-trash-alt fa-2x"></i>' +
+        '</div>' +
+        '<h5 class="text-dark font-weight-bold mb-2">Xác nhận xóa trao đổi</h5>' +
+        '<p class="text-secondary text-90 mb-3">Bạn có chắc chắn muốn xóa bài trao đổi này không? Thao tác này không thể hoàn tác.</p>' +
+        '<div class="d-flex justify-content-center" style="gap: 8px;">' +
+        '<button type="button" class="btn btn-sm btn-light border-1 brc-grey-l1 px-3" data-dismiss="modal">Hủy bỏ</button>' +
+        '<button type="button" class="btn btn-sm btn-danger px-3 font-bold" id="btnConfirmDeleteDiscussion">Đồng ý xóa</button>' +
+        '</div>' +
+        '</div>' +
+        '</div>' +
+        '</div>' +
+        '</div>');
+
+    $modal.on('hidden.bs.modal', function () {
+        $(this).remove();
+    });
+
+    $modal.find('#btnConfirmDeleteDiscussion').on('click', function () {
+        var $btn = $(this);
+        $btn.prop('disabled', true).html('<i class="fa fa-spinner fa-spin mr-1"></i> Đang xóa...');
+
+        $.ajax({
+            url: _detailUrls.deleteDiscussion,
+            type: "POST",
+            data: { activityId: activityId },
+            dataType: "JSON",
+            success: function (res) {
+                $modal.modal('hide');
+                if (res && res.status) {
+                    executeResponseMessage(res.message, "Đã xóa trao đổi thành công!", true);
+                    reloadDiscussionsSection(salesId);
+                } else {
+                    executeResponseMessage(res ? res.message : "Xóa trao đổi thất bại!", null, false);
+                }
+            },
+            error: function () {
+                $btn.prop('disabled', false).html('Đồng ý xóa');
+                executeResponseMessage("Lỗi kết nối máy chủ!", null, false);
+            }
+        });
+    });
+
+    $modal.modal('show');
 }

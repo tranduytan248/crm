@@ -1,0 +1,398 @@
+﻿@using TSFramework.Libs.Processors
+@model Core.Cate.Models.RM_DigitalSalesModel
+@{
+    bool canEdit = ViewBag.CanEdit == true;
+    var activities = Model.Activities ?? new List<Core.Cate.Models.RM_DigitalSalesActivityModel>();
+    var currentFilter = ViewBag.CurrentFilter as byte?;
+    var members = Model.Members ?? new List<Core.Cate.Models.RM_DigitalSalesMemberModel>();
+    string currentUserName = User.Identity?.Name ?? "";
+}
+
+<span id="partialDiscussionsCount" class="d-none" data-count="@activities.Count"></span>
+
+<!-- 1. FORM SOẠN THẢO TRAO ĐỔI (DISCUSSION COMPOSER) -->
+<div class="card border-1 brc-primary-m3 shadow-sm mb-4 bgc-white radius-2 overflow-hidden ds-composer-card">
+    <div class="card-header bgc-primary-l4 border-b-1 brc-primary-l2 py-25 px-3 d-flex align-items-center justify-content-between">
+        <span class="font-weight-bold text-primary-d2 text-95">
+            <i class="fa fa-comments text-primary mr-1"></i> Trao đổi & Thảo luận cơ hội / dự án
+        </span>
+        <span class="text-secondary text-80 d-none d-sm-inline">
+            <i class="fa fa-info-circle mr-1"></i> Gõ <strong>@@</strong> để nhắc tên nhân sự đã gán vào dự án
+        </span>
+    </div>
+
+    <div class="card-body p-3">
+        <form id="frmPostDiscussion" onsubmit="submitDiscussionForm(event, @Model.DigitalSalesID);">
+            <div class="position-relative">
+                <textarea id="txtDiscussionContent" 
+                          name="content" 
+                          class="form-control text-95 ds-discussion-textarea" 
+                          rows="3" 
+                          placeholder="Nhập nội dung trao đổi, tiến độ, báo giá, yêu cầu khách hàng... (Gõ @@ để nhắc tên thành viên)"></textarea>
+
+                <!-- DROPDOWN AUTOCOMPLETE @@MENTION -->
+                <div id="dsMentionDropdown" class="dropdown-menu shadow-lg border-1 brc-primary-m2 py-1 ds-mention-dropdown" style="display: none;">
+                    <div class="dropdown-header text-80 font-weight-bold text-uppercase text-secondary bgc-grey-l4 py-1 px-2 border-b-1 brc-grey-l2">
+                        <i class="fa fa-users text-primary mr-1"></i> Nhân sự trong dự án
+                    </div>
+                    <div id="dsMentionList" class="ds-mention-list-scroll">
+                        <!-- Danh sách nạp động qua JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <input type="hidden" id="hdnMentionedUserIds" name="mentionedUserIds" value="" />
+            <input type="hidden" id="hdnMentionedNames" name="mentionedNames" value="" />
+
+            <!-- DANH SÁCH TỆP ĐÍNH KÈM ĐÃ CHỌN TRƯỚC KHI GỬI -->
+            <div id="discussionSelectedFilesContainer" class="mt-2 d-none">
+                <div class="text-85 font-weight-bold text-secondary mb-1">
+                    <i class="fa fa-paperclip mr-1 text-primary"></i> Tệp đính kèm đã chọn (<span id="discussionSelectedFilesCount">0</span>):
+                </div>
+                <div id="discussionSelectedFilesList" class="d-flex flex-wrap" style="gap: 6px;"></div>
+            </div>
+
+            <input type="file" id="discussionFileInput" name="files" multiple class="d-none" onchange="handleDiscussionFileSelect(this);" />
+
+            <div class="d-flex align-items-center justify-content-between mt-3 pt-2 border-t-1 brc-grey-l3 flex-wrap" style="gap: 8px;">
+                <div class="d-inline-flex align-items-center flex-wrap" style="gap: 6px;">
+                    <button type="button" class="btn btn-xs btn-white btn-h-light-primary border-1 brc-grey-l1 text-secondary-d2 font-600 px-25 py-1 radius-1" onclick="triggerMentionDropdown();" title="Nhắc tên nhân sự trong dự án">
+                        <i class="fa fa-at text-primary mr-1"></i> Nhắc tên
+                    </button>
+                    <button type="button" class="btn btn-xs btn-white btn-h-light-primary border-1 brc-grey-l1 text-secondary-d2 font-600 px-25 py-1 radius-1" onclick="$('#discussionFileInput').click();" title="Đính kèm một hoặc nhiều tệp">
+                        <i class="fa fa-paperclip text-success mr-1"></i> Đính kèm tệp
+                    </button>
+                    <span class="text-muted text-75 ml-2 d-none d-md-inline">Hỗ trợ ảnh, PDF, Word, Excel, Zip...</span>
+                </div>
+
+                <div class="d-inline-flex align-items-center" style="gap: 8px;">
+                    <span class="text-muted text-75 font-italic d-none d-lg-inline">Nhấn Ctrl + Enter để gửi</span>
+                    <button type="submit" id="btnSubmitDiscussion" class="btn btn-sm btn-primary px-3 font-bolder radius-1 shadow-sm">
+                        <i class="fa fa-paper-plane mr-1"></i> Gửi trao đổi
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- 2. THANH BỘ LỌC DÒNG HOẠT ĐỘNG (ACTIVITY FILTER PILLS) -->
+<div class="d-flex align-items-center justify-content-between mb-3 flex-wrap" style="gap: 8px;">
+    <div class="btn-group btn-group-toggle ds-filter-group" data-toggle="buttons">
+        <button type="button" class="btn btn-xs btn-white btn-h-light-primary font-bold @(currentFilter == null ? "active text-primary border-primary" : "text-secondary border-grey-l1") px-3 py-1 radius-1" onclick="filterDiscussions(@Model.DigitalSalesID, null);">
+            <i class="fa fa-stream mr-1"></i> Tất cả
+        </button>
+        <button type="button" class="btn btn-xs btn-white btn-h-light-primary font-bold @(currentFilter == 1 ? "active text-primary border-primary" : "text-secondary border-grey-l1") px-3 py-1 radius-1 ml-1" onclick="filterDiscussions(@Model.DigitalSalesID, 1);">
+            <i class="fa fa-comment-dots text-primary mr-1"></i> Chỉ trao đổi
+        </button>
+        <button type="button" class="btn btn-xs btn-white btn-h-light-primary font-bold @(currentFilter == 2 ? "active text-purple border-purple" : "text-secondary border-grey-l1") px-3 py-1 radius-1 ml-1" onclick="filterDiscussions(@Model.DigitalSalesID, 2);">
+            <i class="fa fa-exchange-alt text-purple mr-1"></i> Trạng thái
+        </button>
+        <button type="button" class="btn btn-xs btn-white btn-h-light-primary font-bold @(currentFilter == 99 ? "active text-orange border-orange" : "text-secondary border-grey-l1") px-3 py-1 radius-1 ml-1" onclick="filterDiscussions(@Model.DigitalSalesID, 99);">
+            <i class="fa fa-tasks text-orange mr-1"></i> Tiến trình & Checklist
+        </button>
+    </div>
+
+    <button type="button" class="btn btn-xs btn-white border-1 brc-grey-l1 text-secondary-d2 px-25 py-1 radius-1" onclick="reloadDiscussionsSection(@Model.DigitalSalesID);" title="Làm mới dòng hoạt động">
+        <i class="fa fa-sync-alt mr-1"></i> Làm mới
+    </button>
+</div>
+
+<!-- 3. DÒNG SỰ KIỆN KẾT HỢP (UNIFIED ACTIVITY & COLLABORATION STREAM) -->
+@if (activities.Count > 0)
+{
+    <div class="ds-activity-timeline px-1">
+        @foreach (var act in activities)
+        {
+            bool isDiscussion = act.ActivityType == 1;
+            bool isStatusChange = act.ActivityType == 2;
+            bool isChecklistComplete = act.ActivityType == 3;
+            bool isProcessComplete = act.ActivityType == 4;
+            bool isChecklistUpdate = act.ActivityType == 5;
+
+            string badgeBg = isDiscussion ? "bgc-primary-l4 text-primary border-primary-m3" :
+                             isStatusChange ? "bgc-purple-l4 text-purple-d2 border-purple-m3" :
+                             isChecklistComplete ? "bgc-success-l4 text-success-d3 border-success-m3" :
+                             isProcessComplete ? "bgc-warning-l3 text-warning-d3 border-warning-m2" :
+                             "bgc-blue-l4 text-blue-d2 border-blue-m3";
+
+            string iconClass = isDiscussion ? "fa-comment-alt text-primary" :
+                              isStatusChange ? "fa-exchange-alt text-purple" :
+                              isChecklistComplete ? "fa-check-circle text-success" :
+                              isProcessComplete ? "fa-trophy text-warning" :
+                              "fa-clipboard-check text-blue";
+
+            string typeTitle = isDiscussion ? "Thảo luận / Trao đổi" :
+                               isStatusChange ? "Chuyển trạng thái" :
+                               isChecklistComplete ? "Hoàn thành Checklist" :
+                               isProcessComplete ? "Hoàn thành Quy trình" :
+                               "Cập nhật Checklist";
+
+            <div class="ds-activity-item d-flex mb-3 position-relative" id="activity-item-@act.ActivityID">
+                <!-- ICON TRÁI CỦA DÒNG THỜI GIAN -->
+                <div class="ds-activity-icon-wrapper mr-25 mr-sm-3 flex-shrink-0">
+                    <div class="ds-activity-icon-circle shadow-sm @badgeBg">
+                        <i class="fa @iconClass"></i>
+                    </div>
+                </div>
+
+                <!-- NỘI DUNG CARD SỰ KIỆN -->
+                <div class="card ds-activity-card flex-grow-1 border-1 brc-grey-l2 radius-2 p-3 shadow-sm bgc-white">
+                    <!-- HEADER CARD -->
+                    <div class="d-flex align-items-center justify-content-between mb-2 flex-wrap" style="gap: 4px;">
+                        <div class="d-flex align-items-center min-width-0 flex-wrap" style="gap: 6px;">
+                            <span class="font-weight-bold text-dark-m1 text-95">
+                                @(string.IsNullOrEmpty(act.ActionByName) ? act.ActionBy : act.ActionByName)
+                            </span>
+                            @if (!string.IsNullOrEmpty(act.ActionByDepartment))
+                            {
+                                <span class="badge bgc-grey-l3 text-secondary-d2 font-normal text-75 radius-1">
+                                    @act.ActionByDepartment
+                                </span>
+                            }
+                            <span class="badge @badgeBg text-75 font-bold px-2 py-05 radius-1">
+                                @typeTitle
+                            </span>
+                        </div>
+
+                        <div class="d-flex align-items-center" style="gap: 8px;">
+                            <span class="text-muted text-80" title="@act.ActionDate.ToString("dd/MM/yyyy HH:mm:ss")">
+                                <i class="fa fa-clock mr-1 opacity-75"></i>@act.ActionDate.ToString("dd/MM/yyyy HH:mm")
+                            </span>
+                            @if (isDiscussion && (act.ActionBy == currentUserName || canEdit))
+                            {
+                                <button type="button" class="btn btn-xs btn-outline-danger border-0 p-1 text-80" onclick="deleteDiscussionItem(@act.ActivityID, @Model.DigitalSalesID);" title="Xóa trao đổi này">
+                                    <i class="fa fa-trash-alt"></i>
+                                </button>
+                            }
+                        </div>
+                    </div>
+
+                    <!-- BODY NỘI DUNG -->
+                    <div class="ds-activity-content text-90 text-dark-m2 mb-2">
+                        @if (isDiscussion)
+                        {
+                            <!-- TỰ ĐỘNG NỔI BẬT CÁC THẺ @@MENTION -->
+                            var formattedContent = act.Content;
+                            if (!string.IsNullOrEmpty(formattedContent))
+                            {
+                                // Chuyển đổi xuống dòng
+                                formattedContent = System.Web.HttpUtility.HtmlEncode(formattedContent).Replace("\n", "<br />");
+                                // Highlight các thẻ @Tên
+                                formattedContent = System.Text.RegularExpressions.Regex.Replace(
+                                    formattedContent, 
+                                    @"(@[\p{L}\p{M}\w\s.-]+?)(?=\s|$|<br)", 
+                                    "<span class=\"ds-mention-badge\"><i class=\"fa fa-at mr-1\"></i>$1</span>"
+                                );
+                                @Html.Raw(formattedContent)
+                            }
+                        }
+                        else
+                        {
+                            <div class="bgc-grey-l5 p-2 radius-1 border-1 brc-grey-l3 text-dark-m2">
+                                @Html.Raw(System.Web.HttpUtility.HtmlEncode(act.Content).Replace("\n", "<br />"))
+                            </div>
+                        }
+                    </div>
+
+                    <!-- DANH SÁCH FILE ĐÍNH KÈM ĐA PHƯƠNG TIỆN -->
+                    @if (act.AttachmentList != null && act.AttachmentList.Count > 0)
+                    {
+                        <div class="ds-activity-attachments mt-2 pt-2 border-t-1 brc-grey-l3">
+                            <div class="text-80 font-weight-bold text-secondary mb-1">
+                                <i class="fa fa-paperclip mr-1 text-primary"></i> Tệp đính kèm (@act.AttachmentList.Count):
+                            </div>
+                            <div class="row" style="margin-left: -4px; margin-right: -4px;">
+                                @foreach (var file in act.AttachmentList)
+                                {
+                                    var ext = file.Extension?.ToLowerInvariant() ?? "";
+                                    var downloadUrl = Url.Action("DownloadAttachment", "DigitalSales", new { area = "Cate", filePath = file.FilePath });
+
+                                    <div class="col-sm-6 col-md-4 col-lg-3 p-1">
+                                        <div class="card h-100 border-1 brc-grey-l2 radius-1 p-2 bgc-grey-l5 d-flex flex-column justify-content-between ds-attach-chip shadow-none">
+                                            <div class="d-flex align-items-center mb-1 min-width-0">
+                                                <div class="mr-2 flex-shrink-0">
+                                                    @if (file.IsImage)
+                                                    {
+                                                        <i class="fa fa-file-image fa-2x text-info"></i>
+                                                    }
+                                                    else if (ext == ".pdf")
+                                                    {
+                                                        <i class="fa fa-file-pdf fa-2x text-danger"></i>
+                                                    }
+                                                    else if (ext == ".doc" || ext == ".docx")
+                                                    {
+                                                        <i class="fa fa-file-word fa-2x text-primary"></i>
+                                                    }
+                                                    else if (ext == ".xls" || ext == ".xlsx")
+                                                    {
+                                                        <i class="fa fa-file-excel fa-2x text-success"></i>
+                                                    }
+                                                    else if (ext == ".zip" || ext == ".rar" || ext == ".7z")
+                                                    {
+                                                        <i class="fa fa-file-archive fa-2x text-warning"></i>
+                                                    }
+                                                    else
+                                                    {
+                                                        <i class="fa fa-file-alt fa-2x text-secondary"></i>
+                                                    }
+                                                </div>
+                                                <div class="min-width-0 flex-grow-1">
+                                                    <div class="font-weight-bold text-truncate text-85 text-dark" title="@file.FileName">
+                                                        @file.FileName
+                                                    </div>
+                                                    <div class="text-75 text-muted">
+                                                        @(string.IsNullOrEmpty(file.FileSizeFormatted) ? "Đính kèm" : file.FileSizeFormatted)
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="d-flex align-items-center justify-content-end mt-1" style="gap: 4px;">
+                                                @if (file.IsImage)
+                                                {
+                                                    <button type="button" class="btn btn-xs btn-white border-1 brc-info text-info radius-1 px-15 py-0" onclick="previewImageDirect('@Url.Content(file.FilePath)', '@file.FileName');" title="Xem ảnh">
+                                                        <i class="fa fa-eye"></i>
+                                                    </button>
+                                                }
+                                                <a href="@downloadUrl" class="btn btn-xs btn-primary radius-1 px-2 py-0 text-80" title="Tải xuống tệp">
+                                                    <i class="fa fa-download mr-1"></i> Tải
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    }
+                    else if (!string.IsNullOrEmpty(act.Attachments) && !act.Attachments.TrimStart().StartsWith("["))
+                    {
+                        var singleFile = act.Attachments.Trim();
+                        var fileName = System.IO.Path.GetFileName(singleFile);
+                        var downloadUrl = Url.Action("DownloadAttachment", "DigitalSales", new { area = "Cate", filePath = singleFile });
+
+                        <div class="ds-activity-attachments mt-2 pt-2 border-t-1 brc-grey-l3">
+                            <a href="@downloadUrl" class="btn btn-xs btn-white border-1 brc-primary text-primary radius-1 px-2 py-1 font-bold">
+                                <i class="fa fa-paperclip mr-1"></i> Tải file: @fileName
+                            </a>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <div class="text-center py-5 bgc-white radius-2 border-1 brc-grey-l2 my-3">
+        <div class="w-6 h-6 radius-round bgc-primary-l3 text-primary-d1 d-inline-flex align-items-center justify-content-center mb-3" style="width: 54px; height: 54px;">
+            <i class="fa fa-comments fa-2x"></i>
+        </div>
+        <h6 class="text-secondary font-weight-bold">Chưa có trao đổi hoặc hoạt động nào</h6>
+        <p class="text-muted text-85 mb-3">Hãy nhập nội dung ở khung phía trên để bắt đầu trao đổi thông tin với các thành viên trong dự án.</p>
+    </div>
+}
+
+<style>
+    .ds-composer-card {
+        border: 1px solid #dbeafe !important;
+        box-shadow: 0 2px 8px rgba(37, 99, 235, 0.08) !important;
+    }
+    .ds-discussion-textarea {
+        border: 1px solid #cbd5e1;
+        border-radius: 6px;
+        padding: 10px 12px;
+        line-height: 1.6;
+        min-height: 80px;
+        transition: border-color .15s ease, box-shadow .15s ease;
+        resize: vertical;
+    }
+    .ds-discussion-textarea:focus {
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+    }
+    .ds-mention-dropdown {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        z-index: 1050;
+        width: 320px;
+        max-width: 95vw;
+        border-radius: 6px;
+        margin-top: 4px;
+    }
+    .ds-mention-list-scroll {
+        max-height: 220px;
+        overflow-y: auto;
+    }
+    .ds-mention-item {
+        display: flex;
+        align-items: center;
+        padding: 6px 12px;
+        cursor: pointer;
+        transition: background .12s ease;
+        border-bottom: 1px solid #f1f5f9;
+    }
+    .ds-mention-item:hover, .ds-mention-item.active {
+        background-color: #eff6ff;
+    }
+    .ds-mention-badge {
+        display: inline-block;
+        background-color: #dbeafe;
+        color: #1d4ed8;
+        font-weight: 700;
+        padding: 1px 7px;
+        border-radius: 4px;
+        margin: 0 2px;
+        font-size: 0.9em;
+        border: 1px solid #bfdbfe;
+    }
+    .ds-activity-timeline {
+        position: relative;
+    }
+    .ds-activity-icon-wrapper {
+        width: 40px;
+        display: flex;
+        justify-content: center;
+        padding-top: 4px;
+    }
+    .ds-activity-icon-circle {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        border: 1px solid transparent;
+    }
+    .ds-activity-card {
+        border-radius: 8px;
+        transition: box-shadow .2s ease;
+    }
+    .ds-activity-card:hover {
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08) !important;
+    }
+    .ds-attach-chip {
+        border-radius: 6px;
+        border: 1px solid #e2e8f0 !important;
+    }
+    .ds-file-tag {
+        background-color: #f1f5f9;
+        border: 1px solid #cbd5e1;
+        border-radius: 4px;
+        padding: 3px 8px;
+        font-size: 12px;
+        font-weight: 600;
+        color: #334155;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+    }
+    .ds-file-tag .fa-times {
+        cursor: pointer;
+        color: #ef4444;
+    }
+    .ds-file-tag .fa-times:hover {
+        color: #b91c1c;
+    }
+</style>

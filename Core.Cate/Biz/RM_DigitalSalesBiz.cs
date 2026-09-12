@@ -30,6 +30,9 @@ namespace Core.Cate.Biz
         private readonly string _spStatusGetAll = "RM_DigitalSalesStatus_GetAll";
         private readonly string _spToggleKeyProject = "RM_DigitalSales_ToggleKeyProject";
         private readonly string _spToggleFollow = "RM_DigitalSales_ToggleFollow";
+        private readonly string _spActivityAdd = "RM_DigitalSalesActivity_Add";
+        private readonly string _spActivityGetList = "RM_DigitalSalesActivity_GetList";
+        private readonly string _spActivityDelete = "RM_DigitalSalesActivity_Delete";
 
         public List<RM_DigitalSalesModel> LoadList(out int total, RM_DigitalSalesSearchModel model)
         {
@@ -91,6 +94,7 @@ namespace Core.Cate.Biz
                 model.Members = GetMembersBySalesID(id);
                 model.TrackingTasks = GetTrackingTasks(id);
                 model.Timelines = GetTimeline(id);
+                model.Activities = GetActivitiesBySalesID(id);
             }
             return model;
         }
@@ -414,6 +418,86 @@ namespace Core.Cate.Biz
             {
                 return $"SPDV-{DateTime.Now.Year}-0001";
             }
+        }
+
+        public List<RM_DigitalSalesActivityModel> GetActivitiesBySalesID(int digitalSalesId, byte? activityType = null)
+        {
+            if (digitalSalesId <= 0) return new List<RM_DigitalSalesActivityModel>();
+            var list = AppProcessor.ProcedureProvider.ExecuteTypedList<RM_DigitalSalesActivityModel>(
+                _spActivityGetList,
+                DATA_PROVIDER_NAME,
+                digitalSalesId,
+                activityType.HasValue ? (object)activityType.Value : DBNull.Value
+            );
+
+            if (list != null && list.Count > 0)
+            {
+                foreach (var item in list)
+                {
+                    if (!string.IsNullOrWhiteSpace(item.Attachments))
+                    {
+                        try
+                        {
+                            if (item.Attachments.TrimStart().StartsWith("["))
+                            {
+                                item.AttachmentList = Newtonsoft.Json.JsonConvert.DeserializeObject<List<ActivityAttachmentItem>>(item.Attachments) ?? new List<ActivityAttachmentItem>();
+                            }
+                            else
+                            {
+                                var parts = item.Attachments.Split(new[] { ';', ',' }, StringSplitOptions.RemoveEmptyEntries);
+                                foreach (var p in parts)
+                                {
+                                    var trimmed = p.Trim();
+                                    var ext = System.IO.Path.GetExtension(trimmed)?.ToLowerInvariant() ?? "";
+                                    item.AttachmentList.Add(new ActivityAttachmentItem
+                                    {
+                                        FileName = System.IO.Path.GetFileName(trimmed),
+                                        FilePath = trimmed,
+                                        Extension = ext,
+                                        IsImage = new[] { ".jpg", ".jpeg", ".png", ".gif", ".webp", ".bmp", ".svg" }.Contains(ext)
+                                    });
+                                }
+                            }
+                        }
+                        catch
+                        {
+                            // Ignore parse error
+                        }
+                    }
+                }
+            }
+
+            return list ?? new List<RM_DigitalSalesActivityModel>();
+        }
+
+        public int AddActivity(RM_DigitalSalesActivityModel model, string username)
+        {
+            if (model == null || model.DigitalSalesID <= 0 || string.IsNullOrWhiteSpace(model.Content)) return 0;
+            var result = AppProcessor.ProcedureProvider.Execute(
+                _spActivityAdd,
+                DATA_PROVIDER_NAME,
+                model.DigitalSalesID,
+                model.ActivityType,
+                model.Content,
+                string.IsNullOrWhiteSpace(model.Attachments) ? (object)DBNull.Value : model.Attachments,
+                string.IsNullOrWhiteSpace(model.MentionedUserIDs) ? (object)DBNull.Value : model.MentionedUserIDs,
+                string.IsNullOrWhiteSpace(model.MentionedNames) ? (object)DBNull.Value : model.MentionedNames,
+                model.ReferenceID.HasValue ? (object)model.ReferenceID.Value : DBNull.Value,
+                username
+            );
+            return result.GetValueOrDefault(0);
+        }
+
+        public int DeleteActivity(int activityId, string username)
+        {
+            if (activityId <= 0) return 0;
+            var result = AppProcessor.ProcedureProvider.Execute(
+                _spActivityDelete,
+                DATA_PROVIDER_NAME,
+                activityId,
+                username
+            );
+            return result.GetValueOrDefault(0);
         }
     }
 }
