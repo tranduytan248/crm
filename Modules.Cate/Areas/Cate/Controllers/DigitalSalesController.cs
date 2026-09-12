@@ -884,7 +884,11 @@ namespace Modules.Cate.Areas.Cate.Controllers
                 DigitalSalesID = sales.DigitalSalesID,
                 Title = sales.Title,
                 CurrentBusinessType = sales.BusinessType,
-                CurrentBusinessTypeName = sales.BusinessTypeName,
+                CurrentBusinessTypeName = sales.BusinessType == 1
+                    ? AppProcessor.Messagor.GetMessage("DigitalSales_BusinessType_Opportunity")
+                    : (sales.BusinessType == 2
+                        ? AppProcessor.Messagor.GetMessage("DigitalSales_BusinessType_Project")
+                        : sales.BusinessTypeName),
                 CurrentStatusName = sales.StatusName,
                 AvailableStatuses = allStatuses
                     .Where(s => s.StatusID != sales.StatusID)
@@ -2130,8 +2134,30 @@ namespace Modules.Cate.Areas.Cate.Controllers
             }
             else
             {
-                var allActive = _userCache.GetAll();
-                users = allActive != null ? allActive.Where(u => u.IsActive).OrderBy(u => u.FullName).ToList() : new List<SysUserModel>();
+                if (IsUserQTHT(User.UserName))
+                {
+                    var allActive = _userCache.GetAll();
+                    users = allActive != null ? allActive.Where(u => u.IsActive).OrderBy(u => u.FullName).ToList() : new List<SysUserModel>();
+                }
+                else
+                {
+                    var accessibleDepts = GetAccessibleDepartments();
+                    var deptUsers = new List<SysUserModel>();
+                    if (accessibleDepts != null && accessibleDepts.Count > 0)
+                    {
+                        foreach (var d in accessibleDepts)
+                        {
+                            var uInDept = _userCache.GetByBoPhanAndChucVu(d.BoPhan_ID, null);
+                            if (uInDept != null) deptUsers.AddRange(uInDept);
+                        }
+                    }
+                    var currentUser = _userCache.GetByUserName(User.UserName);
+                    if (currentUser != null && !deptUsers.Any(u => u.UserId == currentUser.UserId))
+                    {
+                        deptUsers.Add(currentUser);
+                    }
+                    users = deptUsers.Where(u => u != null && u.IsActive).GroupBy(u => u.UserId).Select(g => g.First()).OrderBy(u => u.FullName).ToList();
+                }
             }
 
             var result = users.Select(x => new
@@ -2295,8 +2321,29 @@ namespace Modules.Cate.Areas.Cate.Controllers
             }
             else
             {
-                var allActive = _userCache.GetAll();
-                users = allActive != null ? allActive.Where(u => u.IsActive).OrderBy(u => u.FullName).ToList() : new List<SysUserModel>();
+                if (IsUserQTHT(User.UserName))
+                {
+                    var allActive = _userCache.GetAll();
+                    users = allActive != null ? allActive.Where(u => u.IsActive).OrderBy(u => u.FullName).ToList() : new List<SysUserModel>();
+                }
+                else
+                {
+                    var deptUsers = new List<SysUserModel>();
+                    if (accessibleDepts != null && accessibleDepts.Count > 0)
+                    {
+                        foreach (var d in accessibleDepts)
+                        {
+                            var uInDept = _userCache.GetByBoPhanAndChucVu(d.BoPhan_ID, null);
+                            if (uInDept != null) deptUsers.AddRange(uInDept);
+                        }
+                    }
+                    var currentUser = _userCache.GetByUserName(User.UserName);
+                    if (currentUser != null && !deptUsers.Any(u => u.UserId == currentUser.UserId))
+                    {
+                        deptUsers.Add(currentUser);
+                    }
+                    users = deptUsers.Where(u => u != null && u.IsActive).GroupBy(u => u.UserId).Select(g => g.First()).OrderBy(u => u.FullName).ToList();
+                }
             }
 
             model.ListEmployee = users.Select(e => new SelectListItem

@@ -45,24 +45,20 @@
 
 @section PageAction {
     <div class="d-inline-flex align-items-center flex-wrap">
-        <!-- BỘ 2 NÚT TOGGLE: DỰ ÁN TRỌNG ĐIỂM & QUAN TÂM DỰ ÁN -->
-        <div class="d-inline-flex align-items-center bgc-white px-25 py-1 radius-2 border-1 brc-grey-l2 shadow-sm mr-2 mb-1 mb-md-0">
-            <!-- 1. Toggle: Dự án trọng điểm (Lưu theo hồ sơ Cơ hội KD) -->
-            <div class="custom-control custom-switch mr-3" title="Đánh dấu dự án trọng điểm (Lưu theo Cơ hội kinh doanh)">
-                <input type="checkbox" class="custom-control-input cursor-pointer" id="chkIsKeyProject" @(Model.IsKeyProject ? "checked" : "") @(canEdit ? "" : "disabled") onchange="toggleKeyProject(@Model.DigitalSalesID, this.checked);">
-                <label class="custom-control-label font-bold text-85 cursor-pointer @(Model.IsKeyProject ? "text-orange-d2" : "text-secondary-d1") select-none mb-0" for="chkIsKeyProject" id="lblKeyProject">
-                    <i class="fa fa-star text-warning-d2 mr-1"></i>Dự án trọng điểm
-                </label>
-            </div>
-            <!-- Vạch phân tách tinh tế -->
-            <div class="border-l-1 brc-grey-l2 mx-1" style="height: 18px;"></div>
-            <!-- 2. Toggle: Quan tâm dự án (Lưu theo từng người dùng đăng nhập) -->
-            <div class="custom-control custom-switch ml-2" title="Quan tâm dự án (Lưu theo người dùng đang đăng nhập)">
-                <input type="checkbox" class="custom-control-input cursor-pointer" id="chkIsFollowed" @(Model.IsFollowed ? "checked" : "") onchange="toggleFollowSales(@Model.DigitalSalesID, this.checked);">
-                <label class="custom-control-label font-bold text-85 cursor-pointer @(Model.IsFollowed ? "text-danger-d1" : "text-secondary-d1") select-none mb-0" for="chkIsFollowed" id="lblFollowSales">
-                    <i class="fa fa-bookmark text-danger-m1 mr-1"></i>Quan tâm dự án
-                </label>
-            </div>
+        <!-- 1. Toggle: Trọng điểm (Tách riêng, to hơn, không icon, chữ màu đen) -->
+        <div class="custom-control custom-switch mr-3 d-inline-flex align-items-center" style="transform: scale(1.12); transform-origin: left center;" title="Đánh dấu trọng điểm">
+            <input type="checkbox" class="custom-control-input cursor-pointer" id="chkIsKeyProject" @(Model.IsKeyProject ? "checked" : "") @(canEdit ? "" : "disabled") onchange="toggleKeyProject(@Model.DigitalSalesID, this.checked);">
+            <label class="custom-control-label font-bolder text-dark cursor-pointer select-none mb-0 pl-1" for="chkIsKeyProject" id="lblKeyProject" style="font-size: 13px;">
+                @(Model.BusinessType == 2 ? "Dự án trọng điểm" : "Cơ hội trọng điểm")
+            </label>
+        </div>
+
+        <!-- 2. Toggle: Quan tâm (Tách riêng, to hơn, không icon, chữ màu đen) -->
+        <div class="custom-control custom-switch mr-3 d-inline-flex align-items-center" style="transform: scale(1.12); transform-origin: left center;" title="Quan tâm cơ hội/dự án">
+            <input type="checkbox" class="custom-control-input cursor-pointer" id="chkIsFollowed" @(Model.IsFollowed ? "checked" : "") onchange="toggleFollowSales(@Model.DigitalSalesID, this.checked);">
+            <label class="custom-control-label font-bolder text-dark cursor-pointer select-none mb-0 pl-1" for="chkIsFollowed" id="lblFollowSales" style="font-size: 13px;">
+                @(Model.BusinessType == 2 ? "Quan tâm dự án" : "Quan tâm cơ hội")
+            </label>
         </div>
 
         @if (canEdit)

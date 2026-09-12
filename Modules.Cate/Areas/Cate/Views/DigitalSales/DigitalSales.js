@@ -1,4 +1,4 @@
-var _tableDigitalSales;
+﻿var _tableDigitalSales;
 var _digitalSalesUrls = {
     get: "/Cate/DigitalSales/Get",
     add: "/Cate/DigitalSales/Add",
@@ -16,20 +16,10 @@ $(document).ready(function () {
     initTableDigitalSales();
 
     $("#chkFilterKeyProject").on("change", function () {
-        if (this.checked) {
-            $("#lblFilterKeyProject").removeClass("text-secondary-d1").addClass("text-orange-d2");
-        } else {
-            $("#lblFilterKeyProject").removeClass("text-orange-d2").addClass("text-secondary-d1");
-        }
         reloadSalesTable();
     });
 
     $("#chkFilterFollowed").on("change", function () {
-        if (this.checked) {
-            $("#lblFilterFollowed").removeClass("text-secondary-d1").addClass("text-danger-d1");
-        } else {
-            $("#lblFilterFollowed").removeClass("text-danger-d1").addClass("text-secondary-d1");
-        }
         reloadSalesTable();
     });
 });
@@ -107,21 +97,28 @@ function initTableDigitalSales() {
 
                     var badgeSpecial = '';
                     if (row.IsKeyProject) {
-                        badgeSpecial += '<span class="badge bgc-orange-l3 text-orange-d3 border-1 brc-orange-m2 ml-1 font-bold px-2 py-1 radius-1 shadow-sm sale-badge" title="Dự án trọng điểm"><i class="fa fa-star text-warning mr-1"></i>Trọng điểm</span>';
+                        badgeSpecial += '<span class="badge bgc-orange-l3 text-orange-d3 border-1 brc-orange-m2 mr-1 font-bold px-2 py-1 radius-1 shadow-sm sale-badge" title="Dự án trọng điểm"><i class="fa fa-star text-warning mr-1"></i>Trọng điểm</span>';
                     }
                     if (row.IsFollowed) {
-                        badgeSpecial += '<span class="badge bgc-pink-l3 text-pink-d2 border-1 brc-pink-m3 ml-1 font-bold px-2 py-1 radius-1 shadow-sm sale-badge" title="Cơ hội/dự án bạn đang quan tâm"><i class="fa fa-bookmark text-danger mr-1"></i>Quan tâm</span>';
+                        badgeSpecial += '<span class="badge bgc-pink-l3 text-pink-d2 border-1 brc-pink-m3 mr-1 font-bold px-2 py-1 radius-1 shadow-sm sale-badge" title="Cơ hội/dự án bạn đang quan tâm"><i class="fa fa-bookmark text-danger mr-1"></i>Quan tâm</span>';
                     }
 
+                    // Hàng 1: Loại hình & Trạng thái
                     var html = '<div class="mb-1 d-flex align-items-center flex-wrap">' +
                         badgeType + ' ' + badgeStatus +
-                        '<span class="badge bgc-warning-l3 text-warning-d3 border-1 brc-warning-m2 ml-1 font-mono font-bold px-2 py-1 radius-1 shadow-sm sale-badge"><i class="fa fa-hashtag mr-1 opacity-75"></i>' + (row.Code || '—') + '</span>' +
-                        badgeSpecial +
                         '</div>';
 
+                    // Hàng 2: Tên cơ hội / Dự án
                     html += '<a href="' + _digitalSalesUrls.detail + '/' + row.DigitalSalesID + '" class="font-weight-bold text-primary d-block sale-title" style="font-size: 16px;" title="Xem chi tiết 360 độ">' +
                         row.Title + '</a>';
 
+                    // Hàng 3: Mã hồ sơ & Các huy hiệu đặc biệt (Trọng điểm, Quan tâm)
+                    html += '<div class="mt-1 d-flex align-items-center flex-wrap">' +
+                        '<span class="badge bgc-warning-l3 text-warning-d3 border-1 brc-warning-m2 mr-1 font-mono font-bold px-2 py-1 radius-1 shadow-sm sale-badge"><i class="fa fa-hashtag mr-1 opacity-75"></i>' + (row.Code || '—') + '</span>' +
+                        badgeSpecial +
+                        '</div>';
+
+                    // Hàng 4: Sản phẩm / dịch vụ số đính kèm (nếu có)
                     if (row.ProductServiceNames) {
                         html += '<div class="sale-subtext text-secondary mt-1"><i class="fa fa-tags text-purple mr-1"></i>' + row.ProductServiceNames + '</div>';
                     }
@@ -335,9 +332,7 @@ function resetSalesSearch() {
     }
 
     $("#chkFilterKeyProject").prop("checked", false);
-    $("#lblFilterKeyProject").removeClass("text-orange-d2").addClass("text-secondary-d1");
     $("#chkFilterFollowed").prop("checked", false);
-    $("#lblFilterFollowed").removeClass("text-danger-d1").addClass("text-secondary-d1");
 
     var $employee = $("#EmployeeID, #SearchEmployeeID");
     $employee.empty().append('<option value="">-- Chọn nhân viên --</option>');

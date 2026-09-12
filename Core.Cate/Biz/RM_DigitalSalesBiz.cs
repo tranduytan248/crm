@@ -28,6 +28,8 @@ namespace Core.Cate.Biz
         private readonly string _spGetTimeline = "RM_DigitalSales_GetTimeline";
         private readonly string _spDelete = "RM_DigitalSales_Delete";
         private readonly string _spStatusGetAll = "RM_DigitalSalesStatus_GetAll";
+        private readonly string _spToggleKeyProject = "RM_DigitalSales_ToggleKeyProject";
+        private readonly string _spToggleFollow = "RM_DigitalSales_ToggleFollow";
 
         public List<RM_DigitalSalesModel> LoadList(out int total, RM_DigitalSalesSearchModel model)
         {
@@ -97,7 +99,7 @@ namespace Core.Cate.Biz
         {
             if (id <= 0) return false;
             var res = AppProcessor.ProcedureProvider.Execute(
-                "dbo.RM_DigitalSales_ToggleKeyProject",
+                _spToggleKeyProject,
                 DATA_PROVIDER_NAME,
                 id,
                 isKeyProject,
@@ -110,7 +112,7 @@ namespace Core.Cate.Biz
         {
             if (id <= 0 || string.IsNullOrEmpty(userName)) return false;
             var res = AppProcessor.ProcedureProvider.Execute(
-                "dbo.RM_DigitalSales_ToggleFollow",
+                _spToggleFollow,
                 DATA_PROVIDER_NAME,
                 id,
                 userName,

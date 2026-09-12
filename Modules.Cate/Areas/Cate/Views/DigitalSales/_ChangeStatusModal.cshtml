@@ -26,7 +26,11 @@
                         <div class="text-90">
                             <span class="text-secondary">Loại hình hiện tại:</span>
                             <span class="badge @(Model.CurrentBusinessType == 1 ? "badge-primary" : "badge-success")">
-                                @Model.CurrentBusinessTypeName
+                                @(Model.CurrentBusinessType == 1 
+                                    ? AppProcessor.Messagor.GetMessage("DigitalSales_BusinessType_Opportunity") 
+                                    : (Model.CurrentBusinessType == 2 
+                                        ? AppProcessor.Messagor.GetMessage("DigitalSales_BusinessType_Project") 
+                                        : Model.CurrentBusinessTypeName))
                             </span>
                             <span class="mx-1 text-secondary">➔</span>
                             <span class="text-secondary">Trạng thái:</span>

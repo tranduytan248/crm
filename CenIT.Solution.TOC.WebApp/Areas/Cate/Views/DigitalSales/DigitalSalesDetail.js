@@ -1,4 +1,4 @@
-var _detailUrls = {
+﻿var _detailUrls = {
     editSales: "/Cate/DigitalSales/Edit",
     changeStatusModal: "/Cate/DigitalSales/ChangeStatusModal",
     changeStatus: "/Cate/DigitalSales/ChangeStatus",
@@ -650,69 +650,91 @@ function confirmDeleteAttachment(salesId, filePath, fileName) {
     $modal.modal('show');
 }
 
+function applyKeyProjectUI(isChecked) {
+    var $badge = $('#badgeKeyProject');
+    if (isChecked) {
+        $badge.removeClass('d-none');
+    } else {
+        $badge.addClass('d-none');
+    }
+}
+
+function applyFollowSalesUI(isChecked) {
+    var $badge = $('#badgeFollowed');
+    if (isChecked) {
+        $badge.removeClass('d-none');
+    } else {
+        $badge.addClass('d-none');
+    }
+}
+
+var _isKeyProjectToggling = false;
 function toggleKeyProject(salesId, isChecked) {
     var $chk = $('#chkIsKeyProject');
-    var $lbl = $('#lblKeyProject');
-    $chk.prop('disabled', true);
+    if (_isKeyProjectToggling) return;
+    _isKeyProjectToggling = true;
 
+    // 1. Phản hồi giao diện tức thì 0ms (Optimistic UI) không cần chờ đợi hay loading
+    applyKeyProjectUI(isChecked);
+
+    // 2. Chạy ngầm dưới background (global: false không kích hoạt preloader/spinner hay reload)
     $.ajax({
         url: _detailUrls.toggleKeyProject,
         type: "POST",
         data: { id: salesId, isKeyProject: isChecked },
         dataType: "JSON",
+        global: false,
         success: function (res) {
-            $chk.prop('disabled', false);
+            _isKeyProjectToggling = false;
             if (res && res.status) {
-                if (isChecked) {
-                    $lbl.removeClass('text-secondary-d1').addClass('text-orange-d2');
-                    $('#badgeKeyProject').removeClass('d-none');
-                } else {
-                    $lbl.removeClass('text-orange-d2').addClass('text-secondary-d1');
-                    $('#badgeKeyProject').addClass('d-none');
-                }
                 executeResponseMessage(res.message, isChecked ? "Đã đánh dấu là Dự án trọng điểm!" : "Đã bỏ đánh dấu Dự án trọng điểm.", true);
             } else {
+                // Revert lại trạng thái nếu server từ chối hoặc có lỗi nghiệp vụ
                 $chk.prop('checked', !isChecked);
+                applyKeyProjectUI(!isChecked);
                 executeResponseMessage(res ? res.message : "Thao tác không thành công!", null, false);
             }
         },
         error: function () {
-            $chk.prop('disabled', false);
+            _isKeyProjectToggling = false;
+            // Revert lại trạng thái nếu lỗi kết nối
             $chk.prop('checked', !isChecked);
+            applyKeyProjectUI(!isChecked);
             executeResponseMessage("Lỗi kết nối máy chủ, vui lòng thử lại!", null, false);
         }
     });
 }
 
+var _isFollowToggling = false;
 function toggleFollowSales(salesId, isChecked) {
     var $chk = $('#chkIsFollowed');
-    var $lbl = $('#lblFollowSales');
-    $chk.prop('disabled', true);
+    if (_isFollowToggling) return;
+    _isFollowToggling = true;
 
+    // 1. Phản hồi giao diện tức thì 0ms (Optimistic UI)
+    applyFollowSalesUI(isChecked);
+
+    // 2. Chạy ngầm dưới background
     $.ajax({
         url: _detailUrls.toggleFollow,
         type: "POST",
         data: { id: salesId, isFollowed: isChecked },
         dataType: "JSON",
+        global: false,
         success: function (res) {
-            $chk.prop('disabled', false);
+            _isFollowToggling = false;
             if (res && res.status) {
-                if (isChecked) {
-                    $lbl.removeClass('text-secondary-d1').addClass('text-danger-d1');
-                    $('#badgeFollowed').removeClass('d-none');
-                } else {
-                    $lbl.removeClass('text-danger-d1').addClass('text-secondary-d1');
-                    $('#badgeFollowed').addClass('d-none');
-                }
                 executeResponseMessage(res.message, isChecked ? "Đã lưu vào danh sách quan tâm!" : "Đã bỏ quan tâm dự án.", true);
             } else {
                 $chk.prop('checked', !isChecked);
+                applyFollowSalesUI(!isChecked);
                 executeResponseMessage(res ? res.message : "Thao tác không thành công!", null, false);
             }
         },
         error: function () {
-            $chk.prop('disabled', false);
+            _isFollowToggling = false;
             $chk.prop('checked', !isChecked);
+            applyFollowSalesUI(!isChecked);
             executeResponseMessage("Lỗi kết nối máy chủ, vui lòng thử lại!", null, false);
         }
     });
