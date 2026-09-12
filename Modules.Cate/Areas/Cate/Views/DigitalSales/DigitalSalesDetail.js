@@ -196,6 +196,48 @@ function reloadTrackingSection(salesId) {
     });
 }
 
+function updateHeaderFromInfo($info) {
+    if (!$info || !$info.length) return;
+    var title = $info.data("title");
+    var code = $info.data("code");
+    var statusName = $info.data("status");
+    var businessType = $info.data("business-type");
+    updateHeaderInfo(businessType, statusName, title, code);
+}
+
+function updateHeaderInfo(businessType, statusName, title, code) {
+    if (businessType !== undefined && businessType !== null && businessType !== "") {
+        var bType = parseInt(businessType, 10);
+        var isProject = bType === 2;
+        var $bTypeBadge = $("#headerBusinessType");
+        if ($bTypeBadge.length) {
+            if (isProject) {
+                $bTypeBadge
+                    .removeClass("bgc-blue-l2 text-blue-d2 brc-blue-m3")
+                    .addClass("bgc-purple-l2 text-purple-d2 border-1 brc-purple-m3")
+                    .html('<i class="fa fa-project-diagram mr-1"></i>Dự án');
+            } else {
+                $bTypeBadge
+                    .removeClass("bgc-purple-l2 text-purple-d2 brc-purple-m3")
+                    .addClass("bgc-blue-l2 text-blue-d2 border-1 brc-blue-m3")
+                    .html('<i class="fa fa-lightbulb mr-1"></i>Cơ hội kinh doanh');
+            }
+        }
+        $("#lblKeyProject").text(isProject ? "Dự án trọng điểm" : "Cơ hội trọng điểm");
+        $("#lblFollowSales").text(isProject ? "Quan tâm dự án" : "Quan tâm cơ hội");
+    }
+
+    if (statusName) {
+        $("#headerStatusName").html('<i class="fa fa-check-circle mr-1"></i>' + statusName);
+    }
+    if (title) {
+        $("#headerTitle").text(title).attr("title", title);
+    }
+    if (code) {
+        $("#headerCode").html('<i class="fa fa-hashtag mr-1 opacity-75"></i>' + code);
+    }
+}
+
 function reloadStatusAndTimelineSection(salesId) {
     salesId = getEffectiveSalesId(salesId);
     if (!salesId) return;
@@ -222,10 +264,7 @@ function reloadStatusAndTimelineSection(salesId) {
         hideSectionLoading($overview);
         var $info = $overview.find("#partialOverviewHeaderInfo");
         if ($info.length) {
-            var statusName = $info.data("status");
-            if (statusName) {
-                $("#headerStatusName").html('<i class="fa fa-check-circle mr-1"></i>' + statusName);
-            }
+            updateHeaderFromInfo($info);
         }
     }).fail(function () {
         hideSectionLoading($overview);
@@ -244,12 +283,7 @@ function reloadOverviewAndMetrics(salesId) {
         hideSectionLoading($overview);
         var $info = $overview.find("#partialOverviewHeaderInfo");
         if ($info.length) {
-            var title = $info.data("title");
-            var code = $info.data("code");
-            var statusName = $info.data("status");
-            if (title) $("#headerTitle").text(title).attr("title", title);
-            if (code) $("#headerCode").html('<i class="fa fa-hashtag mr-1 opacity-75"></i>' + code);
-            if (statusName) $("#headerStatusName").html('<i class="fa fa-check-circle mr-1"></i>' + statusName);
+            updateHeaderFromInfo($info);
         }
     }).fail(function () {
         hideSectionLoading($overview);
@@ -381,7 +415,12 @@ function openChangeStatusModal(id) {
                     if (res.status) {
                         $modal.modal("hide");
                         executeResponseMessage(res.message, "Chuyển trạng thái thành công!", true);
+                        if (res.businessType !== undefined) {
+                            updateHeaderInfo(res.businessType, res.statusName);
+                        }
                         reloadStatusAndTimelineSection(id);
+                        reloadOverviewAndMetrics(id);
+                        reloadTrackingSection(id);
                     } else {
                         executeResponseMessage(res.message, "Không thể chuyển trạng thái!", false);
                     }

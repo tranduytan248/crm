@@ -1186,11 +1186,17 @@ namespace Modules.Cate.Areas.Cate.Controllers
 
             if (code == 1)
             {
+                var updated = _salesCache.GetByID(digitalSalesId, User.UserName);
                 return Json(new
                 {
                     status = true,
                     code = 1,
-                    message = GetAppMessage("DigitalSales_Msg_ChangeStatusSuccess")
+                    message = GetAppMessage("DigitalSales_Msg_ChangeStatusSuccess"),
+                    businessType = updated?.BusinessType,
+                    businessTypeName = updated?.BusinessType == 2
+                        ? AppProcessor.Messagor.GetMessage("DigitalSales_BusinessType_Project")
+                        : AppProcessor.Messagor.GetMessage("DigitalSales_BusinessType_Opportunity"),
+                    statusName = updated?.StatusName
                 });
             }
             else if (code == -3)
