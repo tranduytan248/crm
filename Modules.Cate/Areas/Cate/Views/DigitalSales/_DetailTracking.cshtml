@@ -1,7 +1,11 @@
 ﻿@model Core.Cate.Models.RM_DigitalSalesModel
 @{
     bool canEdit = ViewBag.CanEdit == true;
+    var totalTasks = Model.TrackingTasks?.Count ?? 0;
+    var completedTasks = Model.TrackingTasks?.Count(t => t.Status == 3) ?? 0;
 }
+
+<span id="partialTrackingProgress" class="d-none" data-completed="@completedTasks" data-total="@totalTasks"></span>
 
 <div class="d-flex justify-content-between align-items-center mb-3">
     <h6 class="text-orange font-weight-bold mb-0">

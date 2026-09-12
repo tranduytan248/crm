@@ -1,4 +1,4 @@
-﻿var _detailUrls = {
+var _detailUrls = {
     editSales: "/Cate/DigitalSales/Edit",
     changeStatusModal: "/Cate/DigitalSales/ChangeStatusModal",
     changeStatus: "/Cate/DigitalSales/ChangeStatus",
@@ -23,7 +23,15 @@
     uploadAttachment: "/Cate/DigitalSales/UploadAttachment",
     deleteAttachment: "/Cate/DigitalSales/DeleteAttachment",
     toggleKeyProject: "/Cate/DigitalSales/ToggleKeyProject",
-    toggleFollow: "/Cate/DigitalSales/ToggleFollow"
+    toggleFollow: "/Cate/DigitalSales/ToggleFollow",
+
+    getMetricsPartial: "/Cate/DigitalSales/GetMetricsPartial",
+    getOverviewPartial: "/Cate/DigitalSales/GetOverviewPartial",
+    getMembersPartial: "/Cate/DigitalSales/GetMembersPartial",
+    getAttachmentsPartial: "/Cate/DigitalSales/GetAttachmentsPartial",
+    getProductsPartial: "/Cate/DigitalSales/GetProductsPartial",
+    getTrackingPartial: "/Cate/DigitalSales/GetTrackingPartial",
+    getTimelinePartial: "/Cate/DigitalSales/GetTimelinePartial"
 };
 
 function executeResponseMessage(message, defaultText, isSuccess) {
@@ -57,6 +65,203 @@ function executeResponseMessage(message, defaultText, isSuccess) {
     } else {
         alert(message || defaultText);
     }
+}
+
+/* ================= Helper: Loading Overlay & Micro Reloading ================= */
+function showSectionLoading($container) {
+    if (!$container || $container.length === 0) return;
+    $container.addClass("position-relative");
+    var $overlay = $container.children(".ds-section-loading-overlay");
+    if ($overlay.length === 0) {
+        $overlay = $(
+            '<div class="ds-section-loading-overlay">' +
+            '  <div class="spinner-border text-primary" role="status" style="width: 2.2rem; height: 2.2rem;">' +
+            '    <span class="sr-only">Đang tải...</span>' +
+            '  </div>' +
+            '  <div class="mt-2 text-primary font-weight-bold text-90 shadow-sm px-2 py-1 bg-white radius-1 border-1 brc-grey-l2">' +
+            '    <i class="fa fa-sync-alt fa-spin mr-1"></i> Đang cập nhật dữ liệu...' +
+            '  </div>' +
+            '</div>'
+        );
+        $container.append($overlay);
+    }
+    $overlay.stop(true, true).fadeIn(150);
+}
+
+function hideSectionLoading($container) {
+    if (!$container || $container.length === 0) return;
+    $container.children(".ds-section-loading-overlay").stop(true, true).fadeOut(200, function () {
+        $(this).remove();
+    });
+}
+
+function getEffectiveSalesId(salesId) {
+    if (salesId) return salesId;
+    if (typeof _currentDigitalSalesId !== "undefined" && _currentDigitalSalesId > 0) return _currentDigitalSalesId;
+    var match = window.location.pathname.match(/\/Detail\/(\d+)/i);
+    return match ? parseInt(match[1]) : 0;
+}
+
+function reloadMetricsSection(salesId) {
+    salesId = getEffectiveSalesId(salesId);
+    if (!salesId) return;
+    var $metrics = $("#containerMetrics");
+    showSectionLoading($metrics);
+    $.get(_detailUrls.getMetricsPartial, { id: salesId }, function (html) {
+        $metrics.html(html);
+        hideSectionLoading($metrics);
+    }).fail(function () {
+        hideSectionLoading($metrics);
+    });
+}
+
+function reloadProductsSection(salesId) {
+    salesId = getEffectiveSalesId(salesId);
+    if (!salesId) return;
+    var $products = $("#tab-products");
+    showSectionLoading($products);
+    reloadMetricsSection(salesId);
+
+    $.get(_detailUrls.getProductsPartial, { id: salesId }, function (html) {
+        $products.html(html);
+        hideSectionLoading($products);
+        var newCount = $products.find("#partialProductsCount").data("count");
+        if (newCount !== undefined) {
+            $("#badgeTabProducts").text(newCount);
+        }
+    }).fail(function () {
+        hideSectionLoading($products);
+    });
+}
+
+function reloadMembersSection(salesId) {
+    salesId = getEffectiveSalesId(salesId);
+    if (!salesId) return;
+    var $members = $("#sectionMembers");
+    if ($members.length === 0) {
+        $members = $("#tab-overview");
+    }
+    showSectionLoading($members);
+
+    $.get(_detailUrls.getMembersPartial, { id: salesId }, function (html) {
+        $members.html(html);
+        hideSectionLoading($members);
+        var newCount = $members.find("#partialMembersCount").data("count");
+        if (newCount !== undefined) {
+            $("#badgeMemberCount").text(newCount);
+        }
+    }).fail(function () {
+        hideSectionLoading($members);
+    });
+}
+
+function reloadAttachmentsSection(salesId) {
+    salesId = getEffectiveSalesId(salesId);
+    if (!salesId) return;
+    var $attachments = $("#sectionAttachments");
+    if ($attachments.length === 0) {
+        $attachments = $("#tab-overview");
+    }
+    showSectionLoading($attachments);
+
+    $.get(_detailUrls.getAttachmentsPartial, { id: salesId }, function (html) {
+        $attachments.html(html);
+        hideSectionLoading($attachments);
+    }).fail(function () {
+        hideSectionLoading($attachments);
+    });
+}
+
+function reloadTrackingSection(salesId) {
+    salesId = getEffectiveSalesId(salesId);
+    if (!salesId) return;
+    var $tracking = $("#tab-tracking");
+    showSectionLoading($tracking);
+    reloadMetricsSection(salesId);
+
+    $.get(_detailUrls.getTrackingPartial, { id: salesId }, function (html) {
+        $tracking.html(html);
+        hideSectionLoading($tracking);
+        var $prog = $tracking.find("#partialTrackingProgress");
+        if ($prog.length) {
+            $("#badgeTabTracking").text($prog.data("completed") + "/" + $prog.data("total"));
+        }
+    }).fail(function () {
+        hideSectionLoading($tracking);
+    });
+}
+
+function reloadStatusAndTimelineSection(salesId) {
+    salesId = getEffectiveSalesId(salesId);
+    if (!salesId) return;
+    var $timeline = $("#tab-timeline");
+    var $overview = $("#tab-overview");
+    showSectionLoading($timeline);
+    showSectionLoading($overview);
+    reloadMetricsSection(salesId);
+
+    $.get(_detailUrls.getTimelinePartial, { id: salesId }, function (html) {
+        $timeline.html(html);
+        hideSectionLoading($timeline);
+        var newCount = $timeline.find("#partialTimelineCount").data("count");
+        if (newCount !== undefined) {
+            $("#badgeTabTimeline").text(newCount);
+        }
+    }).fail(function () {
+        hideSectionLoading($timeline);
+    });
+
+    $.get(_detailUrls.getOverviewPartial, { id: salesId }, function (html) {
+        $overview.html(html);
+        hideSectionLoading($overview);
+        var $info = $overview.find("#partialOverviewHeaderInfo");
+        if ($info.length) {
+            var statusName = $info.data("status");
+            if (statusName) {
+                $("#headerStatusName").html('<i class="fa fa-check-circle mr-1"></i>' + statusName);
+            }
+        }
+    }).fail(function () {
+        hideSectionLoading($overview);
+    });
+}
+
+function reloadOverviewAndMetrics(salesId) {
+    salesId = getEffectiveSalesId(salesId);
+    if (!salesId) return;
+    var $overview = $("#tab-overview");
+    showSectionLoading($overview);
+    reloadMetricsSection(salesId);
+
+    $.get(_detailUrls.getOverviewPartial, { id: salesId }, function (html) {
+        $overview.html(html);
+        hideSectionLoading($overview);
+        var $info = $overview.find("#partialOverviewHeaderInfo");
+        if ($info.length) {
+            var title = $info.data("title");
+            var code = $info.data("code");
+            var statusName = $info.data("status");
+            if (title) $("#headerTitle").text(title).attr("title", title);
+            if (code) $("#headerCode").html('<i class="fa fa-hashtag mr-1 opacity-75"></i>' + code);
+            if (statusName) $("#headerStatusName").html('<i class="fa fa-check-circle mr-1"></i>' + statusName);
+        }
+    }).fail(function () {
+        hideSectionLoading($overview);
+    });
+}
+
+function refreshAllSections(salesId) {
+    salesId = getEffectiveSalesId(salesId);
+    if (!salesId) return;
+    if (typeof toastr !== "undefined") {
+        toastr.info("Đang làm mới dữ liệu các phân vùng...");
+    }
+    reloadOverviewAndMetrics(salesId);
+    reloadProductsSection(salesId);
+    reloadMembersSection(salesId);
+    reloadAttachmentsSection(salesId);
+    reloadTrackingSection(salesId);
+    reloadStatusAndTimelineSection(salesId);
 }
 
 $(document).ready(function () {
@@ -123,9 +328,7 @@ function DigitalSales_OnProcessSuccess(response, formId) {
             $modal.modal("hide");
             $(".modal-backdrop").remove();
             $("body").removeClass("modal-open").css("padding-right", "");
-            setTimeout(function () {
-                location.reload();
-            }, 600);
+            reloadOverviewAndMetrics(getEffectiveSalesId());
         } else {
             executeResponseMessage(response.message, "Thao tác thất bại!", false);
         }
@@ -168,10 +371,8 @@ function openChangeStatusModal(id) {
                 success: function (res) {
                     if (res.status) {
                         $modal.modal("hide");
-                        $modal.on("hidden.bs.modal", function () {
-                            executeResponseMessage(res.message, "Chuyển trạng thái thành công!", true);
-                            setTimeout(function () { location.reload(); }, 600);
-                        });
+                        executeResponseMessage(res.message, "Chuyển trạng thái thành công!", true);
+                        reloadStatusAndTimelineSection(id);
                     } else {
                         executeResponseMessage(res.message, "Không thể chuyển trạng thái!", false);
                     }
@@ -255,7 +456,7 @@ function deleteProductItem(id, salesId) {
             $('body').removeClass('modal-open').css('padding-right', '');
             if (res.status) {
                 executeResponseMessage(res.message, "Xóa sản phẩm thành công!", true);
-                setTimeout(function () { location.reload(); }, 600);
+                reloadProductsSection(salesId);
             } else {
                 executeResponseMessage(res.message, "Không thể xóa sản phẩm!", false);
             }
@@ -336,7 +537,7 @@ function deleteMemberItem(id, salesId) {
             $('body').removeClass('modal-open').css('padding-right', '');
             if (res.status) {
                 executeResponseMessage(res.message, "Xóa thành viên thành công!", true);
-                setTimeout(function () { location.reload(); }, 600);
+                reloadMembersSection(salesId);
             } else {
                 executeResponseMessage(res.message, "Không thể xóa thành viên!", false);
             }
@@ -368,10 +569,8 @@ function openAddTrackingModal(salesId) {
                 success: function (res) {
                     if (res.status) {
                         $modal.modal("hide");
-                        $modal.on("hidden.bs.modal", function () {
-                            executeResponseMessage(res.message, "Lưu tiến trình thành công!", true);
-                            setTimeout(function () { location.reload(); }, 600);
-                        });
+                        executeResponseMessage(res.message, "Lưu tiến trình thành công!", true);
+                        reloadTrackingSection(salesId);
                     } else {
                         executeResponseMessage(res.message, "Không thể lưu tiến trình!", false);
                     }
@@ -405,10 +604,8 @@ function openEditTrackingModal(id, salesId) {
                 success: function (res) {
                     if (res.status) {
                         $modal.modal("hide");
-                        $modal.on("hidden.bs.modal", function () {
-                            executeResponseMessage(res.message, "Cập nhật tiến trình thành công!", true);
-                            setTimeout(function () { location.reload(); }, 600);
-                        });
+                        executeResponseMessage(res.message, "Cập nhật tiến trình thành công!", true);
+                        reloadTrackingSection(salesId);
                     } else {
                         executeResponseMessage(res.message, "Không thể cập nhật tiến trình!", false);
                     }
@@ -455,7 +652,7 @@ function deleteTrackingItem(id, salesId) {
             $('body').removeClass('modal-open').css('padding-right', '');
             if (res.status) {
                 executeResponseMessage(res.message, "Xóa tiến trình thành công!", true);
-                setTimeout(function () { location.reload(); }, 600);
+                reloadTrackingSection(salesId);
             } else {
                 executeResponseMessage(res.message, "Không thể xóa tiến trình!", false);
             }
@@ -578,7 +775,7 @@ function openUploadAttachmentModal(salesId) {
                     if (res.status) {
                         $modal.modal('hide');
                         executeResponseMessage(res.message, "Tải lên tệp thành công!", true);
-                        setTimeout(function () { location.reload(); }, 600);
+                        reloadAttachmentsSection(salesId);
                     } else {
                         executeResponseMessage(res.message, "Tải lên tệp thất bại!", false);
                     }
@@ -635,7 +832,7 @@ function confirmDeleteAttachment(salesId, filePath, fileName) {
                 if (res.status) {
                     $modal.modal('hide');
                     executeResponseMessage(res.message, "Xóa tệp đính kèm thành công!", true);
-                    setTimeout(function () { location.reload(); }, 600);
+                    reloadAttachmentsSection(salesId);
                 } else {
                     executeResponseMessage(res.message, "Xóa tệp thất bại!", false);
                 }

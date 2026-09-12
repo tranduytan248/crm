@@ -3,6 +3,8 @@
     bool canEdit = ViewBag.CanEdit == true;
 }
 
+<span id="partialProductsCount" class="d-none" data-count="@(Model.Products?.Count ?? 0)"></span>
+
 <div class="d-flex justify-content-between align-items-center mb-3">
     <h6 class="text-purple font-weight-bold mb-0">
         <i class="fa fa-cubes mr-1"></i> Danh sách Sản phẩm / Dịch vụ số đính kèm

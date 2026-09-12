@@ -276,7 +276,11 @@
                         if (typeof toastr !== "undefined") {
                             toastr.success(res.message || "Lưu sản phẩm thành công!");
                         }
-                        setTimeout(function () { location.reload(); }, 600);
+                        if (typeof reloadProductsSection === "function") {
+                            reloadProductsSection(@Model.DigitalSalesID);
+                        } else {
+                            setTimeout(function () { location.reload(); }, 600);
+                        }
                     } else {
                         var errMsg = (res && res.message) ? res.message : "Không thể lưu sản phẩm!";
                         if (typeof toastr !== "undefined") {

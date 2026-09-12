@@ -851,6 +851,88 @@ namespace Modules.Cate.Areas.Cate.Controllers
                 message = GetAppMessage("DigitalSales_Toggle_Error")
             });
         }
+
+        #region 3.1 Partial Component Async Endpoints
+        [AjaxOnly]
+        [HttpGet]
+        [ActionType(Type = EnumActionType.View)]
+        public ActionResult GetMetricsPartial(int id)
+        {
+            var model = _salesCache.GetByID(id, User.UserName);
+            if (model == null) return HttpNotFound();
+            return PartialView("_DetailMetrics", model);
+        }
+
+        [AjaxOnly]
+        [HttpGet]
+        [ActionType(Type = EnumActionType.View)]
+        public ActionResult GetOverviewPartial(int id)
+        {
+            var model = _salesCache.GetByID(id, User.UserName);
+            if (model == null) return HttpNotFound();
+            model.Note = FormatHtmlContent(model.Note);
+            if (string.IsNullOrEmpty(model.CreatedByName) && !string.IsNullOrEmpty(model.CreatedBy))
+            {
+                model.CreatedByName = _userCache.GetByUserName(model.CreatedBy)?.FullName;
+            }
+            ViewBag.CanEdit = HasDetailPermission(model, User.UserName);
+            return PartialView("_DetailOverview", model);
+        }
+
+        [AjaxOnly]
+        [HttpGet]
+        [ActionType(Type = EnumActionType.View)]
+        public ActionResult GetMembersPartial(int id)
+        {
+            var model = _salesCache.GetByID(id, User.UserName);
+            if (model == null) return HttpNotFound();
+            ViewBag.CanEdit = HasDetailPermission(model, User.UserName);
+            return PartialView("_DetailMembers", model);
+        }
+
+        [AjaxOnly]
+        [HttpGet]
+        [ActionType(Type = EnumActionType.View)]
+        public ActionResult GetAttachmentsPartial(int id)
+        {
+            var model = _salesCache.GetByID(id, User.UserName);
+            if (model == null) return HttpNotFound();
+            ViewBag.CanEdit = HasDetailPermission(model, User.UserName);
+            return PartialView("_DetailAttachments", model);
+        }
+
+        [AjaxOnly]
+        [HttpGet]
+        [ActionType(Type = EnumActionType.View)]
+        public ActionResult GetProductsPartial(int id)
+        {
+            var model = _salesCache.GetByID(id, User.UserName);
+            if (model == null) return HttpNotFound();
+            ViewBag.CanEdit = HasDetailPermission(model, User.UserName);
+            return PartialView("_DetailProducts", model);
+        }
+
+        [AjaxOnly]
+        [HttpGet]
+        [ActionType(Type = EnumActionType.View)]
+        public ActionResult GetTrackingPartial(int id)
+        {
+            var model = _salesCache.GetByID(id, User.UserName);
+            if (model == null) return HttpNotFound();
+            ViewBag.CanEdit = HasDetailPermission(model, User.UserName);
+            return PartialView("_DetailTracking", model);
+        }
+
+        [AjaxOnly]
+        [HttpGet]
+        [ActionType(Type = EnumActionType.View)]
+        public ActionResult GetTimelinePartial(int id)
+        {
+            var model = _salesCache.GetByID(id, User.UserName);
+            if (model == null) return HttpNotFound();
+            return PartialView("_DetailTimeline", model);
+        }
+        #endregion
         #endregion
 
         #region 4. Change Status Gatekeeper

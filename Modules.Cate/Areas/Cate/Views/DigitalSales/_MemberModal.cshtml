@@ -727,7 +727,11 @@
                         if (typeof toastr !== "undefined") {
                             toastr.success(res.message || "Lưu thành viên thành công!");
                         }
-                        setTimeout(function () { location.reload(); }, 600);
+                        if (typeof reloadMembersSection === "function") {
+                            reloadMembersSection(@Model.DigitalSalesID);
+                        } else {
+                            setTimeout(function () { location.reload(); }, 600);
+                        }
                     } else {
                         var errMsg = (res && res.message) ? res.message : "Không thể lưu thành viên!";
                         if (typeof toastr !== "undefined") {

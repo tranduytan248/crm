@@ -220,7 +220,11 @@
                         if (typeof toastr !== "undefined") {
                             toastr.success(res.message || "Cập nhật thành viên thành công!");
                         }
-                        setTimeout(function () { location.reload(); }, 600);
+                        if (typeof reloadMembersSection === "function") {
+                            reloadMembersSection(@Model.DigitalSalesID);
+                        } else {
+                            setTimeout(function () { location.reload(); }, 600);
+                        }
                     } else {
                         var errMsg = (res && res.message) ? res.message : "Không thể cập nhật thành viên!";
                         if (typeof toastr !== "undefined") {
