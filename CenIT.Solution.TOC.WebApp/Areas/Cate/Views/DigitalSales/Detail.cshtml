@@ -10,29 +10,29 @@
 }
 
 @section PageTitle {
-    <div class="d-flex align-items-center">
+    <div class="ds-header-title-container d-flex align-items-center">
         <a href="@Url.Action("Index", "DigitalSales", new { area = "Cate" })" 
-           class="btn btn-sm btn-white btn-h-light-primary btn-a-light-primary border-1 brc-grey-l1 text-secondary-d2 font-600 px-3 py-2 radius-1 shadow-sm mr-3 flex-shrink-0" 
+           class="btn btn-sm btn-white btn-h-light-primary btn-a-light-primary border-1 brc-grey-l1 text-secondary-d2 font-600 px-3 py-2 radius-1 shadow-sm mr-3 flex-shrink-0 ds-back-btn" 
            title="Quay lại danh sách hồ sơ">
             <i class="fa fa-arrow-left text-primary mr-1"></i> Danh sách
         </a>
-        <div class="d-flex flex-column justify-content-center">
-            <div class="d-flex align-items-center flex-wrap">
-                <span id="headerCode" class="badge bgc-warning-l3 text-warning-d3 border-1 brc-warning-m2 font-mono text-90 px-2 py-1 mr-2 radius-1 font-bold shadow-sm">
+        <div class="d-flex flex-column justify-content-center flex-grow-1 min-width-0">
+            <div class="d-flex align-items-center flex-wrap" style="gap: 4px;">
+                <span id="headerCode" class="badge bgc-warning-l3 text-warning-d3 border-1 brc-warning-m2 font-mono text-90 px-2 py-1 mr-2 radius-1 font-bold shadow-sm flex-shrink-0">
                     <i class="fa fa-hashtag mr-1 opacity-75"></i>@Model.Code
                 </span>
-                <span id="headerTitle" class="text-125 font-bolder text-dark-m1 text-truncate" style="max-width: 600px;" title="@Model.Title">
+                <span id="headerTitle" class="text-125 font-bolder text-dark-m1 ds-header-title-text" title="@Model.Title">
                     @Model.Title
                 </span>
             </div>
-            <div class="d-flex align-items-center mt-1 flex-wrap">
-                <span id="headerBusinessType" class="badge badge-lg @(Model.BusinessType == 1 ? "bgc-blue-l2 text-blue-d2 border-1 brc-blue-m3" : "bgc-purple-l2 text-purple-d2 border-1 brc-purple-m3") text-85 font-bold px-25 py-1 mr-2 radius-1">
+            <div class="d-flex align-items-center mt-1 flex-wrap" style="gap: 4px;">
+                <span id="headerBusinessType" class="badge badge-lg @(Model.BusinessType == 1 ? "bgc-blue-l2 text-blue-d2 border-1 brc-blue-m3" : "bgc-purple-l2 text-purple-d2 border-1 brc-purple-m3") text-85 font-bold px-25 py-1 radius-1">
                     <i class="fa @(Model.BusinessType == 1 ? "fa-lightbulb" : "fa-project-diagram") mr-1"></i>@(Model.BusinessType == 1 ? "Cơ hội kinh doanh" : "Dự án")
                 </span>
-                <span id="headerStatusName" class="badge badge-lg bgc-green-l2 text-green-d3 border-1 brc-green-m3 text-85 font-bold px-25 py-1 mr-2 radius-1">
+                <span id="headerStatusName" class="badge badge-lg bgc-green-l2 text-green-d3 border-1 brc-green-m3 text-85 font-bold px-25 py-1 radius-1">
                     <i class="fa fa-check-circle mr-1"></i>@Model.StatusName
                 </span>
-                <span id="badgeKeyProject" class="badge badge-lg bgc-orange-l3 text-orange-d3 border-1 brc-orange-m2 text-85 font-bold px-25 py-1 mr-2 radius-1 @(Model.IsKeyProject ? "" : "d-none")" title="Dự án trọng điểm">
+                <span id="badgeKeyProject" class="badge badge-lg bgc-orange-l3 text-orange-d3 border-1 brc-orange-m2 text-85 font-bold px-25 py-1 radius-1 @(Model.IsKeyProject ? "" : "d-none")" title="Dự án trọng điểm">
                     <i class="fa fa-star text-warning mr-1"></i>Trọng điểm
                 </span>
                 <span id="badgeFollowed" class="badge badge-lg bgc-pink-l3 text-pink-d2 border-1 brc-pink-m3 text-85 font-bold px-25 py-1 radius-1 @(Model.IsFollowed ? "" : "d-none")" title="Bạn đang quan tâm cơ hội/dự án này">
@@ -44,51 +44,61 @@
 }
 
 @section PageAction {
-    <div class="d-inline-flex align-items-center flex-wrap">
-        <!-- 1. Toggle: Trọng điểm (Tách riêng, kích thước chuẩn CSS, không scale, không đè text) -->
-        <div class="custom-control custom-switch custom-control-inline ds-custom-switch" title="Đánh dấu trọng điểm">
-            <input type="checkbox" class="custom-control-input cursor-pointer" id="chkIsKeyProject" @(Model.IsKeyProject ? "checked" : "") @(canEdit ? "" : "disabled") onchange="toggleKeyProject(@Model.DigitalSalesID, this.checked);">
-            <label class="custom-control-label font-bolder text-dark cursor-pointer select-none mb-0" for="chkIsKeyProject" id="lblKeyProject">
-                @(Model.BusinessType == 2 ? "Dự án trọng điểm" : "Cơ hội trọng điểm")
-            </label>
+    <div class="ds-header-action-bar d-flex align-items-center">
+        <!-- 1. Cụm Switches: Trọng điểm & Quan tâm (Luôn đi cùng nhau) -->
+        <div class="ds-header-switches-group d-flex align-items-center flex-nowrap">
+            <div class="custom-control custom-switch custom-control-inline ds-custom-switch" title="Đánh dấu trọng điểm">
+                <input type="checkbox" class="custom-control-input cursor-pointer" id="chkIsKeyProject" @(Model.IsKeyProject ? "checked" : "") @(canEdit ? "" : "disabled") onchange="toggleKeyProject(@Model.DigitalSalesID, this.checked);">
+                <label class="custom-control-label font-bolder text-dark cursor-pointer select-none mb-0" for="chkIsKeyProject" id="lblKeyProject">
+                    @(Model.BusinessType == 2 ? "Dự án trọng điểm" : "Cơ hội trọng điểm")
+                </label>
+            </div>
+
+            <div class="custom-control custom-switch custom-control-inline ds-custom-switch mr-0" title="Quan tâm cơ hội/dự án">
+                <input type="checkbox" class="custom-control-input cursor-pointer" id="chkIsFollowed" @(Model.IsFollowed ? "checked" : "") onchange="toggleFollowSales(@Model.DigitalSalesID, this.checked);">
+                <label class="custom-control-label font-bolder text-dark cursor-pointer select-none mb-0" for="chkIsFollowed" id="lblFollowSales">
+                    @(Model.BusinessType == 2 ? "Quan tâm dự án" : "Quan tâm cơ hội")
+                </label>
+            </div>
         </div>
 
-        <!-- 2. Toggle: Quan tâm (Tách riêng, kích thước chuẩn CSS, không scale, không đè text) -->
-        <div class="custom-control custom-switch custom-control-inline ds-custom-switch" title="Quan tâm cơ hội/dự án">
-            <input type="checkbox" class="custom-control-input cursor-pointer" id="chkIsFollowed" @(Model.IsFollowed ? "checked" : "") onchange="toggleFollowSales(@Model.DigitalSalesID, this.checked);">
-            <label class="custom-control-label font-bolder text-dark cursor-pointer select-none mb-0" for="chkIsFollowed" id="lblFollowSales">
-                @(Model.BusinessType == 2 ? "Quan tâm dự án" : "Quan tâm cơ hội")
-            </label>
-        </div>
+        <div class="ds-header-divider d-none d-xl-block"></div>
 
-        @if (canEdit)
-        {
-            <button type="button" class="btn btn-sm btn-warning btn-h-light-warning text-dark-tp1 font-bolder px-3 py-15 mr-2 radius-1 shadow-sm" onclick="openChangeStatusModal(@Model.DigitalSalesID);" title="Chuyển đổi trạng thái quy trình">
-                <i class="fa fa-exchange-alt mr-1"></i> Chuyển trạng thái
+        <!-- 2. Cụm Action Buttons (Không bao giờ tách rời nhau) -->
+        <div class="ds-header-buttons-group d-flex align-items-center flex-nowrap">
+            @if (canEdit)
+            {
+                <button type="button" class="btn btn-sm btn-warning btn-h-light-warning text-dark-tp1 font-bolder px-3 py-15 radius-1 shadow-sm text-nowrap" onclick="openChangeStatusModal(@Model.DigitalSalesID);" title="Chuyển đổi trạng thái quy trình">
+                    <i class="fa fa-exchange-alt mr-1"></i> Chuyển trạng thái
+                </button>
+                <button type="button" class="btn btn-sm btn-primary font-bolder px-3 py-15 radius-1 shadow-sm text-nowrap ml-2" onclick="openEditSalesModal(@Model.DigitalSalesID);" title="Chỉnh sửa thông tin hồ sơ">
+                    <i class="fa fa-pencil-alt mr-1"></i> Chỉnh sửa
+                </button>
+            }
+            else
+            {
+                <span class="badge badge-lg bgc-secondary-l3 text-secondary-d3 border-1 brc-secondary-m2 px-3 py-2 radius-1 font-bold text-nowrap">
+                    <i class="fa fa-eye mr-1"></i> Chế độ xem (Chỉ đọc)
+                </span>
+            }
+            <button type="button" class="btn btn-sm btn-white btn-h-light-default border-1 brc-grey-l1 text-secondary-d2 px-25 py-15 radius-1 shadow-sm flex-shrink-0 ml-2" onclick="refreshAllSections(@Model.DigitalSalesID);" title="Làm mới dữ liệu">
+                <i class="fa fa-sync-alt"></i>
             </button>
-            <button type="button" class="btn btn-sm btn-primary font-bolder px-3 py-15 mr-2 radius-1 shadow-sm" onclick="openEditSalesModal(@Model.DigitalSalesID);" title="Chỉnh sửa thông tin hồ sơ">
-                <i class="fa fa-pencil-alt mr-1"></i> Chỉnh sửa
-            </button>
-        }
-        else
-        {
-            <span class="badge badge-lg bgc-secondary-l3 text-secondary-d3 border-1 brc-secondary-m2 px-3 py-2 mr-2 radius-1 font-bold">
-                <i class="fa fa-eye mr-1"></i> Chế độ xem (Chỉ đọc)
-            </span>
-        }
-        <button type="button" class="btn btn-sm btn-white btn-h-light-default border-1 brc-grey-l1 text-secondary-d2 px-25 py-15 radius-1 shadow-sm" onclick="refreshAllSections(@Model.DigitalSalesID);" title="Làm mới dữ liệu">
-            <i class="fa fa-sync-alt"></i>
-        </button>
+        </div>
     </div>
 }
 
 <style>
+    /* 1. Custom Switches */
     .ds-custom-switch {
         padding-left: 2.6rem !important;
-        margin-right: 22px !important;
+        margin-right: 18px !important;
         display: inline-flex !important;
         align-items: center !important;
         cursor: pointer;
+    }
+    .ds-custom-switch:last-child {
+        margin-right: 0 !important;
     }
     .ds-custom-switch .custom-control-label {
         font-size: 13.5px !important;
@@ -131,12 +141,165 @@
         background-color: #e03131 !important;
         border-color: #e03131 !important;
     }
+
+    /* 2. Header Responsive Layout */
     #PageTitle.page-header {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
         padding-top: 0.5rem;
         padding-bottom: 0.75rem !important;
         border-bottom: 1px solid #e1e6eb;
         margin-bottom: 0.75rem;
     }
+    .ds-header-title-text {
+        display: inline-block;
+        vertical-align: middle;
+        line-height: 1.35;
+        word-break: break-word;
+    }
+    .ds-header-divider {
+        width: 1px;
+        height: 24px;
+        background-color: #cbd5e1;
+        margin: 0 16px;
+    }
+
+    /* Màn hình lớn (>= 1360px): Cùng hàng, title cắt nhẹ nếu quá dài */
+    @@media (min-width: 1360px) {
+        #PageTitle .page-title {
+            flex: 1 1 auto;
+            min-width: 0;
+            margin-right: 1.5rem;
+        }
+        .ds-header-title-text {
+            max-width: 550px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        #PageAction.page-tools {
+            flex-shrink: 0;
+        }
+    }
+
+    /* Màn hình laptop vừa & tablet ngang (< 1360px xuống 768px, bao gồm 1034px) */
+    @@media (max-width: 1359.98px) {
+        #PageTitle.page-header {
+            flex-direction: column !important;
+            align-items: stretch !important;
+            padding-bottom: 0.85rem !important;
+        }
+        #PageTitle .page-title {
+            width: 100% !important;
+            max-width: 100% !important;
+            margin-bottom: 0.35rem !important;
+        }
+        .ds-header-title-text {
+            max-width: 100% !important;
+            white-space: normal !important;
+        }
+        #PageAction.page-tools {
+            width: 100% !important;
+            display: flex !important;
+            padding-top: 0.65rem !important;
+            border-top: 1px dashed #e2e8f0 !important;
+            margin-top: 0.25rem !important;
+        }
+        .ds-header-action-bar {
+            width: 100% !important;
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            flex-wrap: wrap !important;
+            gap: 0.5rem;
+        }
+        .ds-header-divider {
+            display: none !important;
+        }
+    }
+
+    /* Màn hình tablet đứng & mobile (< 768px) */
+    @@media (max-width: 767.98px) {
+        .ds-header-action-bar {
+            flex-direction: column !important;
+            align-items: stretch !important;
+            gap: 0.75rem !important;
+        }
+        .ds-header-switches-group {
+            width: 100% !important;
+            justify-content: space-between !important;
+        }
+        .ds-header-buttons-group {
+            width: 100% !important;
+            justify-content: space-between !important;
+            flex-wrap: wrap !important;
+            gap: 0.4rem;
+        }
+        .ds-header-buttons-group .btn {
+            flex: 1 1 auto;
+            text-align: center;
+            justify-content: center;
+            margin-left: 0 !important;
+        }
+    }
+
+    /* Màn hình điện thoại nhỏ (< 500px) */
+    @@media (max-width: 499.98px) {
+        .ds-header-title-container {
+            flex-direction: column !important;
+            align-items: flex-start !important;
+        }
+        .ds-back-btn {
+            margin-bottom: 0.5rem !important;
+            margin-right: 0 !important;
+        }
+        .ds-header-switches-group {
+            flex-direction: column !important;
+            align-items: flex-start !important;
+            gap: 0.4rem !important;
+        }
+        .ds-custom-switch {
+            margin-right: 0 !important;
+        }
+    }
+
+    /* 3. Tabs Navigation Responsive - Chống rớt dòng & tràn màn hình */
+    .card-header .nav-tabs-simple {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+        margin-bottom: -1px;
+    }
+    .card-header .nav-tabs-simple::-webkit-scrollbar {
+        height: 3px;
+    }
+    .card-header .nav-tabs-simple::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 3px;
+    }
+    .card-header .nav-tabs-simple .nav-item {
+        flex-shrink: 0 !important;
+        white-space: nowrap !important;
+    }
+    @@media (max-width: 1199.98px) {
+        .card-header .nav-tabs-simple .nav-link {
+            padding-left: 0.85rem !important;
+            padding-right: 0.85rem !important;
+            font-size: 0.9rem !important;
+        }
+    }
+    @@media (max-width: 767.98px) {
+        .card-header .nav-tabs-simple .nav-link {
+            padding: 0.65rem 0.75rem !important;
+            font-size: 0.85rem !important;
+        }
+    }
+
     .ds-metric-card {
         border-radius: 8px;
         border: none;
@@ -237,24 +400,24 @@
     <div class="card-header p-0 bgc-grey-l4 border-b-1 brc-grey-l1">
         <ul class="nav nav-tabs nav-tabs-simple border-0" role="tablist">
             <li class="nav-item">
-                <a class="nav-link active px-4 py-3 font-weight-bold" id="tab-overview-link" data-toggle="tab" href="#tab-overview" role="tab" aria-selected="true">
+                <a class="nav-link active px-3 px-xl-4 py-3 font-weight-bold" id="tab-overview-link" data-toggle="tab" href="#tab-overview" role="tab" aria-selected="true">
                     <i class="fa fa-info-circle mr-1 text-primary"></i> 1. Thông tin tổng quan
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link px-4 py-3 font-weight-bold" id="tab-products-link" data-toggle="tab" href="#tab-products" role="tab" aria-selected="false">
+                <a class="nav-link px-3 px-xl-4 py-3 font-weight-bold" id="tab-products-link" data-toggle="tab" href="#tab-products" role="tab" aria-selected="false">
                     <i class="fa fa-cubes mr-1 text-purple"></i> 2. Sản phẩm & Doanh thu
                     <span class="badge badge-pill badge-purple ml-1" id="badgeTabProducts">@(Model.Products?.Count ?? 0)</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link px-4 py-3 font-weight-bold" id="tab-tracking-link" data-toggle="tab" href="#tab-tracking" role="tab" aria-selected="false">
+                <a class="nav-link px-3 px-xl-4 py-3 font-weight-bold" id="tab-tracking-link" data-toggle="tab" href="#tab-tracking" role="tab" aria-selected="false">
                     <i class="fa fa-clipboard-check mr-1 text-orange"></i> 3. Tiến trình & Checklist
                     <span class="badge badge-pill badge-warning ml-1" id="badgeTabTracking">@completedTasks/@totalTasks</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link px-4 py-3 font-weight-bold" id="tab-timeline-link" data-toggle="tab" href="#tab-timeline" role="tab" aria-selected="false">
+                <a class="nav-link px-3 px-xl-4 py-3 font-weight-bold" id="tab-timeline-link" data-toggle="tab" href="#tab-timeline" role="tab" aria-selected="false">
                     <i class="fa fa-history mr-1 text-green"></i> 4. Dòng thời gian (Timeline)
                     <span class="badge badge-pill badge-success ml-1" id="badgeTabTimeline">@(Model.Timelines?.Count ?? 0)</span>
                 </a>
