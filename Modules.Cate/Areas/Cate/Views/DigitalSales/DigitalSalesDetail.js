@@ -1101,14 +1101,25 @@ function hideMentionDropdown() {
 
 function selectMentionUser(user) {
     var $textarea = $("#txtDiscussionContent");
-    var text = $textarea.val();
-    var lastAtIndex = text.lastIndexOf("@");
+    if ($textarea.length === 0) return;
+    var el = $textarea[0];
+    var val = $textarea.val();
+    var cursorPos = el.selectionStart || val.length;
+    var textBeforeCursor = val.substring(0, cursorPos);
+    var textAfterCursor = val.substring(cursorPos);
+
+    var lastAtIndex = textBeforeCursor.lastIndexOf("@");
     if (lastAtIndex !== -1) {
-        text = text.substring(0, lastAtIndex) + "@" + user.fullName + " ";
+        var beforeAt = textBeforeCursor.substring(0, lastAtIndex);
+        var insertText = "@" + user.fullName + " ";
+        $textarea.val(beforeAt + insertText + textAfterCursor);
+        var newCursorPos = beforeAt.length + insertText.length;
+        if (el.setSelectionRange) {
+            el.setSelectionRange(newCursorPos, newCursorPos);
+        }
     } else {
-        text = text + " @" + user.fullName + " ";
+        $textarea.val(val + "@" + user.fullName + " ");
     }
-    $textarea.val(text);
 
     // Track mentioned user IDs
     var $ids = $("#hdnMentionedUserIds");
@@ -1135,7 +1146,7 @@ function initDiscussionEvents() {
         var val = $(this).val();
         var cursorPos = this.selectionStart;
         var textBeforeCursor = val.substring(0, cursorPos);
-        var match = textBeforeCursor.match(/@([a-zA-Z0-9À-ỹ\s.-]*)$/);
+        var match = textBeforeCursor.match(/(?:^|\s)@([a-zA-Z0-9À-ỹ_.-]*)$/);
 
         if (match) {
             var query = match[1];
