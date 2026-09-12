@@ -1,24 +1,66 @@
-﻿# 📘 BỘ QUY TẮC PHÁT TRIỂN ỨNG DỤNG MVC (CENIT TOC CRM)
+﻿# 📘 BỘ QUY TẮC PHÁT TRIỂN ỨNG DỤNG MVC (CENIT TOC CRM - MASTER INDEX)
 
-> **Tài liệu tham chiếu chuẩn:** Phân hệ Cơ hội kinh doanh (`Cate/RM_BusinessOpportunity`) & Quản lý Dự án (`Cate/Project`).  
+> **Tài liệu tham chiếu chuẩn:** Module Khách hàng (`Cate/Customer`) & Phân hệ Cơ hội kinh doanh (`Cate/RM_BusinessOpportunity`).  
 > **Áp dụng cho:** Toàn bộ lập trình viên và AI Agent khi xây dựng View, Controller, JavaScript, Data Model trong hệ thống CenIT TOC CRM.  
-> **Nguyên tắc cốt lõi:** Kế thừa chuẩn `Cate/RM_BusinessOpportunity`, bắt buộc 100% `@Html.*` helper, tuân thủ nghiêm ngặt hệ thống Design Tokens Ace Admin v4, cấm tự ý viết CSS/màu hex riêng, cấm lồng thẻ trong `@section PageTitle`, chuẩn hóa chiều cao 32px cho bộ lọc tìm kiếm (cấm Select2 trong Search Card), xử lý vòng đời AJAX & thông báo Toastr qua `hidden.bs.modal`, 100% UTF-8 with BOM và đồng bộ 3 nơi (Triple Mirroring).
+> **Nguyên tắc cốt lõi:** Kế thừa chuẩn `Cate/Customer` & `Cate/RM_BusinessOpportunity`, mô hình Form dùng chung (`_Entity.cshtml` + `_Form.cshtml`), xác thực kép (`@Html.ValidationMessageFor` inline cho lỗi trường + Toastr cho kết quả hệ thống), 100% `@Html.*` helper, tuân thủ Design Tokens Ace Admin v4, chuẩn chiều cao 32px cho Search Card, 100% UTF-8 with BOM và đồng bộ 3 nơi (Triple Mirroring).
 
 ---
 
-## 1. QUY TẮC ENCODING & FONT TIẾNG VIỆT (STRICT ENCODING)
+## 📑 DANH MỤC CÁC QUY CHUẨN CHUYÊN ĐỀ (SUB-RULES)
 
-- **Định dạng file bắt buộc:** 100% file `.cshtml`, `.js`, `.cs`, `.sql`, `.xml`, `.md`, `.config` **BẮT BUỘC** phải lưu dưới dạng **UTF-8 with BOM** (`0xEF, 0xBB, 0xBF`).
-- **Nghiêm cấm tuyệt đối:**
-  - Không để xuất hiện ký tự mojibake hoặc lỗi font tiếng Việt: ``, `?`, `Ã¡`, `Ã´`,...
-  - Không lưu file dưới định dạng ANSI, UTF-16, hoặc UTF-8 No BOM (gây lỗi hiển thị tiếng Việt trên IIS/ASP.NET MVC Razor).
-- **Cấu hình chuẩn trong `Web.config`:**
-  ```xml
-  <system.web>
-    <globalization uiCulture="en" culture="en-GB" fileEncoding="utf-8" requestEncoding="utf-8" responseEncoding="utf-8" />
-  </system.web>
+Để việc tra cứu và tuân thủ đạt hiệu quả cao nhất, bộ quy tắc MVC được tổ chức thành các chuyên đề chuyên sâu:
+
+1. 📋 [**MVC_FORM_RULES.md**](file:///d:/SVN/crm/.agents/rules/MVC_FORM_RULES.md):
+   - **Mô hình Form dùng chung (Shared Form Pattern):** Gom 100% markup vào `_Entity.cshtml`, tối giản `_Add.cshtml` và `_Edit.cshtml` (~25 dòng) kế thừa `_Form.cshtml`.
+   - **Quy chuẩn Xác thực dữ liệu kép (Dual-Layer Validation):** Bắt buộc dùng `@Html.ValidationMessageFor` inline hiển thị chữ đỏ dưới ô nhập liệu khi `!ModelState.IsValid`. Cấm dùng Toastr báo lỗi thay thế cho lỗi trường nhập liệu.
+   - **Quy chuẩn Form Controls:** Bắt buộc 100% `@Html.*` helper, nghiêm cấm thẻ HTML thuần (`<label>`, `<input>`, `<select>`).
+   - **Chống xung đột DOM ID:** Context suffixing, scoped selectors.
+   - **Quy chuẩn CKEditor:** `[AllowHtml]`, `requestValidationMode="2.0"`, đồng bộ `updateElement()`.
+
+2. 🪟 [**MVC_MODAL_AJAX_RULES.md**](file:///d:/SVN/crm/.agents/rules/MVC_MODAL_AJAX_RULES.md):
+   - **Quy chuẩn kích thước Modal:** Chuẩn hóa 3 kích thước: `1024px` (Form nghiệp vụ lớn), `800px` (Trung bình), `600px` (Nhỏ).
+   - **Layout `_Form.cshtml` & `ajaxForm`:** Kế thừa header/body/footer và submit form multipart có file đính kèm.
+   - **Framework Callback `_OnProcessSuccess`:** Cơ chế nhận JSON (Toastr + đóng modal) hoặc HTML (render lại form kèm lỗi validation inline).
+   - **Vòng đời Toastr & Chống kẹt Backdrop:** Kích hoạt qua `hidden.bs.modal`, xử lý modal lồng nhau.
+
+3. 🧪 [**TESTING.md**](file:///d:/SVN/crm/.agents/rules/TESTING.md):
+   - Kiểm thử Form Submit: xác minh trả về `PartialView` khi thiếu dữ liệu và `{ status: true }` khi thành công.
+   - Kiểm thử Model Binding DisplayName an toàn (Anti-Null DisplayName).
+   - Kiểm thử không có lỗi Console, mã phản hồi 200 OK.
+
+---
+
+## 🏛️ TỔNG HỢP NGUYÊN TẮC CỐT LÕI BẮT BUỘC (CORE PILLARS)
+
+### 1. Định dạng File: UTF-8 with BOM & Triple Mirroring
+- **100% file `.cshtml`, `.js`, `.cs`, `.sql`, `.xml`, `.md`, `.config`** BẮT BUỘC lưu dưới dạng **UTF-8 with BOM** (`0xEF, 0xBB, 0xBF`). Cấm tuyệt đối ANSI hoặc UTF-8 No BOM gây lỗi hiển thị tiếng Việt.
+- **Triple Mirroring:** Mọi chỉnh sửa ở tầng View/JS phân hệ `Modules.Cate` phải được đồng bộ đồng thời sang 3 thư mục:
+  1. `Modules.Cate/Areas/Cate/...`
+  2. `publish_source/Areas/Cate/...`
+  3. `CenIT.Solution.TOC.WebApp/Areas/Cate/...`
+
+### 2. Mô hình Form dùng chung & Tái sử dụng giao diện
+- **TUYỆT ĐỐI KHÔNG** tách rời nội dung form Thêm mới và Chỉnh sửa thành 2 file riêng biệt gây trùng lặp và phân mảnh mã nguồn.
+- Tạo `_[Entity].cshtml` làm nội dung dùng chung duy nhất (Single Source of Truth).
+- `_Add.cshtml` và `_Edit.cshtml` chỉ là các vỏ bọc form kết nối tới Layout `~/Views/Shared/_Form.cshtml`.
+
+### 3. Quy chuẩn Xác thực kép (Dual-Layer Validation)
+- Lỗi trường nhập liệu: Bắt buộc render inline qua `@Html.ValidationMessageFor` màu đỏ dưới chân ô nhập liệu.
+- Controller: Nếu `!ModelState.IsValid`, trả về `PartialView("_[Entity]", model)` để giao diện tự hiển thị lỗi trực quan.
+- Toastr Popup: Chỉ dùng cho thông báo kết quả chung sau khi thực thi nghiệp vụ xong.
+
+### 4. Quy chuẩn Giao diện Danh sách & DataTable Ace Admin v4
+- Chiều cao các control tìm kiếm (`_Search.cshtml`) chuẩn hóa đúng **32px** (`form-control-sm` hoặc class tương đương).
+- **CẤM** nhúng Select2 vào thanh tìm kiếm ở trang danh sách nếu làm vỡ chiều cao 32px; ưu tiên dropdown chuẩn CenIT TOC.
+- Cột thao tác trong DataTable phải sử dụng các icon và button helper chuẩn (`_renderButton`, `data_width = "1024px"`).
+
+### 5. Quy chuẩn Cache-Busting cho Scripts
+- Mọi script tag nhúng file `.js` tự viết phải có cache-busting timestamp:
+  ```razor
+  @section BottomScript {
+      <script src="~/Areas/Cate/Views/DigitalSales/DigitalSales.js?v=@DateTime.Now.Ticks"></script>
+  }
   ```
-
 ---
 
 ## 2. QUY CHUẨN FORM CONTROLS: @Html.* HELPERS vs THẺ HTML THUẦN
@@ -306,6 +348,34 @@ function BusinessOpportunity_OnProcessSuccess(response, formId) {
 }
 ```
 
+### 8.2.1. Bắt buộc khởi tạo lại validation sau khi thay PartialView ruột
+
+Khi controller trả HTML do `ModelState` không hợp lệ, callback phải thay đúng nội dung `#bodyForm`, giữ modal mở và khởi tạo lại các control động cùng unobtrusive validation:
+
+```javascript
+function renderValidationResponse(response) {
+    if (typeof response !== "string") return false; // JSON nghiệp vụ
+
+    var $modal = $(".modal.show").last();
+    var $bodyForm = $modal.find("#bodyForm");
+    if (!$bodyForm.length) return false;
+
+    $bodyForm.html(response);
+    if (typeof _initElement === "function") _initElement();
+
+    var $form = $bodyForm.closest("form");
+    if ($.validator && $.validator.unobtrusive && $form.length) {
+        $form.removeData("validator").removeData("unobtrusiveValidation");
+        $.validator.unobtrusive.parse($form);
+    }
+    return true;
+}
+```
+
+- Callback **BẮT BUỘC** kiểm tra và xử lý response HTML trước khi đọc `response.status`.
+- Response HTML validation **KHÔNG ĐƯỢC** đóng modal, reload bảng hoặc gọi `eval`.
+- Response JSON có `status` chỉ dùng cho kết quả xử lý nghiệp vụ sau khi `ModelState` đã hợp lệ.
+
 ### 8.3. Cấm tuyệt đối hàm `alert()` của JavaScript
 - Thay vì gọi `alert("...")`, bắt buộc dùng thư viện Toastr: `toastr.warning("...")`, `toastr.error("...")` hoặc `toastr.success("...")`.
 
@@ -325,6 +395,7 @@ function BusinessOpportunity_OnProcessSuccess(response, formId) {
 ```csharp
 [AjaxOnly]
 [HttpPost]
+[ValidateAntiForgeryToken]
 [ActionType(Type = EnumActionType.Create)]
 public ActionResult Add(RM_BusinessOpportunityModel model)
 {
@@ -348,6 +419,18 @@ public ActionResult Add(RM_BusinessOpportunityModel model)
     return Json(new { status = true, message = response }, JsonRequestBehavior.AllowGet);
 }
 ```
+
+### 9.3. Quy tắc bắt buộc khi `ModelState` không hợp lệ
+
+1. Modal Add/Edit/Save **BẮT BUỘC** tách thành hai lớp:
+   - Partial wrapper: chứa `Layout = "~/Views/Shared/_Form.cshtml"`, `Ajax.BeginForm` và `<div id="bodyForm">@Html.Partial("_EntityForm", Model)</div>`.
+   - Partial ruột `_EntityForm`: chứa anti-forgery token, hidden field, control nhập liệu và `ValidationMessageFor`.
+2. Partial ruột **BẮT BUỘC** dùng chung cho cả thêm mới và cập nhật; không nhân đôi markup field giữa hai modal.
+3. POST action **BẮT BUỘC** kiểm tra `ModelState.IsValid` trước khi gọi Cache/Biz/Stored Procedure.
+4. Khi `ModelState` không hợp lệ, controller phải phục hồi toàn bộ dữ liệu phụ cần render (dropdown, tên bản ghi cha, danh sách lựa chọn...) và trả `PartialView("_EntityForm", model)`.
+5. **CẤM** trả JSON “lưu thất bại” cho lỗi validation field, vì người dùng sẽ không biết trường nào sai và dữ liệu nhập có thể bị mất.
+6. POST action dùng anti-forgery token phải có cả `@Html.AntiForgeryToken()` trong partial ruột và `[ValidateAntiForgeryToken]` tại controller.
+7. Client validation chỉ hỗ trợ trải nghiệm; validation tại controller qua `ModelState` luôn là lớp xác thực cuối cùng và không được bỏ qua.
 
 ---
 
@@ -378,6 +461,34 @@ public ActionResult Add(RM_BusinessOpportunityModel model)
    - Nếu bắt buộc viết nhãn tùy chỉnh ngoài Form Control, phải dùng `@AppProcessor.Messagor.GetMessage("LabelKey")`.
 4. **Chú thích, Placeholder, Cột bảng dữ liệu DataTable:**
    - Tiêu đề cột `<th>`: `@AppProcessor.Messagor.GetMessage("[Module]_[Field]_Header")` hoặc khai báo danh mục nhãn tương ứng.
+
+### 10.2.1. Metadata Model là nguồn duy nhất cho tiêu đề trường Form
+1. Mọi property được hiển thị trên Form **BẮT BUỘC** khai báo `CustomDisplayName` bằng `LabelKey` tồn tại trong bảng `Sys_Messages`; **NGHIÊM CẤM** truyền trực tiếp chuỗi tiếng Việt hoặc chuỗi hiển thị vào attribute:
+   ```csharp
+   // Đúng
+   [CustomRequired]
+   [CustomDisplayName("CustomerType_Label_Code")]
+   public string CustomerTypeCode { get; set; }
+
+   // Sai: hard-code nội dung hiển thị trong Model
+   [CustomDisplayName("Mã loại khách hàng")]
+   public string CustomerTypeCode { get; set; }
+   ```
+2. Label của control có model binding **BẮT BUỘC** dùng `@Html.TitleFor`; không viết lại cùng nội dung bằng `<label>` hoặc `GetMessage` trực tiếp trên View:
+   ```razor
+   @Html.TitleFor(model => model.CustomerTypeCode,
+       new { @class = "col-sm-3 col-form-label text-sm-right pr-0 font-bold" })
+   ```
+3. `TitleFor` lấy nội dung từ `[CustomDisplayName("LabelKey")]` và tự hiển thị dấu bắt buộc theo `[CustomRequired]`. Không tự nối `(*)` hoặc `<span class="text-danger">*</span>` trong label.
+4. Placeholder, `data-placeholder` và option hướng dẫn không phải label nên **BẮT BUỘC** lấy trực tiếp từ `AppProcessor.Messagor.GetMessage("LabelKey")`:
+   ```razor
+   @Html.TextBoxFor(model => model.CustomerTypeCode, new
+   {
+       @class = "form-control",
+       placeholder = AppProcessor.Messagor.GetMessage("CustomerType_Code_Placeholder")
+   })
+   ```
+5. Khi thêm hoặc đổi `LabelKey`, **BẮT BUỘC** kèm script SQL idempotent cập nhật `Sys_Messages` cho `LangCode = 'vi-VN'`; không được hoàn thành thay đổi nếu code tham chiếu key chưa tồn tại trong DB mục tiêu.
 
 ### 10.3. Quy tắc khai báo và sử dụng trong Controller (.cs)
 1. **Định nghĩa tiêu đề phân hệ (`_title`):**
@@ -452,6 +563,10 @@ Mỗi khi tạo mới hoặc chỉnh sửa file:
    Sau đó sao chép file `.dll` sang `publish_source\bin` và `CenIT.Solution.TOC.WebApp\bin`.
 3. Chạy script kiểm tra và bảo đảm 100% file có **UTF-8 with BOM**.
 4. Chạy toàn bộ test suites (`Run-Tests.ps1`, `Run-ManagementTests.ps1`) và chỉ hoàn thành khi đạt **100% PASS**.
+5. **Quy định về Git Branch & Upcode Demo:**
+   - **CẤM TUYỆT ĐỐI** tự động merge hoặc push code sang nhánh `upcode-demo` trong quá trình phát triển hoặc sửa lỗi thông thường.
+   - Mọi commit và push hàng ngày **CHỈ ĐƯỢC PHÉP** thực hiện trên nhánh làm việc hiện tại (`crm_v2`).
+   - **CHỈ ĐƯỢC PHÉP** merge hoặc push sang `upcode-demo` KHI VÀ CHỈ KHI người dùng có chỉ định rõ ràng bằng văn bản (ví dụ: *"upcode demo"*, *"đẩy code demo"*, *"deploy demo"*).
 
 ---
 
@@ -461,6 +576,8 @@ Mỗi khi tạo mới hoặc chỉnh sửa file:
 
 | AI / Lập trình viên bao biện | Thực tế & Hậu quả thực tế | Quy tắc bắt buộc thi hành |
 | :--- | :--- | :--- |
+| *"Dùng CustomDisplayName với chuỗi text tự do, không cần quan tâm nó có trả về null hay không."* | Khi thuộc tính DisplayName trả về null, DataAnnotationsModelValidator sẽ gán `context.DisplayName = null`, quăng ngoại lệ `ArgumentNullException: Value cannot be null. Parameter name: value` làm sập HTTP 500 ngay tại tầng Model Binding trước khi Action được gọi. | **BẮT BUỘC CustomDisplayName KHÔNG BAO GIỜ ĐƯỢC PHÉP TRẢ VỀ NULL**. Bắt buộc kế thừa `base(resourceName ?? string.Empty)` và có fallback chuỗi hợp lệ. |
+| *"Tiện tay merge và push luôn sang nhánh `upcode-demo` cho server demo cập nhật."* | Vi phạm quy trình kiểm soát release, đẩy mã nguồn đang trong giai đoạn dev/sửa lỗi lên môi trường demo mà chưa được người dùng kiểm duyệt. | **CẤM TỰ Ý PUSH SANG UPCODE-DEMO**. Mọi push thông thường chỉ thực hiện trên `crm_v2`. Chỉ tương tác với `upcode-demo` khi người dùng yêu cầu rõ ràng. |
 | *"Gõ thẳng chuỗi tiếng Việt vào View hoặc Controller cho tiện, khai báo Sys_Messages mất công."* | Làm mất khả năng đa ngôn ngữ, khó tùy biến nội dung theo từng khách hàng/triển khai, không đồng bộ thông điệp toàn hệ thống, dễ lỗi font mojibake. | **BẮT BUỘC 100% dùng App_Message**. Mọi chuỗi text trên View và thông báo trong Controller phải được khai báo trong `Sys_Messages` và gọi qua `AppProcessor.Messagor.GetMessage`. |
 | *"Dùng thẻ `<input>` hoặc `<label>` thuần cho nhanh, viết `@Html.*` rườm rà."* | Làm mất cơ chế Model Binding 2 chiều, mất thông báo validation đỏ khi nhập sai, mất dấu sao đỏ `(*)` bắt buộc. | **BẮT BUỘC 100% dùng `@Html.*`**. Chỉ dùng thẻ HTML thuần khi cả source code không có helper tương ứng. |
 | *"Lồng thẻ `<h1>` và `<div class="page-header">` vào `@section PageTitle` cho đẹp và rõ ràng."* | Phá vỡ flexbox layout của `_PageContent.cshtml`. Khi `BE-ConfigBreadcrumb.js` chạy, nó sẽ xóa sạch nội dung, làm giật màn hình (FOUC). | **`@section PageTitle` CHỈ ĐƯỢC CHỨA `@ViewBag.Title`**. Mọi badge, nút thao tác phải đưa vào `@section PageAction`. |
@@ -502,6 +619,7 @@ Mọi màn hình hoặc tính năng mới trước khi bàn giao phải vượt 
 - [ ] **Modal Lifecycle:** Có cơ chế chờ `hidden.bs.modal` trước khi kích hoạt `eval(message)` hoặc reload dữ liệu, ngăn ngừa triệt để lỗi kẹt backdrop đen.
 - [ ] **No Alert:** Không dùng hàm `alert()` thuần, thay bằng `toastr` hoặc `CreateMessage`.
 - [ ] **Automated Tests:** Bộ unit test / regression test / verification test đạt 100% PASS (3 tầng: Happy Path, Edge Cases, Error Handling theo `TESTING.md`).
+- [ ] **Model Binding & Anti-Null DisplayName:** 100% thuộc tính của Model có `DisplayName` hoặc `CustomDisplayName` trả về chuỗi hợp lệ, không trả về null; `ValidationContext.DisplayName` gán thành công không văng `ArgumentNullException`.
 
 ---
 
@@ -608,3 +726,30 @@ Mọi màn hình hoặc tính năng mới trước khi bàn giao phải vượt 
 3. **Đồng bộ CKEditor trước khi Serialize Form:**
    - Trước khi gọi `$form.serialize()` hoặc `new FormData()`, bắt buộc duyệt qua các instances của CKEditor và gọi `updateElement()` để đẩy nội dung từ iframe soạn thảo vào thẻ `<textarea>` ẩn tương ứng.
 
+---
+
+## 17. QUY CHUẨN AN TOÀN MODEL BINDING, DISPLAYNAME & VALIDATION CONTEXT
+
+### 17.1. Nguyên nhân gốc rễ lỗi 500 khi Model Binding (`Value cannot be null. Parameter name: value`)
+- Khi Model có các thuộc tính sử dụng `[CustomDisplayName("...")]`, nếu class `CustomDisplayNameAttribute` trả về `null` (do không tìm thấy resource key trong DB/Sys_Messages và `DisplayNameValue` trong base class bị null), ASP.NET MVC Model Binding (`DataAnnotationsModelValidator`) sẽ thực thi:
+  ```csharp
+  ValidationContext context = new ValidationContext(container, null, null);
+  context.DisplayName = metadata.GetDisplayName(); // Nhận giá trị null!
+  ```
+- Setter `ValidationContext.set_DisplayName(value)` trong .NET Framework quăng ngoại lệ nghiêm ngặt:
+  ```csharp
+  if (value == null) throw new ArgumentNullException("value");
+  ```
+  Ngoại lệ này sập ngay tại tầng Model Binding trước khi Action được gọi, khiến toàn bộ form submit bị HTTP 500 và redirect sang `/Error/Error`.
+
+### 17.2. Quy tắc bắt buộc thi hành
+1. **`DisplayName` KHÔNG BAO GIỜ ĐƯỢC PHÉP TRẢ VỀ NULL:**
+   - Mọi attribute kế thừa `DisplayNameAttribute` BẮT BUỘC gọi constructor cơ sở:
+     ```csharp
+     public CustomDisplayNameAttribute(string resourceName) : base(resourceName ?? string.Empty)
+     ```
+   - Thuộc tính `DisplayName` phải luôn có giá trị fallback an toàn (Message -> ResourceName -> `string.Empty`), tuyệt đối cấm trả về null.
+2. **An toàn trong Constructor của Custom Validation Attributes:**
+   - Các attribute như `[CustomRequired]` phải bọc `try-catch` an toàn khi đọc resource để không văng lỗi khi chạy ngoài `HttpContext` hoặc khi `AppProcessor` chưa khởi tạo.
+3. **Kiểm thử Metadata trong Automated Verification Test:**
+   - Trước khi nghiệm thu màn hình có Form Submit, bắt buộc phải có script reflection duyệt qua 100% properties của Model, xác nhận `GetDisplayName()` không trả về null và `ValidationContext.DisplayName` gán thành công.

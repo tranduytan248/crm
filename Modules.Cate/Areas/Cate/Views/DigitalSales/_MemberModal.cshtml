@@ -1,27 +1,43 @@
 ﻿@using Core.Cate.Models
+@using TSFramework.Libs.Processors
 @model Core.Cate.Models.RM_DigitalSalesMemberModel
 
 @{
     var employees = ViewBag.Employees as List<MN_EmployeeModel> ?? new List<MN_EmployeeModel>();
     var departments = ViewBag.Departments as List<MN_BoPhanModel> ?? new List<MN_BoPhanModel>();
     var roles = ViewBag.Roles as List<RM_RolesModel> ?? new List<RM_RolesModel>();
+    var existingRoles = ViewBag.ExistingRoles as Dictionary<int, string> ?? new Dictionary<int, string>();
 }
 
 @functions {
     public string GetInitials(string fullName)
     {
         if (string.IsNullOrWhiteSpace(fullName)) return "NV";
-        var parts = fullName.Trim().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-        if (parts.Length == 1) return parts[0].Substring(0, Math.Min(2, parts[0].Length)).ToUpper();
-        return (parts[0].Substring(0, 1) + parts[parts.Length - 1].Substring(0, 1)).ToUpper();
+        try
+        {
+            var parts = fullName.Trim().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            if (parts.Length == 1) return parts[0].Substring(0, Math.Min(2, parts[0].Length)).ToUpper();
+            return (parts[0].Substring(0, 1) + parts[parts.Length - 1].Substring(0, 1)).ToUpper();
+        }
+        catch
+        {
+            return "NV";
+        }
     }
 
     public string GetAvatarBg(string name)
     {
         string[] colors = new[] { "#2563eb", "#059669", "#7c3aed", "#d97706", "#db2777", "#0891b2", "#4f46e5", "#0d9488", "#e11d48", "#475569" };
         if (string.IsNullOrEmpty(name)) return colors[0];
-        int hash = Math.Abs(name.GetHashCode());
-        return colors[hash % colors.Length];
+        try
+        {
+            uint hash = (uint)name.GetHashCode();
+            return colors[hash % (uint)colors.Length];
+        }
+        catch
+        {
+            return colors[0];
+        }
     }
 
     public string GetRoleIcon(string roleName)
@@ -336,11 +352,12 @@
                 </button>
             </div>
 
-            <form id="frmMemberModal" method="post">
+            <form id="frmMemberModal" method="post" action="/Cate/DigitalSales/SaveMember">
                 <div class="modal-body p-3">
                     @Html.AntiForgeryToken()
                     @Html.HiddenFor(m => m.MemberID)
                     @Html.HiddenFor(m => m.DigitalSalesID)
+                    <input type="hidden" id="UserID" name="UserID" value="0" />
                     <input type="hidden" id="EmployeeIDs" name="EmployeeIDs" value="" />
                     <input type="hidden" id="RoleIDs" name="RoleIDs" value="" />
 
@@ -349,7 +366,7 @@
                         <div class="member-sec-header">
                             <div>
                                 <i class="fa fa-users text-primary mr-1"></i> Thành viên tham gia
-                                <span id="searchResultCount" class="text-muted text-85 font-normal ml-2">(@(employees.Count(e => !e.IsSaleMember)) nhân sự)</span>
+                                <span id="searchResultCount" class="text-muted text-85 font-normal ml-2">(@(employees.Count) nhân sự)</span>
                             </div>
                             <div class="d-flex align-items-center">
                                 <span id="selectedSummary" class="mr-2" style="display: none;">
@@ -374,14 +391,14 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text bg-white border-right-0 text-muted"><i class="fa fa-search"></i></span>
                                         </div>
-                                        <input type="text" id="searchEmployeeName" class="form-control toolbar-search-input border-left-0" placeholder="Tìm theo tên nhân sự...">
+                                        <input type="text" id="searchEmployeeName" class="form-control toolbar-search-input border-left-0" placeholder="@AppProcessor.Messagor.GetMessage("DigitalSalesMember_SearchEmployee_Placeholder")">
                                     </div>
                                 </div>
 
                                 <div class="col-md-5 mb-2 mb-md-0">
                                     <div class="d-flex align-items-center">
                                         <span class="text-secondary font-bold mr-2 text-nowrap text-85">Đơn vị:</span>
-                                        <select id="searchEmployeeUnit" class="form-control select2" data-placeholder="-- Tất cả đơn vị quản lý --">
+                                        <select id="searchEmployeeUnit" class="form-control select2" data-placeholder="@AppProcessor.Messagor.GetMessage("DigitalSalesMember_Unit_AllOption")">
                                             <option value="">-- Tất cả đơn vị quản lý --</option>
                                             @if (departments != null)
                                             {
@@ -408,39 +425,43 @@
                                     {
                                         foreach (var emp in employees)
                                         {
-                                            if (!emp.IsSaleMember)
-                                            {
-                                                var tenBoPhan = emp.TenBoPhan ?? "";
-                                                var initials = GetInitials(emp.FullName);
-                                                var bgCol = GetAvatarBg(emp.FullName);
-                                                <div class="col-xl-3 col-lg-4 col-sm-6 mb-2 employee-item"
-                                                     data-name="@(emp.FullName?.ToLower() ?? "")"
-                                                     data-unit="@emp.BoPhan_ID">
-                                                    <div class="emp-card" data-emp-id="@emp.Employee_ID">
-                                                        <div class="emp-check-box">
-                                                            <i class="fa fa-check"></i>
+                                            var tenBoPhan = emp.TenBoPhan ?? "";
+                                            var initials = GetInitials(emp.FullName);
+                                            var bgCol = GetAvatarBg(emp.FullName);
+                                            var hasRoles = existingRoles.ContainsKey(emp.Employee_ID);
+                                            <div class="col-xl-3 col-lg-4 col-sm-6 mb-2 employee-item"
+                                                 data-name="@(emp.FullName?.ToLower() ?? "")"
+                                                 data-unit="@emp.BoPhan_ID">
+                                                <div class="emp-card" data-emp-id="@emp.Employee_ID">
+                                                    <div class="emp-check-box">
+                                                        <i class="fa fa-check"></i>
+                                                    </div>
+                                                    <input class="d-none employee-checkbox"
+                                                           value="@emp.Employee_ID"
+                                                           type="checkbox"
+                                                           id="emp-@emp.Employee_ID">
+                                                    <div class="emp-avatar" style="background-color: @bgCol;" title="@emp.FullName">
+                                                        @initials
+                                                    </div>
+                                                    <div class="emp-info">
+                                                        <div class="emp-name text-truncate" title="@emp.FullName">
+                                                            @emp.FullName
                                                         </div>
-                                                        <input class="d-none employee-checkbox"
-                                                               value="@emp.Employee_ID"
-                                                               type="checkbox"
-                                                               id="emp-@emp.Employee_ID">
-                                                        <div class="emp-avatar" style="background-color: @bgCol;" title="@emp.FullName">
-                                                            @initials
-                                                        </div>
-                                                        <div class="emp-info">
-                                                            <div class="emp-name text-truncate" title="@emp.FullName">
-                                                                @emp.FullName
+                                                        @if (hasRoles)
+                                                        {
+                                                            <div class="text-truncate text-80 text-purple font-weight-bold" title="Đã có vai trò: @existingRoles[emp.Employee_ID]">
+                                                                <i class="fa fa-id-badge mr-1"></i>@existingRoles[emp.Employee_ID]
                                                             </div>
-                                                            @if (!string.IsNullOrEmpty(tenBoPhan))
-                                                            {
-                                                                <div class="emp-unit text-truncate" title="@tenBoPhan">
-                                                                    <i class="fa fa-building text-secondary-l1 mr-1"></i>@tenBoPhan
-                                                                </div>
-                                                            }
-                                                        </div>
+                                                        }
+                                                        else if (!string.IsNullOrEmpty(tenBoPhan))
+                                                        {
+                                                            <div class="emp-unit text-truncate" title="@tenBoPhan">
+                                                                <i class="fa fa-building text-secondary-l1 mr-1"></i>@tenBoPhan
+                                                            </div>
+                                                        }
                                                     </div>
                                                 </div>
-                                            }
+                                            </div>
                                         }
                                     }
                                     <div id="noResultMsg" class="text-muted text-center py-4 col-12" style="display:none;">
@@ -491,7 +512,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text bg-white text-muted"><i class="fa fa-pen"></i></span>
                                     </div>
-                                    <input type="text" name="CustomRole" id="CustomRole" class="form-control form-control-sm" placeholder="Nhập vai trò khác hoặc ghi chú nhiệm vụ cụ thể nếu có (tùy chọn)...">
+                                    <input type="text" name="CustomRole" id="CustomRole" class="form-control form-control-sm" placeholder="@AppProcessor.Messagor.GetMessage("DigitalSalesMember_CustomRole_Placeholder")">
                                 </div>
                             </div>
                         </div>
@@ -506,10 +527,11 @@
                                     <i class="fa fa-check"></i>
                                 </div>
                                 <input type="checkbox" class="d-none" id="chkIsAM" name="IsAM" value="true" />
+                                <input type="hidden" name="IsAM" value="false" />
                                 <div class="flex-1">
                                     <div class="d-flex align-items-center flex-wrap">
                                         <span class="font-bold text-dark-m1 text-95 mr-2">
-                                            <i class="fa fa-shield-alt text-primary mr-1"></i> Nhân sự được quyền cập nhật trạng thái
+                                            <i class="fa fa-shield-alt text-primary mr-1"></i> Nhân sự được quyền cập nhật thông tin & trạng thái
                                         </span>
                                         <span class="badge badge-primary text-white font-normal px-2 py-0" style="font-size: 11px;">
                                             Toàn quyền thao tác
@@ -522,10 +544,8 @@
                             </div>
 
                             <div>
-                                <label class="text-85 text-600 mb-1 text-secondary font-weight-bold">
-                                    <i class="fa fa-sticky-note text-secondary mr-1"></i> Ghi chú nội bộ
-                                </label>
-                                <textarea name="Note" id="Note" rows="2" class="form-control form-control-sm radius-1" placeholder="Nhập ghi chú thêm cho phân công nhân sự này nếu có..."></textarea>
+                                @Html.TitleFor(m => m.Note, new { @class = "text-85 text-600 mb-1 text-secondary font-weight-bold" })
+                                @Html.TextAreaFor(m => m.Note, new { id = "Note", rows = "2", @class = "form-control form-control-sm radius-1", placeholder = AppProcessor.Messagor.GetMessage("DigitalSalesMember_Note_Placeholder") })
                             </div>
                         </div>
                     </div>
@@ -677,14 +697,61 @@
             $("#statusPermCard").toggleClass("is-checked", isChecked);
         });
 
-        // Validation before submit
+        // Validation & AJAX submit
         $("#frmMemberModal").on("submit", function (e) {
+            e.preventDefault();
             if (employeeSelected.length === 0) {
-                alert("Vui lòng chọn ít nhất một nhân sự tham gia!");
-                e.preventDefault();
-                e.stopImmediatePropagation();
+                if (typeof toastr !== "undefined") {
+                    toastr.warning("Vui lòng chọn ít nhất một nhân sự tham gia!");
+                } else {
+                    alert("Vui lòng chọn ít nhất một nhân sự tham gia!");
+                }
                 return false;
             }
+
+            var $form = $(this);
+            var $btn = $form.find("button[type='submit']");
+            var originalBtnHtml = $btn.html();
+            $btn.prop("disabled", true).html("<i class='fa fa-spinner fa-spin mr-1'></i> Đang lưu...");
+
+            $.ajax({
+                url: $form.attr("action") || "/Cate/DigitalSales/SaveMember",
+                type: "POST",
+                data: $form.serialize(),
+                success: function (res) {
+                    $btn.prop("disabled", false).html(originalBtnHtml);
+                    if (res && res.status) {
+                        $("#modalMember").modal("hide");
+                        $(".modal-backdrop").remove();
+                        $("body").removeClass("modal-open").css("padding-right", "");
+                        if (typeof toastr !== "undefined") {
+                            toastr.success(res.message || "Lưu thành viên thành công!");
+                        }
+                        if (typeof reloadMembersSection === "function") {
+                            reloadMembersSection(@Model.DigitalSalesID);
+                        } else {
+                            setTimeout(function () { location.reload(); }, 600);
+                        }
+                    } else {
+                        var errMsg = (res && res.message) ? res.message : "Không thể lưu thành viên!";
+                        if (typeof toastr !== "undefined") {
+                            toastr.error(errMsg);
+                        } else {
+                            alert(errMsg);
+                        }
+                    }
+                },
+                error: function () {
+                    $btn.prop("disabled", false).html(originalBtnHtml);
+                    if (typeof toastr !== "undefined") {
+                        toastr.error("Có lỗi xảy ra khi kết nối máy chủ!");
+                    } else {
+                        alert("Có lỗi xảy ra khi kết nối máy chủ!");
+                    }
+                }
+            });
+
+            return false;
         });
     })();
 </script>

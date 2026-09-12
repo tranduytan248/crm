@@ -14,10 +14,16 @@ namespace Core.Cate.Caches
         protected override string[] MasterCacheKeyArray => new[] { "RM_DigitalSalesCache", "CENIT.APP.Cache" };
         private RM_DigitalSalesBiz Api => _api ?? (_api = new RM_DigitalSalesBiz());
 
+        private string BuildSearchCacheKey(RM_DigitalSalesSearchModel model)
+        {
+            if (model == null) return "RM_DigitalSales_GetList_Default";
+            return string.Concat("RM_DigitalSales_GetList_", model.Keyword, "_", model.BusinessType, "_", model.StatusID, "_", model.CustomerID, "_", model.ProductServiceID, "_", model.DepartmentID, "_", model.EmployeeID, "_", model.FromDate, "_", model.ToDate, "_", model.PageNumber, "_", model.PageSize, "_", model.UserName, "_", model.IsKeyProject, "_", model.IsFollowed);
+        }
+
         [DataObjectMethod(DataObjectMethodType.Select, true)]
         public List<RM_DigitalSalesModel> LoadList(out int total, RM_DigitalSalesSearchModel model)
         {
-            var rawKey = string.Concat("RM_DigitalSales_GetList_", UtilEncrypt.FromObject(model));
+            var rawKey = BuildSearchCacheKey(model);
             var rawKeyTotal = string.Concat(rawKey, "_Total");
             total = 0;
             var cacheTotal = (int?)GetCacheItem(rawKeyTotal);
@@ -34,14 +40,35 @@ namespace Core.Cate.Caches
         [DataObjectMethod(DataObjectMethodType.Select, true)]
         public RM_DigitalSalesModel GetByID(int id)
         {
+            return GetByID(id, null);
+        }
+
+        public RM_DigitalSalesModel GetByID(int id, string userName)
+        {
             if (id <= 0) return null;
-            var rawKey = string.Concat("RM_DigitalSales_GetByID_", id);
+            var rawKey = string.IsNullOrEmpty(userName)
+                ? string.Concat("RM_DigitalSales_GetByID_", id)
+                : string.Concat("RM_DigitalSales_GetByID_", id, "_", userName);
             var data = GetCacheItem(rawKey) as RM_DigitalSalesModel;
             if (data != null) return data;
 
-            data = Api.GetByID(id);
+            data = Api.GetByID(id, userName);
             AddCacheItem(rawKey, data);
             return data;
+        }
+
+        public bool ToggleKeyProject(int id, bool isKeyProject, string username)
+        {
+            var result = Api.ToggleKeyProject(id, isKeyProject, username);
+            if (result) InvalidateCache();
+            return result;
+        }
+
+        public bool ToggleFollow(int id, bool isFollowed, string username)
+        {
+            var result = Api.ToggleFollow(id, isFollowed, username);
+            if (result) InvalidateCache();
+            return result;
         }
 
         [DataObjectMethod(DataObjectMethodType.Insert, true)]
@@ -178,6 +205,26 @@ namespace Core.Cate.Caches
         public string GenerateNextCode()
         {
             return Api.GenerateNextCode();
+        }
+
+        public List<RM_DigitalSalesActivityModel> GetActivitiesBySalesID(int digitalSalesId, byte? activityType = null)
+        {
+            if (digitalSalesId <= 0) return new List<RM_DigitalSalesActivityModel>();
+            return Api.GetActivitiesBySalesID(digitalSalesId, activityType);
+        }
+
+        public int AddActivity(RM_DigitalSalesActivityModel model, string username)
+        {
+            var result = Api.AddActivity(model, username);
+            if (result > 0) InvalidateCache();
+            return result;
+        }
+
+        public int DeleteActivity(int activityId, string username)
+        {
+            var result = Api.DeleteActivity(activityId, username);
+            if (result > 0) InvalidateCache();
+            return result;
         }
     }
 }

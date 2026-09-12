@@ -1,5 +1,7 @@
 ﻿@model Core.Cate.Models.RM_DigitalSalesTrackingModel
 
+@using TSFramework.Libs.Processors
+
 <div class="modal fade" id="modalTracking" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
     <div class="modal-dialog modal-md" role="document">
         <div class="modal-content">
@@ -22,28 +24,28 @@
                     @Html.HiddenFor(m => m.IsCustomTask)
 
                     <div class="form-group mb-3">
-                        <label class="text-85 text-600 mb-1">Tên công việc / Đầu mục tiến trình <span class="text-danger">*</span></label>
-                        @Html.TextBoxFor(m => m.TaskName, new { @class = "form-control form-control-sm", required = "required", placeholder = "Ví dụ: Khảo sát hạ tầng, Demo giải pháp, Ký biên bản..." })
+                        @Html.TitleFor(m => m.TaskName, new { @class = "text-85 text-600 mb-1" })
+                        @Html.TextBoxFor(m => m.TaskName, new { @class = "form-control form-control-sm", required = "required", placeholder = AppProcessor.Messagor.GetMessage("DigitalSalesTracking_TaskName_Placeholder") })
                     </div>
 
                     <div class="form-group mb-3">
-                        <label class="text-85 text-600 mb-1">Người thực hiện</label>
-                        @Html.DropDownListFor(m => m.AssignedUserID, (List<SelectListItem>)ViewBag.UserList, "-- Chọn nhân sự thực hiện --", new { @class = "form-control form-control-sm select2" })
+                        @Html.TitleFor(m => m.AssignedUserID, new { @class = "text-85 text-600 mb-1" })
+                        @Html.DropDownListFor(m => m.AssignedUserID, (List<SelectListItem>)ViewBag.UserList, AppProcessor.Messagor.GetMessage("DigitalSalesTracking_AssignedUser_Option"), new { @class = "form-control form-control-sm select2" })
                     </div>
 
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label class="text-85 text-600 mb-1">Ngày bắt đầu</label>
-                            <input type="text" id="TrackStartDate" name="StartDate" class="form-control form-control-sm date-picker" value="@(Model.StartDate != DateTime.MinValue ? Model.StartDate.ToString("dd/MM/yyyy") : DateTime.Today.ToString("dd/MM/yyyy"))" autocomplete="off" />
+                            @Html.TitleFor(m => m.StartDate, new { @class = "text-85 text-600 mb-1" })
+                            @Html.TextBox("StartDate", Model.StartDate != DateTime.MinValue ? Model.StartDate.ToString("dd/MM/yyyy") : DateTime.Today.ToString("dd/MM/yyyy"), new { id = "TrackStartDate", @class = "form-control form-control-sm date-picker", placeholder = AppProcessor.Messagor.GetMessage("DigitalSales_Date_Placeholder"), autocomplete = "off" })
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label class="text-85 text-600 mb-1">Hạn hoàn thành (Deadline)</label>
-                            <input type="text" id="TrackDeadline" name="Deadline" class="form-control form-control-sm date-picker" value="@(Model.Deadline.HasValue ? Model.Deadline.Value.ToString("dd/MM/yyyy") : DateTime.Today.AddDays(3).ToString("dd/MM/yyyy"))" autocomplete="off" />
+                            @Html.TitleFor(m => m.Deadline, new { @class = "text-85 text-600 mb-1" })
+                            @Html.TextBox("Deadline", Model.Deadline.HasValue ? Model.Deadline.Value.ToString("dd/MM/yyyy") : DateTime.Today.AddDays(3).ToString("dd/MM/yyyy"), new { id = "TrackDeadline", @class = "form-control form-control-sm date-picker", placeholder = AppProcessor.Messagor.GetMessage("DigitalSales_Date_Placeholder"), autocomplete = "off" })
                         </div>
                     </div>
 
                     <div class="form-group mb-3">
-                        <label class="text-85 text-600 mb-1">Trạng thái tiến trình</label>
+                        @Html.TitleFor(m => m.Status, new { @class = "text-85 text-600 mb-1" })
                         <select id="Status" name="Status" class="form-control form-control-sm select2">
                             <option value="1" @(Model.Status == 1 ? "selected" : "")>1. Chưa thực hiện</option>
                             <option value="2" @(Model.Status == 2 ? "selected" : "")>2. Đang thực hiện</option>
@@ -53,7 +55,7 @@
                     </div>
 
                     <div class="form-group mb-3">
-                        <label class="text-85 text-600 mb-1">File kết quả / Biên bản bàn giao</label>
+                        @Html.TitleFor(m => m.AttachmentFile, new { @class = "text-85 text-600 mb-1" })
                         @if (!string.IsNullOrEmpty(Model.AttachmentFile))
                         {
                             <div class="mb-1 text-90">
@@ -65,8 +67,8 @@
                     </div>
 
                     <div class="form-group mb-2">
-                        <label class="text-85 text-600 mb-1">Kết quả thực hiện / Ghi chú</label>
-                        @Html.TextAreaFor(m => m.ResultNote, 3, 50, new { @class = "form-control form-control-sm", placeholder = "Nhập ghi chú kết quả đạt được, vướng mắc nếu có..." })
+                        @Html.TitleFor(m => m.ResultNote, new { @class = "text-85 text-600 mb-1" })
+                        @Html.TextAreaFor(m => m.ResultNote, 3, 50, new { @class = "form-control form-control-sm", placeholder = AppProcessor.Messagor.GetMessage("DigitalSalesTracking_ResultNote_Placeholder") })
                     </div>
                 </div>
 

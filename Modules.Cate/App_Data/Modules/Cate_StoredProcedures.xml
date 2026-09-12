@@ -390,6 +390,8 @@
 		<Procedure Name="RM_DigitalSales_Delete" Value="RM_DigitalSales_Delete" />
 		<Procedure Name="RM_DigitalSales_ChangeStatus" Value="RM_DigitalSales_ChangeStatus" />
 		<Procedure Name="RM_DigitalSales_GetTimeline" Value="RM_DigitalSales_GetTimeline" />
+		<Procedure Name="RM_DigitalSales_ToggleKeyProject" Value="RM_DigitalSales_ToggleKeyProject" />
+		<Procedure Name="RM_DigitalSales_ToggleFollow" Value="RM_DigitalSales_ToggleFollow" />
 
 		<!-- RM_DigitalSalesProduct -->
 		<Procedure Name="RM_DigitalSalesProduct_GetBySalesID" Value="RM_DigitalSalesProduct_GetBySalesID" />

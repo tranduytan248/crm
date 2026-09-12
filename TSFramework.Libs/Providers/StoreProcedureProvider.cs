@@ -46,20 +46,31 @@ namespace TSFramework.Libs.Providers
                             var providerProcedure =
                                 _xmlProviders.Procedures.FirstOrDefault(e => e.ProviderName == p.ProviderName);
                             if (providerProcedure == null)
+                            {
                                 _xmlProviders.Procedures.Add(new XmlProcedure
-                                    { ProviderName = p.ProviderName, Procedures = p.Procedures.Clone() });
-                            else
-                                //p.Procedures.Where(sp => !providerProcedure.Procedures.Exists(pp => sp.Value == pp.Value && sp.Name == pp.Name)).ToList().ForEach(
-                                //    sp =>
-                                //    {
-                                //        providerProcedure.Procedures.Add(sp);
-                                //    });
-                                p.Procedures.ForEach(sp =>
                                 {
-                                    if (providerProcedure.Procedures.Exists(pp =>
-                                            sp.Value == pp.Value && sp.Name == pp.Name)) return;
-                                    providerProcedure.Procedures.Add(sp);
+                                    ProviderName = p.ProviderName,
+                                    Procedures = p.Procedures != null ? p.Procedures.Clone() : new List<Procedure>()
                                 });
+                            }
+                            else
+                            {
+                                if (providerProcedure.Procedures == null)
+                                {
+                                    providerProcedure.Procedures = new List<Procedure>();
+                                }
+
+                                if (p.Procedures != null)
+                                {
+                                    p.Procedures.ForEach(sp =>
+                                    {
+                                        if (sp == null) return;
+                                        if (providerProcedure.Procedures.Exists(pp =>
+                                                pp != null && sp.Value == pp.Value && sp.Name == pp.Name)) return;
+                                        providerProcedure.Procedures.Add(sp);
+                                    });
+                                }
+                            }
                         });
                     }
 
@@ -85,10 +96,12 @@ namespace TSFramework.Libs.Providers
                         spProviders.ToList().FirstOrDefault(sp => sp.ProviderType == dProvider.GetType());
                     if (libSpProvider == null) return;
                     if (storeProceduresProvider.Keys.Contains(xp.ProviderName)) return;
+                    var dict = (xp.Procedures ?? new List<Procedure>())
+                        .Where(p => p != null && !string.IsNullOrEmpty(p.Name))
+                        .GroupBy(p => p.Name)
+                        .ToDictionary(g => g.Key, g => g.First().Value);
                     storeProceduresProvider.Add(xp.ProviderName,
-                        libSpProvider.Instance(xp.ProviderName,
-                            xp.Procedures.Select(p => new { p.Name, p.Value }).Distinct()
-                                .ToDictionary(d => d.Name, d => d.Value)));
+                        libSpProvider.Instance(xp.ProviderName, dict));
                 });
 
             var nSpProviders = new StoreProcedureProvider { DicStoreProceduresProvider = storeProceduresProvider };
@@ -113,10 +126,12 @@ namespace TSFramework.Libs.Providers
                             spProviders.ToList().FirstOrDefault(sp => sp.ProviderType == dProvider.GetType());
                         if (libSpProvider == null) return;
                         if (storeProceduresProvider.Keys.Contains(xp.ProviderName)) return;
+                        var dict = (xp.Procedures ?? new List<Procedure>())
+                            .Where(p => p != null && !string.IsNullOrEmpty(p.Name))
+                            .GroupBy(p => p.Name)
+                            .ToDictionary(g => g.Key, g => g.First().Value);
                         storeProceduresProvider.Add(xp.ProviderName,
-                            libSpProvider.Instance(xp.ProviderName,
-                                xp.Procedures.Select(p => new { p.Name, p.Value })
-                                    .ToDictionary(d => d.Name, d => d.Value)));
+                            libSpProvider.Instance(xp.ProviderName, dict));
                     });
 
             var nSpProviders = new StoreProcedureProvider { DicStoreProceduresProvider = storeProceduresProvider };

@@ -26,7 +26,11 @@
                         <div class="text-90">
                             <span class="text-secondary">Loại hình hiện tại:</span>
                             <span class="badge @(Model.CurrentBusinessType == 1 ? "badge-primary" : "badge-success")">
-                                @Model.CurrentBusinessTypeName
+                                @(Model.CurrentBusinessType == 1 
+                                    ? AppProcessor.Messagor.GetMessage("DigitalSales_BusinessType_Opportunity") 
+                                    : (Model.CurrentBusinessType == 2 
+                                        ? AppProcessor.Messagor.GetMessage("DigitalSales_BusinessType_Project") 
+                                        : Model.CurrentBusinessTypeName))
                             </span>
                             <span class="mx-1 text-secondary">➔</span>
                             <span class="text-secondary">Trạng thái:</span>
@@ -52,14 +56,17 @@
                     </div>
 
                     <div class="form-group mb-3">
-                        <label class="text-85 text-600 mb-1 d-block font-bold">File biên bản / Quyết định / Hợp đồng đính kèm</label>
+                        @Html.TitleFor(m => m.AttachmentPath, new { @class = "text-85 text-600 mb-1 d-block font-bold" })
                         <input type="file" name="attachmentFile" class="form-control-file border p-1 rounded" />
                         <small class="text-muted">Đính kèm file minh chứng cho việc chuyển trạng thái (nếu có)</small>
                     </div>
 
                     <div class="form-group mb-2">
                         @Html.TitleFor(m => m.Note, new { @class = "text-85 text-600 mb-1 d-block font-bold" })
-                        @Html.TextAreaFor(m => m.Note, 3, 50, new { @class = "form-control form-control-sm", placeholder = "Nhập lý do chuyển trạng thái, thông tin trao đổi hoặc thỏa thuận mới..." })
+                        @Html.TextAreaFor(m => m.Note, 3, 50, new { @class = "form-control form-control-sm", placeholder = AppProcessor.Messagor.GetMessage("DigitalSales_ChangeStatusNote_Placeholder") })
+                        <small class="text-muted text-80 d-block mt-1">
+                            <i class="fa fa-info-circle mr-1 text-primary"></i> Ghi nhận vào Dòng thời gian (Timeline) của hồ sơ; không thay đổi Mô tả chi tiết nhu cầu / Ghi chú dịch vụ số.
+                        </small>
                     </div>
                 </div>
 

@@ -10,52 +10,73 @@
     <div class="card-body p-2 d-flex align-items-end flex-wrap">
         @Html.HiddenFor(model => model.CustomerID, new { id = "CustomerID" })
 
-        <div class="Search_Box keyWord w-50">
-            <label class="font-bold text-sm-right">
-                @AppProcessor.Messagor.GetMessage("Label_TuKhoa")
-            </label>
-            @Html.TextBoxFor(model => model.Keyword, new { @class = "form-control", id = "Keyword", placeholder = "Tìm kiếm theo mã, tên hồ sơ, tên khách hàng, tên nhân viên" })
+        <div class="Search_Box keyWord" style="flex: 1 1 280px; max-width: 420px;">
+            @Html.TitleFor(model => model.Keyword, new { @class = "font-bold text-sm-right" })
+            @Html.TextBoxFor(model => model.Keyword, new { @class = "form-control", id = "Keyword", placeholder = AppProcessor.Messagor.GetMessage("DigitalSalesSearch_Keyword_Placeholder") })
         </div>
 
-        <div class="Search_Box">
-            <label class="font-bold text-sm-right">
-                Loại hình
-            </label>
+        <div class="Search_Box" style="min-width: 140px;">
+            @Html.TitleFor(model => model.BusinessType, new { @class = "font-bold text-sm-right" })
             <div>
                 <select id="BusinessType" name="BusinessType" class="form-control">
-                    <option value="">-- Tất cả loại hình --</option>
-                    <option value="1" @(Model.BusinessType == 1 ? "selected" : "")>Cơ hội kinh doanh</option>
-                    <option value="2" @(Model.BusinessType == 2 ? "selected" : "")>Dự án</option>
+                    <option value="">@AppProcessor.Messagor.GetMessage("DigitalSalesSearch_BusinessType_AllOption")</option>
+                    <option value="1" @(Model.BusinessType == 1 ? "selected" : "")>@AppProcessor.Messagor.GetMessage("DigitalSales_BusinessType_Opportunity")</option>
+                    <option value="2" @(Model.BusinessType == 2 ? "selected" : "")>@AppProcessor.Messagor.GetMessage("DigitalSales_BusinessType_Project")</option>
                 </select>
             </div>
         </div>
 
-        <div class="Search_Box">
-            <label class="font-bold text-sm-right">
-                @AppProcessor.Messagor.GetMessage("DigitalSales_Status")
-            </label>
+        <div class="Search_Box" style="min-width: 150px;">
+            @Html.TitleFor(model => model.StatusID, new { @class = "font-bold text-sm-right" })
             <div>
-                @Html.DropDownListFor(model => model.StatusID, Model.ListStatus, "-- Chọn trạng thái --", new { @class = "form-control", id = "StatusID" })
+                @Html.DropDownListFor(model => model.StatusID, Model.ListStatus, AppProcessor.Messagor.GetMessage("DigitalSalesSearch_Status_Option"), new { @class = "form-control", id = "StatusID" })
             </div>
         </div>
 
+        <!-- 1. Toggle: Trọng điểm (Tách riêng biệt, switch to hơn, text đen, không icon) -->
+        <div class="Search_Box" style="min-width: 140px;">
+            <label class="font-bold d-block text-sm-right" style="visibility: hidden; font-size: 13px; margin: 0; height: 18px;">&nbsp;</label>
+            <div class="d-flex align-items-center" style="height: 32px;">
+                <div class="custom-control custom-switch custom-switch-lg" title="Lọc các dự án trọng điểm">
+                    <input type="checkbox" class="custom-control-input cursor-pointer" id="chkFilterKeyProject">
+                    <label class="custom-control-label font-bold text-dark cursor-pointer select-none mb-0" for="chkFilterKeyProject" id="lblFilterKeyProject">
+                        Trọng điểm
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. Toggle: Đang quan tâm (Tách riêng biệt, switch to hơn, text đen, không icon) -->
+        <div class="Search_Box" style="min-width: 160px;">
+            <label class="font-bold d-block text-sm-right" style="visibility: hidden; font-size: 13px; margin: 0; height: 18px;">&nbsp;</label>
+            <div class="d-flex align-items-center" style="height: 32px;">
+                <div class="custom-control custom-switch custom-switch-lg" title="Lọc các cơ hội/dự án bạn đang quan tâm">
+                    <input type="checkbox" class="custom-control-input cursor-pointer" id="chkFilterFollowed">
+                    <label class="custom-control-label font-bold text-dark cursor-pointer select-none mb-0" for="chkFilterFollowed" id="lblFilterFollowed">
+                        Đang quan tâm
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Vạch phân tách hàng chuẩn giao diện: Hàng 1 (Tìm kiếm & Tiêu chí) và Hàng 2 (Đơn vị & Thời gian & Nút bấm) -->
+        <div class="w-100 d-none d-lg-block my-1"></div>
+
         <div class="Search_Box Dropdown">
-            <label class="font-bold">@AppProcessor.Messagor.GetMessage("Department_Search_Label")</label>
-            @Html.DropDownListFor(model => model.DepartmentID, Model.ListDepartment, "-- Chọn phòng --", new { @class = "form-control", id = "DepartmentID" })
+            @Html.TitleFor(model => model.DepartmentID, new { @class = "font-bold" })
+            @Html.DropDownListFor(model => model.DepartmentID, Model.ListDepartment, AppProcessor.Messagor.GetMessage("DigitalSalesSearch_Department_Option"), new { @class = "form-control", id = "DepartmentID" })
         </div>
 
         <div class="Search_Box Dropdown">
-            <label class="font-bold">@AppProcessor.Messagor.GetMessage("Employee_Search_Label")</label>
-            @Html.DropDownListFor(model => model.EmployeeID, Model.ListEmployee, "-- Chọn nhân viên --", new { @class = "form-control", id = "EmployeeID" })
+            @Html.TitleFor(model => model.EmployeeID, new { @class = "font-bold" })
+            @Html.DropDownListFor(model => model.EmployeeID, Model.ListEmployee, AppProcessor.Messagor.GetMessage("DigitalSalesSearch_Employee_Option"), new { @class = "form-control", id = "EmployeeID" })
         </div>
 
         <div class="d-flex">
             <div class="Search_Box">
-                <label class="font-bold text-sm-right">
-                    Từ ngày
-                </label>
+                @Html.TitleFor(model => model.FromDate, new { @class = "font-bold text-sm-right" })
                 <div class="input-group date" id="dpFromDate" style="width: 135px">
-                    <input type="text" id="FromDate" name="FromDate" class="form-control" placeholder="dd/mm/yyyy" autocomplete="off" />
+                    @Html.TextBoxFor(model => model.FromDate, new { @class = "form-control", id = "FromDate", placeholder = AppProcessor.Messagor.GetMessage("DigitalSalesSearch_Date_Placeholder"), autocomplete = "off" })
                     <div class="input-group-append">
                         <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                     </div>
@@ -63,11 +84,9 @@
             </div>
 
             <div class="Search_Box">
-                <label class="font-bold text-sm-right">
-                    Đến ngày
-                </label>
+                @Html.TitleFor(model => model.ToDate, new { @class = "font-bold text-sm-right" })
                 <div class="input-group date" id="dpToDate" style="width: 135px">
-                    <input type="text" id="ToDate" name="ToDate" class="form-control" placeholder="dd/mm/yyyy" autocomplete="off" />
+                    @Html.TextBoxFor(model => model.ToDate, new { @class = "form-control", id = "ToDate", placeholder = AppProcessor.Messagor.GetMessage("DigitalSalesSearch_Date_Placeholder"), autocomplete = "off" })
                     <div class="input-group-append">
                         <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                     </div>
@@ -75,16 +94,22 @@
             </div>
         </div>
 
-        <div class="Group Group_button" style="padding-top: 10px; padding-left: 5px;">
-            <div class="Search_button">
-                <button type="button" class="btn btn-primary" onclick="reloadSalesTable();" style="width: 110px">
-                    <i class="fa fa-search-plus"></i>&nbsp;@AppProcessor.Messagor.GetMessage("Label_Search")
+        <div class="Group Group_button d-inline-flex align-items-center flex-nowrap" style="padding-top: 10px; padding-left: 5px; flex-shrink: 0;">
+            <div class="Search_button mr-2">
+                <button type="button" class="btn btn-primary text-nowrap" onclick="reloadSalesTable();" style="min-width: 105px; width: auto; white-space: nowrap; display: inline-flex; align-items: center; justify-content: center;">
+                    <i class="fa fa-search-plus mr-1"></i>@AppProcessor.Messagor.GetMessage("Label_Search")
+                </button>
+            </div>
+
+            <div class="Search_button mr-2">
+                <button type="button" class="btn btn-default btn-outline-secondary text-nowrap" onclick="resetSalesSearch();" style="min-width: 95px; width: auto; white-space: nowrap; display: inline-flex; align-items: center; justify-content: center;">
+                    <i class="fa fa-undo mr-1"></i>Đặt lại
                 </button>
             </div>
 
             <div class="Search_button">
-                <button type="button" style="width: 100px" class="btn btn-default btn-outline-secondary ml-2" onclick="resetSalesSearch();">
-                    <i class="fa fa-undo"></i>&nbsp;Đặt lại
+                <button type="button" class="btn btn-warning font-bold text-nowrap shadow-sm" id="btnExportDigitalSales" onclick="exportDigitalSales();" style="min-width: 140px; width: auto; white-space: nowrap; display: inline-flex; align-items: center; justify-content: center; padding: 2px 14px;" title="Tải danh sách theo điều kiện tìm kiếm">
+                    <i class="fa fa-download mr-1"></i>Tải danh sách
                 </button>
             </div>
         </div>
@@ -200,5 +225,64 @@
     .datepicker.datepicker-dropdown.dropdown-menu.datepicker-orient-right.datepicker-orient-top,
     .datepicker.datepicker-dropdown {
         z-index: 1060 !important;
+    }
+    /* Switch cỡ lớn hơn, chữ đen rõ nét, canh giữa hoàn hảo theo yêu cầu người dùng */
+    .custom-switch.custom-switch-lg {
+        padding-left: 56px !important;
+        min-height: 26px;
+        display: inline-flex;
+        align-items: center;
+        margin-bottom: 0;
+        cursor: pointer;
+    }
+    .custom-switch.custom-switch-lg .custom-control-label {
+        font-size: 14px !important;
+        color: #1a1a1a !important;
+        font-weight: 600 !important;
+        line-height: 26px !important;
+        cursor: pointer;
+        user-select: none;
+        white-space: nowrap;
+        display: inline-flex;
+        align-items: center;
+        min-height: 26px;
+        margin-bottom: 0;
+    }
+    .custom-switch.custom-switch-lg .custom-control-label::before {
+        position: absolute;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+        left: -56px !important;
+        width: 46px !important;
+        height: 24px !important;
+        border-radius: 12px !important;
+        background-color: #ced4da;
+        border: 1px solid #adb5bd;
+        pointer-events: all;
+        cursor: pointer;
+    }
+    .custom-switch.custom-switch-lg .custom-control-label::after {
+        position: absolute;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+        left: -54px !important;
+        width: 20px !important;
+        height: 20px !important;
+        border-radius: 50% !important;
+        background-color: #fff !important;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+        transition: transform .15s ease-in-out, background-color .15s ease-in-out;
+        cursor: pointer;
+    }
+    .custom-switch.custom-switch-lg .custom-control-input:checked ~ .custom-control-label::after {
+        transform: translateY(-50%) translateX(22px) !important;
+    }
+    #chkFilterKeyProject:checked ~ .custom-control-label::before {
+        background-color: #f59f00 !important;
+        border-color: #f59f00 !important;
+    }
+    #chkFilterFollowed:checked ~ .custom-control-label::before {
+        background-color: #e03131 !important;
+        border-color: #e03131 !important;
     }
 </style>

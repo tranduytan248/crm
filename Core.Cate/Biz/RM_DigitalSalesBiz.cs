@@ -28,6 +28,11 @@ namespace Core.Cate.Biz
         private readonly string _spGetTimeline = "RM_DigitalSales_GetTimeline";
         private readonly string _spDelete = "RM_DigitalSales_Delete";
         private readonly string _spStatusGetAll = "RM_DigitalSalesStatus_GetAll";
+        private readonly string _spToggleKeyProject = "RM_DigitalSales_ToggleKeyProject";
+        private readonly string _spToggleFollow = "RM_DigitalSales_ToggleFollow";
+        private readonly string _spActivityAdd = "RM_DigitalSalesActivity_Add";
+        private readonly string _spActivityGetList = "RM_DigitalSalesActivity_GetList";
+        private readonly string _spActivityDelete = "RM_DigitalSalesActivity_Delete";
 
         public List<RM_DigitalSalesModel> LoadList(out int total, RM_DigitalSalesSearchModel model)
         {
@@ -61,7 +66,9 @@ namespace Core.Cate.Biz
                 toDate,
                 model.PageNumber <= 0 ? 1 : model.PageNumber,
                 model.PageSize <= 0 ? 20 : model.PageSize,
-                model.UserName
+                model.UserName,
+                model.IsKeyProject.HasValue && model.IsKeyProject.Value ? 1 : 0,
+                model.IsFollowed.HasValue && model.IsFollowed.Value ? 1 : 0
             );
 
             if (data != null && data.Count > 0)
@@ -74,16 +81,104 @@ namespace Core.Cate.Biz
 
         public RM_DigitalSalesModel GetByID(int id)
         {
+            return GetByID(id, null);
+        }
+
+        public RM_DigitalSalesModel GetByID(int id, string userName)
+        {
             if (id <= 0) return null;
-            var model = AppProcessor.ProcedureProvider.ExecuteScalarObject<RM_DigitalSalesModel>(_spGetByID, DATA_PROVIDER_NAME, id);
+            var model = AppProcessor.ProcedureProvider.ExecuteScalarObject<RM_DigitalSalesModel>(_spGetByID, DATA_PROVIDER_NAME, id, userName);
             if (model != null)
             {
                 model.Products = GetProductsBySalesID(id);
                 model.Members = GetMembersBySalesID(id);
                 model.TrackingTasks = GetTrackingTasks(id);
                 model.Timelines = GetTimeline(id);
+                model.Activities = GetActivitiesBySalesID(id);
             }
             return model;
+        }
+
+        public bool ToggleKeyProject(int id, bool isKeyProject, string userName)
+        {
+            if (id <= 0) return false;
+            try
+            {
+                var res = AppProcessor.ProcedureProvider.Execute(
+                    _spToggleKeyProject,
+                    DATA_PROVIDER_NAME,
+                    id,
+                    isKeyProject,
+                    userName
+                );
+                if (res.GetValueOrDefault(0) > 0) return true;
+
+                var scalar = AppProcessor.ProcedureProvider.ExecuteScalar(
+                    _spToggleKeyProject,
+                    DATA_PROVIDER_NAME,
+                    id,
+                    isKeyProject,
+                    userName
+                );
+                if (scalar != null && Convert.ToInt32(scalar) > 0) return true;
+            }
+            catch
+            {
+                try
+                {
+                    var scalar = AppProcessor.ProcedureProvider.ExecuteScalar(
+                        _spToggleKeyProject,
+                        DATA_PROVIDER_NAME,
+                        id,
+                        isKeyProject,
+                        userName
+                    );
+                    if (scalar != null && Convert.ToInt32(scalar) > 0) return true;
+                }
+                catch { }
+            }
+            return false;
+        }
+
+        public bool ToggleFollow(int id, bool isFollowed, string userName)
+        {
+            if (id <= 0 || string.IsNullOrEmpty(userName)) return false;
+            try
+            {
+                var res = AppProcessor.ProcedureProvider.Execute(
+                    _spToggleFollow,
+                    DATA_PROVIDER_NAME,
+                    id,
+                    userName,
+                    isFollowed
+                );
+                if (res.GetValueOrDefault(0) > 0) return true;
+
+                var scalar = AppProcessor.ProcedureProvider.ExecuteScalar(
+                    _spToggleFollow,
+                    DATA_PROVIDER_NAME,
+                    id,
+                    userName,
+                    isFollowed
+                );
+                if (scalar != null && Convert.ToInt32(scalar) > 0) return true;
+            }
+            catch
+            {
+                try
+                {
+                    var scalar = AppProcessor.ProcedureProvider.ExecuteScalar(
+                        _spToggleFollow,
+                        DATA_PROVIDER_NAME,
+                        id,
+                        userName,
+                        isFollowed
+                    );
+                    if (scalar != null && Convert.ToInt32(scalar) > 0) return true;
+                }
+                catch { }
+            }
+            return false;
         }
 
         public int Save(RM_DigitalSalesModel model, string username)
@@ -323,6 +418,86 @@ namespace Core.Cate.Biz
             {
                 return $"SPDV-{DateTime.Now.Year}-0001";
             }
+        }
+
+        public List<RM_DigitalSalesActivityModel> GetActivitiesBySalesID(int digitalSalesId, byte? activityType = null)
+        {
+            if (digitalSalesId <= 0) return new List<RM_DigitalSalesActivityModel>();
+            var list = AppProcessor.ProcedureProvider.ExecuteTypedList<RM_DigitalSalesActivityModel>(
+                _spActivityGetList,
+                DATA_PROVIDER_NAME,
+                digitalSalesId,
+                activityType.HasValue ? (object)activityType.Value : DBNull.Value
+            );
+
+            if (list != null && list.Count > 0)
+            {
+                foreach (var item in list)
+                {
+                    if (!string.IsNullOrWhiteSpace(item.Attachments))
+                    {
+                        try
+                        {
+                            if (item.Attachments.TrimStart().StartsWith("["))
+                            {
+                                item.AttachmentList = Newtonsoft.Json.JsonConvert.DeserializeObject<List<ActivityAttachmentItem>>(item.Attachments) ?? new List<ActivityAttachmentItem>();
+                            }
+                            else
+                            {
+                                var parts = item.Attachments.Split(new[] { ';', ',' }, StringSplitOptions.RemoveEmptyEntries);
+                                foreach (var p in parts)
+                                {
+                                    var trimmed = p.Trim();
+                                    var ext = System.IO.Path.GetExtension(trimmed)?.ToLowerInvariant() ?? "";
+                                    item.AttachmentList.Add(new ActivityAttachmentItem
+                                    {
+                                        FileName = System.IO.Path.GetFileName(trimmed),
+                                        FilePath = trimmed,
+                                        Extension = ext,
+                                        IsImage = new[] { ".jpg", ".jpeg", ".png", ".gif", ".webp", ".bmp", ".svg" }.Contains(ext)
+                                    });
+                                }
+                            }
+                        }
+                        catch
+                        {
+                            // Ignore parse error
+                        }
+                    }
+                }
+            }
+
+            return list ?? new List<RM_DigitalSalesActivityModel>();
+        }
+
+        public int AddActivity(RM_DigitalSalesActivityModel model, string username)
+        {
+            if (model == null || model.DigitalSalesID <= 0 || string.IsNullOrWhiteSpace(model.Content)) return 0;
+            var result = AppProcessor.ProcedureProvider.Execute(
+                _spActivityAdd,
+                DATA_PROVIDER_NAME,
+                model.DigitalSalesID,
+                model.ActivityType,
+                model.Content,
+                string.IsNullOrWhiteSpace(model.Attachments) ? (object)DBNull.Value : model.Attachments,
+                string.IsNullOrWhiteSpace(model.MentionedUserIDs) ? (object)DBNull.Value : model.MentionedUserIDs,
+                string.IsNullOrWhiteSpace(model.MentionedNames) ? (object)DBNull.Value : model.MentionedNames,
+                model.ReferenceID.HasValue ? (object)model.ReferenceID.Value : DBNull.Value,
+                username
+            );
+            return result.GetValueOrDefault(0);
+        }
+
+        public int DeleteActivity(int activityId, string username)
+        {
+            if (activityId <= 0) return 0;
+            var result = AppProcessor.ProcedureProvider.Execute(
+                _spActivityDelete,
+                DATA_PROVIDER_NAME,
+                activityId,
+                username
+            );
+            return result.GetValueOrDefault(0);
         }
     }
 }

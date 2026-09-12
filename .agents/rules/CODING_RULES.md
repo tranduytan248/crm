@@ -1,4 +1,4 @@
-# Coding Rules
+﻿# Coding Rules
 
 Version: 1.0
 
@@ -96,6 +96,11 @@ Không commit:
 - Password
 - Token
 - Connection String Production
+
+### Quy tắc nhánh & Upcode Demo:
+- **CẤM TUYỆT ĐỐI tự động push hoặc merge sang nhánh `upcode-demo`!**
+- Mọi thao tác commit và push code hàng ngày **CHỈ ĐƯỢC PHÉP** thực hiện trên nhánh làm việc chính hiện tại (`crm_v2`).
+- **CHỈ ĐƯỢC PHÉP** merge hoặc push sang nhánh `upcode-demo` KHI VÀ CHỈ KHI người dùng có yêu cầu rõ ràng bằng văn bản (ví dụ: *"upcode demo"*, *"đẩy lên demo"*, *"deploy demo"*).
 
 ---
 

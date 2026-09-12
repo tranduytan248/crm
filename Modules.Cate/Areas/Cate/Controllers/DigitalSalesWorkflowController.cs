@@ -1,38 +1,72 @@
-﻿using Core.Cate.Caches;
+using Core.Cate.Caches;
 using Core.Cate.Models;
 using Core.Sys.BaseApp;
+using Core.Sys.Caches.Sys;
 using System;
+using System.Linq;
 using System.Web.Mvc;
 using TSFramework.Libs.Attributes;
 using TSFramework.Libs.Enums;
 using TSFramework.Libs.Processors;
+using TSFramework.Libs.Utils;
 
 namespace Modules.Cate.Areas.Cate.Controllers
 {
     public class DigitalSalesWorkflowController : AppController
     {
         private readonly RM_DigitalSalesWorkflowCache _workflowCache;
-        private readonly string _titleStatus = "Trạng thái";
-        private readonly string _titleProcess = "Quy trình";
-        private readonly string _titleProgress = "Tiến trình";
+        private readonly SysUserCache _userCache;
+        private string _titleStatus => AppProcessor.Messagor.GetMessage("DigitalSalesWorkflow_Title_Status");
+        private string _titleProcess => AppProcessor.Messagor.GetMessage("DigitalSalesWorkflow_Title_Process");
+        private string _titleProgress => AppProcessor.Messagor.GetMessage("DigitalSalesWorkflow_Title_Progress");
 
         public DigitalSalesWorkflowController()
         {
             _workflowCache = new RM_DigitalSalesWorkflowCache();
+            _userCache = new SysUserCache();
+        }
+
+        private bool IsUserQTHT(string userName)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(userName)) return false;
+                if (userName.Equals("admin", StringComparison.OrdinalIgnoreCase) || userName.Equals("quantri", StringComparison.OrdinalIgnoreCase)) return true;
+
+                var u = _userCache.GetByUserName(userName);
+                if (u != null && u.UserId > 0)
+                {
+                    var roles = _userCache.GetRoles(u.UserId);
+                    if (roles != null && roles.Any(r => r.RoleId == 1 || (r.Name != null && (r.Name.Equals("QTHT", StringComparison.OrdinalIgnoreCase) || UtilString.ConvertToUnSign(r.Name).IndexOf("quan tri", StringComparison.OrdinalIgnoreCase) >= 0))))
+                    {
+                        return true;
+                    }
+                }
+            }
+            catch
+            {
+                // Fallback safe
+            }
+
+            return false;
         }
 
         [ActionType(Type = EnumActionType.View)]
         [HttpGet]
         public ActionResult Index(byte? businessType)
         {
+            if (!IsUserQTHT(User.UserName))
+            {
+                return RedirectToAction("Index", "DigitalSales", new { area = "Cate" });
+            }
             var type = businessType ?? 1;
             var data = _workflowCache.GetAllStatuses(type);
             ViewBag.BusinessType = type;
-            ViewBag.Title = "Cấu hình Danh mục Trạng thái - Quy trình - Tiến trình";
+            ViewBag.Title = AppProcessor.Messagor.GetMessage("DigitalSalesWorkflow_Title_Main");
             return View(data);
         }
 
-        #region 1. Trạng Thái (Status)
+        #region 1. Status
         [AjaxOnly]
         [HttpGet]
         [ActionType(Type = EnumActionType.View)]
@@ -73,12 +107,13 @@ namespace Modules.Cate.Areas.Cate.Controllers
 
         [AjaxOnly]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [ActionType(Type = EnumActionType.Create | EnumActionType.Edit)]
         public ActionResult SaveStatus(RM_DigitalSalesStatusModel model)
         {
             if (!ModelState.IsValid)
             {
-                return Json(new { status = false, success = false, message = "Vui lòng nhập đầy đủ thông tin bắt buộc." });
+                return PartialView("_StatusForm", model);
             }
 
             var result = _workflowCache.SaveStatus(model, User.UserName);
@@ -116,7 +151,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
             {
                 return Json(new { status = false, success = false, message = CreateMessage($"{_titleStatus}", EnumProcessType.DataNotExist, EnumMsgIcon.Error) }, JsonRequestBehavior.AllowGet);
             }
-            ViewBag.ConfirmMessage = $"Bạn có chắc chắn muốn xóa Trạng thái <strong>[{model.StatusName}]</strong> không?<br/><small class='text-danger'>Lưu ý: Các quy trình và tiến trình thuộc trạng thái này cũng sẽ bị ảnh hưởng.</small>";
+            ViewBag.ConfirmMessage = string.Format(AppProcessor.Messagor.GetMessage("DigitalSalesWorkflow_Msg_DeleteStatusConfirm"), model.StatusName);
             ViewBag.TargetType = "Status";
             ViewBag.TargetID = model.StatusID;
             ViewBag.TargetName = model.StatusName;
@@ -132,7 +167,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
             var status = _workflowCache.GetStatusByID(id);
             if (status == null)
             {
-                return Json(new { status = false, success = false, message = "Trạng thái không tồn tại." });
+                return Json(new { status = false, success = false, message = CreateMessage(_titleStatus, EnumProcessType.DataNotExist, EnumMsgIcon.Error) });
             }
 
             var result = _workflowCache.DeleteStatus(id, User.UserName);
@@ -150,7 +185,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
         }
         #endregion
 
-        #region 2. Quy Trình (Process)
+        #region 2. Process
         [AjaxOnly]
         [HttpGet]
         [ActionType(Type = EnumActionType.View)]
@@ -195,12 +230,19 @@ namespace Modules.Cate.Areas.Cate.Controllers
 
         [AjaxOnly]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [ActionType(Type = EnumActionType.Create | EnumActionType.Edit)]
         public ActionResult SaveProcess(RM_DigitalSalesProcessModel model)
         {
             if (!ModelState.IsValid)
             {
-                return Json(new { status = false, success = false, message = "Vui lòng nhập đầy đủ thông tin bắt buộc." });
+                var status = _workflowCache.GetStatusByID(model.StatusID);
+                if (status != null)
+                {
+                    model.StatusName = status.StatusName;
+                    model.BusinessType = status.BusinessType;
+                }
+                return PartialView("_ProcessForm", model);
             }
 
             var result = _workflowCache.SaveProcess(model, User.UserName);
@@ -238,7 +280,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
             {
                 return Json(new { status = false, success = false, message = CreateMessage($"{_titleProcess}", EnumProcessType.DataNotExist, EnumMsgIcon.Error) }, JsonRequestBehavior.AllowGet);
             }
-            ViewBag.ConfirmMessage = $"Bạn có chắc chắn muốn xóa Quy trình <strong>[{model.ProcessName}]</strong> không?<br/><small class='text-danger'>Lưu ý: Các tiến trình thuộc quy trình này cũng sẽ bị ảnh hưởng.</small>";
+            ViewBag.ConfirmMessage = string.Format(AppProcessor.Messagor.GetMessage("DigitalSalesWorkflow_Msg_DeleteProcessConfirm"), model.ProcessName);
             ViewBag.TargetType = "Process";
             ViewBag.TargetID = model.ProcessID;
             ViewBag.TargetName = model.ProcessName;
@@ -255,7 +297,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
             var process = _workflowCache.GetProcessByID(id);
             if (process == null)
             {
-                return Json(new { status = false, success = false, message = "Quy trình không tồn tại." });
+                return Json(new { status = false, success = false, message = CreateMessage(_titleProcess, EnumProcessType.DataNotExist, EnumMsgIcon.Error) });
             }
 
             var result = _workflowCache.DeleteProcess(id, User.UserName);
@@ -273,7 +315,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
         }
         #endregion
 
-        #region 3. Tiến Trình (Progress)
+        #region 3. Progress
         [AjaxOnly]
         [HttpGet]
         [ActionType(Type = EnumActionType.View)]
@@ -318,12 +360,18 @@ namespace Modules.Cate.Areas.Cate.Controllers
 
         [AjaxOnly]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [ActionType(Type = EnumActionType.Create | EnumActionType.Edit)]
         public ActionResult SaveProgress(RM_DigitalSalesProgressModel model)
         {
             if (!ModelState.IsValid)
             {
-                return Json(new { status = false, success = false, message = "Vui lòng nhập đầy đủ thông tin bắt buộc." });
+                var process = _workflowCache.GetProcessByID(model.ProcessID);
+                if (process != null)
+                {
+                    model.ProcessName = process.ProcessName;
+                }
+                return PartialView("_ProgressForm", model);
             }
 
             var result = _workflowCache.SaveProgress(model, User.UserName);
@@ -361,7 +409,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
             {
                 return Json(new { status = false, success = false, message = CreateMessage($"{_titleProgress}", EnumProcessType.DataNotExist, EnumMsgIcon.Error) }, JsonRequestBehavior.AllowGet);
             }
-            ViewBag.ConfirmMessage = $"Bạn có chắc chắn muốn xóa Tiến trình <strong>[{model.ProgressName}]</strong> không?";
+            ViewBag.ConfirmMessage = string.Format(AppProcessor.Messagor.GetMessage("DigitalSalesWorkflow_Msg_DeleteProgressConfirm"), model.ProgressName);
             ViewBag.TargetType = "Progress";
             ViewBag.TargetID = model.ProgressID;
             ViewBag.TargetName = model.ProgressName;
@@ -378,7 +426,7 @@ namespace Modules.Cate.Areas.Cate.Controllers
             var progress = _workflowCache.GetProgressByID(id);
             if (progress == null)
             {
-                return Json(new { status = false, success = false, message = "Tiến trình không tồn tại." });
+                return Json(new { status = false, success = false, message = CreateMessage(_titleProgress, EnumProcessType.DataNotExist, EnumMsgIcon.Error) });
             }
 
             var result = _workflowCache.DeleteProgress(id, User.UserName);

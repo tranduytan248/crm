@@ -14,7 +14,14 @@ namespace TSFramework.Libs.Attributes
 
         public CustomRequiredAttribute()
         {
-            ErrorMessage = AppProcessor.Messagor.GetMessage("Common_RequiredMessage");
+            try
+            {
+                ErrorMessage = AppProcessor.Messagor?.GetMessage("Common_RequiredMessage");
+            }
+            catch
+            {
+                // Safe fallback neu chay ngoai HttpContext hoac AppProcessor chua khoi tao
+            }
         }
 
         public IEnumerable<ModelClientValidationRule> GetClientValidationRules(ModelMetadata metadata,

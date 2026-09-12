@@ -452,6 +452,10 @@ Mỗi khi tạo mới hoặc chỉnh sửa file:
    Sau đó sao chép file `.dll` sang `publish_source\bin` và `CenIT.Solution.TOC.WebApp\bin`.
 3. Chạy script kiểm tra và bảo đảm 100% file có **UTF-8 with BOM**.
 4. Chạy toàn bộ test suites (`Run-Tests.ps1`, `Run-ManagementTests.ps1`) và chỉ hoàn thành khi đạt **100% PASS**.
+5. **Quy định về Git Branch & Upcode Demo:**
+   - **CẤM TUYỆT ĐỐI** tự động merge hoặc push code sang nhánh `upcode-demo` trong quá trình phát triển hoặc sửa lỗi thông thường.
+   - Mọi commit và push hàng ngày **CHỈ ĐƯỢC PHÉP** thực hiện trên nhánh làm việc hiện tại (`crm_v2`).
+   - **CHỈ ĐƯỢC PHÉP** merge hoặc push sang `upcode-demo` KHI VÀ CHỈ KHI người dùng có chỉ định rõ ràng bằng văn bản (ví dụ: *"upcode demo"*, *"đẩy code demo"*, *"deploy demo"*).
 
 ---
 
@@ -461,6 +465,8 @@ Mỗi khi tạo mới hoặc chỉnh sửa file:
 
 | AI / Lập trình viên bao biện | Thực tế & Hậu quả thực tế | Quy tắc bắt buộc thi hành |
 | :--- | :--- | :--- |
+| *"Dùng CustomDisplayName với chuỗi text tự do, không cần quan tâm nó có trả về null hay không."* | Khi thuộc tính DisplayName trả về null, DataAnnotationsModelValidator sẽ gán `context.DisplayName = null`, quăng ngoại lệ `ArgumentNullException: Value cannot be null. Parameter name: value` làm sập HTTP 500 ngay tại tầng Model Binding trước khi Action được gọi. | **BẮT BUỘC CustomDisplayName KHÔNG BAO GIỜ ĐƯỢC PHÉP TRẢ VỀ NULL**. Bắt buộc kế thừa `base(resourceName ?? string.Empty)` và có fallback chuỗi hợp lệ. |
+| *"Tiện tay merge và push luôn sang nhánh `upcode-demo` cho server demo cập nhật."* | Vi phạm quy trình kiểm soát release, đẩy mã nguồn đang trong giai đoạn dev/sửa lỗi lên môi trường demo mà chưa được người dùng kiểm duyệt. | **CẤM TỰ Ý PUSH SANG UPCODE-DEMO**. Mọi push thông thường chỉ thực hiện trên `crm_v2`. Chỉ tương tác với `upcode-demo` khi người dùng yêu cầu rõ ràng. |
 | *"Gõ thẳng chuỗi tiếng Việt vào View hoặc Controller cho tiện, khai báo Sys_Messages mất công."* | Làm mất khả năng đa ngôn ngữ, khó tùy biến nội dung theo từng khách hàng/triển khai, không đồng bộ thông điệp toàn hệ thống, dễ lỗi font mojibake. | **BẮT BUỘC 100% dùng App_Message**. Mọi chuỗi text trên View và thông báo trong Controller phải được khai báo trong `Sys_Messages` và gọi qua `AppProcessor.Messagor.GetMessage`. |
 | *"Dùng thẻ `<input>` hoặc `<label>` thuần cho nhanh, viết `@Html.*` rườm rà."* | Làm mất cơ chế Model Binding 2 chiều, mất thông báo validation đỏ khi nhập sai, mất dấu sao đỏ `(*)` bắt buộc. | **BẮT BUỘC 100% dùng `@Html.*`**. Chỉ dùng thẻ HTML thuần khi cả source code không có helper tương ứng. |
 | *"Lồng thẻ `<h1>` và `<div class="page-header">` vào `@section PageTitle` cho đẹp và rõ ràng."* | Phá vỡ flexbox layout của `_PageContent.cshtml`. Khi `BE-ConfigBreadcrumb.js` chạy, nó sẽ xóa sạch nội dung, làm giật màn hình (FOUC). | **`@section PageTitle` CHỈ ĐƯỢC CHỨA `@ViewBag.Title`**. Mọi badge, nút thao tác phải đưa vào `@section PageAction`. |
@@ -502,6 +508,7 @@ Mọi màn hình hoặc tính năng mới trước khi bàn giao phải vượt 
 - [ ] **Modal Lifecycle:** Có cơ chế chờ `hidden.bs.modal` trước khi kích hoạt `eval(message)` hoặc reload dữ liệu, ngăn ngừa triệt để lỗi kẹt backdrop đen.
 - [ ] **No Alert:** Không dùng hàm `alert()` thuần, thay bằng `toastr` hoặc `CreateMessage`.
 - [ ] **Automated Tests:** Bộ unit test / regression test / verification test đạt 100% PASS (3 tầng: Happy Path, Edge Cases, Error Handling theo `TESTING.md`).
+- [ ] **Model Binding & Anti-Null DisplayName:** 100% thuộc tính của Model có `DisplayName` hoặc `CustomDisplayName` trả về chuỗi hợp lệ, không trả về null; `ValidationContext.DisplayName` gán thành công không văng `ArgumentNullException`.
 
 ---
 
@@ -607,4 +614,32 @@ Mọi màn hình hoặc tính năng mới trước khi bàn giao phải vượt 
    ```
 3. **Đồng bộ CKEditor trước khi Serialize Form:**
    - Trước khi gọi `$form.serialize()` hoặc `new FormData()`, bắt buộc duyệt qua các instances của CKEditor và gọi `updateElement()` để đẩy nội dung từ iframe soạn thảo vào thẻ `<textarea>` ẩn tương ứng.
+
+---
+
+## 17. QUY CHUẨN AN TOÀN MODEL BINDING, DISPLAYNAME & VALIDATION CONTEXT
+
+### 17.1. Nguyên nhân gốc rễ lỗi 500 khi Model Binding (`Value cannot be null. Parameter name: value`)
+- Khi Model có các thuộc tính sử dụng `[CustomDisplayName("...")]`, nếu class `CustomDisplayNameAttribute` trả về `null` (do không tìm thấy resource key trong DB/Sys_Messages và `DisplayNameValue` trong base class bị null), ASP.NET MVC Model Binding (`DataAnnotationsModelValidator`) sẽ thực thi:
+  ```csharp
+  ValidationContext context = new ValidationContext(container, null, null);
+  context.DisplayName = metadata.GetDisplayName(); // Nhận giá trị null!
+  ```
+- Setter `ValidationContext.set_DisplayName(value)` trong .NET Framework quăng ngoại lệ nghiêm ngặt:
+  ```csharp
+  if (value == null) throw new ArgumentNullException("value");
+  ```
+  Ngoại lệ này sập ngay tại tầng Model Binding trước khi Action được gọi, khiến toàn bộ form submit bị HTTP 500 và redirect sang `/Error/Error`.
+
+### 17.2. Quy tắc bắt buộc thi hành
+1. **`DisplayName` KHÔNG BAO GIỜ ĐƯỢC PHÉP TRẢ VỀ NULL:**
+   - Mọi attribute kế thừa `DisplayNameAttribute` BẮT BUỘC gọi constructor cơ sở:
+     ```csharp
+     public CustomDisplayNameAttribute(string resourceName) : base(resourceName ?? string.Empty)
+     ```
+   - Thuộc tính `DisplayName` phải luôn có giá trị fallback an toàn (Message -> ResourceName -> `string.Empty`), tuyệt đối cấm trả về null.
+2. **An toàn trong Constructor của Custom Validation Attributes:**
+   - Các attribute như `[CustomRequired]` phải bọc `try-catch` an toàn khi đọc resource để không văng lỗi khi chạy ngoài `HttpContext` hoặc khi `AppProcessor` chưa khởi tạo.
+3. **Kiểm thử Metadata trong Automated Verification Test:**
+   - Trước khi nghiệm thu màn hình có Form Submit, bắt buộc phải có script reflection duyệt qua 100% properties của Model, xác nhận `GetDisplayName()` không trả về null và `ValidationContext.DisplayName` gán thành công.
 

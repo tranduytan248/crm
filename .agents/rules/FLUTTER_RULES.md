@@ -1,4 +1,4 @@
----
+﻿---
 name: quy-tac-code-flutter
 description: Quy tắc bắt buộc khi viết, sửa, hoặc review bất kỳ đoạn code Flutter/Dart nào trong dự án. Luôn áp dụng skill này khi người dùng yêu cầu tạo màn hình, tạo giao diện, sửa UI, viết widget, thêm tính năng, hoặc bất kỳ tác vụ nào sinh ra code Flutter — kể cả khi họ không nhắc đến "quy tắc". Hai quy tắc cốt lõi: (1) mọi chuỗi tiếng Việt phải có dấu đầy đủ, (2) giao diện phải code theo kiến trúc custom widget — không dùng trực tiếp widget của Flutter hay thư viện UI trong màn hình, để khi đổi thư viện giao diện chỉ cần sửa tầng widget, không phải code lại toàn bộ dự án.
 ---

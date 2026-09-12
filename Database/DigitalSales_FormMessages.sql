@@ -1,0 +1,147 @@
+﻿SET NOCOUNT ON;
+SET XACT_ABORT ON;
+
+BEGIN TRANSACTION;
+
+DECLARE @Messages TABLE
+(
+    LabelKey VARCHAR(500) NOT NULL PRIMARY KEY,
+    Message NVARCHAR(MAX) NOT NULL
+);
+
+INSERT INTO @Messages (LabelKey, Message)
+VALUES
+    ('DigitalSales_Code_Label', N'Mã hồ sơ'),
+    ('DigitalSales_Title_Label', N'Tên hồ sơ / Tiêu đề cơ hội'),
+    ('DigitalSales_BusinessType_Label', N'Loại hình'),
+    ('DigitalSales_Status_Label', N'Trạng thái'),
+    ('DigitalSales_Customer_Label', N'Khách hàng / Doanh nghiệp'),
+    ('DigitalSales_ContactPerson_Label', N'Người liên hệ'),
+    ('DigitalSales_TotalExpectedRevenue_Label', N'Tổng doanh thu dự kiến (VNĐ)'),
+    ('DigitalSales_TotalActualRevenue_Label', N'Tổng doanh thu thực tế (sau ký HĐ) (VNĐ)'),
+    ('DigitalSales_ClosingProbability_Label', N'Xác suất thành công (%)'),
+    ('DigitalSales_ExpectedDate_Label', N'Ngày dự kiến hoàn thành'),
+    ('DigitalSales_StartDate_Label', N'Ngày bắt đầu'),
+    ('DigitalSales_EndDate_Label', N'Ngày hoàn thành'),
+    ('DigitalSales_Contract_Label', N'Hợp đồng liên quan'),
+    ('DigitalSales_ContractNo_Label', N'Số hợp đồng / Phụ lục'),
+    ('DigitalSales_ContractValue_Label', N'Giá trị hợp đồng'),
+    ('DigitalSales_ContractSignDate_Label', N'Ngày ký hợp đồng'),
+    ('DigitalSales_AssignedEmployee_Label', N'Nhân sự AM chủ trì'),
+    ('DigitalSales_Department_Label', N'Bộ phận phụ trách'),
+    ('DigitalSales_Note_Label', N'Mô tả chi tiết nhu cầu / Ghi chú dịch vụ số'),
+    ('DigitalSales_FileAttach_Label', N'File đính kèm'),
+    ('DigitalSales_NewStatus_Label', N'Trạng thái mới'),
+    ('DigitalSales_ChangeStatusNote_Label', N'Ghi chú / Lý do chuyển'),
+    ('DigitalSales_ChangeStatusAttachment_Label', N'File biên bản / Quyết định / Hợp đồng đính kèm'),
+    ('DigitalSales_Title_Placeholder', N'Ví dụ: Cung cấp giải pháp Hóa đơn điện tử cho Công ty ABC'),
+    ('DigitalSales_Code_Placeholder', N'Mã hồ sơ tự động sinh'),
+    ('DigitalSales_Customer_Placeholder', N'Chưa chọn khách hàng...'),
+    ('DigitalSales_CustomerSearch_Placeholder', N'Nhập tên doanh nghiệp, mã số thuế, số điện thoại, địa chỉ để tìm...'),
+    ('DigitalSales_AssignedEmployee_Option', N'-- Chọn AM chủ trì --'),
+    ('DigitalSales_Note_Placeholder', N'Ghi chú các yêu cầu, nhu cầu dịch vụ số của khách hàng...'),
+    ('DigitalSales_Contract_Option', N'-- Chọn hợp đồng liên quan --'),
+    ('DigitalSales_ContractNo_Placeholder', N'Số HĐ / Phụ lục...'),
+    ('DigitalSales_Amount_Placeholder', N'0'),
+    ('DigitalSales_Date_Placeholder', N'dd/mm/yyyy'),
+    ('DigitalSales_ChangeStatusNote_Placeholder', N'Nhập lý do chuyển trạng thái, thông tin trao đổi hoặc thỏa thuận mới...'),
+    ('DigitalSales_BusinessType_Opportunity', N'Cơ hội kinh doanh'),
+    ('DigitalSales_BusinessType_Project', N'Dự án'),
+
+    ('DigitalSalesProduct_ProductService_Label', N'Sản phẩm / Dịch vụ số'),
+    ('DigitalSalesProduct_ExpectedRevenue_Label', N'Doanh thu dự kiến (VNĐ)'),
+    ('DigitalSalesProduct_ActualRevenue_Label', N'Doanh thu thực tế (sau ký HĐ) (VNĐ)'),
+    ('DigitalSalesProduct_PackageName_Label', N'Gói cước / Quy mô'),
+    ('DigitalSalesProduct_Quantity_Label', N'Số lượng'),
+    ('DigitalSalesProduct_StartDate_Label', N'Thời hạn bắt đầu'),
+    ('DigitalSalesProduct_EndDate_Label', N'Thời hạn kết thúc'),
+    ('DigitalSalesProduct_Note_Label', N'Ghi chú'),
+    ('DigitalSalesProduct_ProductService_Option', N'-- Chọn sản phẩm dịch vụ số --'),
+    ('DigitalSalesProduct_PackageName_Placeholder', N'Ví dụ: Gói Doanh nghiệp 500 người dùng, Gói 12 tháng...'),
+
+    ('DigitalSalesMember_User_Label', N'Nhân sự tham gia'),
+    ('DigitalSalesMember_RoleTitle_Label', N'Vai trò / Nhiệm vụ'),
+    ('DigitalSalesMember_IsAM_Label', N'Chủ trì (AM)'),
+    ('DigitalSalesMember_Note_Label', N'Ghi chú nội bộ'),
+    ('DigitalSalesMember_SearchEmployee_Placeholder', N'Tìm theo tên nhân sự...'),
+    ('DigitalSalesMember_Unit_AllOption', N'-- Tất cả đơn vị quản lý --'),
+    ('DigitalSalesMember_CustomRole_Placeholder', N'Nhập vai trò khác hoặc ghi chú nhiệm vụ cụ thể nếu có (tùy chọn)...'),
+    ('DigitalSalesMember_Note_Placeholder', N'Nhập ghi chú thêm cho phân công nhân sự này nếu có...'),
+
+    ('DigitalSalesTracking_TaskName_Label', N'Tên công việc / Đầu mục tiến trình'),
+    ('DigitalSalesTracking_AssignedUser_Label', N'Người thực hiện'),
+    ('DigitalSalesTracking_StartDate_Label', N'Ngày bắt đầu'),
+    ('DigitalSalesTracking_Deadline_Label', N'Hạn hoàn thành (Deadline)'),
+    ('DigitalSalesTracking_Status_Label', N'Trạng thái tiến trình'),
+    ('DigitalSalesTracking_ResultNote_Label', N'Kết quả thực hiện / Ghi chú'),
+    ('DigitalSalesTracking_AttachmentFile_Label', N'File kết quả / Biên bản bàn giao'),
+    ('DigitalSalesTracking_TaskName_Placeholder', N'Ví dụ: Khảo sát hạ tầng, Demo giải pháp, Ký biên bản...'),
+    ('DigitalSalesTracking_AssignedUser_Option', N'-- Chọn nhân sự thực hiện --'),
+    ('DigitalSalesTracking_ResultNote_Placeholder', N'Nhập ghi chú kết quả đạt được, vướng mắc nếu có...'),
+
+    ('DigitalSalesSearch_Keyword_Label', N'Từ khóa'),
+    ('DigitalSalesSearch_BusinessType_Label', N'Loại hình'),
+    ('DigitalSalesSearch_Status_Label', N'Trạng thái'),
+    ('DigitalSalesSearch_ProductService_Label', N'Sản phẩm / Dịch vụ số'),
+    ('DigitalSalesSearch_Department_Label', N'Phòng ban'),
+    ('DigitalSalesSearch_Employee_Label', N'Nhân viên'),
+    ('DigitalSalesSearch_FromDate_Label', N'Từ ngày'),
+    ('DigitalSalesSearch_ToDate_Label', N'Đến ngày'),
+    ('DigitalSalesSearch_Keyword_Placeholder', N'Tìm kiếm theo mã, tên hồ sơ, tên khách hàng, tên nhân viên'),
+    ('DigitalSalesSearch_BusinessType_AllOption', N'-- Tất cả loại hình --'),
+    ('DigitalSalesSearch_Status_Option', N'-- Chọn trạng thái --'),
+    ('DigitalSalesSearch_Department_Option', N'-- Chọn phòng --'),
+    ('DigitalSalesSearch_Employee_Option', N'-- Chọn nhân viên --'),
+    ('DigitalSalesSearch_Date_Placeholder', N'dd/mm/yyyy'),
+
+    ('DigitalSalesWorkflow_BusinessType_Label', N'Loại hình'),
+    ('DigitalSalesWorkflow_Status_Label', N'Trạng thái cha'),
+    ('DigitalSalesWorkflow_StatusCode_Label', N'Mã trạng thái'),
+    ('DigitalSalesWorkflow_StatusName_Label', N'Tên trạng thái'),
+    ('DigitalSalesWorkflow_StatusDescription_Label', N'Mô tả'),
+    ('DigitalSalesWorkflow_StatusSortOrder_Label', N'Thứ tự hiển thị'),
+    ('DigitalSalesWorkflow_IsDefault_Label', N'Mặc định khi tạo mới'),
+    ('DigitalSalesWorkflow_StatusIsActive_Label', N'Kích hoạt'),
+    ('DigitalSalesWorkflow_Process_Label', N'Quy trình cha'),
+    ('DigitalSalesWorkflow_ProcessCode_Label', N'Mã quy trình'),
+    ('DigitalSalesWorkflow_ProcessName_Label', N'Tên quy trình'),
+    ('DigitalSalesWorkflow_ProcessDescription_Label', N'Mô tả / Hướng dẫn'),
+    ('DigitalSalesWorkflow_ProcessSortOrder_Label', N'Thứ tự thực hiện'),
+    ('DigitalSalesWorkflow_ProcessIsActive_Label', N'Kích hoạt'),
+    ('DigitalSalesWorkflow_ProgressCode_Label', N'Mã tiến trình'),
+    ('DigitalSalesWorkflow_ProgressName_Label', N'Tên tiến trình'),
+    ('DigitalSalesWorkflow_ProgressDescription_Label', N'Mô tả / Checklist'),
+    ('DigitalSalesWorkflow_DefaultDurationDays_Label', N'Thời hạn (SLA)'),
+    ('DigitalSalesWorkflow_ProgressSortOrder_Label', N'Thứ tự'),
+    ('DigitalSalesWorkflow_ProgressIsActive_Label', N'Kích hoạt'),
+    ('DigitalSalesWorkflow_StatusCode_Placeholder', N'VD: CHO_CHUA_NAM_BAT, DU_AN_TRIEN_KHAI...'),
+    ('DigitalSalesWorkflow_StatusName_Placeholder', N'VD: Chưa nắm bắt, Đang tiếp cận...'),
+    ('DigitalSalesWorkflow_SortOrder_Placeholder', N'Thứ tự'),
+    ('DigitalSalesWorkflow_StatusDescription_Placeholder', N'Mô tả mục đích hoặc hướng dẫn của trạng thái này...'),
+    ('DigitalSalesWorkflow_ProcessCode_Placeholder', N'VD: QT_KHAOSAT, QT_THIETKE, QT_BAOGIA...'),
+    ('DigitalSalesWorkflow_ProcessName_Placeholder', N'VD: Khảo sát hiện trạng, Lập phương án kỹ thuật...'),
+    ('DigitalSalesWorkflow_ProcessDescription_Placeholder', N'Mô tả chi tiết mục tiêu, kết quả mong đợi của quy trình...'),
+    ('DigitalSalesWorkflow_ProgressCode_Placeholder', N'VD: TT_HEN_GAP, TT_DEMO_SP, TT_GUI_BAOGIA...'),
+    ('DigitalSalesWorkflow_ProgressName_Placeholder', N'VD: Hẹn gặp khách hàng, Trình diễn giải pháp Demo...'),
+    ('DigitalSalesWorkflow_DefaultDurationDays_Placeholder', N'3'),
+    ('DigitalSalesWorkflow_ProgressDescription_Placeholder', N'Hướng dẫn chi tiết, biểu mẫu cần có hoặc tiêu chí hoàn thành tiến trình...');
+
+UPDATE target
+SET target.Message = source.Message
+FROM dbo.Sys_Messages AS target
+INNER JOIN @Messages AS source
+    ON source.LabelKey = target.LabelKey
+WHERE target.LangCode = 'vi-VN';
+
+INSERT INTO dbo.Sys_Messages (LangCode, LabelKey, Message)
+SELECT 'vi-VN', source.LabelKey, source.Message
+FROM @Messages AS source
+WHERE NOT EXISTS
+(
+    SELECT 1
+    FROM dbo.Sys_Messages AS target
+    WHERE target.LangCode = 'vi-VN'
+      AND target.LabelKey = source.LabelKey
+);
+
+COMMIT TRANSACTION;

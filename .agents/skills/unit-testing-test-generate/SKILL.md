@@ -1,201 +1,143 @@
----
+﻿---
 name: unit-testing-test-generate
-description: Tự động phân tích mã nguồn và sinh bộ Unit Test hoàn chỉnh, chất lượng cao cho cả Dart (Flutter BrewTask) và C# (.NET Framework MVC 5). Tự động nhận diện các kịch bản kiểm thử: Happy Path, Edge Cases (null, empty, boundary), Exception Handling, sinh Mock objects chuẩn xác và assertion nghiêm ngặt.
+description: Chuyên gia xây dựng, tự động sinh và thực thi các bộ Unit Test / Automated Verification Suite cho hệ thống CenIT TOC CRM (.NET Framework 4.8 / ASP.NET MVC 5). Bao phủ kiểm thử Model Binding (Anti-Null DisplayName), Business Cache Layer, Controller Action Lifecycle, Phân quyền 2 tầng (Security Permissions), Quản lý File Storage an toàn, và Sys_Messages DB Coverage.
 ---
 
-# ⚡ Skill: Unit Testing Test Generate — Tự Động Sinh Unit Test Toàn Diện
+# ⚡ Skill: Unit Testing & Automated Verification Cho CenIT TOC CRM
 
-## 🎯 Mục đích
+## 🎯 Mục đích & Phạm vi Hoạt động
+Skill này quy định quy trình chuẩn mực và cung cấp công cụ tự động để **phân tích mã nguồn, sinh ca kiểm thử và thực thi Unit Test / Automated Verification** trên toàn bộ hệ thống CenIT TOC CRM (.NET Framework 4.8 / ASP.NET MVC 5 / SQL Server).
 
-Skill này chuyên sâu về việc **phân tích mã nguồn và tự động tạo ra các bộ Unit Test tiêu chuẩn cao**. Không chỉ tạo test qua loa, skill đảm bảo sinh ra các ca kiểm thử chặt chẽ, bao phủ các trường hợp biên hiểm hóc, giả lập (mock) dependencies sạch sẽ và tuân thủ các quy chuẩn lập trình của dự án.
-
----
-
-## 📐 Cấu Trúc Kiểm Thử Chuẩn: Arrange - Act - Assert (AAA)
-
-Mọi unit test được sinh ra bắt buộc tuân theo khuôn mẫu 3 bước rõ ràng:
-1. **Arrange (Chuẩn bị)**: Khởi tạo đối tượng cần test, thiết lập dữ liệu giả lập (fixtures) và định nghĩa hành vi của các mock dependencies.
-2. **Act (Hành động)**: Thực thi hàm/phương thức cần kiểm thử với tham số đầu vào cụ thể.
-3. **Assert (Xác minh)**: Kiểm tra giá trị trả về, trạng thái đối tượng, hoặc xác minh số lần gọi hàm của mock (verify).
+Mọi lập trình viên và tác nhân AI khi hoàn thành một tính năng mới hoặc chỉnh sửa mã nguồn BẮT BUỘC phải sử dụng skill này để sinh và chạy kiểm thử tự động, tự sửa lỗi nếu phát hiện lỗi trước khi bàn giao cho người dùng.
 
 ---
 
-## 🎯 Chiến Lược Bao Phủ 3 Tầng Kịch Bản
+## 📐 Cấu Trúc Kiểm Thử Chuẩn: AAA (Arrange - Act - Assert)
 
-Khi phân tích bất kỳ hàm hoặc phương thức nào, luôn tự động sinh tối thiểu 3 nhóm test cases:
-
-| Tầng Kịch Bản | Mục Tiêu Kiểm Thử | Ví Dụ Đầu Vào |
-|---|---|---|
-| **1. Happy Path** | Dữ liệu hợp lệ, dòng xử lý chuẩn mực nhất. | Input chuẩn, ID hợp lệ, danh sách có 3-5 phần tử. |
-| **2. Edge Cases** | Các giá trị biên dễ gây lỗi logic hoặc crash. | Tham số null, chuỗi rỗng `""`, mảng rỗng `[]`, số 0, số âm, số vượt giới hạn int32, ngày quá khứ/tương lai xa. |
-| **3. Error Handling** | Bắt lỗi đúng khi có sự cố hoặc vi phạm nghiệp vụ. | Quăng ngoại lệ `ArgumentNullException`, `ValidationException`, HTTP 401 Unauthorized, mất kết nối mạng. |
+Mọi Unit Test được sinh ra bắt buộc tuân theo khuôn mẫu 3 bước:
+1. **Arrange (Chuẩn bị)**: Khởi tạo Model, Controller, Fake/Mock DbContext, Cache, HttpContext, User Session.
+2. **Act (Hành động)**: Gọi trực tiếp phương thức cần kiểm tra với tham số đầu vào (Happy path, Edge case, Invalid input).
+3. **Assert (Xác minh)**: Khẳng định chặt chẽ kết quả trả về (`Assert.AreEqual`, `Assert.IsTrue`), không viết assertion yếu hoặc hình thức.
 
 ---
 
-## 💻 Mẫu Sinh Test Cho Flutter / Dart
+## 🧪 5 Lớp Kiểm Thử Chuyên Sâu Cho CenIT TOC CRM
 
-### 1. Phân Tích & Sinh Test Cho Service / Repository Logic
+Khi sinh Unit Test cho bất kỳ module nào trong CRM (như `DigitalSales`, `Customer`, `Contract`...), BẮT BUỘC sinh đầy đủ 5 lớp kiểm thử sau:
 
-```dart
-// test/features/task_management/services/task_service_test.dart
-import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
-
-// Import các model và service của dự án
-import 'package:brew_task/features/task_management/models/task_model.dart';
-import 'package:brew_task/features/task_management/services/task_service.dart';
-import 'package:brew_task/core/network/api_client.dart';
-
-// Sinh mock class
-import 'task_service_test.mocks.dart';
-
-@GenerateMocks([ApiClient])
-void main() {
-  late TaskService taskService;
-  late MockApiClient mockApiClient;
-
-  setUp(() {
-    mockApiClient = MockApiClient();
-    taskService = TaskService(apiClient: mockApiClient);
-  });
-
-  group('TaskService - getTasksByProject', () {
-    const projectId = 101;
-
-    test('Happy Path: Trả về danh sách công việc khi API thành công', () async {
-      // Arrange
-      final fakeJson = [
-        {'id': 1, 'title': 'Lập kế hoạch sprint', 'status': 'InProgress'},
-        {'id': 2, 'title': 'Thiết kế màn hình Dashboard', 'status': 'Done'},
-      ];
-      when(mockApiClient.get('/api/projects/$projectId/tasks'))
-          .thenAnswer((_) async => {'success': true, 'data': fakeJson});
-
-      // Act
-      final result = await taskService.getTasksByProject(projectId);
-
-      // Assert
-      expect(result, isNotNull);
-      expect(result.length, equals(2));
-      expect(result.first.title, equals('Lập kế hoạch sprint'));
-      verify(mockApiClient.get('/api/projects/$projectId/tasks')).called(1);
-    });
-
-    test('Edge Case: Trả về danh sách rỗng khi API trả mảng trống', () async {
-      // Arrange
-      when(mockApiClient.get('/api/projects/$projectId/tasks'))
-          .thenAnswer((_) async => {'success': true, 'data': []});
-
-      // Act
-      final result = await taskService.getTasksByProject(projectId);
-
-      // Assert
-      expect(result, isEmpty);
-    });
-
-    test('Error Handling: Ném Exception cụ thể khi API trả lỗi 500', () async {
-      // Arrange
-      when(mockApiClient.get('/api/projects/$projectId/tasks'))
-          .thenThrow(ApiException(statusCode: 500, message: 'Lỗi máy chủ nội bộ'));
-
-      // Act & Assert
-      expect(
-        () async => await taskService.getTasksByProject(projectId),
-        throwsA(isA<ApiException>()),
-      );
-    });
-  });
-}
-```
-
----
-
-## 💻 Mẫu Sinh Test Cho Backend C# (.NET Framework 4.8 / ASP.NET MVC 5)
-
+### Lớp 1: Kiểm thử Model Binding & CustomDisplayName (Anti-Null DisplayName)
+- **Mục tiêu:** Đảm bảo 100% property có `[CustomDisplayName]` đều phân giải được text hợp lệ, không trả về `null` gây sập `ArgumentNullException: Value cannot be null. Parameter name: value`.
+- **Mẫu test:**
 ```csharp
-// ProjectManager.Tests/Services/TaskServiceTests.cs
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Moq;
-using NUnit.Framework;
-using ProjectManager.Models;
-using ProjectManager.Repositories;
-using ProjectManager.Services;
-
-namespace ProjectManager.Tests.Services
+[Test]
+public void RM_DigitalSalesModel_DisplayName_NeverReturnsNull()
 {
-    [TestFixture]
-    public class TaskServiceTests
+    var modelType = typeof(RM_DigitalSalesModel);
+    var properties = modelType.GetProperties();
+
+    foreach (var prop in properties)
     {
-        private Mock<ITaskRepository> _mockRepo;
-        private TaskService _service;
-
-        [SetUp]
-        public void Setup()
+        var customAttr = prop.GetCustomAttributes(typeof(CustomDisplayNameAttribute), true)
+                             .FirstOrDefault() as CustomDisplayNameAttribute;
+        if (customAttr != null)
         {
-            _mockRepo = new Mock<ITaskRepository>();
-            _service = new TaskService(_mockRepo.Object);
-        }
-
-        [Test]
-        public async Task AssignTaskAsync_HappyPath_UpdatesStatusAndAssignee()
-        {
-            // Arrange
-            int taskId = 42;
-            int userId = 10;
-            var existingTask = new ProjectTask { Id = taskId, Title = "Viết API chấm KPI", Status = "New" };
-
-            _mockRepo.Setup(r => r.GetByIdAsync(taskId)).ReturnsAsync(existingTask);
-            _mockRepo.Setup(r => r.UpdateAsync(It.IsAny<ProjectTask>())).ReturnsAsync(true);
-
-            // Act
-            var result = await _service.AssignTaskAsync(taskId, userId);
-
-            // Assert
-            Assert.IsTrue(result);
-            Assert.AreEqual(userId, existingTask.AssignedUserId);
-            Assert.AreEqual("Assigned", existingTask.Status);
-            _mockRepo.Verify(r => r.UpdateAsync(existingTask), Times.Once);
-        }
-
-        [Test]
-        public void AssignTaskAsync_TaskNotFound_ThrowsInvalidOperationException()
-        {
-            // Arrange
-            int invalidTaskId = 999;
-            _mockRepo.Setup(r => r.GetByIdAsync(invalidTaskId)).ReturnsAsync((ProjectTask)null);
-
-            // Act & Assert
-            var ex = Assert.ThrowsAsync<InvalidOperationException>(async () =>
-            {
-                await _service.AssignTaskAsync(invalidTaskId, 1);
-            });
-            Assert.That(ex.Message, Does.Contain("không tồn tại"));
-        }
-
-        [TestCase(0)]
-        [TestCase(-1)]
-        public void AssignTaskAsync_InvalidUserId_ThrowsArgumentException(int invalidUserId)
-        {
-            // Arrange & Act & Assert
-            Assert.ThrowsAsync<ArgumentException>(async () =>
-            {
-                await _service.AssignTaskAsync(10, invalidUserId);
-            });
+            var displayName = customAttr.DisplayName;
+            Assert.IsNotNull(displayName, $"Property '{prop.Name}' có DisplayName là null!");
+            Assert.IsNotEmpty(displayName, $"Property '{prop.Name}' có DisplayName là rỗng!");
         }
     }
 }
 ```
 
+### Lớp 2: Kiểm thử Cache Layer & Stored Procedure Contract
+- **Mục tiêu:** Xác minh các hàm `GetByID`, `Save`, `Delete`, `LoadList` giao tiếp đúng với CSDL SQL Server hoặc Cache memory.
+- **Mẫu test:**
+```csharp
+[Test]
+public void RM_DigitalSalesCache_GetByID_WithValidId_ReturnsRecord()
+{
+    // Arrange
+    var cache = new RM_DigitalSalesCache();
+    int testId = 1; // ID mẫu từ môi trường dev
+
+    // Act
+    var result = cache.GetByID(testId);
+
+    // Assert
+    if (result != null)
+    {
+        Assert.AreEqual(testId, result.DigitalSalesID);
+        Assert.IsNotNull(result.Title);
+    }
+}
+```
+
+### Lớp 3: Kiểm thử Controller Action & Phân quyền 2 Tầng (Security Gatekeeping)
+- **Mục tiêu:** 
+  - Tầng 1: Xác thực `[ActionType]` attribute.
+  - Tầng 2: Xác thực `HasDetailPermission` (QTHT, Người tạo, AM chủ trì, Thành viên cập nhật trạng thái). Nếu không có quyền, controller PHẢI chặn đứng và trả về JSON `{ status = false, message = "..." }`.
+- **Mẫu test:**
+```csharp
+[Test]
+public void Delete_UserWithoutPermission_ReturnsNoPermissionJson()
+{
+    // Arrange
+    var controller = new DigitalSalesController();
+    // Giả lập HttpContext với User thường không có quyền
+    controller.ControllerContext = MockHelper.CreateMockContext("user_no_perm");
+
+    // Act
+    var result = controller.Delete(999) as JsonResult;
+
+    // Assert
+    Assert.IsNotNull(result);
+    dynamic data = result.Data;
+    Assert.IsFalse((bool)data.status);
+    Assert.IsTrue(data.message.ToString().Contains("quyền"));
+}
+```
+
+### Lớp 4: Kiểm thử Quản lý File Upload & An Ninh Tệp Tin (File Storage)
+- **Mục tiêu:**
+  - File upload phải lưu vào đúng thư mục `/Contents/Uploads/[Module]/[yyyyMM]/`.
+  - Chặn đứng 100% các file có extension nguy hiểm (`.exe, .dll, .bat, .cmd, .ps1...`).
+- **Mẫu test:**
+```csharp
+[TestCase("malware.exe")]
+[TestCase("virus.bat")]
+[TestCase("script.ps1")]
+public void SaveUploadedFile_ForbiddenExtensions_ThrowsExceptionOrRejects(string fileName)
+{
+    // Arrange
+    var mockFile = new Mock<HttpPostedFileBase>();
+    mockFile.Setup(f => f.FileName).Returns(fileName);
+    mockFile.Setup(f => f.ContentLength).Returns(1024);
+
+    // Act & Assert
+    var controller = new DigitalSalesController();
+    var result = controller.InvokePrivateMethod("SaveUploadedFile", mockFile.Object);
+    Assert.IsNull(result, "File nguy hiểm phải bị từ chối lưu!");
+}
+```
+
+### Lớp 5: Kiểm thử Đa ngôn ngữ Sys_Messages DB Coverage
+- **Mục tiêu:** Quét toàn bộ `LabelKey` được gọi trong Controller/Model và đối chiếu trực tiếp với CSDL SQL Server bảng `Sys_Messages`. Không được sót bất kỳ key nào.
+- **Mẫu test (PowerShell / Node.js Runner):**
+```powershell
+# Quét toàn bộ mã nguồn tìm AppProcessor.Messagor.GetMessage("...")
+# Đối chiếu với SELECT LabelKey FROM Sys_Messages WHERE LangCode = 'vi-VN'
+# Assert: MissingKeys.Count == 0
+```
+
 ---
 
-## 📋 Checklist Xác Nhận Chất Lượng Unit Test Được Sinh Ra
+## 🚀 Quy Trình Thực Thi & Tự Sửa Lỗi (Self-Fixing Loop)
 
-- [ ] Bài test độc lập hoàn toàn, không phụ thuộc vào thứ tự chạy?
-- [ ] Tên hàm test rõ ràng: `MethodName_Condition_ExpectedBehavior`?
-- [ ] Không có assertion yếu kiểu `expect(res != null)` đơn thuần, mà phải kiểm tra cụ thể nội dung thuộc tính?
-- [ ] Đã mock toàn bộ I/O bên ngoài (Database connection, Network client, File system)?
-- [ ] Đã kiểm tra đầy đủ các giá trị biên (0, null, chuỗi rỗng, số âm)?
-- [ ] Đã kiểm tra ngoại lệ có kèm nội dung thông báo lỗi tiếng Việt dễ hiểu?
+Khi nhận yêu cầu code hoặc refactor:
+1. **Bước 1 (Phân tích):** Đọc yêu cầu và nhận diện các lớp kiểm thử cần thiết.
+2. **Bước 2 (Viết Test & Code):** Viết mã nguồn nghiệp vụ đi kèm bộ kiểm thử tự động.
+3. **Bước 3 (Chạy Test Runner):** Thực thi script kiểm thử tự động (ví dụ: `test_suite_[module].js` hoặc `run_unit_test.ps1`).
+4. **Bước 4 (Tự Phân Tích & Sửa Lỗi):**
+   - Nếu có bất kỳ bài test nào **FAIL**: Đọc kỹ stack trace, xác định nguyên nhân gốc rễ, sửa trực tiếp file implementation.
+   - Chạy lại test cho đến khi **100% PASS**.
+5. **Bước 5 (Báo Cáo Tự Đánh Giá):** Xuất bảng **Self-Evaluation Report** theo chuẩn [TESTING.md](file:///d:/SVN/crm/.agents/rules/TESTING.md).

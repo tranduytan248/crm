@@ -10,7 +10,7 @@ namespace Core.Cate.Models
         public int DigitalSalesID { get; set; }
 
         [CustomRequired]
-        [CustomDisplayName("Nhân sự tham gia")]
+        [CustomDisplayName("DigitalSalesMember_User_Label")]
         public int UserID { get; set; }
 
         public string FullName { get; set; }
@@ -18,13 +18,13 @@ namespace Core.Cate.Models
         public string Email { get; set; }
         public string Phone { get; set; }
 
-        [CustomDisplayName("Vai trò / Nhiệm vụ")]
+        [CustomDisplayName("DigitalSalesMember_RoleTitle_Label")]
         public string RoleTitle { get; set; }
 
-        [CustomDisplayName("Chủ trì (AM)")]
+        [CustomDisplayName("DigitalSalesMember_IsAM_Label")]
         public bool IsAM { get; set; }
 
-        [CustomDisplayName("Ghi chú")]
+        [CustomDisplayName("DigitalSalesMember_Note_Label")]
         public string Note { get; set; }
 
         public bool IsActive { get; set; } = true;

@@ -1,4 +1,4 @@
-# C# Coding Rules
+﻿# C# Coding Rules
 
 ## Naming Convention
 
@@ -346,3 +346,17 @@ AI phải:
 - sinh code giống codebase
 - giữ đúng convention
 - hạn chế thay đổi Git Diff
+
+---
+
+# Model & Attribute Safety (Phòng chống lỗi Model Binding 500)
+
+## 1. Cấm DisplayName trả về NULL
+- Mọi Custom Attribute kế thừa `DisplayNameAttribute` (ví dụ `CustomDisplayNameAttribute`):
+  - BẮT BUỘC gọi `base(resourceName ?? string.Empty)` để `DisplayNameValue` không bị null.
+  - Getter `DisplayName` BẮT BUỘC có fallback an toàn (trả về message dịch được, hoặc chuỗi resource name, hoặc `string.Empty`). **CẤM TUYỆT ĐỐI TRẢ VỀ NULL**.
+  - *Hậu quả nếu vi phạm:* Khi ASP.NET MVC thực hiện Model Binding, `DataAnnotationsModelValidator` gán `context.DisplayName = metadata.GetDisplayName()`. `ValidationContext.set_DisplayName` sẽ quăng ngoại lệ `ArgumentNullException: Value cannot be null` làm sập toàn bộ request với HTTP 500 trước khi Action được gọi.
+
+## 2. An toàn trong Constructor của Custom Validation Attributes
+- Mọi Custom Validation Attribute (kế thừa `RequiredAttribute`, `ValidationAttribute`):
+  - Constructor không được ném ngoại lệ nếu chạy ngoài HttpContext hoặc khi AppProcessor chưa khởi tạo (bắt buộc bọc `try-catch` khi đọc resource/message).

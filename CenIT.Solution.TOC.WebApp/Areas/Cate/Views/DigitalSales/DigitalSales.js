@@ -1,4 +1,4 @@
-﻿var _tableDigitalSales;
+var _tableDigitalSales;
 var _digitalSalesUrls = {
     get: "/Cate/DigitalSales/Get",
     add: "/Cate/DigitalSales/Add",
@@ -7,12 +7,21 @@ var _digitalSalesUrls = {
     detail: "/Cate/DigitalSales/Detail",
     changeStatusModal: "/Cate/DigitalSales/ChangeStatusModal",
     changeStatus: "/Cate/DigitalSales/ChangeStatus",
-    getContactPersons: "/Cate/DigitalSales/GetContactPersons"
+    getContactPersons: "/Cate/DigitalSales/GetContactPersons",
+    export: "/Cate/DigitalSales/Export"
 };
 
 $(document).ready(function () {
     initSearchDatepicker();
     initTableDigitalSales();
+
+    $("#chkFilterKeyProject").on("change", function () {
+        reloadSalesTable();
+    });
+
+    $("#chkFilterFollowed").on("change", function () {
+        reloadSalesTable();
+    });
 });
 
 function initSearchDatepicker() {
@@ -55,46 +64,27 @@ function initTableDigitalSales() {
                 d.DepartmentID = $("#DepartmentID").val() || $("#SearchDepartmentID").val() || "";
                 d.FromDate = $("#FromDate").val() || $("#SearchFromDate").val() || "";
                 d.ToDate = $("#ToDate").val() || $("#SearchToDate").val() || "";
+                d.IsKeyProject = $("#chkFilterKeyProject").is(":checked");
+                d.IsFollowed = $("#chkFilterFollowed").is(":checked");
             }
         },
         columns: [
             {
                 data: null,
-                className: "text-center",
+                className: "text-center align-middle",
+                orderable: false,
                 render: function (data, type, row, meta) {
                     return meta.row + meta.settings._iDisplayStart + 1;
                 }
             },
             {
-                data: "Code",
+                data: null,
+                className: "align-middle",
                 render: function (data, type, row) {
-                    return '<a href="' + _digitalSalesUrls.detail + '/' + row.DigitalSalesID + '" class="font-weight-bold text-primary">' + (data || '—') + '</a>';
-                }
-            },
-            {
-                data: "Title",
-                render: function (data, type, row) {
-                    var html = '<a href="' + _digitalSalesUrls.detail + '/' + row.DigitalSalesID + '" class="font-weight-bold text-dark text-95 d-block">' + data + '</a>';
-                    if (row.ProductServiceNames) {
-                        html += '<small class="text-secondary"><i class="fa fa-tag mr-1"></i>' + row.ProductServiceNames + '</small>';
-                    }
-                    return html;
-                }
-            },
-            {
-                data: "BusinessType",
-                className: "text-center",
-                render: function (data, type, row) {
-                    if (data === 2) {
-                        return '<span class="badge badge-success px-2 py-1">Dự án</span>';
-                    }
-                    return '<span class="badge badge-primary px-2 py-1">Cơ hội</span>';
-                }
-            },
-            {
-                data: "StatusName",
-                className: "text-center",
-                render: function (data, type, row) {
+                    var badgeType = row.BusinessType === 2
+                        ? '<span class="badge badge-success px-2 py-1 mr-1 sale-badge"><i class="fa fa-project-diagram mr-1"></i>Dự án</span>'
+                        : '<span class="badge badge-primary px-2 py-1 mr-1 sale-badge"><i class="fa fa-lightbulb mr-1"></i>Cơ hội</span>';
+
                     var badgeClass = "badge-secondary";
                     if (row.StatusID === 1) badgeClass = "badge-secondary";
                     else if (row.StatusID === 2) badgeClass = "badge-info";
@@ -103,63 +93,114 @@ function initTableDigitalSales() {
                     else if (row.StatusID === 8) badgeClass = "badge-success";
                     else badgeClass = "badge-warning text-dark";
 
-                    return '<span class="badge ' + badgeClass + ' px-2 py-1">' + (data || '—') + '</span>';
-                }
-            },
-            {
-                data: "CustomerName",
-                render: function (data, type, row) {
-                    var html = '<span class="font-weight-bold">' + (data || '—') + '</span>';
-                    if (row.ContactPersonName) {
-                        html += '<br/><small class="text-secondary">' + row.ContactPersonName + '</small>';
+                    var badgeStatus = '<span class="badge ' + badgeClass + ' px-2 py-1 sale-badge">' + (row.StatusName || '—') + '</span>';
+
+                    var badgeSpecial = '';
+                    if (row.IsKeyProject) {
+                        badgeSpecial += '<span class="badge bgc-orange-l3 text-orange-d3 border-1 brc-orange-m2 mr-1 font-bold px-2 py-1 radius-1 shadow-sm sale-badge" title="Dự án trọng điểm"><i class="fa fa-star text-warning mr-1"></i>Trọng điểm</span>';
+                    }
+                    if (row.IsFollowed) {
+                        badgeSpecial += '<span class="badge bgc-pink-l3 text-pink-d2 border-1 brc-pink-m3 mr-1 font-bold px-2 py-1 radius-1 shadow-sm sale-badge" title="Cơ hội/dự án bạn đang quan tâm"><i class="fa fa-bookmark text-danger mr-1"></i>Quan tâm</span>';
+                    }
+
+                    // Hàng 1: Loại hình & Trạng thái
+                    var html = '<div class="mb-1 d-flex align-items-center flex-wrap">' +
+                        badgeType + ' ' + badgeStatus +
+                        '</div>';
+
+                    // Hàng 2: Tên cơ hội / Dự án
+                    html += '<a href="' + _digitalSalesUrls.detail + '/' + row.DigitalSalesID + '" class="font-weight-bold text-primary d-block sale-title" style="font-size: 15px;" title="Xem chi tiết 360 độ">' +
+                        row.Title + '</a>';
+
+                    // Hàng 3: Mã hồ sơ & Các huy hiệu đặc biệt (Trọng điểm, Quan tâm)
+                    html += '<div class="mt-1 d-flex align-items-center flex-wrap">' +
+                        '<span class="badge bgc-warning-l3 text-warning-d3 border-1 brc-warning-m2 mr-1 font-mono font-bold px-2 py-1 radius-1 shadow-sm sale-badge"><i class="fa fa-hashtag mr-1 opacity-75"></i>' + (row.Code || '—') + '</span>' +
+                        badgeSpecial +
+                        '</div>';
+
+                    // Hàng 4: Sản phẩm / dịch vụ số đính kèm (nếu có)
+                    if (row.ProductServiceNames) {
+                        html += '<div class="sale-subtext text-secondary mt-1"><i class="fa fa-tags text-purple mr-1"></i>' + row.ProductServiceNames + '</div>';
                     }
                     return html;
                 }
             },
             {
-                data: "AssignedEmployeeName",
+                data: null,
+                className: "align-middle",
                 render: function (data, type, row) {
-                    return '<span class="text-dark">' + (data || '—') + '</span>';
-                }
-            },
-            {
-                data: "TotalExpectedRevenue",
-                className: "text-right font-weight-bold text-primary",
-                render: function (data) {
-                    return data ? Number(data).toLocaleString('vi-VN') : '0';
-                }
-            },
-            {
-                data: "TotalActualRevenue",
-                className: "text-right font-weight-bold text-success",
-                render: function (data) {
-                    return data ? Number(data).toLocaleString('vi-VN') : '0';
-                }
-            },
-            {
-                data: "ProgressPercentage",
-                className: "text-center",
-                render: function (data, type, row) {
-                    var percent = data || 0;
-                    var colorClass = percent >= 100 ? "bgc-success" : (percent >= 50 ? "bgc-primary" : "bgc-warning");
-                    return '<div class="d-flex align-items-center justify-content-center">' +
-                        '<div class="progress flex-grow-1 mr-2" style="height: 8px;">' +
-                        '<div class="progress-bar ' + colorClass + '" style="width:' + percent + '%"></div>' +
-                        '</div>' +
-                        '<span class="text-80 font-weight-bold">' + percent + '%</span>' +
-                        '</div>';
+                    var html = '';
+                    if (row.CustomerName) {
+                        html += '<div class="font-weight-bold text-dark-m1 sale-customer"><i class="fa fa-building text-primary-m1 mr-1"></i>' + row.CustomerName + '</div>';
+                    } else {
+                        html += '<div class="text-muted">—</div>';
+                    }
+                    if (row.ContactPersonName) {
+                        html += '<div class="sale-subtext text-secondary mt-1"><i class="fa fa-user-circle text-secondary mr-1"></i>' + row.ContactPersonName;
+                        if (row.ContactPersonPhone) {
+                            html += ' <span class="text-muted">(' + row.ContactPersonPhone + ')</span>';
+                        }
+                        html += '</div>';
+                    }
+                    return html;
                 }
             },
             {
                 data: null,
-                className: "text-center",
+                className: "align-middle",
                 render: function (data, type, row) {
-                    return '<div class="action-buttons">' +
-                        '<a href="' + _digitalSalesUrls.detail + '/' + row.DigitalSalesID + '" class="text-primary mr-2" title="Xem chi tiết 360 độ"><i class="fa fa-eye"></i></a>' +
-                        '<a href="javascript:void(0);" onclick="openChangeStatusModal(' + row.DigitalSalesID + ');" class="text-warning-d2 mr-2" title="Chuyển trạng thái"><i class="fa fa-exchange-alt"></i></a>' +
-                        '<a href="javascript:void(0);" onclick="openEditSalesModal(' + row.DigitalSalesID + ');" class="text-info mr-2" title="Chỉnh sửa"><i class="fa fa-edit"></i></a>' +
-                        '<a href="javascript:void(0);" onclick="deleteSales(' + row.DigitalSalesID + ');" class="text-danger" title="Xóa"><i class="fa fa-trash-alt"></i></a>' +
+                    var html = '';
+                    if (row.AssignedEmployeeName) {
+                        html += '<div class="font-weight-bold text-dark sale-am"><i class="fa fa-user-tie text-success mr-1"></i>' + row.AssignedEmployeeName + '</div>';
+                    } else {
+                        html += '<div class="text-muted">—</div>';
+                    }
+                    if (row.DepartmentName) {
+                        html += '<div class="sale-subtext text-muted mt-1"><i class="fa fa-sitemap mr-1"></i>' + row.DepartmentName + '</div>';
+                    }
+                    return html;
+                }
+            },
+            {
+                data: null,
+                className: "text-right align-middle",
+                render: function (data, type, row) {
+                    var expRev = row.TotalExpectedRevenue != null ? Number(row.TotalExpectedRevenue).toLocaleString('vi-VN') : '0';
+                    var actRev = row.TotalActualRevenue != null ? Number(row.TotalActualRevenue).toLocaleString('vi-VN') : '0';
+
+                    var html = '<div class="sale-revenue">' +
+                        '<span class="text-secondary">Dự kiến:</span> <span class="font-weight-bold text-primary">' + expRev + ' đ</span>' +
                         '</div>';
+                    html += '<div class="sale-revenue mt-1">' +
+                        '<span class="text-secondary">Thực tế:</span> <span class="font-weight-bold text-success">' + actRev + ' đ</span>' +
+                        '</div>';
+                    return html;
+                }
+            },
+            {
+                data: null,
+                className: "text-center align-middle text-nowrap",
+                orderable: false,
+                render: function (data, type, row) {
+                    var html = '<div class="action-buttons">';
+                    var hasAction = false;
+                    if (row.CanEdit) {
+                        hasAction = true;
+                        html += '<a href="javascript:void(0);" onclick="openEditSalesModal(' + row.DigitalSalesID + ');" class="btn btn-xs btn-outline-info btn-h-outline-info btn-a-outline-info radius-1 px-2 py-1 mr-1 btn-action" title="Chỉnh sửa">' +
+                            '<i class="fa fa-edit mr-1"></i>Sửa</a>';
+                    }
+                    if (row.CanDelete) {
+                        hasAction = true;
+                        var safeCode = (row.Code || '').replace(/'/g, "\\'");
+                        var safeTitle = (row.Title || '').replace(/'/g, "\\'");
+                        html += '<a href="javascript:void(0);" onclick="confirmDeleteSales(' + row.DigitalSalesID + ', \'' + safeCode + '\', \'' + safeTitle + '\');" class="btn btn-xs btn-outline-danger btn-h-outline-danger btn-a-outline-danger radius-1 px-2 py-1 btn-action" title="Xóa">' +
+                            '<i class="fa fa-trash-alt mr-1"></i>Xóa</a>';
+                    }
+                    if (!hasAction) {
+                        html += '<span class="text-muted sale-subtext font-italic"><i class="fa fa-lock mr-1"></i>Chỉ xem</span>';
+                    }
+                    html += '</div>';
+                    return html;
                 }
             }
         ],
@@ -181,35 +222,53 @@ function initTableDigitalSales() {
 }
 
 function executeResponseMessage(message, defaultText, isSuccess) {
-    if (!message && defaultText) {
-        message = defaultText;
-    }
-    if (message && typeof message === "string") {
-        if (message.indexOf("$.aceToaster") !== -1 || message.indexOf("toastr") !== -1 || message.indexOf("eval") !== -1) {
+    var msg = message || defaultText;
+    if (!msg) return;
+
+    if (typeof msg === "string") {
+        var trimmed = msg.trim();
+        // Nếu là đoạn mã JavaScript trả về từ server (showNotify, $.aceToaster, toastr, alert, v.v.)
+        if (trimmed.indexOf("showNotify") !== -1 ||
+            trimmed.indexOf("$.aceToaster") !== -1 ||
+            trimmed.indexOf("toastr") !== -1 ||
+            trimmed.indexOf("alert(") !== -1 ||
+            trimmed.indexOf("eval(") !== -1) {
             try {
-                eval(message);
+                eval(trimmed);
                 return;
             } catch (e) {
                 console.error("Execute message script error:", e);
             }
         }
     }
-    if (typeof $.aceToaster !== "undefined") {
+
+    // Nếu là chuỗi text thông báo thông thường:
+    if (typeof showNotify === "function") {
+        showNotify(
+            isSuccess ? "Thành công" : "Cảnh báo",
+            isSuccess ? "fa fa-check-circle" : "fa fa-exclamation-triangle",
+            msg,
+            "",
+            "",
+            isSuccess ? "success" : "danger",
+            "tr"
+        );
+    } else if (typeof toastr !== "undefined") {
+        if (isSuccess) {
+            toastr.success(msg);
+        } else {
+            toastr.error(msg);
+        }
+    } else if (typeof $.aceToaster !== "undefined") {
         $.aceToaster.add({
             placement: 'tr',
-            body: "<div class='p-3'>" + (message || defaultText) + "</div>",
+            body: "<div class='p-3'>" + msg + "</div>",
             width: '420px',
             delay: 4000,
             className: isSuccess ? 'bgc-success-d2 text-white' : 'bgc-danger-d2 text-white'
         });
-    } else if (typeof toastr !== "undefined") {
-        if (isSuccess) {
-            toastr.success(message || defaultText);
-        } else {
-            toastr.error(message || defaultText);
-        }
     } else {
-        alert(message || defaultText);
+        alert(msg);
     }
 }
 
@@ -272,6 +331,9 @@ function resetSalesSearch() {
         $('#dpToDate').datepicker('update', '');
     }
 
+    $("#chkFilterKeyProject").prop("checked", false);
+    $("#chkFilterFollowed").prop("checked", false);
+
     var $employee = $("#EmployeeID, #SearchEmployeeID");
     $employee.empty().append('<option value="">-- Chọn nhân viên --</option>');
     $.get('/Cate/DigitalSales/GetEmployeesByDepartment', { departmentId: 0 }, function (data) {
@@ -289,18 +351,120 @@ function resetSalesSearch() {
     loadStatusesByBusinessType("");
 }
 
+function DigitalSales_OnProcessSuccess(response, formId) {
+    var $modal = $("#modal_" + formId);
+    if ($modal.length === 0) {
+        $modal = $("#modalContainer .modal.show");
+    }
+    if ($modal.length === 0) {
+        $modal = $(".modal.show");
+    }
+
+    // 1. Phục hồi trạng thái nút Lưu và nút Lưu và di chuyển tới chi tiết
+    var $btnSave = $modal.find("#btnSave, .modal-footer #btnSave, button[type='submit']");
+    $btnSave.prop("disabled", false).html('<i class="fa fa-save mr-1"></i> Lưu');
+    var $btnSaveAndDetail = $modal.find("#btnSaveAndDetail");
+    $btnSaveAndDetail.prop("disabled", false).html('<i class="fa fa-external-link-alt mr-1"></i> Lưu và di chuyển tới chi tiết');
+
+    if (response && response.status !== undefined) {
+        // TRƯỜNG HỢP 1: JSON response
+        if (response.status === true) {
+            // Chỉ chuyển qua màn hình chi tiết nếu có yêu cầu điều hướng (Lưu và di chuyển tới chi tiết)
+            if (response.redirectToDetail && response.id) {
+                $modal.off("hidden.bs.modal hide.bs.modal");
+                $btnSaveAndDetail.prop("disabled", true).removeClass("btn-primary").addClass("btn-success")
+                    .html('<i class="fa fa-check mr-1"></i> Thành công! Đang chuyển đến chi tiết...');
+                if (typeof _onWaiting === "function") _onWaiting();
+                window.location.href = _digitalSalesUrls.detail + "/" + response.id;
+                return;
+            }
+
+            // Đối với Sửa (Edit) hoặc thao tác không chuyển trang:
+            executeResponseMessage(response.message, "Thao tác thành công!", true);
+
+            // Đóng modal và dọn dẹp backdrop
+            $modal.modal("hide");
+            $(".modal-backdrop").remove();
+            $("body").removeClass("modal-open").css("padding-right", "");
+
+            if (typeof reloadSalesTable === "function") {
+                reloadSalesTable();
+            }
+        } else {
+            // Báo lỗi nghiệp vụ
+            executeResponseMessage(response.message, "Thao tác thất bại!", false);
+        }
+    } else {
+        // TRƯỜNG HỢP 2: HTML PartialView response do validation lỗi
+        var $body = $modal.find("#bodyForm");
+        if ($body.length === 0) {
+            $body = $("#bodyForm");
+        }
+        $body.html(response);
+
+        // Khởi tạo lại plugins (select2, datepicker, ckeditor...)
+        if (typeof initDigitalSalesFormPlugins === "function") {
+            initDigitalSalesFormPlugins();
+        }
+
+        // BẮT BUỘC BẬT TOASTR CẢNH BÁO CHO NGƯỜI DÙNG BIẾT
+        var $firstError = $body.find(".text-danger:visible").first();
+        var warnMsg = ($firstError.length && $firstError.text().trim())
+            ? $firstError.text().trim()
+            : "Vui lòng kiểm tra và nhập đầy đủ các trường bắt buộc (*)!";
+        executeResponseMessage(warnMsg, warnMsg, false);
+
+        // Cuộn hoặc focus vào ô lỗi đầu tiên
+        if ($firstError.length > 0) {
+            var $targetInput = $firstError.prev().find("input, select, textarea");
+            if ($targetInput.length === 0) {
+                $targetInput = $firstError.closest(".mb-3").find("input, select, textarea, button");
+            }
+            if ($targetInput.length > 0) {
+                $targetInput.first().focus();
+            }
+        }
+
+        // Re-bind lại sự kiện click cho nút Lưu
+        $modal.find("#btnSave, .modal-footer #btnSave").off("click.digitalsales").on("click.digitalsales", function (e) {
+            e.preventDefault();
+            $("form#" + formId).submit();
+        });
+    }
+}
+
 function openAddSalesModal() {
-    $.get(_digitalSalesUrls.add, function (html) {
-        $("#modalContainer").html(html);
-        var $modal = $("#modalAddSales");
+    var idModal = "modal_AddDigitalSales";
+    var $modal = $("#" + idModal);
+    if ($modal.length === 0) {
+        var htmlModal = '<div class="modal fade" id="' + idModal + '" data-backdrop="static" tabindex="-1" role="dialog" aria-hidden="true">' +
+            '<div class="modal-dialog modal-xl" style="max-width: 1024px;" role="document">' +
+            '<div id="modal-content" class="modal-content border-0 shadow-lg radius-2 overflow-hidden"></div>' +
+            '</div></div>';
+        $("#modalContainer").html(htmlModal);
+        $modal = $("#" + idModal);
+    }
+    if (typeof _onWaiting === "function") _onWaiting();
+    $modal.find("#modal-content").load(_digitalSalesUrls.add, function () {
+        if (typeof _endWaiting === "function") _endWaiting();
         $modal.modal("show");
     });
 }
 
 function openEditSalesModal(id) {
-    $.get(_digitalSalesUrls.edit + "/" + id, function (html) {
-        $("#modalContainer").html(html);
-        var $modal = $("#modalEditSales");
+    var idModal = "modal_EditDigitalSales";
+    var $modal = $("#" + idModal);
+    if ($modal.length === 0) {
+        var htmlModal = '<div class="modal fade" id="' + idModal + '" data-backdrop="static" tabindex="-1" role="dialog" aria-hidden="true">' +
+            '<div class="modal-dialog modal-xl" style="max-width: 1024px;" role="document">' +
+            '<div id="modal-content" class="modal-content border-0 shadow-lg radius-2 overflow-hidden"></div>' +
+            '</div></div>';
+        $("#modalContainer").html(htmlModal);
+        $modal = $("#" + idModal);
+    }
+    if (typeof _onWaiting === "function") _onWaiting();
+    $modal.find("#modal-content").load(_digitalSalesUrls.edit + "/" + id, function () {
+        if (typeof _endWaiting === "function") _endWaiting();
         $modal.modal("show");
     });
 }
@@ -325,11 +489,11 @@ function openChangeStatusModal(id) {
                 processData: false,
                 success: function (res) {
                     if (res.status) {
+                        executeResponseMessage(res.message, "Chuyển trạng thái thành công!", true);
                         $modal.modal("hide");
-                        $modal.on("hidden.bs.modal", function () {
-                            executeResponseMessage(res.message, "Chuyển trạng thái thành công!", true);
-                            reloadSalesTable();
-                        });
+                        $(".modal-backdrop").remove();
+                        $("body").removeClass("modal-open").css("padding-right", "");
+                        reloadSalesTable();
                     } else {
                         executeResponseMessage(res.message, "Không thể chuyển trạng thái!", false);
                     }
@@ -342,16 +506,73 @@ function openChangeStatusModal(id) {
     });
 }
 
-function deleteSales(id) {
-    if (!confirm("Bạn có chắc chắn muốn xóa hồ sơ kinh doanh này không?")) return;
-    $.post(_digitalSalesUrls.delete, { id: id }, function (res) {
-        if (res.status) {
-            executeResponseMessage(res.message, "Xóa thành công!", true);
-            reloadSalesTable();
-        } else {
-            executeResponseMessage(res.message, "Không thể xóa hồ sơ!", false);
-        }
+function deleteSales(id, code, title) {
+    confirmDeleteSales(id, code, title);
+}
+
+function confirmDeleteSales(id, code, title) {
+    var $modal = $('#modalConfirmDeleteSales');
+    if ($modal.length === 0) {
+        var modalHtml = '<div class="modal fade" id="modalConfirmDeleteSales" tabindex="-1" role="dialog" aria-hidden="true" style="z-index: 1065;">' +
+            '<div class="modal-dialog modal-dialog-centered" style="max-width: 480px;" role="document">' +
+            '<div class="modal-content border-0 shadow-lg radius-2 overflow-hidden">' +
+            '<div class="modal-header bgc-danger text-white py-2 px-3">' +
+            '<h6 class="modal-title font-bold text-white mb-0"><i class="fa fa-exclamation-triangle mr-1"></i> Xác nhận xóa hồ sơ</h6>' +
+            '<button type="button" class="close text-white" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>' +
+            '</div>' +
+            '<div class="modal-body p-3 text-center">' +
+            '<i class="fa fa-trash-alt fa-3x text-danger mb-3 d-block"></i>' +
+            '<p class="text-dark mb-2 font-weight-bold text-105">Bạn có chắc chắn muốn xóa hồ sơ kinh doanh này không?</p>' +
+            '<div class="bgc-grey-l4 radius-1 p-2 my-2 text-left border-1 brc-grey-l2" id="delSalesInfoBox">' +
+            '<div class="font-bold text-primary-d2 text-95" id="delSalesTitleDisplay"></div>' +
+            '<div class="text-85 text-secondary font-mono mt-1" id="delSalesCodeDisplay"></div>' +
+            '</div>' +
+            '<small class="text-muted text-85 d-block"><i class="fa fa-info-circle text-warning mr-1"></i>Thao tác này sẽ xóa hồ sơ và không thể hoàn tác.</small>' +
+            '</div>' +
+            '<div class="modal-footer py-2 bgc-grey-l5 d-flex justify-content-center">' +
+            '<button type="button" class="btn btn-sm btn-outline-secondary radius-1 px-3" data-dismiss="modal"><i class="fa fa-times mr-1"></i> Hủy bỏ</button>' +
+            '<button type="button" id="btnConfirmDeleteSalesSubmit" class="btn btn-sm btn-danger radius-1 px-4 font-bold shadow-sm"><i class="fa fa-trash-alt mr-1"></i> Đồng ý xóa</button>' +
+            '</div>' +
+            '</div></div></div>';
+        $('body').append(modalHtml);
+        $modal = $('#modalConfirmDeleteSales');
+    }
+
+    if (title || code) {
+        $modal.find('#delSalesTitleDisplay').text(title || '').show();
+        $modal.find('#delSalesCodeDisplay').text(code ? 'Mã: ' + code : '').show();
+        $modal.find('#delSalesInfoBox').show();
+    } else {
+        $modal.find('#delSalesInfoBox').hide();
+    }
+
+    $modal.find('#btnConfirmDeleteSalesSubmit').off('click').on('click', function () {
+        var $btn = $(this);
+        $btn.prop('disabled', true).html('<i class="fa fa-spinner fa-spin mr-1"></i> Đang xóa...');
+        $.ajax({
+            url: _digitalSalesUrls.delete,
+            type: 'POST',
+            data: { id: id },
+            success: function (res) {
+                $btn.prop('disabled', false).html('<i class="fa fa-trash-alt mr-1"></i> Đồng ý xóa');
+                $modal.modal('hide');
+                $('.modal-backdrop').remove();
+                $('body').removeClass('modal-open').css('padding-right', '');
+                if (res.status) {
+                    executeResponseMessage(res.message, "Xóa hồ sơ thành công!", true);
+                    reloadSalesTable();
+                } else {
+                    executeResponseMessage(res.message, "Không thể xóa hồ sơ!", false);
+                }
+            },
+            error: function () {
+                $btn.prop('disabled', false).html('<i class="fa fa-trash-alt mr-1"></i> Đồng ý xóa');
+                executeResponseMessage("Lỗi kết nối máy chủ!", "Lỗi kết nối máy chủ!", false);
+            }
+        });
     });
+
+    $modal.modal('show');
 }
 
 function loadContactPersonsByCustomer(customerId, targetSelector) {
@@ -372,3 +593,37 @@ function loadContactPersonsByCustomer(customerId, targetSelector) {
         }
     });
 }
+
+// Dọn dẹp modal con tra cứu khách hàng khi modal cha đóng
+$(document).on('hidden.bs.modal', '#modal_AddDigitalSales, #modal_EditDigitalSales', function () {
+    $('#modalCustomerLookup_Form').modal('hide');
+    $('body > #modalCustomerLookup_Form').remove();
+});
+
+function exportDigitalSales() {
+    var baseUrl = _digitalSalesUrls.export || "/Cate/DigitalSales/Export";
+    var keyword = $("#SearchDigitalSales #Keyword").val() || $("#Keyword").val() || "";
+    var businessType = $("#SearchDigitalSales #BusinessType").val() || $("#BusinessType").val() || "";
+    var statusID = $("#SearchDigitalSales #StatusID").val() || $("#StatusID").val() || "";
+    var departmentID = $("#SearchDigitalSales #DepartmentID").val() || $("#DepartmentID").val() || "";
+    var employeeID = $("#SearchDigitalSales #EmployeeID").val() || $("#EmployeeID").val() || "";
+    var fromDate = $("#SearchDigitalSales #FromDate").val() || $("#FromDate").val() || "";
+    var toDate = $("#SearchDigitalSales #ToDate").val() || $("#ToDate").val() || "";
+    var customerID = $("#SearchDigitalSales #CustomerID").val() || $("#CustomerID").val() || "";
+
+    var qs = [];
+    if (keyword) qs.push("keyword=" + encodeURIComponent(keyword));
+    if (businessType) qs.push("businessType=" + encodeURIComponent(businessType));
+    if (statusID) qs.push("statusID=" + encodeURIComponent(statusID));
+    if (departmentID) qs.push("departmentID=" + encodeURIComponent(departmentID));
+    if (employeeID) qs.push("employeeID=" + encodeURIComponent(employeeID));
+    if (fromDate) qs.push("fromDate=" + encodeURIComponent(fromDate));
+    if (toDate) qs.push("toDate=" + encodeURIComponent(toDate));
+    if (customerID) qs.push("customerID=" + encodeURIComponent(customerID));
+    if ($("#chkFilterKeyProject").is(":checked")) qs.push("isKeyProject=true");
+    if ($("#chkFilterFollowed").is(":checked")) qs.push("isFollowed=true");
+
+    var url = baseUrl + (qs.length ? "?" + qs.join("&") : "");
+    window.location.href = url;
+}
+

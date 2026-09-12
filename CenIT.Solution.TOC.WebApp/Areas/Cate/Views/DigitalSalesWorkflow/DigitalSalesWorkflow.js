@@ -201,8 +201,39 @@
         btn.remove();
     }
 
+    function renderValidationResponse(response) {
+        if (typeof response !== "string") {
+            return false;
+        }
+
+        var activeModal = $(".modal.show").last();
+        var bodyForm = activeModal.find("#bodyForm");
+        if (bodyForm.length === 0) {
+            return false;
+        }
+
+        bodyForm.html(response);
+
+        if (typeof _initElement === "function") {
+            _initElement();
+        }
+
+        var form = bodyForm.closest("form");
+        if ($.validator && $.validator.unobtrusive && form.length > 0) {
+            form.removeData("validator");
+            form.removeData("unobtrusiveValidation");
+            $.validator.unobtrusive.parse(form);
+        }
+
+        return true;
+    }
+
     // Modal Callback Handlers tuân thủ hidden.bs.modal để tránh kẹt backdrop
     function onStatusSaveSuccess(response) {
+        if (renderValidationResponse(response)) {
+            return;
+        }
+
         if (response.status || response.success) {
             var activeModal = $(".modal.show");
             if (activeModal.length > 0) {
@@ -240,6 +271,10 @@
     }
 
     function onProcessSaveSuccess(response) {
+        if (renderValidationResponse(response)) {
+            return;
+        }
+
         if (response.status || response.success) {
             var activeModal = $(".modal.show");
             if (activeModal.length > 0) {
@@ -272,6 +307,10 @@
     }
 
     function onProgressSaveSuccess(response) {
+        if (renderValidationResponse(response)) {
+            return;
+        }
+
         if (response.status || response.success) {
             var activeModal = $(".modal.show");
             if (activeModal.length > 0) {
