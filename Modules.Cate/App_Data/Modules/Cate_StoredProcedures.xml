@@ -427,5 +427,10 @@
 		<Procedure Name="RM_DigitalSalesProgress_GetByID" Value="RM_DigitalSalesProgress_GetByID" />
 		<Procedure Name="RM_DigitalSalesProgress_Save" Value="RM_DigitalSalesProgress_Save" />
 		<Procedure Name="RM_DigitalSalesProgress_Delete" Value="RM_DigitalSalesProgress_Delete" />
+
+		<!-- RM_DigitalSalesActivity -->
+		<Procedure Name="RM_DigitalSalesActivity_GetList" Value="RM_DigitalSalesActivity_GetList" />
+		<Procedure Name="RM_DigitalSalesActivity_Add" Value="RM_DigitalSalesActivity_Add" />
+		<Procedure Name="RM_DigitalSalesActivity_Delete" Value="RM_DigitalSalesActivity_Delete" />
 	</StoredProcedures>
 </Provider>

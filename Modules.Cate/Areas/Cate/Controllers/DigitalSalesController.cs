@@ -776,30 +776,38 @@ namespace Modules.Cate.Areas.Cate.Controllers
         [HttpGet]
         public ActionResult Detail(int id)
         {
-            var model = _salesCache.GetByID(id, User.UserName);
-            if (model == null)
-            {
-                return RedirectToAction("Index");
-            }
-
-            model.Note = FormatHtmlContent(model.Note);
-
-            if (string.IsNullOrEmpty(model.CreatedByName) && !string.IsNullOrEmpty(model.CreatedBy))
-            {
-                model.CreatedByName = _userCache.GetByUserName(model.CreatedBy)?.FullName;
-            }
-
-            ViewBag.Title = $"{AppProcessor.Messagor.GetMessage("DigitalSales_RecordPrefix")}: {model.Code} - {model.Title}";
             try
             {
-                ViewBag.CanEdit = HasDetailPermission(model, User.UserName);
-            }
-            catch
-            {
-                ViewBag.CanEdit = false;
-            }
+                var model = _salesCache.GetByID(id, User.UserName);
+                if (model == null)
+                {
+                    return RedirectToAction("Index");
+                }
 
-            return View(model);
+                model.Note = FormatHtmlContent(model.Note);
+
+                if (string.IsNullOrEmpty(model.CreatedByName) && !string.IsNullOrEmpty(model.CreatedBy))
+                {
+                    model.CreatedByName = _userCache.GetByUserName(model.CreatedBy)?.FullName;
+                }
+
+                ViewBag.Title = $"{AppProcessor.Messagor.GetMessage("DigitalSales_RecordPrefix")}: {model.Code} - {model.Title}";
+                try
+                {
+                    ViewBag.CanEdit = HasDetailPermission(model, User.UserName);
+                }
+                catch
+                {
+                    ViewBag.CanEdit = false;
+                }
+
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                AppProcessor.Logger.Error(ex);
+                return RedirectToAction("Index");
+            }
         }
 
         [HttpPost]
